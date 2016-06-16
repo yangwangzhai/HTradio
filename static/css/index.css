@@ -1,0 +1,28 @@
+@charset "utf-8";
+/* CSS Document */
+*{ margin:0; padding:0;}
+body { font-family: "微软雅黑",Arial, Helvetica, sans-serif ; background:#000 url(../images/bg.jpg) no-repeat;  line-height:48px; position:relative; }
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,blockquote,emBED{padding:0; margin:0;}
+li{list-style-type:none;}
+a {color:#666;text-decoration:none;}
+a:hover {color:#009933;text-decoration:none;}
+img {border:0}
+
+.nav { height:54px; background:#bf0000}
+.nav .navmain { width:980px; height:30px; line-height:30px; padding:10px 0; margin:0 auto}
+.nav .navmain .logo { width:96px; float:left;}
+.nav .navmain .menu { width:700px; float:left; margin-left:50px;}
+.nav .navmain .menu ul{}
+.nav .navmain .menu ul li { float:left; font-size:14px; padding:0 30px;}
+.nav .navmain .menu ul li a { color:#fff}
+.nav .navmain .menu ul li a:hover { color:#feff83}
+.nav .navmain .upload { width:100px; float:right;}
+.box { width:980px; height:auto; margin:60px auto 0px auto; clear:both}
+.box .left_box { width:580px; float:left;}
+.box .left_box .text { height:160px;}
+.box .left_box .play { height:300px; margin:20px 0 30px 0;background: #333 none repeat scroll 0 0; opacity: 0.8; border-radius:6px;} 
+.box .left_box .find { width:170px; height:65px; }
+.box .right_box { width:400px; float:right}
+.box .right_box .phone {width:346px; height:460px; margin-left:54px}
+.box .right_box .down {width:370px; margin-left:54px}
+.foot{ height:40px; width:100%; line-height:40px; background:#000;  text-align:center; color:#fff; position:fixed; bottom:0;clear:both; font-size:12px;}
