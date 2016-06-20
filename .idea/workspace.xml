@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="efb7a146-c984-4f5a-ab3a-cf871eb9c041" name="默认的" comment="" />
+    <ignored path="HTradio.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DatabaseView">
+    <option name="FLATTEN" value="false" />
+    <option name="GROUP_BY_TYPE" value="true" />
+    <option name="SORT_CHILDREN" value="false" />
+    <option name="SHOW_TABLE_CONSTRAINTS" value="true" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="HTradio" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="stat.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/controllers/admin/stat.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="12.0" vertical-offset="4455" max-vertical-offset="11638">
+              <caret line="177" column="0" selection-start-line="177" selection-start-column="0" selection-end-line="177" selection-end-column="0" />
+              <folding>
+                <marker date="1466391958591" expanded="true" signature="1077:1126" placeholder="SELECT COUNT..." />
+                <marker date="1466391958591" expanded="true" signature="1714:1791" placeholder="SELECT * FRO..." />
+                <marker date="1466391958591" expanded="true" signature="2856:3013" placeholder="select count..." />
+                <marker date="1466391958591" expanded="true" signature="3937:4106" placeholder="select count..fm_stat..." />
+                <marker date="1466391958591" expanded="true" signature="4938:5100" placeholder="select count..fm_stat..." />
+                <marker date="1466391958591" expanded="true" signature="6024:6180" placeholder="select count..." />
+                <marker date="1466391958591" expanded="true" signature="7415:7596" placeholder="select count..." />
+                <marker date="1466391958591" expanded="true" signature="9045:9246" placeholder="select count..fm_stat..." />
+                <marker date="1466391958591" expanded="true" signature="10385:10581" placeholder="select count..fm_stat..." />
+                <marker date="1466391958591" expanded="true" signature="11873:12063" placeholder="select count..." />
+                <marker date="1466391958591" expanded="true" signature="13701:13734" placeholder="select title..fm_program_type..." />
+                <marker date="1466391958591" expanded="true" signature="14290:14394" placeholder="select count..fm_program..." />
+                <marker date="1466391958591" expanded="true" signature="14693:14806" placeholder="select count..fm_program..." />
+                <marker date="1466391958591" expanded="true" signature="15173:15354" placeholder="select count..fm_program..." />
+                <marker date="1466391958591" expanded="true" signature="15716:15825" placeholder="select count..fm_program..." />
+                <marker date="1466391958591" expanded="true" signature="18671:18805" placeholder="select title..fm_program..." />
+                <marker date="1466391958591" expanded="true" signature="20825:20956" placeholder="select count..fm_attention..." />
+                <marker date="1466391958591" expanded="true" signature="21050:21119" placeholder="select id,us..fm_member..." />
+                <marker date="1466391958591" expanded="true" signature="21050:21145" placeholder="select id,us..fm_member..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="program.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/controllers/android/program.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5" vertical-offset="24840" max-vertical-offset="25737">
+              <caret line="1094" column="8" selection-start-line="1094" selection-start-column="8" selection-end-line="1094" selection-end-column="8" />
+              <folding>
+                <marker date="1466417086554" expanded="true" signature="777:873" placeholder="select id,ti..fm_program..." />
+                <marker date="1466417086554" expanded="true" signature="1123:1264" placeholder="select id,ti..fm_program..." />
+                <marker date="1466417086554" expanded="true" signature="1577:1688" placeholder="select id,ti..fm_program..." />
+                <marker date="1466417086554" expanded="true" signature="2187:2280" placeholder="select id,ti..fm_programme..." />
+                <marker date="1466417086554" expanded="true" signature="2589:2639" placeholder="select id,ti..fm_program_type..." />
+                <marker date="1466417086554" expanded="true" signature="2719:2775" placeholder="select id,ni..fm_member..." />
+                <marker date="1466417086554" expanded="true" signature="3098:3180" placeholder="select id,ti..fm_program_type..." />
+                <marker date="1466417086554" expanded="true" signature="3704:3938" placeholder="select id,ti..fm_program..." />
+                <marker date="1466417086554" expanded="true" signature="3845:3888" placeholder="SELECT id FR..fm_program_type..." />
+                <marker date="1466417086554" expanded="true" signature="7413:7463" placeholder="DELETE FROM ..." />
+                <marker date="1466417086554" expanded="true" signature="8461:8556" placeholder="SELECT max(s..fm_programme_list..." />
+                <marker date="1466417086554" expanded="true" signature="9483:9531" placeholder="SELECT id,pa..fm_program..." />
+                <marker date="1466417086554" expanded="true" signature="10452:10509" placeholder="update fm_pr..." />
+                <marker date="1466417086554" expanded="true" signature="11740:11822" placeholder="DELETE FROM ..." />
+                <marker date="1466417086554" expanded="true" signature="13088:13176" placeholder="DELETE FROM ..." />
+                <marker date="1466417086554" expanded="true" signature="14604:14696" placeholder="SELECT count..fm_programme_data..." />
+                <marker date="1466417086554" expanded="true" signature="14855:14956" placeholder="SELECT count..fm_programme_data..." />
+                <marker date="1466417086554" expanded="true" signature="16401:16625" placeholder="select id,ti..fm_program..." />
+                <marker date="1466417086554" expanded="true" signature="16532:16575" placeholder="SELECT id FR..fm_program_type..." />
+                <marker date="1466417086554" expanded="true" signature="18344:18395" placeholder="SELECT id,pr..fm_programme..." />
+                <marker date="1466417086554" expanded="true" signature="19715:19763" placeholder="SELECT id,pa..fm_program..." />
+                <marker date="1466417086554" expanded="true" signature="22357:22453" placeholder="select id,ti..fm_program_type..." />
+                <marker date="1466417086554" expanded="true" signature="22672:22735" placeholder="SELECT COUNT..fm_program..." />
+                <marker date="1466417086554" expanded="true" signature="22940:23052" placeholder="SELECT COUNT..fm_support_negative..." />
+                <marker date="1466417086554" expanded="true" signature="23391:23504" placeholder="SELECT COUNT..fm_support_negative..." />
+                <marker date="1466417086554" expanded="true" signature="24983:25044" placeholder="SELECT * FRO..fm_live_channel..." />
+                <marker date="1466417086554" expanded="true" signature="25370:25489" placeholder="SELECT COUNT..fm_support_negative..." />
+                <marker date="1466417086554" expanded="true" signature="25828:25948" placeholder="SELECT COUNT..fm_support_negative..." />
+                <marker date="1466417086554" expanded="true" signature="26956:26996" placeholder="SELECT nickn..fm_member..." />
+                <marker date="1466417086554" expanded="true" signature="28335:28441" placeholder="SELECT COUNT..fm_support_negative..." />
+                <marker date="1466417086554" expanded="true" signature="28984:29033" placeholder="SELECT suppo..fm_live_channel..." />
+                <marker date="1466417086554" expanded="true" signature="29244:29309" placeholder="UPDATE fm_li..." />
+                <marker date="1466417086554" expanded="true" signature="29635:29684" placeholder="SELECT suppo..fm_program_type..." />
+                <marker date="1466417086554" expanded="true" signature="29895:29960" placeholder="UPDATE fm_pr..." />
+                <marker date="1466417086554" expanded="true" signature="31018:31125" placeholder="SELECT COUNT..fm_support_negative..." />
+                <marker date="1466417086554" expanded="true" signature="31669:31719" placeholder="SELECT negat..fm_live_channel..." />
+                <marker date="1466417086554" expanded="true" signature="31932:31999" placeholder="UPDATE fm_li..." />
+                <marker date="1466417086554" expanded="true" signature="32327:32377" placeholder="SELECT negat..fm_program_type..." />
+                <marker date="1466417086554" expanded="true" signature="32590:32657" placeholder="UPDATE fm_pr..." />
+                <marker date="1466417086554" expanded="true" signature="33541:33639" placeholder="SELECT id,ti..fm_program..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/static/ql/css/style.css" />
+        <option value="$PROJECT_DIR$/../test/boot.html" />
+        <option value="$PROJECT_DIR$/application/views/admin/report_all_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/program_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/member_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/channel_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/program_type_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/programme_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/tag_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/admin_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/role_group_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/link_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/badword_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/adminlog_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/stat_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/ios_crash_list.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/left.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/channel_add.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/program_add.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/live_channel_list.php" />
+        <option value="$PROJECT_DIR$/application/controllers/admin/channel.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/live_channel_add.php" />
+        <option value="$USER_HOME$/Desktop/flowpalyer3.2.12/demo.htm" />
+        <option value="$USER_HOME$/Desktop/html5/play.html" />
+        <option value="$USER_HOME$/Desktop/simplest_flashmedia_example/hls_sample_player_flowplayer/hls_sample_player_flowplayer.html" />
+        <option value="$PROJECT_DIR$/application/controllers/admin/common.php" />
+        <option value="$PROJECT_DIR$/application/controllers/admin/program.php" />
+        <option value="$PROJECT_DIR$/../CuSunPlayerV35/demoX1.html" />
+        <option value="$PROJECT_DIR$/application/models/content_model.php" />
+        <option value="$PROJECT_DIR$/../ffm/ffm.php" />
+        <option value="$PROJECT_DIR$/application/views/hls_play.php" />
+        <option value="$PROJECT_DIR$/../HLSPlayer/images/common.css" />
+        <option value="$PROJECT_DIR$/static/m3u8/images/common.css" />
+        <option value="$PROJECT_DIR$/static/css/style.css" />
+        <option value="$PROJECT_DIR$/../HLSPlayer/demoHLS.html" />
+        <option value="$PROJECT_DIR$/application/controllers/player.php" />
+        <option value="$PROJECT_DIR$/application/views/detail.php" />
+        <option value="$PROJECT_DIR$/../clapper/index.html" />
+        <option value="$USER_HOME$/Desktop/simplest_flashmedia_example/hls_video_player_html5/hls_video_player_html5.html" />
+        <option value="$PROJECT_DIR$/../hls/hls_sample_player_flowplayer.html" />
+        <option value="$PROJECT_DIR$/application/controllers/index.php" />
+        <option value="$PROJECT_DIR$/application/views/index.php" />
+        <option value="$PROJECT_DIR$/application/views/personal.php" />
+        <option value="$PROJECT_DIR$/application/controllers/upload.php" />
+        <option value="$PROJECT_DIR$/application/helpers/common_helper.php" />
+        <option value="$PROJECT_DIR$/application/controllers/admin/programme.php" />
+        <option value="$PROJECT_DIR$/application/controllers/personal.php" />
+        <option value="$PROJECT_DIR$/application/controllers/admin/stat.php" />
+        <option value="$PROJECT_DIR$/../cigit/application/controllers/Welcome.php" />
+        <option value="$PROJECT_DIR$/../cigit/application/views/welcome_message.php" />
+        <option value="$PROJECT_DIR$/application/controllers/android/program.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsBuildToolPackageJson" detection-done="true" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1456" />
+    <option name="height" value="876" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <OptionsSetting value="true" id="添加" />
+    <OptionsSetting value="true" id="移除" />
+    <OptionsSetting value="true" id="签出" />
+    <OptionsSetting value="true" id="更新" />
+    <OptionsSetting value="true" id="状态" />
+    <OptionsSetting value="true" id="编辑" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTradio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTradio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTradio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTradio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTradio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTradio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTradio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTradio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTradio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../news" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="FullScreen" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\wamp\www\HTradio\application\views\admin" />
+      <recent name="D:\wamp\www\HTradio\application\controllers" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
+      <method />
+    </configuration>
+    <list size="0" />
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="efb7a146-c984-4f5a-ab3a-cf871eb9c041" name="默认的" comment="" />
+      <created>1459913897861</created>
+      <option name="number" value="Default" />
+      <updated>1459913897861</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2277937" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="运行" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="版本控制" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="调试" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../CuSunPlayerV35/demoX1.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <caret line="55" column="29" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/content_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.0625" vertical-offset="0" max-vertical-offset="0">
+          <caret line="134" column="20" selection-start-line="134" selection-start-column="13" selection-end-line="134" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../ffm/ffm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.9375" vertical-offset="0" max-vertical-offset="0">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/upload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.59375" vertical-offset="0" max-vertical-offset="0">
+          <caret line="5" column="33" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../HLSPlayer/images/common.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.46875" vertical-offset="0" max-vertical-offset="0">
+          <caret line="9" column="15" selection-start-line="9" selection-start-column="15" selection-end-line="9" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/player.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="10.78125" vertical-offset="0" max-vertical-offset="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/hls_play.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31554878" vertical-offset="0" max-vertical-offset="0">
+          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/program.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.8582317" vertical-offset="0" max-vertical-offset="0">
+          <caret line="53" column="36" selection-start-line="53" selection-start-column="36" selection-end-line="53" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/m3u8/images/common.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36890244" vertical-offset="0" max-vertical-offset="0">
+          <caret line="50" column="71" selection-start-line="50" selection-start-column="71" selection-end-line="50" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.9375" vertical-offset="0" max-vertical-offset="0">
+          <caret line="819" column="16" selection-start-line="819" selection-start-column="16" selection-end-line="819" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../HLSPlayer/demoHLS.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <caret line="46" column="51" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/find.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/player.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <caret line="49" column="24" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/detail.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="58.15625" vertical-offset="0" max-vertical-offset="0">
+          <caret line="138" column="13" selection-start-line="138" selection-start-column="13" selection-end-line="138" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../clapper/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.875" vertical-offset="0" max-vertical-offset="0">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/simplest_flashmedia_example/hls_video_player_html5/video_player_html5.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/simplest_flashmedia_example/hls_video_player_html5/hls_video_player_html5.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21036585" vertical-offset="0" max-vertical-offset="0">
+          <caret line="6" column="142" selection-start-line="6" selection-start-column="142" selection-end-line="6" selection-end-column="142" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/海豚-MP3版本/HTradio-mp3版本-0505/HTradio/application/views/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.80640244" vertical-offset="0" max-vertical-offset="0">
+          <caret line="71" column="18" selection-start-line="63" selection-start-column="12" selection-end-line="71" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../hls/hls_sample_player_flowplayer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.875" vertical-offset="0" max-vertical-offset="0">
+          <caret line="34" column="9" selection-start-line="18" selection-start-column="0" selection-end-line="34" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/personal.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.6295732" vertical-offset="0" max-vertical-offset="0">
+          <caret line="85" column="46" selection-start-line="85" selection-start-column="46" selection-end-line="85" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38567072" vertical-offset="0" max-vertical-offset="0">
+          <caret line="11" column="89" selection-start-line="11" selection-start-column="89" selection-end-line="11" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.63109756" vertical-offset="0" max-vertical-offset="0">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../后台接收移动端图片API/task.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.90625" vertical-offset="0" max-vertical-offset="0">
+          <caret line="251" column="10" selection-start-line="251" selection-start-column="10" selection-end-line="251" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/admin/program_add.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.435312" vertical-offset="0" max-vertical-offset="0">
+          <caret line="1" column="7" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../后台接收移动端图片API/pic_model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="19.40625" vertical-offset="0" max-vertical-offset="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/_superglobals.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34855404" vertical-offset="0" max-vertical-offset="0">
+          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/android/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5251142" vertical-offset="0" max-vertical-offset="0">
+          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/common_helper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.59665143" vertical-offset="0" max-vertical-offset="0">
+          <caret line="194" column="52" selection-start-line="194" selection-start-column="52" selection-end-line="194" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/upload_audio.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-21.887096" vertical-offset="0" max-vertical-offset="0">
+          <caret line="65" column="16" selection-start-line="65" selection-start-column="12" selection-end-line="65" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/helpers/common_helper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <caret line="266" column="9" selection-start-line="266" selection-start-column="9" selection-end-line="266" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/upload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5449011" vertical-offset="0" max-vertical-offset="0">
+          <caret line="186" column="0" selection-start-line="186" selection-start-column="0" selection-end-line="186" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/action.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.74772036" vertical-offset="492" max-vertical-offset="1150">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/admin/programme_list.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5612">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/ad.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="689">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/adminlog.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1702">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.535714" vertical-offset="2921" max-vertical-offset="3565">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/askanswer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.5357143" vertical-offset="989" max-vertical-offset="1633">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/common.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.0" vertical-offset="1656" max-vertical-offset="5658">
+          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/groups.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.857143" vertical-offset="2484" max-vertical-offset="3151">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/guestbook.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.6428572" vertical-offset="1058" max-vertical-offset="1702">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/content.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45509893" vertical-offset="2967" max-vertical-offset="5014">
+          <caret line="142" column="70" selection-start-line="142" selection-start-column="12" selection-end-line="142" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/admin/programme_add.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.2437888" vertical-offset="3745" max-vertical-offset="5037">
+          <caret line="128" column="35" selection-start-line="128" selection-start-column="31" selection-end-line="128" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/programme.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53571427" vertical-offset="3059" max-vertical-offset="7429">
+          <caret line="148" column="76" selection-start-line="148" selection-start-column="76" selection-end-line="148" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24505328" vertical-offset="161" max-vertical-offset="6808">
+          <caret line="14" column="50" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34937888" vertical-offset="16588" max-vertical-offset="26266">
+          <caret line="731" column="9" selection-start-line="731" selection-start-column="9" selection-end-line="731" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/download.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="689">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/personal.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7282609" vertical-offset="1923" max-vertical-offset="5934">
+          <caret line="104" column="117" selection-start-line="104" selection-start-column="117" selection-end-line="104" selection-end-column="117" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../cigit/application/controllers/Welcome.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7701674" vertical-offset="0" max-vertical-offset="736">
+          <caret line="22" column="5" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../cigit/application/views/welcome_message.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2162">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/admin/stat.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="12.0" vertical-offset="4455" max-vertical-offset="11638">
+          <caret line="177" column="0" selection-start-line="177" selection-start-column="0" selection-end-line="177" selection-end-column="0" />
+          <folding>
+            <marker date="1466391958591" expanded="true" signature="1077:1126" placeholder="SELECT COUNT..." />
+            <marker date="1466391958591" expanded="true" signature="1714:1791" placeholder="SELECT * FRO..." />
+            <marker date="1466391958591" expanded="true" signature="2856:3013" placeholder="select count..." />
+            <marker date="1466391958591" expanded="true" signature="3937:4106" placeholder="select count..fm_stat..." />
+            <marker date="1466391958591" expanded="true" signature="4938:5100" placeholder="select count..fm_stat..." />
+            <marker date="1466391958591" expanded="true" signature="6024:6180" placeholder="select count..." />
+            <marker date="1466391958591" expanded="true" signature="7415:7596" placeholder="select count..." />
+            <marker date="1466391958591" expanded="true" signature="9045:9246" placeholder="select count..fm_stat..." />
+            <marker date="1466391958591" expanded="true" signature="10385:10581" placeholder="select count..fm_stat..." />
+            <marker date="1466391958591" expanded="true" signature="11873:12063" placeholder="select count..." />
+            <marker date="1466391958591" expanded="true" signature="13701:13734" placeholder="select title..fm_program_type..." />
+            <marker date="1466391958591" expanded="true" signature="14290:14394" placeholder="select count..fm_program..." />
+            <marker date="1466391958591" expanded="true" signature="14693:14806" placeholder="select count..fm_program..." />
+            <marker date="1466391958591" expanded="true" signature="15173:15354" placeholder="select count..fm_program..." />
+            <marker date="1466391958591" expanded="true" signature="15716:15825" placeholder="select count..fm_program..." />
+            <marker date="1466391958591" expanded="true" signature="18671:18805" placeholder="select title..fm_program..." />
+            <marker date="1466391958591" expanded="true" signature="20825:20956" placeholder="select count..fm_attention..." />
+            <marker date="1466391958591" expanded="true" signature="21050:21119" placeholder="select id,us..fm_member..." />
+            <marker date="1466391958591" expanded="true" signature="21050:21145" placeholder="select id,us..fm_member..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/android/program.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5" vertical-offset="24840" max-vertical-offset="25737">
+          <caret line="1094" column="8" selection-start-line="1094" selection-start-column="8" selection-end-line="1094" selection-end-column="8" />
+          <folding>
+            <marker date="1466417086554" expanded="true" signature="777:873" placeholder="select id,ti..fm_program..." />
+            <marker date="1466417086554" expanded="true" signature="1123:1264" placeholder="select id,ti..fm_program..." />
+            <marker date="1466417086554" expanded="true" signature="1577:1688" placeholder="select id,ti..fm_program..." />
+            <marker date="1466417086554" expanded="true" signature="2187:2280" placeholder="select id,ti..fm_programme..." />
+            <marker date="1466417086554" expanded="true" signature="2589:2639" placeholder="select id,ti..fm_program_type..." />
+            <marker date="1466417086554" expanded="true" signature="2719:2775" placeholder="select id,ni..fm_member..." />
+            <marker date="1466417086554" expanded="true" signature="3098:3180" placeholder="select id,ti..fm_program_type..." />
+            <marker date="1466417086554" expanded="true" signature="3704:3938" placeholder="select id,ti..fm_program..." />
+            <marker date="1466417086554" expanded="true" signature="3845:3888" placeholder="SELECT id FR..fm_program_type..." />
+            <marker date="1466417086554" expanded="true" signature="7413:7463" placeholder="DELETE FROM ..." />
+            <marker date="1466417086554" expanded="true" signature="8461:8556" placeholder="SELECT max(s..fm_programme_list..." />
+            <marker date="1466417086554" expanded="true" signature="9483:9531" placeholder="SELECT id,pa..fm_program..." />
+            <marker date="1466417086554" expanded="true" signature="10452:10509" placeholder="update fm_pr..." />
+            <marker date="1466417086554" expanded="true" signature="11740:11822" placeholder="DELETE FROM ..." />
+            <marker date="1466417086554" expanded="true" signature="13088:13176" placeholder="DELETE FROM ..." />
+            <marker date="1466417086554" expanded="true" signature="14604:14696" placeholder="SELECT count..fm_programme_data..." />
+            <marker date="1466417086554" expanded="true" signature="14855:14956" placeholder="SELECT count..fm_programme_data..." />
+            <marker date="1466417086554" expanded="true" signature="16401:16625" placeholder="select id,ti..fm_program..." />
+            <marker date="1466417086554" expanded="true" signature="16532:16575" placeholder="SELECT id FR..fm_program_type..." />
+            <marker date="1466417086554" expanded="true" signature="18344:18395" placeholder="SELECT id,pr..fm_programme..." />
+            <marker date="1466417086554" expanded="true" signature="19715:19763" placeholder="SELECT id,pa..fm_program..." />
+            <marker date="1466417086554" expanded="true" signature="22357:22453" placeholder="select id,ti..fm_program_type..." />
+            <marker date="1466417086554" expanded="true" signature="22672:22735" placeholder="SELECT COUNT..fm_program..." />
+            <marker date="1466417086554" expanded="true" signature="22940:23052" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466417086554" expanded="true" signature="23391:23504" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466417086554" expanded="true" signature="24983:25044" placeholder="SELECT * FRO..fm_live_channel..." />
+            <marker date="1466417086554" expanded="true" signature="25370:25489" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466417086554" expanded="true" signature="25828:25948" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466417086554" expanded="true" signature="26956:26996" placeholder="SELECT nickn..fm_member..." />
+            <marker date="1466417086554" expanded="true" signature="28335:28441" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466417086554" expanded="true" signature="28984:29033" placeholder="SELECT suppo..fm_live_channel..." />
+            <marker date="1466417086554" expanded="true" signature="29244:29309" placeholder="UPDATE fm_li..." />
+            <marker date="1466417086554" expanded="true" signature="29635:29684" placeholder="SELECT suppo..fm_program_type..." />
+            <marker date="1466417086554" expanded="true" signature="29895:29960" placeholder="UPDATE fm_pr..." />
+            <marker date="1466417086554" expanded="true" signature="31018:31125" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466417086554" expanded="true" signature="31669:31719" placeholder="SELECT negat..fm_live_channel..." />
+            <marker date="1466417086554" expanded="true" signature="31932:31999" placeholder="UPDATE fm_li..." />
+            <marker date="1466417086554" expanded="true" signature="32327:32377" placeholder="SELECT negat..fm_program_type..." />
+            <marker date="1466417086554" expanded="true" signature="32590:32657" placeholder="UPDATE fm_pr..." />
+            <marker date="1466417086554" expanded="true" signature="33541:33639" placeholder="SELECT id,ti..fm_program..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
