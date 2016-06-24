@@ -1091,8 +1091,133 @@ class program extends Api {
 
     }
 
-    public function testgit(){
-        
+    /**
+     *  接口说明：获取欧洲杯新闻列表
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=get_news_list
+     * 	返回参数：
+     * 	code：返回码 0正确, 大于0 都是错误的
+     * 	message：描述信息
+     * 	time：时间戳
+     *  "data":{"new": [{"content": "腾讯体育6月24日讯"}],"old": [{"content": "小组赛阶段总共打进" },{"content": "意大利防线大将均有牌在神腾讯体育6月24日讯"}],}
+     *  其中：
+     *  "new":表示当前最新的一条新闻
+     *  "old":表示旧新闻
+     *  "content":新闻详细内容
+     */
+    public function get_news_list(){
+        //从数据库获取录音列表
+        $sql = "SELECT content FROM fm_eurocup ORDER BY addtime DESC";
+        $query = $this->db->query($sql);
+        $res=$query->result_array();
+        foreach($res as $key=>$value){
+            if($key==0){
+                $list['new'][]=$value;
+            }else{
+                $list['old'][]=$value;
+            }
+        }
+        $result=array("code"=>0,"message"=>"success","time"=>time(),"data"=>$list);
+        echo json_encode($result);
+    }
+
+
+    //定时抓取网页数据存入数据库
+    //http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=get_news
+    public function get_news(){
+
+        $timeout=1468339200;
+        //获取当前时间戳
+        $timenow=time();
+        ignore_user_abort();//关闭浏览器后，继续执行php代码
+        set_time_limit(0);//程序执行时间无限制
+        $sleep_time = 20;//多长时间执行一次
+        while($timenow<$timeout){
+            $date=date("Ymd",time());
+            $url = "http://sports.qq.com/l/isocce/2016eurocup/list.htm";
+            $ch = curl_init();
+            $timeout = 5;
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+            $contents = curl_exec($ch);
+
+            //匹配新闻列表链接
+            $patter='/<a .*?href="http:\/\/sports.qq.com\/a\/'.$date;
+            $pat=$patter.'\/(.*?)".*?>/is';
+            preg_match_all($pat, $contents, $arr);//匹配内容到arr数组
+            curl_close($ch);
+            //选择获取第几条链接
+            $con_url="http://sports.qq.com/a/"."$date/".$arr[1][1];
+            $ch2 = curl_init();
+            $timeout = 5;
+            curl_setopt($ch2, CURLOPT_URL, $con_url);
+            curl_setopt($ch2, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch2, CURLOPT_CONNECTTIMEOUT, $timeout);
+            $contents_detail = curl_exec($ch2);
+            //匹配标题
+            preg_match_all('/<meta name="Description" content="(.*)">/i',$contents_detail,$title_arr);
+            //转码
+            $title_arr[1][0] = iconv('gb2312', 'utf-8',str_replace("'","’",$title_arr[1][0]));
+            echo $title_arr[1][0];exit;
+            //数据库获取标题对比
+            $sql = "SELECT title FROM fm_eurocup ORDER BY id DESC LIMIT 0,1";
+            $query = $this->db->query($sql);
+            $res=$query->row_array();
+            if($title_arr[1][0]==$res['title']){
+                sleep($sleep_time);
+                //从数据库获取程序是否允许标志
+                $sql = "SELECT eurocup_flag FROM fm_eurocup_flag WHERE id=1";
+                $query = $this->db->query($sql);
+                $res=$query->row_array();
+                $timeout=$res['eurocup_flag'];
+            }else{
+                $pat2="/<div id=\"Cnt-Main-Article-QQ\" class=\"Cnt-Main-Article-QQ\" bossZone=\"content\">.*?<\/div>/ism";
+                preg_match_all($pat2, $contents_detail, $arr2);//匹配内容到arr数组
+
+                $str=$arr2[0][0];
+                $str=preg_replace("/<\s*img\s+[^>]*?src\s*=\s*(\'|\")(.*?)\\1[^>]*?\/?\s*>/i", " ", $str); //过滤img标签
+                $str=preg_replace("/<\!--.*?-->/si","",$str); //注释
+                $str=preg_replace("/<(\/?div.*?)>/si","",$str); //过滤html标签
+                $str=preg_replace("/<(\/?p.*?)>/si","",$str); //过滤html标签
+                $str=preg_replace("/<(\/?a.*?)>/si","",$str); //过滤html标签
+                $str=preg_replace("/<(\/?STRONG.*?)>/si","",$str); //过滤html标签
+                $str=preg_replace("/\s+/", " ", $str); //过滤多余回车
+                $str=preg_replace("/<[ ]+/si","<",$str); //过滤<__("<"号后面带空格)
+                $str = str_replace("\r\n", '', $str); //清除换行符
+                $str = str_replace("\n", '', $str); //清除换行符
+                $str = str_replace("\t", '', $str); //清除制表符
+                $str = str_replace("&#183;", '', $str); //清除制表符
+                $str=preg_replace("/<(script.*?)>(.*?)<(\/script.*?)>/si","",$str); //过滤script标签
+                $str=preg_replace("/<(\/?script.*?)>/si","",$str); //过滤script标签
+                $str=preg_replace("/javascript/si","Javascript",$str); //过滤script标签
+                $str=preg_replace("/vbscript/si","Vbscript",$str); //过滤script标签
+                $str=preg_replace("/on([a-z]+)\s*=/si","On\\1=",$str); //过滤script标签
+                $str=preg_replace("/&#/si","&＃",$str); //过滤script标签，
+                //采集的新闻添加到数据库
+                /*$str1 = '地方地方大幅度';
+                $str2 = '地方地方大幅度';
+                $str_title = str_replace("'","’",$title_arr[1][0]);
+                $str = iconv('gb2312', 'utf-8',str_replace("'","’",$str));*/
+                $insert['title']=$title_arr[1][0];
+                $insert['content']=iconv('gb2312', 'utf-8',str_replace("'","’",$str));
+                $insert['addtime']=time();
+                /*echo "<pre>";
+                print_r($insert);
+                echo "<pre/>";*/
+                $insert_sql="INSERT INTO fm_eurocup (title, content, addtime) VALUES ('$insert[title]','$insert[content]',$insert[addtime])";
+                echo $insert_sql;
+                $this->db->query($insert_sql);
+                //$this->db->insert ( 'fm_eurocup', $insert );
+                sleep($sleep_time);
+                //从数据库获取程序是否允许标志
+                $sql = "SELECT eurocup_flag FROM fm_eurocup_flag WHERE id=1";
+                $query = $this->db->query($sql);
+                $res=$query->row_array();
+                $timeout=$res['eurocup_flag'];
+            }
+
+        }
+        exit();
     }
 
 

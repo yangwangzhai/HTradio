@@ -343,3 +343,4 @@ class program extends Content
 		$this->load->view('admin/program_info', $data);
 	}
 }
+
