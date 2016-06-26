@@ -4,6 +4,11 @@
  * by tangjian 
  */
 
+//删除空格和回车
+function trimall($str){
+    $qian=array(" ","　","\t","\n","\r");
+    return str_replace($qian, '', $str);
+}
 
 /**
  * 字符截取 支持UTF8/GBK
