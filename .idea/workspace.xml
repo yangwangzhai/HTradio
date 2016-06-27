@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="efb7a146-c984-4f5a-ab3a-cf871eb9c041" name="默认的" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/helpers/common_helper.php" afterPath="$PROJECT_DIR$/application/helpers/common_helper.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/views/get_news_page.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/android/program.php" afterPath="$PROJECT_DIR$/application/controllers/android/program.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -39,57 +39,132 @@
       <file leaf-file-name="program.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/controllers/android/program.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38224852" vertical-offset="33549" max-vertical-offset="36105">
-              <caret line="1168" column="46" selection-start-line="1168" selection-start-column="46" selection-end-line="1168" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.036392406" vertical-offset="25783" max-vertical-offset="30383">
+              <caret line="1122" column="26" selection-start-line="1122" selection-start-column="26" selection-end-line="1122" selection-end-column="26" />
               <folding>
-                <marker date="1466930399463" expanded="true" signature="777:873" placeholder="select id,ti..fm_program..." />
-                <marker date="1466930399463" expanded="true" signature="1123:1264" placeholder="select id,ti..fm_program..." />
-                <marker date="1466930399463" expanded="true" signature="1577:1688" placeholder="select id,ti..fm_program..." />
-                <marker date="1466930399463" expanded="true" signature="2187:2280" placeholder="select id,ti..fm_programme..." />
-                <marker date="1466930399463" expanded="true" signature="2589:2639" placeholder="select id,ti..fm_program_type..." />
-                <marker date="1466930399463" expanded="true" signature="2719:2775" placeholder="select id,ni..fm_member..." />
-                <marker date="1466930399463" expanded="true" signature="3098:3180" placeholder="select id,ti..fm_program_type..." />
-                <marker date="1466930399463" expanded="true" signature="3704:3938" placeholder="select id,ti..fm_program..." />
-                <marker date="1466930399463" expanded="true" signature="3845:3888" placeholder="SELECT id FR..fm_program_type..." />
-                <marker date="1466930399463" expanded="true" signature="7413:7463" placeholder="DELETE FROM ..." />
-                <marker date="1466930399463" expanded="true" signature="8461:8556" placeholder="SELECT max(s..fm_programme_list..." />
-                <marker date="1466930399463" expanded="true" signature="9483:9531" placeholder="SELECT id,pa..fm_program..." />
-                <marker date="1466930399463" expanded="true" signature="10452:10509" placeholder="update fm_pr..." />
-                <marker date="1466930399463" expanded="true" signature="11740:11822" placeholder="DELETE FROM ..." />
-                <marker date="1466930399463" expanded="true" signature="13088:13176" placeholder="DELETE FROM ..." />
-                <marker date="1466930399463" expanded="true" signature="14604:14696" placeholder="SELECT count..fm_programme_data..." />
-                <marker date="1466930399463" expanded="true" signature="14855:14956" placeholder="SELECT count..fm_programme_data..." />
-                <marker date="1466930399463" expanded="true" signature="16401:16625" placeholder="select id,ti..fm_program..." />
-                <marker date="1466930399463" expanded="true" signature="16532:16575" placeholder="SELECT id FR..fm_program_type..." />
-                <marker date="1466930399463" expanded="true" signature="18344:18395" placeholder="SELECT id,pr..fm_programme..." />
-                <marker date="1466930399463" expanded="true" signature="19715:19763" placeholder="SELECT id,pa..fm_program..." />
-                <marker date="1466930399463" expanded="true" signature="22357:22453" placeholder="select id,ti..fm_program_type..." />
-                <marker date="1466930399463" expanded="true" signature="22672:22735" placeholder="SELECT COUNT..fm_program..." />
-                <marker date="1466930399463" expanded="true" signature="22940:23052" placeholder="SELECT COUNT..fm_support_negative..." />
-                <marker date="1466930399463" expanded="true" signature="23391:23504" placeholder="SELECT COUNT..fm_support_negative..." />
-                <marker date="1466930399463" expanded="true" signature="24983:25044" placeholder="SELECT * FRO..fm_live_channel..." />
-                <marker date="1466930399463" expanded="true" signature="25370:25489" placeholder="SELECT COUNT..fm_support_negative..." />
-                <marker date="1466930399463" expanded="true" signature="25828:25948" placeholder="SELECT COUNT..fm_support_negative..." />
-                <marker date="1466930399463" expanded="true" signature="26956:26996" placeholder="SELECT nickn..fm_member..." />
-                <marker date="1466930399463" expanded="true" signature="28335:28441" placeholder="SELECT COUNT..fm_support_negative..." />
-                <marker date="1466930399463" expanded="true" signature="28984:29033" placeholder="SELECT suppo..fm_live_channel..." />
-                <marker date="1466930399463" expanded="true" signature="29244:29309" placeholder="UPDATE fm_li..." />
-                <marker date="1466930399463" expanded="true" signature="29635:29684" placeholder="SELECT suppo..fm_program_type..." />
-                <marker date="1466930399463" expanded="true" signature="29895:29960" placeholder="UPDATE fm_pr..." />
-                <marker date="1466930399463" expanded="true" signature="31018:31125" placeholder="SELECT COUNT..fm_support_negative..." />
-                <marker date="1466930399463" expanded="true" signature="31669:31719" placeholder="SELECT negat..fm_live_channel..." />
-                <marker date="1466930399463" expanded="true" signature="31932:31999" placeholder="UPDATE fm_li..." />
-                <marker date="1466930399463" expanded="true" signature="32327:32377" placeholder="SELECT negat..fm_program_type..." />
-                <marker date="1466930399463" expanded="true" signature="32590:32657" placeholder="UPDATE fm_pr..." />
-                <marker date="1466930399463" expanded="true" signature="33541:33639" placeholder="SELECT id,ti..fm_program..." />
-                <marker date="1466930399463" expanded="true" signature="36649:36701" placeholder="SELECT conte..fm_eurocup..." />
-                <marker date="1466930399463" expanded="true" signature="38885:38936" placeholder="SELECT euroc..fm_eurocup_flag..." />
-                <marker date="1466930399463" expanded="true" signature="39202:39256" placeholder="select url f..fm_eurocup..." />
-                <marker date="1466930399463" expanded="true" signature="39512:39563" placeholder="SELECT euroc..fm_eurocup_flag..." />
-                <marker date="1466930399463" expanded="true" signature="40942:41004" placeholder="INSERT INTO ..." />
-                <marker date="1466930399463" expanded="true" signature="40942:41039" placeholder="INSERT INTO ..." />
-                <marker date="1466930399463" expanded="true" signature="40942:41071" placeholder="INSERT INTO ..." />
-                <marker date="1466930399463" expanded="true" signature="41271:41322" placeholder="SELECT euroc..fm_eurocup_flag..." />
+                <marker date="1466999849301" expanded="true" signature="777:873" placeholder="select id,ti..fm_program..." />
+                <marker date="1466999849301" expanded="true" signature="1123:1264" placeholder="select id,ti..fm_program..." />
+                <marker date="1466999849301" expanded="true" signature="1577:1688" placeholder="select id,ti..fm_program..." />
+                <marker date="1466999849301" expanded="true" signature="2187:2280" placeholder="select id,ti..fm_programme..." />
+                <marker date="1466999849301" expanded="true" signature="2589:2639" placeholder="select id,ti..fm_program_type..." />
+                <marker date="1466999849301" expanded="true" signature="2719:2775" placeholder="select id,ni..fm_member..." />
+                <marker date="1466999849301" expanded="true" signature="3098:3180" placeholder="select id,ti..fm_program_type..." />
+                <marker date="1466999849301" expanded="true" signature="3704:3938" placeholder="select id,ti..fm_program..." />
+                <marker date="1466999849301" expanded="true" signature="3845:3888" placeholder="SELECT id FR..fm_program_type..." />
+                <marker date="1466999849301" expanded="true" signature="7413:7463" placeholder="DELETE FROM ..." />
+                <marker date="1466999849301" expanded="true" signature="8461:8556" placeholder="SELECT max(s..fm_programme_list..." />
+                <marker date="1466999849301" expanded="true" signature="9483:9531" placeholder="SELECT id,pa..fm_program..." />
+                <marker date="1466999849301" expanded="true" signature="10452:10509" placeholder="update fm_pr..." />
+                <marker date="1466999849301" expanded="true" signature="11740:11822" placeholder="DELETE FROM ..." />
+                <marker date="1466999849301" expanded="true" signature="13088:13176" placeholder="DELETE FROM ..." />
+                <marker date="1466999849301" expanded="true" signature="14604:14696" placeholder="SELECT count..fm_programme_data..." />
+                <marker date="1466999849301" expanded="true" signature="14855:14956" placeholder="SELECT count..fm_programme_data..." />
+                <marker date="1466999849301" expanded="true" signature="16401:16625" placeholder="select id,ti..fm_program..." />
+                <marker date="1466999849301" expanded="true" signature="16532:16575" placeholder="SELECT id FR..fm_program_type..." />
+                <marker date="1466999849301" expanded="true" signature="18344:18395" placeholder="SELECT id,pr..fm_programme..." />
+                <marker date="1466999849301" expanded="true" signature="19715:19763" placeholder="SELECT id,pa..fm_program..." />
+                <marker date="1466999849301" expanded="true" signature="22357:22453" placeholder="select id,ti..fm_program_type..." />
+                <marker date="1466999849301" expanded="true" signature="22672:22735" placeholder="SELECT COUNT..fm_program..." />
+                <marker date="1466999849301" expanded="true" signature="22940:23052" placeholder="SELECT COUNT..fm_support_negative..." />
+                <marker date="1466999849301" expanded="true" signature="23391:23504" placeholder="SELECT COUNT..fm_support_negative..." />
+                <marker date="1466999849301" expanded="true" signature="24983:25044" placeholder="SELECT * FRO..fm_live_channel..." />
+                <marker date="1466999849301" expanded="true" signature="25370:25489" placeholder="SELECT COUNT..fm_support_negative..." />
+                <marker date="1466999849301" expanded="true" signature="25828:25948" placeholder="SELECT COUNT..fm_support_negative..." />
+                <marker date="1466999849301" expanded="true" signature="26956:26996" placeholder="SELECT nickn..fm_member..." />
+                <marker date="1466999849301" expanded="true" signature="28335:28441" placeholder="SELECT COUNT..fm_support_negative..." />
+                <marker date="1466999849301" expanded="true" signature="28984:29033" placeholder="SELECT suppo..fm_live_channel..." />
+                <marker date="1466999849301" expanded="true" signature="29244:29309" placeholder="UPDATE fm_li..." />
+                <marker date="1466999849301" expanded="true" signature="29635:29684" placeholder="SELECT suppo..fm_program_type..." />
+                <marker date="1466999849301" expanded="true" signature="29895:29960" placeholder="UPDATE fm_pr..." />
+                <marker date="1466999849301" expanded="true" signature="31018:31125" placeholder="SELECT COUNT..fm_support_negative..." />
+                <marker date="1466999849301" expanded="true" signature="31669:31719" placeholder="SELECT negat..fm_live_channel..." />
+                <marker date="1466999849301" expanded="true" signature="31932:31999" placeholder="UPDATE fm_li..." />
+                <marker date="1466999849301" expanded="true" signature="32327:32377" placeholder="SELECT negat..fm_program_type..." />
+                <marker date="1466999849301" expanded="true" signature="32590:32657" placeholder="UPDATE fm_pr..." />
+                <marker date="1466999849301" expanded="true" signature="33541:33639" placeholder="SELECT id,ti..fm_program..." />
+                <marker date="1466999849301" expanded="true" signature="36649:36701" placeholder="SELECT conte..fm_eurocup..." />
+                <marker date="1466999849301" expanded="true" signature="38831:38885" placeholder="select url f..fm_eurocup..." />
+                <marker date="1466999849301" expanded="true" signature="40187:40316" placeholder="INSERT INTO ..." />
+                <marker date="1466999849301" expanded="true" signature="42179:42230" placeholder="SELECT euroc..fm_eurocup_flag..." />
+                <marker date="1466999849301" expanded="true" signature="42496:42550" placeholder="select url f..fm_eurocup..." />
+                <marker date="1466999849301" expanded="true" signature="42806:42857" placeholder="SELECT euroc..fm_eurocup_flag..." />
+                <marker date="1466999849301" expanded="true" signature="44236:44365" placeholder="INSERT INTO ..." />
+                <marker date="1466999849301" expanded="true" signature="44565:44616" placeholder="SELECT euroc..fm_eurocup_flag..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="get_news_page.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/views/get_news_page.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.1875" vertical-offset="0" max-vertical-offset="552">
+              <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="player.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/views/player.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="5474">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="header.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/views/header.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.03125" vertical-offset="0" max-vertical-offset="9361">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="76" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="personal.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/controllers/personal.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="28.46875" vertical-offset="3303" max-vertical-offset="5934">
+              <caret line="104" column="117" selection-start-line="104" selection-start-column="117" selection-end-line="104" selection-end-column="117" />
+              <folding>
+                <marker date="1466391958625" expanded="true" signature="430:479" placeholder="SELECT nickn..fm_member..." />
+                <marker date="1466391958625" expanded="true" signature="604:655" placeholder="SELECT count..fm_program..." />
+                <marker date="1466391958625" expanded="true" signature="788:841" placeholder="SELECT count..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="958:1079" placeholder="SELECT id,av..fm_member..." />
+                <marker date="1466391958625" expanded="true" signature="1003:1044" placeholder="SELECT zid F..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="1212:1265" placeholder="SELECT count..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="1379:1500" placeholder="SELECT id,av..fm_member..." />
+                <marker date="1466391958625" expanded="true" signature="1424:1465" placeholder="SELECT mid F..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="1814:1867" placeholder="SELECT count..fm_programme..." />
+                <marker date="1466391958625" expanded="true" signature="2747:2839" placeholder="SELECT id,ti..fm_programme..." />
+                <marker date="1466391958625" expanded="true" signature="3163:3214" placeholder="SELECT count..fm_program..." />
+                <marker date="1466391958625" expanded="true" signature="4113:4251" placeholder="SELECT id,ti..fm_program..." />
+                <marker date="1466391958625" expanded="true" signature="4563:4612" placeholder="SELECT nickn..fm_member..." />
+                <marker date="1466391958625" expanded="true" signature="4738:4789" placeholder="SELECT count..fm_program..." />
+                <marker date="1466391958625" expanded="true" signature="4923:4976" placeholder="SELECT count..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="5093:5214" placeholder="SELECT id,av..fm_member..." />
+                <marker date="1466391958625" expanded="true" signature="5138:5179" placeholder="SELECT zid F..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="5348:5401" placeholder="SELECT count..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="5515:5636" placeholder="SELECT id,av..fm_member..." />
+                <marker date="1466391958625" expanded="true" signature="5560:5601" placeholder="SELECT mid F..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="5985:6038" placeholder="SELECT count..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="6925:7067" placeholder="SELECT id,av..fm_member..." />
+                <marker date="1466391958625" expanded="true" signature="6984:7025" placeholder="SELECT zid F..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="7417:7466" placeholder="SELECT nickn..fm_member..." />
+                <marker date="1466391958625" expanded="true" signature="7592:7643" placeholder="SELECT count..fm_program..." />
+                <marker date="1466391958625" expanded="true" signature="7777:7830" placeholder="SELECT count..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="7947:8068" placeholder="SELECT id,av..fm_member..." />
+                <marker date="1466391958625" expanded="true" signature="7992:8033" placeholder="SELECT zid F..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="8202:8255" placeholder="SELECT count..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="8369:8490" placeholder="SELECT id,av..fm_member..." />
+                <marker date="1466391958625" expanded="true" signature="8414:8455" placeholder="SELECT mid F..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="8834:8887" placeholder="SELECT count..fm_attention..." />
+                <marker date="1466391958625" expanded="true" signature="9783:9925" placeholder="SELECT id,av..fm_member..." />
+                <marker date="1466391958625" expanded="true" signature="9842:9883" placeholder="SELECT mid F..fm_attention..." />
               </folding>
             </state>
           </provider>
@@ -98,47 +173,9 @@
       <file leaf-file-name="common_helper.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/helpers/common_helper.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.2894738" vertical-offset="0" max-vertical-offset="37874">
+            <state vertical-scroll-proportion="0.0" vertical-offset="69" max-vertical-offset="30038">
               <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="9" />
-              <folding>
-                <marker date="1466923872706" expanded="true" signature="17698:17742" placeholder="select * fro..fm_member..." />
-                <marker date="1466923872706" expanded="true" signature="17914:17966" placeholder="select nickn..fm_member..." />
-                <marker date="1466923872706" expanded="true" signature="18226:18288" placeholder="select id,ni..fm_member..." />
-                <marker date="1466923872706" expanded="true" signature="20502:20570" placeholder="select * fro..fm_weixin_news..." />
-                <marker date="1466923872706" expanded="true" signature="21569:21611" placeholder="SELECT * FRO..fm_permission..." />
-                <marker date="1466923872706" expanded="true" signature="24330:24372" placeholder="select * fro..fm_bad_word..." />
-                <marker date="1466923872706" expanded="true" signature="25743:25800" placeholder="select title..fm_channel..." />
-                <marker date="1466923872706" expanded="true" signature="26014:26073" placeholder="select title..fm_program_type..." />
-                <marker date="1466923872706" expanded="true" signature="26277:26324" placeholder="select id,ti..fm_program_type..." />
-                <marker date="1466923872706" expanded="true" signature="26533:26590" placeholder="select title..fm_program..." />
-                <marker date="1466923872706" expanded="true" signature="28800:28851" placeholder="SELECT count..fm_program..." />
-                <marker date="1466923872706" expanded="true" signature="29066:29119" placeholder="SELECT count..fm_attention..." />
-                <marker date="1466923872706" expanded="true" signature="29330:29383" placeholder="SELECT count..fm_attention..." />
-                <marker date="1466923872706" expanded="true" signature="29571:29620" placeholder="SELECT nickn..fm_member..." />
-                <marker date="1466923872706" expanded="true" signature="29743:29794" placeholder="SELECT count..fm_program..." />
-                <marker date="1466923872706" expanded="true" signature="29925:29978" placeholder="SELECT count..fm_attention..." />
-                <marker date="1466923872706" expanded="true" signature="30093:30214" placeholder="SELECT id,av..fm_member..." />
-                <marker date="1466923872706" expanded="true" signature="30138:30179" placeholder="SELECT zid F..fm_attention..." />
-                <marker date="1466923872706" expanded="true" signature="30345:30398" placeholder="SELECT count..fm_attention..." />
-                <marker date="1466923872706" expanded="true" signature="30510:30631" placeholder="SELECT id,av..fm_member..." />
-                <marker date="1466923872706" expanded="true" signature="30555:30596" placeholder="SELECT mid F..fm_attention..." />
-                <marker date="1466923872706" expanded="true" signature="31027:31075" placeholder="SELECT id FR..fm_tag..." />
-                <marker date="1466923872706" expanded="true" signature="31237:31300" placeholder="INSERT INTO ..." />
-                <marker date="1466923872706" expanded="true" signature="31559:31603" placeholder="SELECT tag_n..fm_tag..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="reg.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../getcontent/reg.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.263158" vertical-offset="0" max-vertical-offset="870">
-              <caret line="20" column="43" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="43" />
-              <folding>
-                <marker date="1466920517009" expanded="true" signature="56:797" placeholder="..." />
-                <marker date="1466920517009" expanded="true" signature="75:781" placeholder="..." />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -146,82 +183,9 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../getcontent/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.684211" vertical-offset="1218" max-vertical-offset="2349">
-              <caret line="56" column="60" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1242" max-vertical-offset="1380">
+              <caret line="54" column="3" selection-start-line="54" selection-start-column="3" selection-end-line="54" selection-end-column="3" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="get_news.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../getcontent/get_news.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.842105" vertical-offset="1475" max-vertical-offset="3016">
-              <caret line="69" column="1" selection-start-line="1" selection-start-column="0" selection-end-line="69" selection-end-column="1" />
-              <folding>
-                <marker date="1466923318402" expanded="true" signature="3182:3927" placeholder="..." />
-                <marker date="1466923318402" expanded="true" signature="3329:3927" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="a.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../getcontent/a.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.220589" vertical-offset="2784" max-vertical-offset="11745">
-              <caret line="127" column="24" selection-start-line="127" selection-start-column="24" selection-end-line="127" selection-end-column="24" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#a#0;n#div#5;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="b.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../getcontent/b.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.985294" vertical-offset="3789" max-vertical-offset="10643">
-              <caret line="140" column="29" selection-start-line="140" selection-start-column="12" selection-end-line="140" selection-end-column="29" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#a#0;n#div#4;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="c.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../getcontent/c.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="3.6911764" vertical-offset="3702" max-vertical-offset="13224">
-              <caret line="119" column="29" selection-start-line="119" selection-start-column="12" selection-end-line="119" selection-end-column="29" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#a#0;n#div#5;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="d.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../getcontent/d.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.31579" vertical-offset="3712" max-vertical-offset="12847">
-              <caret line="152" column="47" selection-start-line="152" selection-start-column="47" selection-end-line="152" selection-end-column="47" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#a#0;n#div#5;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="e.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../getcontent/e.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.8235292" vertical-offset="3615" max-vertical-offset="12818">
-              <caret line="143" column="29" selection-start-line="143" selection-start-column="12" selection-end-line="143" selection-end-column="29" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#a#0;n#div#5;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -234,7 +198,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/application/views/admin/link_list.php" />
         <option value="$PROJECT_DIR$/application/views/admin/badword_list.php" />
         <option value="$PROJECT_DIR$/application/views/admin/adminlog_list.php" />
         <option value="$PROJECT_DIR$/application/views/admin/stat_list.php" />
@@ -284,6 +247,7 @@
         <option value="$PROJECT_DIR$/../getcontent/a.html" />
         <option value="$PROJECT_DIR$/../getcontent/get_news.php" />
         <option value="$PROJECT_DIR$/application/helpers/common_helper.php" />
+        <option value="$PROJECT_DIR$/application/views/get_news_page.php" />
         <option value="$PROJECT_DIR$/application/controllers/android/program.php" />
       </list>
     </option>
@@ -295,10 +259,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="-7" />
+    <option name="y" value="2" />
+    <option name="width" value="1452" />
+    <option name="height" value="865" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -376,25 +340,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="helpers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HTradio" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HTradio" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -432,6 +378,9 @@
       <BehatRunner />
       <method />
     </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-options />
       <gulpfile />
@@ -439,9 +388,6 @@
       <arguments />
       <pass-parent-envs>true</pass-parent-envs>
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <list size="0" />
@@ -460,7 +406,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-7" y="2" width="1452" height="865" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -469,7 +415,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21108742" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21408045" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -510,6 +456,79 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/application/controllers/android/program.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="28635">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1466999849301" expanded="true" signature="777:873" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="1123:1264" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="1577:1688" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="2187:2280" placeholder="select id,ti..fm_programme..." />
+            <marker date="1466999849301" expanded="true" signature="2589:2639" placeholder="select id,ti..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="2719:2775" placeholder="select id,ni..fm_member..." />
+            <marker date="1466999849301" expanded="true" signature="3098:3180" placeholder="select id,ti..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="3704:3938" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="3845:3888" placeholder="SELECT id FR..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="7413:7463" placeholder="DELETE FROM ..." />
+            <marker date="1466999849301" expanded="true" signature="8461:8556" placeholder="SELECT max(s..fm_programme_list..." />
+            <marker date="1466999849301" expanded="true" signature="9483:9531" placeholder="SELECT id,pa..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="10452:10509" placeholder="update fm_pr..." />
+            <marker date="1466999849301" expanded="true" signature="11740:11822" placeholder="DELETE FROM ..." />
+            <marker date="1466999849301" expanded="true" signature="13088:13176" placeholder="DELETE FROM ..." />
+            <marker date="1466999849301" expanded="true" signature="14604:14696" placeholder="SELECT count..fm_programme_data..." />
+            <marker date="1466999849301" expanded="true" signature="14855:14956" placeholder="SELECT count..fm_programme_data..." />
+            <marker date="1466999849301" expanded="true" signature="16401:16625" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="16532:16575" placeholder="SELECT id FR..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="18344:18395" placeholder="SELECT id,pr..fm_programme..." />
+            <marker date="1466999849301" expanded="true" signature="19715:19763" placeholder="SELECT id,pa..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="22357:22453" placeholder="select id,ti..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="22672:22735" placeholder="SELECT COUNT..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="22940:23052" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="23391:23504" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="24983:25044" placeholder="SELECT * FRO..fm_live_channel..." />
+            <marker date="1466999849301" expanded="true" signature="25370:25489" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="25828:25948" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="26956:26996" placeholder="SELECT nickn..fm_member..." />
+            <marker date="1466999849301" expanded="true" signature="28335:28441" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="28984:29033" placeholder="SELECT suppo..fm_live_channel..." />
+            <marker date="1466999849301" expanded="true" signature="29244:29309" placeholder="UPDATE fm_li..." />
+            <marker date="1466999849301" expanded="true" signature="29635:29684" placeholder="SELECT suppo..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="29895:29960" placeholder="UPDATE fm_pr..." />
+            <marker date="1466999849301" expanded="true" signature="31018:31125" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="31669:31719" placeholder="SELECT negat..fm_live_channel..." />
+            <marker date="1466999849301" expanded="true" signature="31932:31999" placeholder="UPDATE fm_li..." />
+            <marker date="1466999849301" expanded="true" signature="32327:32377" placeholder="SELECT negat..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="32590:32657" placeholder="UPDATE fm_pr..." />
+            <marker date="1466999849301" expanded="true" signature="33541:33639" placeholder="SELECT id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="36649:36701" placeholder="SELECT conte..fm_eurocup..." />
+            <marker date="1466999849301" expanded="true" signature="38831:38885" placeholder="select url f..fm_eurocup..." />
+            <marker date="1466999849301" expanded="true" signature="40187:40316" placeholder="INSERT INTO ..." />
+            <marker date="1466999849301" expanded="true" signature="42179:42230" placeholder="SELECT euroc..fm_eurocup_flag..." />
+            <marker date="1466999849301" expanded="true" signature="42496:42550" placeholder="select url f..fm_eurocup..." />
+            <marker date="1466999849301" expanded="true" signature="42806:42857" placeholder="SELECT euroc..fm_eurocup_flag..." />
+            <marker date="1466999849301" expanded="true" signature="44236:44365" placeholder="INSERT INTO ..." />
+            <marker date="1466999849301" expanded="true" signature="44565:44616" placeholder="SELECT euroc..fm_eurocup_flag..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/helpers/common_helper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="69" max-vertical-offset="30038">
+          <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../getcontent/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1242" max-vertical-offset="1380">
+          <caret line="54" column="3" selection-start-line="54" selection-start-column="3" selection-end-line="54" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../getcontent/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="1595">
@@ -523,54 +542,54 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="26427">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1466930399463" expanded="true" signature="777:873" placeholder="select id,ti..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="1123:1264" placeholder="select id,ti..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="1577:1688" placeholder="select id,ti..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="2187:2280" placeholder="select id,ti..fm_programme..." />
-            <marker date="1466930399463" expanded="true" signature="2589:2639" placeholder="select id,ti..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="2719:2775" placeholder="select id,ni..fm_member..." />
-            <marker date="1466930399463" expanded="true" signature="3098:3180" placeholder="select id,ti..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="3704:3938" placeholder="select id,ti..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="3845:3888" placeholder="SELECT id FR..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="7413:7463" placeholder="DELETE FROM ..." />
-            <marker date="1466930399463" expanded="true" signature="8461:8556" placeholder="SELECT max(s..fm_programme_list..." />
-            <marker date="1466930399463" expanded="true" signature="9483:9531" placeholder="SELECT id,pa..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="10452:10509" placeholder="update fm_pr..." />
-            <marker date="1466930399463" expanded="true" signature="11740:11822" placeholder="DELETE FROM ..." />
-            <marker date="1466930399463" expanded="true" signature="13088:13176" placeholder="DELETE FROM ..." />
-            <marker date="1466930399463" expanded="true" signature="14604:14696" placeholder="SELECT count..fm_programme_data..." />
-            <marker date="1466930399463" expanded="true" signature="14855:14956" placeholder="SELECT count..fm_programme_data..." />
-            <marker date="1466930399463" expanded="true" signature="16401:16625" placeholder="select id,ti..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="16532:16575" placeholder="SELECT id FR..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="18344:18395" placeholder="SELECT id,pr..fm_programme..." />
-            <marker date="1466930399463" expanded="true" signature="19715:19763" placeholder="SELECT id,pa..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="22357:22453" placeholder="select id,ti..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="22672:22735" placeholder="SELECT COUNT..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="22940:23052" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1466930399463" expanded="true" signature="23391:23504" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1466930399463" expanded="true" signature="24983:25044" placeholder="SELECT * FRO..fm_live_channel..." />
-            <marker date="1466930399463" expanded="true" signature="25370:25489" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1466930399463" expanded="true" signature="25828:25948" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1466930399463" expanded="true" signature="26956:26996" placeholder="SELECT nickn..fm_member..." />
-            <marker date="1466930399463" expanded="true" signature="28335:28441" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1466930399463" expanded="true" signature="28984:29033" placeholder="SELECT suppo..fm_live_channel..." />
-            <marker date="1466930399463" expanded="true" signature="29244:29309" placeholder="UPDATE fm_li..." />
-            <marker date="1466930399463" expanded="true" signature="29635:29684" placeholder="SELECT suppo..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="29895:29960" placeholder="UPDATE fm_pr..." />
-            <marker date="1466930399463" expanded="true" signature="31018:31125" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1466930399463" expanded="true" signature="31669:31719" placeholder="SELECT negat..fm_live_channel..." />
-            <marker date="1466930399463" expanded="true" signature="31932:31999" placeholder="UPDATE fm_li..." />
-            <marker date="1466930399463" expanded="true" signature="32327:32377" placeholder="SELECT negat..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="32590:32657" placeholder="UPDATE fm_pr..." />
-            <marker date="1466930399463" expanded="true" signature="33541:33639" placeholder="SELECT id,ti..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="36649:36701" placeholder="SELECT conte..fm_eurocup..." />
-            <marker date="1466930399463" expanded="true" signature="38885:38936" placeholder="SELECT euroc..fm_eurocup_flag..." />
-            <marker date="1466930399463" expanded="true" signature="39202:39256" placeholder="select url f..fm_eurocup..." />
-            <marker date="1466930399463" expanded="true" signature="39512:39563" placeholder="SELECT euroc..fm_eurocup_flag..." />
-            <marker date="1466930399463" expanded="true" signature="40942:41004" placeholder="INSERT INTO ..." />
-            <marker date="1466930399463" expanded="true" signature="40942:41039" placeholder="INSERT INTO ..." />
-            <marker date="1466930399463" expanded="true" signature="40942:41071" placeholder="INSERT INTO ..." />
-            <marker date="1466930399463" expanded="true" signature="41271:41322" placeholder="SELECT euroc..fm_eurocup_flag..." />
+            <marker date="1466999849301" expanded="true" signature="777:873" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="1123:1264" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="1577:1688" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="2187:2280" placeholder="select id,ti..fm_programme..." />
+            <marker date="1466999849301" expanded="true" signature="2589:2639" placeholder="select id,ti..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="2719:2775" placeholder="select id,ni..fm_member..." />
+            <marker date="1466999849301" expanded="true" signature="3098:3180" placeholder="select id,ti..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="3704:3938" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="3845:3888" placeholder="SELECT id FR..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="7413:7463" placeholder="DELETE FROM ..." />
+            <marker date="1466999849301" expanded="true" signature="8461:8556" placeholder="SELECT max(s..fm_programme_list..." />
+            <marker date="1466999849301" expanded="true" signature="9483:9531" placeholder="SELECT id,pa..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="10452:10509" placeholder="update fm_pr..." />
+            <marker date="1466999849301" expanded="true" signature="11740:11822" placeholder="DELETE FROM ..." />
+            <marker date="1466999849301" expanded="true" signature="13088:13176" placeholder="DELETE FROM ..." />
+            <marker date="1466999849301" expanded="true" signature="14604:14696" placeholder="SELECT count..fm_programme_data..." />
+            <marker date="1466999849301" expanded="true" signature="14855:14956" placeholder="SELECT count..fm_programme_data..." />
+            <marker date="1466999849301" expanded="true" signature="16401:16625" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="16532:16575" placeholder="SELECT id FR..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="18344:18395" placeholder="SELECT id,pr..fm_programme..." />
+            <marker date="1466999849301" expanded="true" signature="19715:19763" placeholder="SELECT id,pa..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="22357:22453" placeholder="select id,ti..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="22672:22735" placeholder="SELECT COUNT..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="22940:23052" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="23391:23504" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="24983:25044" placeholder="SELECT * FRO..fm_live_channel..." />
+            <marker date="1466999849301" expanded="true" signature="25370:25489" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="25828:25948" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="26956:26996" placeholder="SELECT nickn..fm_member..." />
+            <marker date="1466999849301" expanded="true" signature="28335:28441" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="28984:29033" placeholder="SELECT suppo..fm_live_channel..." />
+            <marker date="1466999849301" expanded="true" signature="29244:29309" placeholder="UPDATE fm_li..." />
+            <marker date="1466999849301" expanded="true" signature="29635:29684" placeholder="SELECT suppo..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="29895:29960" placeholder="UPDATE fm_pr..." />
+            <marker date="1466999849301" expanded="true" signature="31018:31125" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="31669:31719" placeholder="SELECT negat..fm_live_channel..." />
+            <marker date="1466999849301" expanded="true" signature="31932:31999" placeholder="UPDATE fm_li..." />
+            <marker date="1466999849301" expanded="true" signature="32327:32377" placeholder="SELECT negat..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="32590:32657" placeholder="UPDATE fm_pr..." />
+            <marker date="1466999849301" expanded="true" signature="33541:33639" placeholder="SELECT id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="36649:36701" placeholder="SELECT conte..fm_eurocup..." />
+            <marker date="1466999849301" expanded="true" signature="38831:38885" placeholder="select url f..fm_eurocup..." />
+            <marker date="1466999849301" expanded="true" signature="40187:40316" placeholder="INSERT INTO ..." />
+            <marker date="1466999849301" expanded="true" signature="42179:42230" placeholder="SELECT euroc..fm_eurocup_flag..." />
+            <marker date="1466999849301" expanded="true" signature="42496:42550" placeholder="select url f..fm_eurocup..." />
+            <marker date="1466999849301" expanded="true" signature="42806:42857" placeholder="SELECT euroc..fm_eurocup_flag..." />
+            <marker date="1466999849301" expanded="true" signature="44236:44365" placeholder="INSERT INTO ..." />
+            <marker date="1466999849301" expanded="true" signature="44565:44616" placeholder="SELECT euroc..fm_eurocup_flag..." />
           </folding>
         </state>
       </provider>
@@ -594,13 +613,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.59375" vertical-offset="0" max-vertical-offset="0">
           <caret line="5" column="33" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/player.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="10.78125" vertical-offset="0" max-vertical-offset="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -807,37 +819,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/personal.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7282609" vertical-offset="1923" max-vertical-offset="5934">
-          <caret line="104" column="117" selection-start-line="104" selection-start-column="117" selection-end-line="104" selection-end-column="117" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/admin/stat.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="5249" max-vertical-offset="14674">
           <caret line="181" column="0" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
-          <folding>
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="SELECT COUNT..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="SELECT * FRO..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select count..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select count..fm_stat..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select count..fm_stat..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select count..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select count..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select count..fm_stat..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select count..fm_stat..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select count..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select title..fm_program_type..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select count..fm_program..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select count..fm_program..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select count..fm_program..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select count..fm_program..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select title..fm_program..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select count..fm_attention..." />
-            <marker date="1466061257700" expanded="true" signature="-1:-1" placeholder="select id,us..fm_member..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -849,277 +835,157 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../getcontent/aa.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1392" max-vertical-offset="11542">
-          <caret line="67" column="27" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="27" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#iframe#0;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#0;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#1;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#2;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#3;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#4;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#5;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#6;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#7;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#8;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#9;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#10;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#11;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#12;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#13;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#14;n#div#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#span#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#iframe#0;n#div#3;n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#4;n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#8;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#div#8;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#a#0;n#div#1;n#div#8;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#10;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#12;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#14;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#16;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#16;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#17;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#18;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#20;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#20;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#23;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#24;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../getcontent/bb.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5629" max-vertical-offset="24157">
-          <caret line="223" column="52" selection-start-line="223" selection-start-column="33" selection-end-line="223" selection-end-column="52" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#script#0;n#P#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#iframe#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#2;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#3;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#4;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#5;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#6;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#7;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#8;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#9;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#10;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#11;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#12;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#13;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#14;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#15;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#P#16;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#span#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#iframe#0;n#div#3;n#div#1;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#4;n#div#1;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#7;n#div#1;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#7;n#div#1;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#2;n#div#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#4;n#div#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#6;n#div#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#8;n#div#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#8;n#div#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#9;n#div#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#10;n#div#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#12;n#div#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#12;n#div#1;n#div#0;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../getcontent/d.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.31579" vertical-offset="3712" max-vertical-offset="12847">
-          <caret line="152" column="47" selection-start-line="152" selection-start-column="47" selection-end-line="152" selection-end-column="47" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#a#0;n#div#5;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../getcontent/b.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.985294" vertical-offset="3789" max-vertical-offset="10643">
-          <caret line="140" column="29" selection-start-line="140" selection-start-column="12" selection-end-line="140" selection-end-column="29" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#a#0;n#div#4;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../getcontent/c.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.6911764" vertical-offset="3702" max-vertical-offset="13224">
-          <caret line="119" column="29" selection-start-line="119" selection-start-column="12" selection-end-line="119" selection-end-column="29" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#a#0;n#div#5;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../getcontent/a.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.220589" vertical-offset="2784" max-vertical-offset="11745">
-          <caret line="127" column="24" selection-start-line="127" selection-start-column="24" selection-end-line="127" selection-end-column="24" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#a#0;n#div#5;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../getcontent/e.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.8235292" vertical-offset="3615" max-vertical-offset="12818">
-          <caret line="143" column="29" selection-start-line="143" selection-start-column="12" selection-end-line="143" selection-end-column="29" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#a#0;n#div#5;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../getcontent/reg.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.263158" vertical-offset="0" max-vertical-offset="870">
-          <caret line="20" column="43" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="43" />
-          <folding>
-            <marker date="1466920517009" expanded="true" signature="56:797" placeholder="..." />
-            <marker date="1466920517009" expanded="true" signature="75:781" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.26107225" vertical-offset="182" max-vertical-offset="8584">
           <caret line="14" column="48" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../getcontent/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.684211" vertical-offset="1218" max-vertical-offset="2349">
-          <caret line="56" column="60" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1242" max-vertical-offset="1380">
+          <caret line="54" column="3" selection-start-line="54" selection-start-column="3" selection-end-line="54" selection-end-column="3" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../getcontent/get_news.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.842105" vertical-offset="1475" max-vertical-offset="3016">
-          <caret line="69" column="1" selection-start-line="1" selection-start-column="0" selection-end-line="69" selection-end-column="1" />
-          <folding>
-            <marker date="1466923318402" expanded="true" signature="3182:3927" placeholder="..." />
-            <marker date="1466923318402" expanded="true" signature="3329:3927" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/helpers/common_helper.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.2894738" vertical-offset="0" max-vertical-offset="37874">
+        <state vertical-scroll-proportion="0.0" vertical-offset="69" max-vertical-offset="30038">
           <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/personal.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="28.46875" vertical-offset="3303" max-vertical-offset="5934">
+          <caret line="104" column="117" selection-start-line="104" selection-start-column="117" selection-end-line="104" selection-end-column="117" />
           <folding>
-            <marker date="1466923872706" expanded="true" signature="17698:17742" placeholder="select * fro..fm_member..." />
-            <marker date="1466923872706" expanded="true" signature="17914:17966" placeholder="select nickn..fm_member..." />
-            <marker date="1466923872706" expanded="true" signature="18226:18288" placeholder="select id,ni..fm_member..." />
-            <marker date="1466923872706" expanded="true" signature="20502:20570" placeholder="select * fro..fm_weixin_news..." />
-            <marker date="1466923872706" expanded="true" signature="21569:21611" placeholder="SELECT * FRO..fm_permission..." />
-            <marker date="1466923872706" expanded="true" signature="24330:24372" placeholder="select * fro..fm_bad_word..." />
-            <marker date="1466923872706" expanded="true" signature="25743:25800" placeholder="select title..fm_channel..." />
-            <marker date="1466923872706" expanded="true" signature="26014:26073" placeholder="select title..fm_program_type..." />
-            <marker date="1466923872706" expanded="true" signature="26277:26324" placeholder="select id,ti..fm_program_type..." />
-            <marker date="1466923872706" expanded="true" signature="26533:26590" placeholder="select title..fm_program..." />
-            <marker date="1466923872706" expanded="true" signature="28800:28851" placeholder="SELECT count..fm_program..." />
-            <marker date="1466923872706" expanded="true" signature="29066:29119" placeholder="SELECT count..fm_attention..." />
-            <marker date="1466923872706" expanded="true" signature="29330:29383" placeholder="SELECT count..fm_attention..." />
-            <marker date="1466923872706" expanded="true" signature="29571:29620" placeholder="SELECT nickn..fm_member..." />
-            <marker date="1466923872706" expanded="true" signature="29743:29794" placeholder="SELECT count..fm_program..." />
-            <marker date="1466923872706" expanded="true" signature="29925:29978" placeholder="SELECT count..fm_attention..." />
-            <marker date="1466923872706" expanded="true" signature="30093:30214" placeholder="SELECT id,av..fm_member..." />
-            <marker date="1466923872706" expanded="true" signature="30138:30179" placeholder="SELECT zid F..fm_attention..." />
-            <marker date="1466923872706" expanded="true" signature="30345:30398" placeholder="SELECT count..fm_attention..." />
-            <marker date="1466923872706" expanded="true" signature="30510:30631" placeholder="SELECT id,av..fm_member..." />
-            <marker date="1466923872706" expanded="true" signature="30555:30596" placeholder="SELECT mid F..fm_attention..." />
-            <marker date="1466923872706" expanded="true" signature="31027:31075" placeholder="SELECT id FR..fm_tag..." />
-            <marker date="1466923872706" expanded="true" signature="31237:31300" placeholder="INSERT INTO ..." />
-            <marker date="1466923872706" expanded="true" signature="31559:31603" placeholder="SELECT tag_n..fm_tag..." />
+            <marker date="1466391958625" expanded="true" signature="430:479" placeholder="SELECT nickn..fm_member..." />
+            <marker date="1466391958625" expanded="true" signature="604:655" placeholder="SELECT count..fm_program..." />
+            <marker date="1466391958625" expanded="true" signature="788:841" placeholder="SELECT count..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="958:1079" placeholder="SELECT id,av..fm_member..." />
+            <marker date="1466391958625" expanded="true" signature="1003:1044" placeholder="SELECT zid F..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="1212:1265" placeholder="SELECT count..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="1379:1500" placeholder="SELECT id,av..fm_member..." />
+            <marker date="1466391958625" expanded="true" signature="1424:1465" placeholder="SELECT mid F..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="1814:1867" placeholder="SELECT count..fm_programme..." />
+            <marker date="1466391958625" expanded="true" signature="2747:2839" placeholder="SELECT id,ti..fm_programme..." />
+            <marker date="1466391958625" expanded="true" signature="3163:3214" placeholder="SELECT count..fm_program..." />
+            <marker date="1466391958625" expanded="true" signature="4113:4251" placeholder="SELECT id,ti..fm_program..." />
+            <marker date="1466391958625" expanded="true" signature="4563:4612" placeholder="SELECT nickn..fm_member..." />
+            <marker date="1466391958625" expanded="true" signature="4738:4789" placeholder="SELECT count..fm_program..." />
+            <marker date="1466391958625" expanded="true" signature="4923:4976" placeholder="SELECT count..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="5093:5214" placeholder="SELECT id,av..fm_member..." />
+            <marker date="1466391958625" expanded="true" signature="5138:5179" placeholder="SELECT zid F..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="5348:5401" placeholder="SELECT count..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="5515:5636" placeholder="SELECT id,av..fm_member..." />
+            <marker date="1466391958625" expanded="true" signature="5560:5601" placeholder="SELECT mid F..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="5985:6038" placeholder="SELECT count..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="6925:7067" placeholder="SELECT id,av..fm_member..." />
+            <marker date="1466391958625" expanded="true" signature="6984:7025" placeholder="SELECT zid F..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="7417:7466" placeholder="SELECT nickn..fm_member..." />
+            <marker date="1466391958625" expanded="true" signature="7592:7643" placeholder="SELECT count..fm_program..." />
+            <marker date="1466391958625" expanded="true" signature="7777:7830" placeholder="SELECT count..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="7947:8068" placeholder="SELECT id,av..fm_member..." />
+            <marker date="1466391958625" expanded="true" signature="7992:8033" placeholder="SELECT zid F..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="8202:8255" placeholder="SELECT count..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="8369:8490" placeholder="SELECT id,av..fm_member..." />
+            <marker date="1466391958625" expanded="true" signature="8414:8455" placeholder="SELECT mid F..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="8834:8887" placeholder="SELECT count..fm_attention..." />
+            <marker date="1466391958625" expanded="true" signature="9783:9925" placeholder="SELECT id,av..fm_member..." />
+            <marker date="1466391958625" expanded="true" signature="9842:9883" placeholder="SELECT mid F..fm_attention..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.03125" vertical-offset="0" max-vertical-offset="9361">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/player.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="5474">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/admin/program_list.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.10917722" vertical-offset="69" max-vertical-offset="6118">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/get_news_page.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.1875" vertical-offset="0" max-vertical-offset="552">
+          <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/android/program.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38224852" vertical-offset="33549" max-vertical-offset="36105">
-          <caret line="1168" column="46" selection-start-line="1168" selection-start-column="46" selection-end-line="1168" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.036392406" vertical-offset="25783" max-vertical-offset="30383">
+          <caret line="1122" column="26" selection-start-line="1122" selection-start-column="26" selection-end-line="1122" selection-end-column="26" />
           <folding>
-            <marker date="1466930399463" expanded="true" signature="777:873" placeholder="select id,ti..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="1123:1264" placeholder="select id,ti..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="1577:1688" placeholder="select id,ti..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="2187:2280" placeholder="select id,ti..fm_programme..." />
-            <marker date="1466930399463" expanded="true" signature="2589:2639" placeholder="select id,ti..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="2719:2775" placeholder="select id,ni..fm_member..." />
-            <marker date="1466930399463" expanded="true" signature="3098:3180" placeholder="select id,ti..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="3704:3938" placeholder="select id,ti..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="3845:3888" placeholder="SELECT id FR..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="7413:7463" placeholder="DELETE FROM ..." />
-            <marker date="1466930399463" expanded="true" signature="8461:8556" placeholder="SELECT max(s..fm_programme_list..." />
-            <marker date="1466930399463" expanded="true" signature="9483:9531" placeholder="SELECT id,pa..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="10452:10509" placeholder="update fm_pr..." />
-            <marker date="1466930399463" expanded="true" signature="11740:11822" placeholder="DELETE FROM ..." />
-            <marker date="1466930399463" expanded="true" signature="13088:13176" placeholder="DELETE FROM ..." />
-            <marker date="1466930399463" expanded="true" signature="14604:14696" placeholder="SELECT count..fm_programme_data..." />
-            <marker date="1466930399463" expanded="true" signature="14855:14956" placeholder="SELECT count..fm_programme_data..." />
-            <marker date="1466930399463" expanded="true" signature="16401:16625" placeholder="select id,ti..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="16532:16575" placeholder="SELECT id FR..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="18344:18395" placeholder="SELECT id,pr..fm_programme..." />
-            <marker date="1466930399463" expanded="true" signature="19715:19763" placeholder="SELECT id,pa..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="22357:22453" placeholder="select id,ti..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="22672:22735" placeholder="SELECT COUNT..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="22940:23052" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1466930399463" expanded="true" signature="23391:23504" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1466930399463" expanded="true" signature="24983:25044" placeholder="SELECT * FRO..fm_live_channel..." />
-            <marker date="1466930399463" expanded="true" signature="25370:25489" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1466930399463" expanded="true" signature="25828:25948" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1466930399463" expanded="true" signature="26956:26996" placeholder="SELECT nickn..fm_member..." />
-            <marker date="1466930399463" expanded="true" signature="28335:28441" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1466930399463" expanded="true" signature="28984:29033" placeholder="SELECT suppo..fm_live_channel..." />
-            <marker date="1466930399463" expanded="true" signature="29244:29309" placeholder="UPDATE fm_li..." />
-            <marker date="1466930399463" expanded="true" signature="29635:29684" placeholder="SELECT suppo..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="29895:29960" placeholder="UPDATE fm_pr..." />
-            <marker date="1466930399463" expanded="true" signature="31018:31125" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1466930399463" expanded="true" signature="31669:31719" placeholder="SELECT negat..fm_live_channel..." />
-            <marker date="1466930399463" expanded="true" signature="31932:31999" placeholder="UPDATE fm_li..." />
-            <marker date="1466930399463" expanded="true" signature="32327:32377" placeholder="SELECT negat..fm_program_type..." />
-            <marker date="1466930399463" expanded="true" signature="32590:32657" placeholder="UPDATE fm_pr..." />
-            <marker date="1466930399463" expanded="true" signature="33541:33639" placeholder="SELECT id,ti..fm_program..." />
-            <marker date="1466930399463" expanded="true" signature="36649:36701" placeholder="SELECT conte..fm_eurocup..." />
-            <marker date="1466930399463" expanded="true" signature="38885:38936" placeholder="SELECT euroc..fm_eurocup_flag..." />
-            <marker date="1466930399463" expanded="true" signature="39202:39256" placeholder="select url f..fm_eurocup..." />
-            <marker date="1466930399463" expanded="true" signature="39512:39563" placeholder="SELECT euroc..fm_eurocup_flag..." />
-            <marker date="1466930399463" expanded="true" signature="40942:41004" placeholder="INSERT INTO ..." />
-            <marker date="1466930399463" expanded="true" signature="40942:41039" placeholder="INSERT INTO ..." />
-            <marker date="1466930399463" expanded="true" signature="40942:41071" placeholder="INSERT INTO ..." />
-            <marker date="1466930399463" expanded="true" signature="41271:41322" placeholder="SELECT euroc..fm_eurocup_flag..." />
+            <marker date="1466999849301" expanded="true" signature="777:873" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="1123:1264" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="1577:1688" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="2187:2280" placeholder="select id,ti..fm_programme..." />
+            <marker date="1466999849301" expanded="true" signature="2589:2639" placeholder="select id,ti..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="2719:2775" placeholder="select id,ni..fm_member..." />
+            <marker date="1466999849301" expanded="true" signature="3098:3180" placeholder="select id,ti..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="3704:3938" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="3845:3888" placeholder="SELECT id FR..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="7413:7463" placeholder="DELETE FROM ..." />
+            <marker date="1466999849301" expanded="true" signature="8461:8556" placeholder="SELECT max(s..fm_programme_list..." />
+            <marker date="1466999849301" expanded="true" signature="9483:9531" placeholder="SELECT id,pa..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="10452:10509" placeholder="update fm_pr..." />
+            <marker date="1466999849301" expanded="true" signature="11740:11822" placeholder="DELETE FROM ..." />
+            <marker date="1466999849301" expanded="true" signature="13088:13176" placeholder="DELETE FROM ..." />
+            <marker date="1466999849301" expanded="true" signature="14604:14696" placeholder="SELECT count..fm_programme_data..." />
+            <marker date="1466999849301" expanded="true" signature="14855:14956" placeholder="SELECT count..fm_programme_data..." />
+            <marker date="1466999849301" expanded="true" signature="16401:16625" placeholder="select id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="16532:16575" placeholder="SELECT id FR..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="18344:18395" placeholder="SELECT id,pr..fm_programme..." />
+            <marker date="1466999849301" expanded="true" signature="19715:19763" placeholder="SELECT id,pa..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="22357:22453" placeholder="select id,ti..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="22672:22735" placeholder="SELECT COUNT..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="22940:23052" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="23391:23504" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="24983:25044" placeholder="SELECT * FRO..fm_live_channel..." />
+            <marker date="1466999849301" expanded="true" signature="25370:25489" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="25828:25948" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="26956:26996" placeholder="SELECT nickn..fm_member..." />
+            <marker date="1466999849301" expanded="true" signature="28335:28441" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="28984:29033" placeholder="SELECT suppo..fm_live_channel..." />
+            <marker date="1466999849301" expanded="true" signature="29244:29309" placeholder="UPDATE fm_li..." />
+            <marker date="1466999849301" expanded="true" signature="29635:29684" placeholder="SELECT suppo..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="29895:29960" placeholder="UPDATE fm_pr..." />
+            <marker date="1466999849301" expanded="true" signature="31018:31125" placeholder="SELECT COUNT..fm_support_negative..." />
+            <marker date="1466999849301" expanded="true" signature="31669:31719" placeholder="SELECT negat..fm_live_channel..." />
+            <marker date="1466999849301" expanded="true" signature="31932:31999" placeholder="UPDATE fm_li..." />
+            <marker date="1466999849301" expanded="true" signature="32327:32377" placeholder="SELECT negat..fm_program_type..." />
+            <marker date="1466999849301" expanded="true" signature="32590:32657" placeholder="UPDATE fm_pr..." />
+            <marker date="1466999849301" expanded="true" signature="33541:33639" placeholder="SELECT id,ti..fm_program..." />
+            <marker date="1466999849301" expanded="true" signature="36649:36701" placeholder="SELECT conte..fm_eurocup..." />
+            <marker date="1466999849301" expanded="true" signature="38831:38885" placeholder="select url f..fm_eurocup..." />
+            <marker date="1466999849301" expanded="true" signature="40187:40316" placeholder="INSERT INTO ..." />
+            <marker date="1466999849301" expanded="true" signature="42179:42230" placeholder="SELECT euroc..fm_eurocup_flag..." />
+            <marker date="1466999849301" expanded="true" signature="42496:42550" placeholder="select url f..fm_eurocup..." />
+            <marker date="1466999849301" expanded="true" signature="42806:42857" placeholder="SELECT euroc..fm_eurocup_flag..." />
+            <marker date="1466999849301" expanded="true" signature="44236:44365" placeholder="INSERT INTO ..." />
+            <marker date="1466999849301" expanded="true" signature="44565:44616" placeholder="SELECT euroc..fm_eurocup_flag..." />
           </folding>
         </state>
       </provider>

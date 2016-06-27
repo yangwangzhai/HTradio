@@ -1120,17 +1120,93 @@ class program extends Api {
         echo json_encode($result);
     }
 
+    //静态网页，使用js定时器，定时执行程序.
+    //http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=get_news_view
+    public function get_news_view(){
+        $this->load->view("get_news_page");
+    }
+
+    //http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=get_news
+    public function get_news(){
+            $date=date("Ymd",time());
+            $url = "http://sports.qq.com/l/isocce/2016eurocup/list.htm";
+            $ch = curl_init();
+            $timeout = 5;
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+            $contents = curl_exec($ch);
+
+            //匹配新闻列表链接
+            $patter='/<a .*?href="http:\/\/sports.qq.com\/a\/'.$date;
+            $pat=$patter.'\/(.*?)".*?>/is';
+            /*$pat='/<a .*?href="http:\/\/sports.qq.com\/a\/20160625\/(.*?)".*?>/is';*/
+            preg_match_all($pat, $contents, $arr);//匹配内容到arr数组
+            curl_close($ch);
+
+            //选择获取第几条链接
+            $con_url="http://sports.qq.com/a/"."$date/".$arr[1][0];
+            //echo $con_url;
+            $ch2 = curl_init();
+            $timeout = 5;
+            curl_setopt($ch2, CURLOPT_URL, $con_url);
+            curl_setopt($ch2, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch2, CURLOPT_CONNECTTIMEOUT, $timeout);
+            $contents_detail = curl_exec($ch2);
+            $patter_link='/<link rel="alternate" (.*?) href="(.*?)">/i';
+            preg_match_all($patter_link,$contents_detail,$arr_link);
+            curl_close($ch2);
+            if(empty($arr_link)){
+                exit();
+            }
+            $con_link=$arr_link[2][0];
+            //判断是否已经抓取过
+            $sql_url="select url from  fm_eurocup ORDER BY id DESC limit 0,1";
+            $result_url=$this->db->query($sql_url);
+            $url=$result_url->row_array();
+            if($url['url']==$con_link){
+                exit();
+            }
+            $ch3 = curl_init();
+            $timeout = 5;
+            curl_setopt($ch3, CURLOPT_URL, $con_link);
+            curl_setopt($ch3, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch3, CURLOPT_CONNECTTIMEOUT, $timeout);
+            $contents_final = curl_exec($ch3);
+
+            $pat2='/<p class="split">.*?<\/p>/ism';
+            preg_match_all($pat2, $contents_final, $arr_final);//匹配内容到arr数组
+            $title=trimall($arr_final[0][0]);
+            $title=preg_replace('/<pclass=\"split\">/si',"",$title); //过滤html标签
+            $title=preg_replace('/<\/p>/si',"",$title); //过滤html标签
+            $str='';
+            foreach($arr_final[0] as $value){
+                $str .=trimall($value); //删除空格和回车;
+            }
+            $str=preg_replace('/<pclass=\"split\">/si',"",$str); //过滤html标签
+            $str=preg_replace('/<\/p>/si',"",$str); //过滤html标签
+            $insert['title']=$title;
+            $insert['content']=$str;
+            $insert['url']=$con_link;
+            $insert['addtime']=time();
+            if(!empty($insert['content'])&&!empty($insert['title'])){
+                $insert_sql="INSERT INTO fm_eurocup (title, content,url, addtime) VALUES ('$insert[title]','$insert[content]','$insert[url]',$insert[addtime])";
+            }
+            $this->db->query($insert_sql);
+
+    }
+
 
     //定时抓取网页数据存入数据库
     //http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=get_news
-    public function get_news(){
+    public function get_news_old(){
         $timeout=1468339200;
         //获取当前时间戳
         $timenow=time();
         ignore_user_abort();//关闭浏览器后，继续执行php代码
         set_time_limit(0);//程序执行时间无限制
-        $sleep_time = 1800;//多长时间执行一次
-        $wait_time = 600;//等待时间
+        $sleep_time = 300;//多长时间执行一次
+        $wait_time = 300;//等待时间
         while($timenow<$timeout){
             $date=date("Ymd",time());
             $url = "http://sports.qq.com/l/isocce/2016eurocup/list.htm";
