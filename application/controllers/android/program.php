@@ -1144,7 +1144,7 @@ class program extends Api {
             preg_match_all($pat, $contents, $arr);//匹配内容到arr数组
             curl_close($ch);
 
-            //选择获取第几条链接
+            //选择获取第几条链接。
             $con_url="http://sports.qq.com/a/"."$date/".$arr[1][0];
             //echo $con_url;
             $ch2 = curl_init();
@@ -1157,42 +1157,49 @@ class program extends Api {
             preg_match_all($patter_link,$contents_detail,$arr_link);
             curl_close($ch2);
             if(empty($arr_link)){
+                echo "匹配不到链接";
                 exit();
-            }
-            $con_link=$arr_link[2][0];
-            //判断是否已经抓取过
-            $sql_url="select url from  fm_eurocup ORDER BY id DESC limit 0,1";
-            $result_url=$this->db->query($sql_url);
-            $url=$result_url->row_array();
-            if($url['url']==$con_link){
-                exit();
-            }
-            $ch3 = curl_init();
-            $timeout = 5;
-            curl_setopt($ch3, CURLOPT_URL, $con_link);
-            curl_setopt($ch3, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch3, CURLOPT_CONNECTTIMEOUT, $timeout);
-            $contents_final = curl_exec($ch3);
+            }else{
+                $con_link=$arr_link[2][0];
+                //判断是否已经抓取过
+                $sql_url="select COUNT(*) as num from  fm_eurocup WHERE url='$con_link'";
+                $result_url=$this->db->query($sql_url);
+                $url_num=$result_url->row_array();
+                if($url_num['num']){
+                    echo "链接相同";
+                    exit();
+                }else{
+                    $ch3 = curl_init();
+                    $timeout = 5;
+                    curl_setopt($ch3, CURLOPT_URL, $con_link);
+                    curl_setopt($ch3, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch3, CURLOPT_CONNECTTIMEOUT, $timeout);
+                    $contents_final = curl_exec($ch3);
 
-            $pat2='/<p class="split">.*?<\/p>/ism';
-            preg_match_all($pat2, $contents_final, $arr_final);//匹配内容到arr数组
-            $title=trimall($arr_final[0][0]);
-            $title=preg_replace('/<pclass=\"split\">/si',"",$title); //过滤html标签
-            $title=preg_replace('/<\/p>/si',"",$title); //过滤html标签
-            $str='';
-            foreach($arr_final[0] as $value){
-                $str .=trimall($value); //删除空格和回车;
+                    $pat2='/<p class="split">.*?<\/p>/ism';
+                    preg_match_all($pat2, $contents_final, $arr_final);//匹配内容到arr数组
+                    $title=trimall($arr_final[0][0]);
+                    $title=preg_replace('/<pclass=\"split\">/si',"",$title); //过滤html标签
+                    $title=preg_replace('/<\/p>/si',"",$title); //过滤html标签
+                    $str='';
+                    foreach($arr_final[0] as $value){
+                        $str .=trimall($value); //删除空格和回车;
+                    }
+                    $str=preg_replace('/<pclass=\"split\">/si',"",$str); //过滤html标签
+                    $str=preg_replace('/<\/p>/si',"",$str); //过滤html标签
+                    $insert['title']=$title;
+                    $insert['content']=$str;
+                    $insert['url']=$con_link;
+                    $insert['addtime']=time();
+                    if(!empty($insert['content'])&&!empty($insert['title'])){
+                        $insert_sql="INSERT INTO fm_eurocup (title, content,url, addtime) VALUES ('$insert[title]','$insert[content]','$insert[url]',$insert[addtime])";
+                        $this->db->query($insert_sql);
+                        echo "采集成功";
+                    }
+
+                }
+
             }
-            $str=preg_replace('/<pclass=\"split\">/si',"",$str); //过滤html标签
-            $str=preg_replace('/<\/p>/si',"",$str); //过滤html标签
-            $insert['title']=$title;
-            $insert['content']=$str;
-            $insert['url']=$con_link;
-            $insert['addtime']=time();
-            if(!empty($insert['content'])&&!empty($insert['title'])){
-                $insert_sql="INSERT INTO fm_eurocup (title, content,url, addtime) VALUES ('$insert[title]','$insert[content]','$insert[url]',$insert[addtime])";
-            }
-            $this->db->query($insert_sql);
 
     }
 
