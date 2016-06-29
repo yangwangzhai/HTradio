@@ -9,10 +9,4 @@
 <body >
 <iframe src="http://127.0.0.1/HTradio/index.php?d=android&c=program&m=get_news"></iframe>
 </body>
-<!--<script>
-    function aa(){
-        window.location.href="http://127.0.0.1/HTradio/index.php?d=android&c=program&m=get_news_view";
-    }
-    setTimeout(aa(),60000000);
-</script>-->
 </html>

@@ -17,17 +17,32 @@ class member extends Api {
 	
 	
 	// 会员 登录验证
+    /**
+     *  接口说明：差评
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=member&m=check_login
+     *  参数接收方式：post
+     *	接收参数：
+     * 	id：频道id
+     * 	channel_type：频道类型，1:直播频道 ，2:录播频道，3:我的频道
+     *  mid；用户ID
+     * 	返回参数：
+     * 	code：返回码 0正确, 大于0 都是错误的
+     * 	message：描述信息
+     * 	time：时间戳
+     *  "data":{"id":1,"channel_type":1,"negative_num":5}
+     *  其中：
+     *  "id":频道id
+     *  "channel_type":频道类型，1:直播频道 ，2:录播频道，3:我的频道
+     *  "negative_num":当前差评数
+     *
+     */
 	public function check_login() {
-		
-		
-		$catid = intval ( $this->input->get_post ('catid') );		
+		//$catid = intval ( $this->input->get_post ('catid') );
 		$username = trim ( $this->input->post ( 'username' ) );
 		$password = trim ( $this->input->post ( 'password' ) );
-		
 		if (empty ( $username ) || empty ( $password )) {
 			show ( 5, '用户名和密码不能为空' );
 		}
-		
 		// 手机号码
 		if(strlen($username)>=11) {
 			$wheredata = array (
@@ -140,15 +155,13 @@ class member extends Api {
 	
 	// 获取一条会员全部信息
 	function detail($uid=0) {
-	
-		
+
 		if($_GET['uid']) {
 			$uid = intval($_GET['uid']);
 		}
 		if(empty($uid)) {
 			show ( 6, 'uid is null' );
 		}
-		
 		$row = $this->member_model->get_one($uid);
 		if(empty($row)) {
 			show ( 7, 'user is null' );

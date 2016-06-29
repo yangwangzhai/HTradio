@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="efb7a146-c984-4f5a-ab3a-cf871eb9c041" name="默认的" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/get_news_page.php" afterPath="$PROJECT_DIR$/application/views/get_news_page.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/android/program.php" afterPath="$PROJECT_DIR$/application/controllers/android/program.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/android/member.php" afterPath="$PROJECT_DIR$/application/controllers/android/member.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="HTradio.iws" />
@@ -35,11 +36,44 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="program.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="member.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/controllers/android/member.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.21306376" vertical-offset="806" max-vertical-offset="16905">
+              <caret line="41" column="57" selection-start-line="41" selection-start-column="49" selection-end-line="41" selection-end-column="57" />
+              <folding>
+                <marker date="1467186440348" expanded="true" signature="2455:2526" placeholder="select id fr..fm_member..." />
+                <marker date="1467186440348" expanded="true" signature="2630:2695" placeholder="select id fr..fm_member..." />
+                <marker date="1467186440348" expanded="true" signature="3492:3555" placeholder="select id fr..fm_member..." />
+                <marker date="1467186440348" expanded="true" signature="4501:4554" placeholder="SELECT count..fm_attention..." />
+                <marker date="1467186440348" expanded="true" signature="4707:4760" placeholder="SELECT count..fm_attention..." />
+                <marker date="1467186440348" expanded="true" signature="4916:5000" placeholder="SELECT count..fm_message..." />
+                <marker date="1467186440348" expanded="true" signature="6556:6640" placeholder="update fm_me..." />
+                <marker date="1467186440348" expanded="true" signature="11268:11373" placeholder="select progr..fm_program_data..." />
+                <marker date="1467186440348" expanded="true" signature="11489:11555" placeholder="select id,ti..fm_program..." />
+                <marker date="1467186440348" expanded="true" signature="12069:12178" placeholder="select progr..fm_programme_data..." />
+                <marker date="1467186440348" expanded="true" signature="12318:12381" placeholder="select id,ti..fm_programme..." />
+                <marker date="1467186440348" expanded="true" signature="13086:13124" placeholder="select type ..fm_member..." />
+                <marker date="1467186440348" expanded="true" signature="13241:13333" placeholder="insert into ..." />
+                <marker date="1467186440348" expanded="true" signature="14374:14430" placeholder="DELETE from ..." />
+                <marker date="1467186440348" expanded="true" signature="15581:15683" placeholder="SELECT id,zi..fm_attention..." />
+                <marker date="1467186440348" expanded="true" signature="16260:16362" placeholder="SELECT id,mi..fm_attention..." />
+                <marker date="1467186440348" expanded="true" signature="16949:17017" placeholder="SELECT count..fm_attention..." />
+                <marker date="1467186440348" expanded="true" signature="17189:17229" placeholder="select mid f..fm_attention..." />
+                <marker date="1467186440348" expanded="true" signature="17534:17612" placeholder="SELECT avata..fm_member..." />
+                <marker date="1467186440348" expanded="true" signature="17907:17948" placeholder="SELECT mid F..fm_attention..." />
+                <marker date="1467186440348" expanded="true" signature="18062:18132" placeholder="SELECT id FR..fm_member..." />
+                <marker date="1467186440348" expanded="true" signature="18207:18281" placeholder="SELECT id,ti..fm_programme..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="program.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/controllers/android/program.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.70886075" vertical-offset="27106" max-vertical-offset="30544">
-              <caret line="1198" column="0" selection-start-line="1198" selection-start-column="0" selection-end-line="1198" selection-end-column="0" />
+            <state vertical-scroll-proportion="-1.3125" vertical-offset="21601" max-vertical-offset="30544">
+              <caret line="941" column="4" selection-start-line="941" selection-start-column="4" selection-end-line="959" selection-end-column="7" />
               <folding>
                 <marker date="1467014800930" expanded="true" signature="777:873" placeholder="select id,ti..fm_program..." />
                 <marker date="1467014800930" expanded="true" signature="1123:1264" placeholder="select id,ti..fm_program..." />
@@ -97,8 +131,18 @@
       <file leaf-file-name="get_news_page.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/views/get_news_page.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.46875" vertical-offset="0" max-vertical-offset="529">
-              <caret line="9" column="89" selection-start-line="9" selection-start-column="89" selection-end-line="9" selection-end-column="89" />
+            <state vertical-scroll-proportion="-1.4375" vertical-offset="0" max-vertical-offset="391">
+              <caret line="2" column="6" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reg.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../getcontent/reg.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.75" vertical-offset="0" max-vertical-offset="414">
+              <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -112,7 +156,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/application/views/admin/badword_list.php" />
         <option value="$PROJECT_DIR$/application/views/admin/adminlog_list.php" />
         <option value="$PROJECT_DIR$/application/views/admin/stat_list.php" />
         <option value="$PROJECT_DIR$/application/views/admin/ios_crash_list.php" />
@@ -153,7 +196,6 @@
         <option value="$PROJECT_DIR$/../getcontent/bb.html" />
         <option value="$PROJECT_DIR$/../getcontent/index.php" />
         <option value="$PROJECT_DIR$/../getcontent/a.php" />
-        <option value="$PROJECT_DIR$/../getcontent/reg.php" />
         <option value="$PROJECT_DIR$/../getcontent/b.html" />
         <option value="$PROJECT_DIR$/../getcontent/c.html" />
         <option value="$PROJECT_DIR$/../getcontent/d.html" />
@@ -161,8 +203,10 @@
         <option value="$PROJECT_DIR$/../getcontent/a.html" />
         <option value="$PROJECT_DIR$/../getcontent/get_news.php" />
         <option value="$PROJECT_DIR$/application/helpers/common_helper.php" />
-        <option value="$PROJECT_DIR$/application/views/get_news_page.php" />
         <option value="$PROJECT_DIR$/application/controllers/android/program.php" />
+        <option value="$PROJECT_DIR$/application/views/get_news_page.php" />
+        <option value="$PROJECT_DIR$/../getcontent/reg.php" />
+        <option value="$PROJECT_DIR$/application/controllers/android/member.php" />
       </list>
     </option>
   </component>
@@ -173,10 +217,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="y" value="2" />
-    <option name="width" value="1452" />
-    <option name="height" value="865" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1456" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -207,7 +251,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -272,17 +315,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="helpers" />
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTradio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HTradio" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../educational" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -338,7 +404,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="2" width="1452" height="865" extended-state="1" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -347,7 +413,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19324712" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19842407" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -388,63 +454,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/controllers/android/program.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="26554" max-vertical-offset="30406">
-          <caret line="1167" column="28" selection-start-line="1167" selection-start-column="28" selection-end-line="1167" selection-end-column="28" />
-          <folding>
-            <marker date="1467014800930" expanded="true" signature="777:873" placeholder="select id,ti..fm_program..." />
-            <marker date="1467014800930" expanded="true" signature="1123:1264" placeholder="select id,ti..fm_program..." />
-            <marker date="1467014800930" expanded="true" signature="1577:1688" placeholder="select id,ti..fm_program..." />
-            <marker date="1467014800930" expanded="true" signature="2187:2280" placeholder="select id,ti..fm_programme..." />
-            <marker date="1467014800930" expanded="true" signature="2589:2639" placeholder="select id,ti..fm_program_type..." />
-            <marker date="1467014800930" expanded="true" signature="2719:2775" placeholder="select id,ni..fm_member..." />
-            <marker date="1467014800930" expanded="true" signature="3098:3180" placeholder="select id,ti..fm_program_type..." />
-            <marker date="1467014800930" expanded="true" signature="3704:3938" placeholder="select id,ti..fm_program..." />
-            <marker date="1467014800930" expanded="true" signature="3845:3888" placeholder="SELECT id FR..fm_program_type..." />
-            <marker date="1467014800930" expanded="true" signature="7413:7463" placeholder="DELETE FROM ..." />
-            <marker date="1467014800930" expanded="true" signature="8461:8556" placeholder="SELECT max(s..fm_programme_list..." />
-            <marker date="1467014800930" expanded="true" signature="9483:9531" placeholder="SELECT id,pa..fm_program..." />
-            <marker date="1467014800930" expanded="true" signature="10452:10509" placeholder="update fm_pr..." />
-            <marker date="1467014800930" expanded="true" signature="11740:11822" placeholder="DELETE FROM ..." />
-            <marker date="1467014800930" expanded="true" signature="13088:13176" placeholder="DELETE FROM ..." />
-            <marker date="1467014800930" expanded="true" signature="14604:14696" placeholder="SELECT count..fm_programme_data..." />
-            <marker date="1467014800930" expanded="true" signature="14855:14956" placeholder="SELECT count..fm_programme_data..." />
-            <marker date="1467014800930" expanded="true" signature="16401:16625" placeholder="select id,ti..fm_program..." />
-            <marker date="1467014800930" expanded="true" signature="16532:16575" placeholder="SELECT id FR..fm_program_type..." />
-            <marker date="1467014800930" expanded="true" signature="18344:18395" placeholder="SELECT id,pr..fm_programme..." />
-            <marker date="1467014800930" expanded="true" signature="19715:19763" placeholder="SELECT id,pa..fm_program..." />
-            <marker date="1467014800930" expanded="true" signature="22357:22453" placeholder="select id,ti..fm_program_type..." />
-            <marker date="1467014800930" expanded="true" signature="22672:22735" placeholder="SELECT COUNT..fm_program..." />
-            <marker date="1467014800930" expanded="true" signature="22940:23052" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1467014800930" expanded="true" signature="23391:23504" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1467014800930" expanded="true" signature="24983:25044" placeholder="SELECT * FRO..fm_live_channel..." />
-            <marker date="1467014800930" expanded="true" signature="25370:25489" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1467014800930" expanded="true" signature="25828:25948" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1467014800930" expanded="true" signature="26956:26996" placeholder="SELECT nickn..fm_member..." />
-            <marker date="1467014800930" expanded="true" signature="28335:28441" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1467014800930" expanded="true" signature="28984:29033" placeholder="SELECT suppo..fm_live_channel..." />
-            <marker date="1467014800930" expanded="true" signature="29244:29309" placeholder="UPDATE fm_li..." />
-            <marker date="1467014800930" expanded="true" signature="29635:29684" placeholder="SELECT suppo..fm_program_type..." />
-            <marker date="1467014800930" expanded="true" signature="29895:29960" placeholder="UPDATE fm_pr..." />
-            <marker date="1467014800930" expanded="true" signature="31018:31125" placeholder="SELECT COUNT..fm_support_negative..." />
-            <marker date="1467014800930" expanded="true" signature="31669:31719" placeholder="SELECT negat..fm_live_channel..." />
-            <marker date="1467014800930" expanded="true" signature="31932:31999" placeholder="UPDATE fm_li..." />
-            <marker date="1467014800930" expanded="true" signature="32327:32377" placeholder="SELECT negat..fm_program_type..." />
-            <marker date="1467014800930" expanded="true" signature="32590:32657" placeholder="UPDATE fm_pr..." />
-            <marker date="1467014800930" expanded="true" signature="33541:33639" placeholder="SELECT id,ti..fm_program..." />
-            <marker date="1467014800930" expanded="true" signature="36649:36701" placeholder="SELECT conte..fm_eurocup..." />
-            <marker date="1467014800930" expanded="true" signature="38880:38941" placeholder="select COUNT..fm_eurocup..." />
-            <marker date="1467014800930" expanded="true" signature="40482:40611" placeholder="INSERT INTO ..." />
-            <marker date="1467014800930" expanded="true" signature="42565:42616" placeholder="SELECT euroc..fm_eurocup_flag..." />
-            <marker date="1467014800930" expanded="true" signature="42882:42936" placeholder="select url f..fm_eurocup..." />
-            <marker date="1467014800930" expanded="true" signature="43192:43243" placeholder="SELECT euroc..fm_eurocup_flag..." />
-            <marker date="1467014800930" expanded="true" signature="44622:44751" placeholder="INSERT INTO ..." />
-            <marker date="1467014800930" expanded="true" signature="44951:45002" placeholder="SELECT euroc..fm_eurocup_flag..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/views/get_news_page.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="552">
@@ -514,7 +523,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="69" max-vertical-offset="30038">
           <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -684,13 +692,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34855404" vertical-offset="0" max-vertical-offset="0">
           <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/android/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5251142" vertical-offset="0" max-vertical-offset="0">
-          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -870,26 +871,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/get_news_page.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.46875" vertical-offset="0" max-vertical-offset="529">
-          <caret line="9" column="89" selection-start-line="9" selection-start-column="89" selection-end-line="9" selection-end-column="89" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/helpers/common_helper.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.21835443" vertical-offset="207" max-vertical-offset="30038">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="10" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/get_news_page.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.4375" vertical-offset="0" max-vertical-offset="391">
+          <caret line="2" column="6" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="7" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../getcontent/reg.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.75" vertical-offset="0" max-vertical-offset="414">
+          <caret line="8" column="24" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/android/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5365474" vertical-offset="0" max-vertical-offset="2921">
+          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+          <folding>
+            <marker date="1466391958592" expanded="true" signature="-1:-1" placeholder="select * fro..fm_member..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/controllers/android/program.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70886075" vertical-offset="27106" max-vertical-offset="30544">
-          <caret line="1198" column="0" selection-start-line="1198" selection-start-column="0" selection-end-line="1198" selection-end-column="0" />
+        <state vertical-scroll-proportion="-1.3125" vertical-offset="21601" max-vertical-offset="30544">
+          <caret line="941" column="4" selection-start-line="941" selection-start-column="4" selection-end-line="959" selection-end-column="7" />
           <folding>
             <marker date="1467014800930" expanded="true" signature="777:873" placeholder="select id,ti..fm_program..." />
             <marker date="1467014800930" expanded="true" signature="1123:1264" placeholder="select id,ti..fm_program..." />
@@ -939,6 +957,37 @@
             <marker date="1467014800930" expanded="true" signature="43192:43243" placeholder="SELECT euroc..fm_eurocup_flag..." />
             <marker date="1467014800930" expanded="true" signature="44622:44751" placeholder="INSERT INTO ..." />
             <marker date="1467014800930" expanded="true" signature="44951:45002" placeholder="SELECT euroc..fm_eurocup_flag..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/android/member.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21306376" vertical-offset="806" max-vertical-offset="16905">
+          <caret line="41" column="57" selection-start-line="41" selection-start-column="49" selection-end-line="41" selection-end-column="57" />
+          <folding>
+            <marker date="1467186440348" expanded="true" signature="2455:2526" placeholder="select id fr..fm_member..." />
+            <marker date="1467186440348" expanded="true" signature="2630:2695" placeholder="select id fr..fm_member..." />
+            <marker date="1467186440348" expanded="true" signature="3492:3555" placeholder="select id fr..fm_member..." />
+            <marker date="1467186440348" expanded="true" signature="4501:4554" placeholder="SELECT count..fm_attention..." />
+            <marker date="1467186440348" expanded="true" signature="4707:4760" placeholder="SELECT count..fm_attention..." />
+            <marker date="1467186440348" expanded="true" signature="4916:5000" placeholder="SELECT count..fm_message..." />
+            <marker date="1467186440348" expanded="true" signature="6556:6640" placeholder="update fm_me..." />
+            <marker date="1467186440348" expanded="true" signature="11268:11373" placeholder="select progr..fm_program_data..." />
+            <marker date="1467186440348" expanded="true" signature="11489:11555" placeholder="select id,ti..fm_program..." />
+            <marker date="1467186440348" expanded="true" signature="12069:12178" placeholder="select progr..fm_programme_data..." />
+            <marker date="1467186440348" expanded="true" signature="12318:12381" placeholder="select id,ti..fm_programme..." />
+            <marker date="1467186440348" expanded="true" signature="13086:13124" placeholder="select type ..fm_member..." />
+            <marker date="1467186440348" expanded="true" signature="13241:13333" placeholder="insert into ..." />
+            <marker date="1467186440348" expanded="true" signature="14374:14430" placeholder="DELETE from ..." />
+            <marker date="1467186440348" expanded="true" signature="15581:15683" placeholder="SELECT id,zi..fm_attention..." />
+            <marker date="1467186440348" expanded="true" signature="16260:16362" placeholder="SELECT id,mi..fm_attention..." />
+            <marker date="1467186440348" expanded="true" signature="16949:17017" placeholder="SELECT count..fm_attention..." />
+            <marker date="1467186440348" expanded="true" signature="17189:17229" placeholder="select mid f..fm_attention..." />
+            <marker date="1467186440348" expanded="true" signature="17534:17612" placeholder="SELECT avata..fm_member..." />
+            <marker date="1467186440348" expanded="true" signature="17907:17948" placeholder="SELECT mid F..fm_attention..." />
+            <marker date="1467186440348" expanded="true" signature="18062:18132" placeholder="SELECT id FR..fm_member..." />
+            <marker date="1467186440348" expanded="true" signature="18207:18281" placeholder="SELECT id,ti..fm_programme..." />
           </folding>
         </state>
       </provider>
