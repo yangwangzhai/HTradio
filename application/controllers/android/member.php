@@ -12,10 +12,7 @@ class member extends Api {
 	function __construct() {
 		parent::__construct ();
 	}
-	
-	
-	
-	
+
 	// 会员 登录验证
     /**
      *  接口说明：差评
@@ -70,7 +67,87 @@ class member extends Api {
 		
 		$this->detail ( $user['id'] );
 	}
-	
+
+    /**
+     *  接口说明：验证微信是否已经关联注册。
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=member&m=check_wechat_login
+     *  参数接收方式：post
+     *	接收参数：
+     * 	id：微信id
+     * 	返回参数：
+     * 	code：返回码 0 表示已注册, 1 表示未注册
+     * 	message：描述信息
+     * 	time：时间戳
+     *  "data":{"id":1,"wechat_id":101100,"username":马晨}
+     *  其中：
+     *  "id":用户id
+     *  "wechat_id":用户微信id
+     *  "username":用户名称
+     *
+     */
+	public function check_wechat_login(){
+        //接收微信、微博id
+        $wechat_id = trim ( $this->input->post ( 'wechat_id' ) );
+        //根据id从数据库查询是否已经存在，存在则说明已经授权微信、微博登陆。
+        $sql="select COUNT(*) as num from  fm_member WHERE wechat_id=$wechat_id";
+        $query=$this->db->query($sql);
+        $num=$query->row_array();
+        if($num['num']){
+            //不为空，说明已经授权，注册过，取出该条用户信息
+            $sql_member="select id,wechat_id,username from fm_member WHERE wechat_id=$wechat_id";
+            $query_member=$this->db->query($sql_member);
+            $member=$query_member->row_array();
+            $result=array("code"=>0,"message"=>"已注册","time"=>time(),"data"=>$member);
+            echo json_encode($result);
+        }else{
+            $result=array("code"=>1,"message"=>"未注册","time"=>time(),"data"=>array('id'=>'','wechat_id'=>$wechat_id,'username'=>''));
+            echo json_encode($result);
+        }
+
+    }
+
+    /**
+     *  接口说明：使用微信关联注册。
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=member&m=wechat_regist
+     *  参数接收方式：post
+     *	接收参数：
+     * 	wechat_id：微信id
+     *  username: 用户名
+     *  password: 用户密码
+     * 	返回参数：
+     * 	code：返回码 0 表示注册成功, 1 表示注册失败
+     * 	message：描述信息
+     * 	time：时间戳
+     *  "data":{"id":1,"wechat_id":1,"username":5}
+     *  其中：
+     *  "id":用户id
+     *  "wechat_id":用户微信id
+     *  "username":用户名称
+     *
+     */
+    public function wechat_regist(){
+        $postdate = array (
+            'wechat_id' => trim ( $_POST ['wechat_id'] ),
+            'username' => trim ( $_POST ['username'] ),
+            'password' => trim ( $_POST ['password'] ),
+            'regtime' => time (),
+            'status' => 1,
+            'lastlogintime' => time ()
+        );
+        $postdate ['password'] = get_password ( $postdate ['password'] );
+        $query = $this->db->insert ( 'fm_member', $postdate );
+        if ($this->db->insert_id () > 0) {
+            $postdate ['id'] = $this->db->insert_id ();
+            $result=array("code"=>0,"message"=>"注册成功","time"=>time(),"data"=>array('id'=>$postdate ['id'],'wechat_id'=>$postdate['wechat_id'],'username'=>$postdate['username']));
+            echo json_encode($result);
+        }else{
+            $result=array("code"=>1,"message"=>"注册失败","time"=>time(),"data"=>array('id'=>'','wechat_id'=>$postdate['wechat_id'],'username'=>''));
+            echo json_encode($result);
+        }
+
+    }
+
+
 	// 检测会员 是否可用，是否更新资料了，0 没有更新，1 更新无需重新登录 2 需要重新登录；	
 	public function check_status() {
 		$status = 0;
@@ -84,8 +161,6 @@ class member extends Api {
 	
 	// 注册
 	public function regist() {
-		
-		
 		$postdate = array (
 				'username' => trim ( $_POST ['username'] ),
 				'password' => trim ( $_POST ['password'] ),
