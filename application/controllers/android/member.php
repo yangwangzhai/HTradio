@@ -44,7 +44,7 @@ class member extends Api {
 		if(strlen($username)>=11) {
 			$wheredata = array (
 					//'catid' => $catid,
-					'tel' => $username
+					'username' => $username
 			);
 		} else {  // 账号
 			$wheredata = array (
@@ -241,6 +241,36 @@ class member extends Api {
         }
     }
 
+    //小平测试接口
+
+    /**
+     *http://vroad.bbrtv.com/cmradio/index.php?d=android&c=member&m=delete_wechat
+     * 注册失败返回的数据：
+     *  {
+            "code": 0,
+            "msg": "用户名已被注册，请更换",
+            "time": 1467360850
+            }
+     *  code：错误码：0代表删除成功，1代表删除失败
+     *  msg：错误描述
+     *  time：时间戳
+     *
+     */
+    public function delete_wechat(){
+        $wechat_id="oeU0WwT2qYokPx1-TMmgU3v_Q_pQ";
+        $sql="delete  from fm_member WHERE wechat_id='$wechat_id'";
+        $this->db->query($sql);
+        $sql2="select COUNT(*) as num from  fm_member WHERE wechat_id='$wechat_id'";
+        $query=$this->db->query($sql2);
+        $num=$query->row_array();
+        if($num['num']){
+            $result=array("code"=>1,"msg"=>"删除失败","time"=>time());
+            echo json_encode($result);
+        }else{
+            $result=array("code"=>0,"msg"=>"删除成功","time"=>time());
+            echo json_encode($result);
+        }
+    }
 
 	// 检测会员 是否可用，是否更新资料了，0 没有更新，1 更新无需重新登录 2 需要重新登录；	
 	public function check_status() {
@@ -900,6 +930,22 @@ class member extends Api {
 		$data['playbill_num'] = $playbill_num;
 		echo json_encode ( $data );
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	
 } // 类结束
