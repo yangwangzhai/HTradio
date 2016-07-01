@@ -73,30 +73,92 @@ class member extends Api {
      *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=member&m=check_wechat_login
      *  参数接收方式：post
      *	接收参数：
-     * 	id：微信id
+     * 	wechat_id：微信id
      * 	返回参数：
      * 	code：返回码 0 表示已注册, 1 表示未注册
      * 	message：描述信息
      * 	time：时间戳
-     *  "data":{"id":1,"wechat_id":101100,"username":马晨}
+     *  "data": {
+                    "id": "607",
+                    "wechat_id": "101100",
+                    "catid": "0",
+                    "username": "杨旺摘",
+                    "password": "f84e2ee55211659f6e26cee30f86992c",
+                    "nickname": "杨旺摘",
+                    "truename": "",
+                    "gender": "1",
+                    "email": "312778836@qq.com",
+                    "tel": "15994397920",
+                    "address": "",
+                    "sign": "",
+                    "regtime": "1459924276",
+                    "lastlogintime": "1459924276",
+                    "logincount": "0",
+                    "status": "1",
+                    "avatar": "uploads/file/20151013/20151013164309_78919.jpg",
+                    "content": "",
+                    "groupname": "",
+                    "type": "0",
+                    "backgroundpic": "",
+                    "favorite": "",
+                    "favorite_audio": "",
+                    "favorite_playbill": "",
+                    "sort": "100",
+                    "program": "",
+                    "program_type": "",
+                    "attentionpays": "0",
+                    "IDcard": "450924199003234772",
+                    "level": "0",
+                    "qqopenid": null,
+                    "sina_id": null
+                    }
      *  其中：
-     *  "id":用户id
-     *  "wechat_id":用户微信id
-     *  "username":用户名称
-     *
+        "id":用户id，
+        "wechat_id":用户微信id，
+        "catid": 用户组id,
+        "username":用户名称，
+        "password": 用户密码,
+        "nickname": 昵称,
+        "truename": 真实姓名,
+        "gender": 性别 1代表男性，0代表女性,2代表保密,
+        "email": 邮箱,
+        "tel": 电话,
+        "address": 地址,
+        "sign": 个性签名,
+        "regtime": 注册时间,
+        "lastlogintime": 最后登录时间,
+        "logincount": 登录次数,
+        "status": 状态,
+        "avatar": 头像,
+        "content": 备注,
+        "groupname": 群名称,
+        "type": 会员类型 0游客 1主播,
+        "backgroundpic": 主播背景图片,
+        "favorite": 收藏,
+        "favorite_audio": 收藏节目,
+        "favorite_playbill": 收藏的节目单,
+        "sort": "100",
+        "program": 主持的节目,
+        "program_type": 节目的类型,
+        "attentionpays": 关注数,
+        "IDcard": 身份证号,
+        "level": 等级,
+        "qqopenid": ,
+        "sina_id": ，
      */
 	public function check_wechat_login(){
         //接收微信、微博id
         $wechat_id = trim ( $this->input->post ( 'wechat_id' ) );
         //根据id从数据库查询是否已经存在，存在则说明已经授权微信、微博登陆。
-        $sql="select COUNT(*) as num from  fm_member WHERE wechat_id=$wechat_id";
+        $sql="select COUNT(*) as num from  fm_member WHERE wechat_id='$wechat_id'";
         $query=$this->db->query($sql);
         $num=$query->row_array();
         if($num['num']){
             //不为空，说明已经授权，注册过，取出该条用户信息
-            $sql_member="select id,wechat_id,username from fm_member WHERE wechat_id=$wechat_id";
+            $sql_member="select * from fm_member WHERE wechat_id='$wechat_id'";
             $query_member=$this->db->query($sql_member);
             $member=$query_member->row_array();
+            unset($member['password']);
             $result=array("code"=>0,"message"=>"已注册","time"=>time(),"data"=>$member);
             echo json_encode($result);
         }else{
@@ -114,15 +176,37 @@ class member extends Api {
      * 	wechat_id：微信id
      *  username: 用户名
      *  password: 用户密码
-     * 	返回参数：
-     * 	code：返回码 0 表示注册成功, 1 表示注册失败
+     *  avatar： 用户头像
+     *
+     * 	成功时返回的数据：
+     *  {
+            "code": 0,
+            "message": "注册成功",
+            "time": 1467360686,
+            "data": {
+                    "id": 620,
+                    "wechat_id": "rersdfgasdf32423",
+                    "username": "9999999",
+                    "avatar": "http://vroad.bbrtv.com/cmradio/uploads/member/20160615/20160615163803_61899.jpg"
+                }
+        }
+     * 	code：返回码 0 表示注册成功
      * 	message：描述信息
      * 	time：时间戳
-     *  "data":{"id":1,"wechat_id":1,"username":5}
-     *  其中：
      *  "id":用户id
      *  "wechat_id":用户微信id
      *  "username":用户名称
+     *  "avatar"： 用户头像
+     *
+     *  注册失败返回的数据：
+     *  {
+            "error_code": 1,
+            "error_msg": "用户名已被注册，请更换",
+            "time": 1467360850
+        }
+     *  error_code：错误码：1代表用户名已经被注册，2代表注册失败，原因未知
+     *  error_msg：错误描述
+     *  time：时间戳
      *
      */
     public function wechat_regist(){
@@ -130,21 +214,31 @@ class member extends Api {
             'wechat_id' => trim ( $_POST ['wechat_id'] ),
             'username' => trim ( $_POST ['username'] ),
             'password' => trim ( $_POST ['password'] ),
+            'avatar' => trim ( $_POST ['avatar'] ),
             'regtime' => time (),
             'status' => 1,
             'lastlogintime' => time ()
         );
-        $postdate ['password'] = get_password ( $postdate ['password'] );
-        $query = $this->db->insert ( 'fm_member', $postdate );
-        if ($this->db->insert_id () > 0) {
-            $postdate ['id'] = $this->db->insert_id ();
-            $result=array("code"=>0,"message"=>"注册成功","time"=>time(),"data"=>array('id'=>$postdate ['id'],'wechat_id'=>$postdate['wechat_id'],'username'=>$postdate['username']));
+        $sql="select COUNT(*) as num from  fm_member WHERE username='$postdate[username]'";
+        $query=$this->db->query($sql);
+        $num=$query->row_array();
+        if($num['num']){
+            $result = array("error_code"=>1,"error_msg"=>"用户名已被注册，请更换","time"=>time());
             echo json_encode($result);
         }else{
-            $result=array("code"=>1,"message"=>"注册失败","time"=>time(),"data"=>array('id'=>'','wechat_id'=>$postdate['wechat_id'],'username'=>''));
-            echo json_encode($result);
+            $postdate ['password'] = get_password ( $postdate ['password'] );
+            $query = $this->db->insert ( 'fm_member', $postdate );
+            if ($this->db->insert_id () > 0) {
+                $postdate ['id'] = $this->db->insert_id ();
+                $result=array("code"=>0,"message"=>"注册成功","time"=>time(),"data"=>array('id'=>$postdate ['id'],'wechat_id'=>$postdate['wechat_id'],'username'=>$postdate['username'],'avatar'=>$postdate['avatar']));
+                echo json_encode($result);
+            }else{
+                $result = array("error_code"=>2,"error_msg"=>"注册失败，未知错误","time"=>time());
+                echo json_encode($result);
+                /*$result=array("code"=>1,"message"=>"注册失败","time"=>time(),"data"=>array('id'=>'','wechat_id'=>$postdate['wechat_id'],'username'=>''));
+                echo json_encode($result);*/
+            }
         }
-
     }
 
 
@@ -244,7 +338,14 @@ class member extends Api {
 		unset ( $row ['password'] );
 		$row ['userid'] = $row ['id']; // ios需要
 		if ($row ['avatar']) {
-			$row ['avatar'] = base_url () . new_thumbname ( $row ['avatar'], 100, 100 );
+			//判断图片路径是否为http或者https开头
+            $preg="/(http:\/\/)|(https:\/\/)(.*)/iUs";
+            if(preg_match($preg,$row['avatar'])){
+                //不需要操作
+            }else{
+                $row ['avatar'] = base_url(). new_thumbname ( $row ['avatar'], 100, 100 );
+            }
+
 		}
 		if ($row['catid']==1) {
 			$row = $this->student_model->append_one ( $row );
