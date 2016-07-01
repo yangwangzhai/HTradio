@@ -71,7 +71,45 @@ class webios extends  CI_Controller
         $this->load->view("webios/live_channel_list",$data);
     }
 
+    public function regist_view(){
+        $this->load->view("webios/regist_view");
+    }
 
+    // 注册
+    public function regist() {
+        $postdate = array (
+            'username' => trim ( $_POST ['username'] ),
+            'password' => trim ( $_POST ['password'] ),
+            'email' => trim ( $_POST ['email'] ),
+            'nickname' => trim ( $_POST ['nickname'] ),
+            'tel' => trim ( $_POST ['tel'] ),
+            'IDcard'=>trim ( $_POST ['IDcard'] ),
+            'regtime' => time (),
+            'status' => 1,
+            'lastlogintime' => time ()
+        );
+
+        if ($postdate ['username'] == "" || $postdate ['password'] == "") {
+            show ( 1, '用户名或者密码不能为空' );
+        }
+        $query = $this->db->query ( "select id from fm_member where username='{$postdate[username]}' limit 1" );
+        if ($query->num_rows () > 0) {
+            show ( 2, '用户名已经存在，请换一个' );
+        }
+        $query = $this->db->query ( "select id from fm_member where email='{$postdate[email]}' limit 1" );
+        if ($query->num_rows () > 0) {
+            show ( 3, '邮箱已经被使用，请换一个' );
+        }
+
+        $postdate ['password'] = get_password ( $postdate ['password'] );
+        $query = $this->db->insert ( 'fm_member', $postdate );
+        if ($this->db->insert_id () > 0) {
+            //注册成功，跳转到登录页
+            $this->load->view("webios/login_view");
+        }else{
+            show ( 4, '未知错误' );
+        }
+    }
 
 
 
