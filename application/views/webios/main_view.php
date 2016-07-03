@@ -54,34 +54,17 @@
 <!-- Left Panel with Reveal effect -->
 <div class="panel panel-left panel-reveal">
     <div class="content-block">
-        <div class="content">
-            <div class="list-block cards-list">
-                <ul>
-                    <li class="card">
-                        <div class="card-header">卡头</div>
-                        <div class="card-content">
-                            <div class="card-content-inner">卡内容</div>
-                        </div>
-                        <div class="card-footer">卡脚</div>
-                    </li>
-                    <li class="card">
-                        <div class="card-header">卡头</div>
-                        <div class="card-content">
-                            <div class="card-content-inner">卡内容</div>
-                        </div>
-                        <div class="card-footer">卡脚</div>
-                    </li>
-                    <li class="card">
-                        <div class="card-header">卡头</div>
-                        <div class="card-content">
-                            <div class="card-content-inner">卡内容</div>
-                        </div>
-                        <div class="card-footer">卡脚</div>
-                    </li>
-                </ul>
-            </div>
+        <div style="height: 40%">
+            <img src="uploads/file/20160606/20160606110242_84138.jpg">
+            <p>踏雪无痕</p>
         </div>
-        <p><a href="#" class="close-panel">关闭</a></p>
+        <p><a href="index.php?d=webios&c=webios&m=my_programme" style="color: white;">我的节目单</a></p>
+        <p><a href="#" style="color: white;">我的收藏节目</a></p>
+        <p><a href="#" style="color: white;">意见反馈</a></p>
+        <p><a href="#" style="color: white;">软件设置</a></p>
+        <div style="background-color: #de898c;">
+            <a href="#" style="color: white;text-align: center;">+创建我的节目单</a>
+        </div>
     </div>
 </div>
 
