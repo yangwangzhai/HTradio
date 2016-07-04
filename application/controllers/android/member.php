@@ -324,9 +324,6 @@ class member extends Api {
 	
 	// 修改
 	public function update() {
-		
-		
-		
 		$uid = intval ( $_POST ['uid'] );
 		$postdate = array (
 				'email' => trim ( $_POST ['email'] ),
@@ -409,9 +406,6 @@ class member extends Api {
 	
 	// 会员 找回密码
 	function find_password() {
-		
-		
-		
 		$result = '';
 		$email = trim ( $_POST ['email'] );
 		
@@ -574,8 +568,6 @@ class member extends Api {
 	
 	// 会员 密码 修改 保存post字段 uid, old_password, new_password
 	function password_save() {
-		
-		
 		$uid = intval ( $this->input->post ('uid') );
 		$old_password =  trim ( $this->input->post ('old_password') );
 		$new_password =  trim ( $this->input->post ('new_password') );

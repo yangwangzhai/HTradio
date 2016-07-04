@@ -331,6 +331,76 @@ class webios extends  CI_Controller
         $this->load->view("webios/program_play",$data);
     }
 
+    public function feedback_view(){
+        $data['mid']=607;//$this->session->userdata('mid') ;
+        $this->load->view("webios/feedback_view",$data);
+    }
+
+    public function save_feedback(){
+        $data['mid']=607;//$this->session->userdata('mid') ;
+        $value=$this->input->post("value");
+        if (empty($value['mid'])) {
+            show(1,'mid is null');
+        }
+        if(!empty($value)){
+            $value['addtime'] = time();
+            $insert_id = $this->db->insert ( 'fm_feedback', $value );
+            if ($insert_id) {
+                show_msg('添加成功！', 'index.php?d=webios&c=webios&m=main_view');
+            } else {
+                show(2, '未知错误，添加没有成功');
+            }
+        }
+    }
+
+    public function setting_list(){
+        $data[web] = get_cache('android_version');
+        $this->load->view("webios/setting_list",$data);
+    }
+
+    public function edit_passsword_view(){
+        $data['mid']=607;//$this->session->userdata('mid') ;
+        $this->load->view("webios/edit_passsword_view",$data);
+    }
+
+    // 会员 密码 修改 保存post字段 uid, old_password, new_password
+    function password_save() {
+        //$uid = intval ( $this->input->post ('uid') );
+        $uid=607; //$this->session->userdata('mid') ;
+        $old_password =  trim ( $this->input->post ('old_password') );
+        $new_password =  trim ( $this->input->post ('new_password') );
+
+        if (empty ( $uid ) || empty ( $old_password ) || empty ( $new_password )) {
+            show ( 1, '用户id, 原密码和新密码不能为空' );
+        }
+        if ($old_password == $new_password) {
+            show ( 5, '原密码和新密码不能相同' );
+        }
+
+        $query = $this->db->get_where ( 'fm_member', 'id = '.$uid, 1 );
+        $row = $query->row_array ();
+        if (empty ( $row )) {
+            show ( 2, '该用户不存在' );
+        }
+
+        $old_password = get_password($old_password);
+        $new_password = get_password($new_password);
+        if( $row['password'] != $old_password) {
+            show ( 3, '原密码不正确' );
+        }
+
+        $this->db->update ( 'fm_member', array (
+            'password' => $new_password
+        ), 'id = ' . $uid );
+        $affected = $this->db->affected_rows ();
+        if ($affected == 0) {
+            show ( 4, '对不起，出错了，请稍后再试' );
+        }
+
+        show ( 0,'ok' );
+    }
+
+
 
 
 

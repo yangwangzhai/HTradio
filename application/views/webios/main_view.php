@@ -59,9 +59,8 @@
             <p>踏雪无痕</p>
         </div>
         <p><a href="index.php?d=webios&c=webios&m=my_programme" style="color: white;">我的节目单</a></p>
-        <p><a href="#" style="color: white;">我的收藏节目</a></p>
-        <p><a href="#" style="color: white;">意见反馈</a></p>
-        <p><a href="#" style="color: white;">软件设置</a></p>
+        <p><a href="index.php?d=webios&c=webios&m=feedback_view" style="color: white;">意见反馈</a></p>
+        <p><a href="index.php?d=webios&c=webios&m=setting_list" style="color: white;">软件设置</a></p>
         <div style="background-color: #de898c;">
             <a href="#" style="color: white;text-align: center;">+创建我的节目单</a>
         </div>

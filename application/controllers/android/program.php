@@ -726,6 +726,16 @@ class program extends Api {
 	}
 
     /**
+     *  接口说明：首页获取节目类型列表信息
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=type_index
+     *
+     */
+    public function type_index(){
+        echo json_encode(array());
+    }
+
+
+    /**
      *  接口说明：获取节目类型列表信息
      *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=type
      *  参数接收方式：get
@@ -747,7 +757,6 @@ class program extends Api {
         $page = intval ( $_GET ['page'] ) - 1;
         $offset = $page > 0 ? $page * $this->pagesize : 0;
         $query = $this->db->query ( "select id,title,thumb,support_num,negative_num from fm_program_type where pid='0' limit $offset,$this->pagesize" );
-
         $list = $query->result_array ();
         foreach ($list as $list_key=>&$row) {
             if($row['thumb']) $row['thumb'] = base_url().$row['thumb'];
