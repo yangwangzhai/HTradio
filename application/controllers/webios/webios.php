@@ -148,7 +148,7 @@ class webios extends  CI_Controller
 
         $this->session->set_userdata ( 'mid', $admin['id'] );
 
-        $this->left_view();
+        $this->main_view();
     }
 
     // 获取一条会员全部信息
@@ -217,22 +217,27 @@ class webios extends  CI_Controller
 
     //我的节目单
     public function my_programme(){
-        $page = intval ( $_GET ['page'] ) - 1;
-        $offset = $page > 0 ? $page * $this->pagesize : 0;
-        $mid = 607 ;//$this->session->userdata('mid') ;
-        if (empty($mid)) {
-            show(1,'mid is null');
-        }
-        $this->db->select('id, title, thumb');
-        $this->db->order_by("addtime", "desc");
-        $query = $this->db->get_where('fm_programme', array('mid'=>$mid ),$this->pagesize,$offset);
-        $list = $query->result_array();
-        foreach ($list as &$row) {
-            if($row['thumb']) $row['thumb'] = base_url().$row['thumb'];
-        }
-        $data['list']=$list;
+        $mid = $this->session->userdata('mid') ;
+        if(empty($mid)){
+            $this->load->view("webios/login_view");
+        }else{
+            $page = intval ( $_GET ['page'] ) - 1;
+            $offset = $page > 0 ? $page * $this->pagesize : 0;
+            //$mid = 607 ;//$this->session->userdata('mid') ;
+            /*if (empty($mid)) {
+                show(1,'mid is null');
+            }*/
+            $this->db->select('id, title, thumb');
+            $this->db->order_by("addtime", "desc");
+            $query = $this->db->get_where('fm_programme', array('mid'=>$mid ),$this->pagesize,$offset);
+            $list = $query->result_array();
+            foreach ($list as &$row) {
+                if($row['thumb']) $row['thumb'] = base_url().$row['thumb'];
+            }
+            $data['list']=$list;
 
-        $this->load->view("webios/programme_list",$data);
+            $this->load->view("webios/programme_list",$data);
+        }
     }
 
     //节目单详情
@@ -354,6 +359,13 @@ class webios extends  CI_Controller
     }
 
     public function setting_list(){
+        $mid = $this->session->userdata('mid') ;
+        if(empty($mid)){
+            $this->load->view("webios/login_view");
+        }else{
+            $data[web] = get_cache('android_version');
+            $this->load->view("webios/setting_list",$data);
+        }
         $data[web] = get_cache('android_version');
         $this->load->view("webios/setting_list",$data);
     }
@@ -369,7 +381,7 @@ class webios extends  CI_Controller
         $uid=607; //$this->session->userdata('mid') ;
         $old_password =  trim ( $this->input->post ('old_password') );
         $new_password =  trim ( $this->input->post ('new_password') );
-
+        echo $old_password."||";echo $new_password;exit;
         if (empty ( $uid ) || empty ( $old_password ) || empty ( $new_password )) {
             show ( 1, '用户id, 原密码和新密码不能为空' );
         }

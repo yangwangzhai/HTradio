@@ -3,70 +3,57 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SUI Mobile Demo</title>
-    <meta name="description" content="MSUI: Build mobile apps with simple HTML, CSS, and JS components.">
-    <meta name="author" content="阿里巴巴国际UED前端">
+    <title>海豚电台</title>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no">
-
-    <!-- Google Web Fonts -->
-
-    <link rel="stylesheet" href="/dist/css/sm.css">
-    <link rel="stylesheet" href="/dist/css/sm-extend.css">
-    <link rel="stylesheet" href="/assets/css/demos.css">
-
-    <link rel="apple-touch-icon-precomposed" href="/assets/img/apple-touch-icon-114x114.png">
-    <script src="/assets/js/zepto.js"></script>
-    <script src="/assets/js/config.js"></script>
-    <script>
-        //ga
-    </script>
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?ba76f8230db5f616edc89ce066670710";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
-
+    <link rel="stylesheet" href="static/webios/css/sm.min.css">
+    <link rel="stylesheet" href="static/webios/css/sm-extend.min.css">
+    <link rel="stylesheet" href="static/webios/css/style.css">
 </head>
 <body>
+<!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
 <div class="page-group">
-    <div id="page-tabs" class="page">
-        <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left back" href="/demos">
-                <span class="icon icon-left"></span>
-                返回
-            </a>
+    <!-- 单个page ,第一个.page默认被展示-->
+    <div class="page">
+        <!-- 标题栏 -->
+        <header class="bar bar-nav regtitle">
+            <button class="button button-link button-nav pull-left"> <span class="icon"></span> 返回 </button>
             <h1 class="title">节目单</h1>
         </header>
-        <div class="content">
 
-            <div class="list-block">
+        <!-- 这里是页面内容区 -->
+        <div class="content">
+            <div class="card facebook-card">
+                <div class="card-header">
+                    <div class="facebook-avatar"><img src="static/webios/img/play_bg.jpg" style='width: 2rem; height:2rem'></div>
+                    <div class="facebook-name">标题</div>
+                    <div class="facebook-date">小标题</div>
+                </div>
+                <div class="card-footer"><a href="#" class="link">收藏 1</a> <a href="#" class="link">评论 4</a> <a href="#" class="link">分享 7</a> <a href="#" class="link">下载 5</a></div>
+            </div>
+            <div class="list-block media-list">
                 <ul>
-                    <?php foreach($program_list as $value) :?>
-                        <li>
-                            <a href="index.php?d=webios&c=webios&m=program_play&program_id=<?=$value['program_id']?>" class="item-link item-content">
-                                <div class="item-inner">
-                                    <div class="item-title"><?=$value['title']?></div>
+                    <li>
+                        <label class="label-checkbox item-content">
+                            <div class="item-media"><img src="static/webios/img/play_bg.jpg" style='width: 2.8rem; height:2.6rem'></div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">石头</div>
                                 </div>
-                            </a>
-                        </li>
-                    <?php endforeach?>
+                                <div class="item-subtitle">主持人：xxxx 时长：xx分钟</div>
+                            </div>
+                        </label>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
-
 </div>
-<script src="/dist/js/sm.js"></script>
-<script src="/dist/js/sm-extend.js"></script>
-<script src="/dist/js/sm-city-picker.js"></script>
-<script src="/assets/js/demos.js"></script>
+<script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='static/webios/js/jquery-1.8.1.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='static/webios/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='static/webios/js/sm-extend.min.js' charset='utf-8'></script>
 </body>
 </html>

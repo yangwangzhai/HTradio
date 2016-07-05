@@ -1,0 +1,71 @@
+@charset "utf-8";
+/* CSS Document */
+*{border:0;margin:0;padding:0;}
+body{font-family:'微软雅黑'; margin:0 auto; color:#fff}
+ul{display:block;margin:0;padding:0;list-style:none;}
+li{display:block;margin:0;padding:0;list-style: none;}
+img { border: 0;  height:auto; width:auto9; /* ie8 */}
+dl,dt,dd,span{margin:0;padding:0;display:block;}
+a,a:focus{text-decoration:none;color:#fff;outline:none;blr:expression(this.onFocus=this.blur());}
+a:hover{color:#00a4ac;text-decoration:none;}
+table{border-collapse:collapse;border-spacing: 0;}
+cite{font-style:normal;}
+.page-group { background:none}
+.page { background:none}
+.bar { background:none; border:none}
+.title { color:#fff}
+.button { border:none;}
+.pull-left-icon{ width:.8rem; height:.8rem; margin-top:.6rem; background:url(../img/ic_person.png) no-repeat center center; background-size:100%}
+.pull-right-icon { width:1rem; height:1rem; margin-top:.6rem; background:url(../img/radio_icon.png) no-repeat center center;background-size:100%}
+.group { height:2.4rem; line-height:2.4rem; width:6.4rem; margin:1rem auto; text-align:center}
+.button1 { height:2rem; width:2rem; background:url(../img/radio_pre.png) no-repeat; background-size:100%; float:left; margin-top:.2rem}
+.button2{ height:2.4rem; width:2.4rem; background:url(../img/radio_pause.png) no-repeat; background-size:100%; float:left;}
+.button3 { height:2rem; width:2rem; background:url(../img/radio_next.png) no-repeat; background-size:100%; float:left; margin-top:.2rem}
+.list-icon {width:1rem; height:1rem; position:absolute; bottom:1rem; right:1rem;}
+.list-icon img{ display:block; width:1rem; height:1rem;}
+.panel { background:#384043;}
+.panel dl { width:100%; height:10rem; margin:3rem auto; text-align:center; border-bottom:1px solid #333}
+.panel dl dt {}
+.panel dl dt img {width:5rem; height:5rem; border-radius:50%;}
+.panel dl dd { font-size:1.2rem}
+.panel ul { margin:.6rem;}
+.panel ul li { height:2rem;}
+.panel ul li .icon1 { display:inline-block; width:1rem; height:1rem; padding-top:.3rem;}
+.panel ul li .icon2 {display:inline-block; width:1rem; height:1rem; padding-top:.3rem}
+.panel ul li .icon3 {display:inline-block; width:1rem; height:1rem; padding-top:.3rem}
+.panel ul li .icon4 {display:inline-block; width:1rem; height:1rem; padding-top:.3rem}
+.pbtn { width:100%; height:2.4rem; background:#fe7472; color:#fff; font-size:1rem; border-radius:.3rem}
+
+/*login*/
+.bar .button-link { color:#fff; background-image:url(../img/back_icon1.png); background-repeat:no-repeat; background-size:20%; background-position:center left; padding-left:.6rem;}
+.loginbg {background:url(../img/login_bg.jpg) no-repeat; background-size: cover; background-position: 50% 50%;}
+.login { height:16rem; margin:10rem .5rem 0 .5rem; background-color:rgba(25,139,228,0.5);}
+.login ul { padding:.6rem 1.4rem}
+.login ul li { line-height:2.4rem}
+.loginuser { width:100%; background:url(../img/user.png) no-repeat; background-size:7%; background-position:center left; padding-left:1.6rem; height:2rem; border-bottom:1px solid #def0ff}
+.loginpwd { width:100%; background:url(../img/password.png) no-repeat; background-size:7%; background-position:center left; padding-left:1.6rem; height:2rem; border-bottom:1px solid #def0ff}
+.loginbtn { width:90%; margin-top:1.6rem; margin-left:.6rem; margin-bottom:.4rem; height:2rem; border-radius:0.2rem; background:#198be4;}
+.loginreg { text-align:center; margin-top:.5rem}
+.login label { padding-left:1.6rem;}
+/*register*/
+.regtitle { background:#198be4}
+.regbg { background:#fff}
+.register { padding:1rem;}
+.register li { margin-bottom:1rem}
+.inpreg { width:100%; border:1px solid #ddd; background:#eee; color:#666; height:2.4rem; line-height:2.4rem; padding:0 .5rem; border-radius:.1rem}
+.inpreg:hover {width:100%;  height:2.4rem; line-height:2.4rem; border:1px solid #a4e9ff; background:#fff; border-radius:.1rem}
+.regbtn {width:100%;  height:2.4rem; line-height:2.4rem; background:#198be4; border-radius:.2rem}
+.regbtn:hover {width:100%;  height:2.4rem; background:#fec106}
+
+/*list*/
+.search-icon { background:url(../img/abc_ic_search_api_mtrl_alpha.png) no-repeat; background-size:100%; width:1rem; height:1rem;}
+.select { color:#333; padding-left:.8rem; padding-top:.6rem; font-size:.8rem}
+.select .tbtn { width:2.6rem; height:1.2rem; line-height:1.2rem; color:#fff; background:#9C0; border-radius:.2rem; font-size:.7rem}
+.list-block { margin:.8rem .6rem;}
+.list-block .item-content { padding-right:.75rem}
+.item-inner { color:#333}
+.fbtn { position:fixed; bottom:0; width:100%; height:2rem; line-height:2rem; background:#9C0; color:#fff; text-align:center}
+.facebook-avatar { padding-right:.4rem}
+.facebook-name { color:#333}
+.item-media {color:#333}
+

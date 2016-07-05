@@ -1059,8 +1059,8 @@ class program extends Api {
     public function auto_save_program(){
         $program_list=$this->input->post("program_list");
         $program_list=json_decode($program_list);
-        if($program_list['code']==000){
-            foreach($program_list['content_lists'] as $value){
+        if(!empty($program_list)){
+            foreach($program_list as $value){
                 $insert['title']=$value("title");
                 $insert['thumb']=$value("thumb");
                 $insert['path']=$value("path");
