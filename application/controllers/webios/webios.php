@@ -212,6 +212,7 @@ class webios extends  CI_Controller
     //
     public function main_view(){
         //$data['mid'] = $mid = $this->session->userdata('mid');
+        //$data['href']='href="index.php?d=webios&c=webios&m=login_view"';
         $this->load->view("webios/main_view");
     }
 
@@ -337,8 +338,12 @@ class webios extends  CI_Controller
     }
 
     public function feedback_view(){
-        $data['mid']=607;//$this->session->userdata('mid') ;
-        $this->load->view("webios/feedback_view",$data);
+        $data['mid']= $mid = $this->session->userdata('mid') ;
+        if(empty($mid)){
+            $this->load->view("webios/login_view");
+        }else{
+            $this->load->view("webios/feedback_view",$data);
+        }
     }
 
     public function save_feedback(){
@@ -359,15 +364,14 @@ class webios extends  CI_Controller
     }
 
     public function setting_list(){
-        $mid = $this->session->userdata('mid') ;
+        $data['mid'] = $mid = $this->session->userdata('mid') ;
         if(empty($mid)){
             $this->load->view("webios/login_view");
         }else{
             $data[web] = get_cache('android_version');
             $this->load->view("webios/setting_list",$data);
         }
-        $data[web] = get_cache('android_version');
-        $this->load->view("webios/setting_list",$data);
+
     }
 
     public function edit_passsword_view(){
@@ -411,6 +415,57 @@ class webios extends  CI_Controller
 
         show ( 0,'ok' );
     }
+
+    public function out(){
+        //销毁session数据
+        unset($_SESSION['mid']);
+        $this->load->view("webios/main_view");
+    }
+
+    public function collect_view(){
+        $this->load->view("webios/collect_view");
+    }
+
+    public function creat_programme_view(){
+        $data['mid']= $mid = $this->session->userdata('mid') ;
+        if(empty($mid)){
+            $this->load->view("webios/login_view");
+        }else{
+            $query = $this->db->query ( "select id,title,thumb from fm_program_type where pid='0' limit 0,10" );
+            $list = $query->result_array ();
+            foreach ($list as $list_key=>&$row) {
+                if ($row['thumb']) $row['thumb'] = base_url() . $row['thumb'];
+            }
+            $data['list'] = $list;
+            $data['ids']='';
+            $this->load->view("webios/creat_programme_view",$data);
+        }
+    }
+
+    public function creat_programme_detail(){
+        $id = $this->input->get("id");
+        $ids = $this->input->get("ids");
+        $query = $this->db->query ( "select id,title,thumb from fm_program where type_id=$id limit 0,20" );
+        $data['list'] = $query->result_array ();
+        $data['ids']=$ids;
+        $this->load->view("webios/creat_programme_detail",$data);
+    }
+
+    public function creat_programme_process(){
+        $len = $this->input->get("len");
+        $ids = $this->input->get("ids");
+        echo $len."||".$ids;
+        $query = $this->db->query ( "select id,title,thumb from fm_program_type where pid='0' limit 0,10" );
+        $list = $query->result_array ();
+        foreach ($list as $list_key=>&$row) {
+            if ($row['thumb']) $row['thumb'] = base_url() . $row['thumb'];
+        }
+        $data['list'] = $list;
+        $data['ids']=$ids;
+
+        $this->load->view("webios/creat_programme_view",$data);
+    }
+
 
 
 

@@ -43,18 +43,22 @@ div.drum-wrapper .dial {
 	position: absolute;
 	width: 100%;
 	left: 0px;
-	height: 48px;
+
 	background-color: rgba(255, 255, 255, 0.7);
 	display: none;
+	height: 0px;
+		overflow:hidden;
 }
 
 .outside div.drum-wrapper .dial {
-	height: 58px;
+	height: 0px;
+	overflow:hidden;
+	display:none;
 }
 
 div.drum-wrapper .dial div {
 	width: 20px;
-	height: 10px;
+	height: 0px;
 	margin: 0 auto;
 }
 div.drum-wrapper .dial svg {
@@ -62,12 +66,14 @@ div.drum-wrapper .dial svg {
 }
 div.drum-wrapper .up {
 	top: 0px;
+	display:none;
 }
 div.drum-wrapper .up svg {
 	top: 2px
 }
 div.drum-wrapper .down {
 	bottom: 0px;
+	display:none;
 }
 div.drum-wrapper .down svg {
 	bottom: 2px;

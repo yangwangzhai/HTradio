@@ -18,8 +18,13 @@
     <!-- 单个page ,第一个.page默认被展示-->
     <div class="page">
         <!-- 标题栏 -->
-        <header class="bar bar-nav">
+        <!--<header class="bar bar-nav">
             <button class="button button-link button-nav pull-left "> <span class="icon back"></span> 返回 </button>
+        </header>-->
+        <header class="bar bar-nav">
+            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=main_view" class="external">
+                返回
+            </a>
         </header>
         <!-- 这里是页面内容区 -->
         <div class="content">

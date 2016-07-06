@@ -114,7 +114,7 @@
 		var HTMLselect = ($(element))[0];
 		var obj = this;
 		var settings = $.extend({
-			panelCount : 16,
+			panelCount : 8,
 			rotateFn : 'rotateX',
 			interactive: true,
 			dail_w: 20,
@@ -142,6 +142,7 @@
 			var wrapper = document.createElement( "div" );
 			$(wrapper).addClass("drum-wrapper");
 			
+			
 			if (settings.id)
 				$(wrapper).attr('id', settings.id);
 			else if (HTMLselect.id)
@@ -151,9 +152,15 @@
 
 			$(HTMLselect).after(wrapper);
 
+var innera = document.createElement("div");
+			$(innera).addClass("innera");
+			$(innera).appendTo(wrapper);
+			
+			
+			
 			var inner = document.createElement("div");
 			$(inner).addClass("inner");
-			$(inner).appendTo(wrapper);
+			$(inner).appendTo(innera);
 
 			var container = document.createElement( "div" );
 			$(container).addClass("container");		
@@ -179,7 +186,7 @@
 				});
 			}
 
-			settings.radius = Math.round( ( $(drum).height() /2.7 ) / Math.tan( Math.PI / settings.panelCount ) );
+			settings.radius = Math.round( ( $(drum).height() /2) / Math.tan( Math.PI / settings.panelCount ) );
 			settings.mapping = [];
 			var c = 0;
 			for (var i=0; i < settings.panelCount; i++) {
@@ -247,8 +254,8 @@
 					if (fire_event && last_index != data.index && settings.onChange) 
 						settings.onChange(HTMLselect);
 
-					$(selected.elem).css({"opacity":"1","color":"#fbd009","font-size":".72rem"});
-					$("figure:not(.a" + (selected.angle*100) + ", .hidden)", drum).css({"opacity":".8","color":"#8892a1"});
+					$(selected.elem).css({"opacity":"1","color":"#fbd009","font-size":"1.44rem"});
+					$("figure:not(.a" + (selected.angle*100) + ", .hidden)", drum).css({"opacity":".8","color":"#8892a1","font-size":"1.28rem"});
 					if (selected.angle != settings.last_angle && [0,90,180,270].indexOf(selected.angle) >= 0) {
 						settings.last_angle = selected.angle;
 						update(selected);
@@ -308,12 +315,12 @@
 			}
 
 			if (settings.interactive) {
-				$(dialUp).click(function (e) {
+				$(".button1").click(function (e) {
 					var deg = settings.rotation + settings.theta + 1;
 					settings.rotation = getNearest(deg);
 					transform(true);
 				});
-				$(dialDown).click(function (e) {
+				$(".button3").click(function (e) {
 					var deg = settings.rotation - settings.theta - 1;
 					settings.rotation = getNearest(deg);
 					transform(true);

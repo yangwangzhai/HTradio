@@ -6,9 +6,9 @@ resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
 recalc = function () {
 var clientWidth = docEl.clientWidth;
 if (!clientWidth) return;
-docEl.style.fontSize = 100 * (clientWidth / 1080) + 'px';
+docEl.style.fontSize = 50 * (clientWidth / 1080) + 'px';
+//alert(clientWidth);
 };
-
 
 if (!doc.addEventListener) return;
 win.addEventListener(resizeEvt, recalc, false);

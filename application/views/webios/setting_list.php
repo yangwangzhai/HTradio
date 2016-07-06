@@ -14,13 +14,13 @@
 
     <!-- Google Web Fonts -->
 
-    <link rel="stylesheet" href="/dist/css/sm.css">
-    <link rel="stylesheet" href="/dist/css/sm-extend.css">
-    <link rel="stylesheet" href="/assets/css/demos.css">
+    <link rel="stylesheet" href="http://m.sui.taobao.org/dist/css/sm.css">
+    <link rel="stylesheet" href="http://m.sui.taobao.org/dist/css/sm-extend.css">
+    <link rel="stylesheet" href="http://m.sui.taobao.org/assets/css/demos.css">
 
-    <link rel="apple-touch-icon-precomposed" href="/assets/img/apple-touch-icon-114x114.png">
-    <script src="/assets/js/zepto.js"></script>
-    <script src="/assets/js/config.js"></script>
+    <link rel="apple-touch-icon-precomposed" href="http://m.sui.taobao.org/assets/img/apple-touch-icon-114x114.png">
+    <script src="http://m.sui.taobao.org/assets/js/zepto.js"></script>
+    <script src="http://m.sui.taobao.org/assets/js/config.js"></script>
     <script>
         //ga
     </script>
@@ -70,15 +70,22 @@
                             </div>
                         </a>
                     </li>
+                    <li>
+                        <a href="index.php?d=webios&c=webios&m=out" class="item-link item-content external">
+                            <div class="item-inner">
+                                <div class="item-title">退出</div>
+                            </div>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
 
 </div>
-<script src="/dist/js/sm.js"></script>
-<script src="/dist/js/sm-extend.js"></script>
-<script src="/dist/js/sm-city-picker.js"></script>
-<script src="/assets/js/demos.js"></script>
+<script src="http://m.sui.taobao.org/dist/js/sm.js"></script>
+<script src="http://m.sui.taobao.org/dist/js/sm-extend.js"></script>
+<script src="http://m.sui.taobao.org/dist/js/sm-city-picker.js"></script>
+<script src="http://m.sui.taobao.org/assets/js/demos.js"></script>
 </body>
 </html>

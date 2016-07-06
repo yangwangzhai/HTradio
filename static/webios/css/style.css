@@ -1,41 +1,53 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 *{border:0;margin:0;padding:0;}
 body{font-family:'微软雅黑'; margin:0 auto; color:#fff}
 ul{display:block;margin:0;padding:0;list-style:none;}
 li{display:block;margin:0;padding:0;list-style: none;}
-img { border: 0;  height:auto; width:auto9; /* ie8 */}
+img { border: 0;  height:auto}
 dl,dt,dd,span{margin:0;padding:0;display:block;}
-a,a:focus{text-decoration:none;color:#fff;outline:none;blr:expression(this.onFocus=this.blur());}
+a,a:focus{text-decoration:none;color:#fff;outline:none;}
 a:hover{color:#00a4ac;text-decoration:none;}
 table{border-collapse:collapse;border-spacing: 0;}
 cite{font-style:normal;}
 .page-group { background:none}
 .page { background:none}
 .bar { background:none; border:none}
-.title { color:#fff}
+.title { color:#fff;}
 .button { border:none;}
-.pull-left-icon{ width:.8rem; height:.8rem; margin-top:.6rem; background:url(../img/ic_person.png) no-repeat center center; background-size:100%}
-.pull-right-icon { width:1rem; height:1rem; margin-top:.6rem; background:url(../img/radio_icon.png) no-repeat center center;background-size:100%}
-.group { height:2.4rem; line-height:2.4rem; width:6.4rem; margin:1rem auto; text-align:center}
-.button1 { height:2rem; width:2rem; background:url(../img/radio_pre.png) no-repeat; background-size:100%; float:left; margin-top:.2rem}
-.button2{ height:2.4rem; width:2.4rem; background:url(../img/radio_pause.png) no-repeat; background-size:100%; float:left;}
-.button3 { height:2rem; width:2rem; background:url(../img/radio_next.png) no-repeat; background-size:100%; float:left; margin-top:.2rem}
+.pull-left-icon{ width:2.4rem; height:2.4rem; margin: .3rem; background:url(../img/ic_person.png) no-repeat center center; background-size:60%; border-radius: 50%;}
+.pull-left-icon:active{ background:#041a63 url(../img/ic_person.png) no-repeat center center; background-size:60%}
+.pull-right-icon { width:2.4rem; height:2.4rem; margin: .3rem; background:url(../img/radio_icon.png) no-repeat center center;background-size:75%; border-radius: 50%;}
+.pull-right-icon:active{ background:#041a63 url(../img/radio_icon.png) no-repeat center center; background-size:75%}
+.group { height:4.8rem; line-height:4.8rem; width:12.8rem; margin:.5rem auto 0 auto; text-align:center}
+
+
+.button1 { height:4rem; width:4rem; background:url(../img/radio_pre.png) no-repeat; background-size:100%; float:left; margin-top:.4rem}
+.button1:active{background:url(../img/radio_pre_hover.png) no-repeat;background-size:100%;}
+.button2{ height:4.8rem; width:4.8rem; background:url(../img/radio_pause.png) no-repeat; background-size:100%; float:left;}
+.button2:active{background:url(../img/radio_pause_hover.png) no-repeat;background-size:100%;}
+.button3 { height:4rem; width:4rem; background:url(../img/radio_next.png) no-repeat; background-size:100%; float:left; margin-top:.4rem}
+.button3:active{background:url(../img/radio_next_hover.png) no-repeat;background-size:100%;}
+
+
 .list-icon {width:1rem; height:1rem; position:absolute; bottom:1rem; right:1rem;}
 .list-icon img{ display:block; width:1rem; height:1rem;}
 .panel { background:#384043;}
-.panel dl { width:100%; height:10rem; margin:3rem auto; text-align:center; border-bottom:1px solid #333}
+.panel dl { width:100%; height:8rem; margin:2rem auto; text-align:center;}
 .panel dl dt {}
-.panel dl dt img {width:5rem; height:5rem; border-radius:50%;}
-.panel dl dd { font-size:1.2rem}
-.panel ul { margin:.6rem;}
-.panel ul li { height:2rem;}
-.panel ul li .icon1 { display:inline-block; width:1rem; height:1rem; padding-top:.3rem;}
-.panel ul li .icon2 {display:inline-block; width:1rem; height:1rem; padding-top:.3rem}
-.panel ul li .icon3 {display:inline-block; width:1rem; height:1rem; padding-top:.3rem}
-.panel ul li .icon4 {display:inline-block; width:1rem; height:1rem; padding-top:.3rem}
-.pbtn { width:100%; height:2.4rem; background:#fe7472; color:#fff; font-size:1rem; border-radius:.3rem}
-
+.panel dl dt img {width:4.8rem; height:4.8rem; border-radius:50%;border:#999 3px solid; }
+.panel dl dd { font-size:1.3rem}
+.panel ul { }
+.panel ul li { height:3.2rem; border-bottom:#666 1px solid; color:#fff; padding:0 0 0 1rem; line-height:3.2rem; font-size:1rem}
+.panel ul li:hover{background:#1d4884;}
+.panel ul li i{margin:0 5px 0 0;}
+.panel ul li .icon1 { display:inline-block; width:.8rem;  padding-top:.3rem;}
+.panel ul li .icon2 {display:inline-block;width:.8rem; padding-top:.3rem}
+.panel ul li .icon3 {display:inline-block; width:.8rem;  padding-top:.3rem}
+.panel ul li .icon4 {display:inline-block;width:.8rem;  padding-top:.3rem}
+.pbtn { width:90%; height:2.6rem; background:#1d4884; color:#fff; font-size:1.2rem; border-radius:.2rem; margin:0 auto;display:block;}
+.pbtn:hover{ background: #0254cd;}
+.content-block{padding: 0;}
 /*login*/
 .bar .button-link { color:#fff; background-image:url(../img/back_icon1.png); background-repeat:no-repeat; background-size:20%; background-position:center left; padding-left:.6rem;}
 .loginbg {background:url(../img/login_bg.jpg) no-repeat; background-size: cover; background-position: 50% 50%;}
