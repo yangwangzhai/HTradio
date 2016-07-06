@@ -415,14 +415,14 @@ display:block;
     <div class="page" id="page-action">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
-            <a class="icon pull-left open-panel pull-left-icon" <?=$href?>></a>
+            <a class="icon pull-left open-panel pull-left-icon external" <?php if(empty($mid)){echo 'href="index.php?d=webios&c=webios&m=login_view"';}?>></a>
             <h1 class="title">海豚FM</h1>
             <a class="icon pull-right pull-right-icon"></a>
         </header>
         <!-- 这里是页面内容区 -->
         <div class="content">
 
-            <script type="text/javascript" src="http://192.168.1.124/HTradio/static/webios/player/sewise.player.min.js"></script>
+            <!--<script type="text/javascript" src="static/webios/player/sewise.player.min.js"></script>
             <div id="player" style="width: 0px;height: 0px;">
                 <script type="text/javascript">
                     SewisePlayer.setup({
@@ -437,8 +437,7 @@ display:block;
                         claritybutton: 'disable'
                     }, "player");
                 </script>
-            </div>
-
+            </div>-->
 
             <div class="infox_main">
                 <div class="info_box">

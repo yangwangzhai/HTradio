@@ -204,47 +204,41 @@ class webios extends  CI_Controller
         $this->load->view("webios/login_view");
     }
 
-    public function left_view(){
-        $mid=$this->session->userdata('mid');
-
-    }
-
     //
     public function main_view(){
-        //$data['mid'] = $mid = $this->session->userdata('mid');
-        //$data['href']='href="index.php?d=webios&c=webios&m=login_view"';
-        $this->load->view("webios/main_view");
+        $data['mid'] = $mid = $this->session->userdata('mid');
+        $this->load->view("webios/main_view",$data);
     }
 
     //我的节目单
     public function my_programme(){
         $mid = $this->session->userdata('mid') ;
-        if(empty($mid)){
-            $this->load->view("webios/login_view");
-        }else{
-            $page = intval ( $_GET ['page'] ) - 1;
-            $offset = $page > 0 ? $page * $this->pagesize : 0;
-            //$mid = 607 ;//$this->session->userdata('mid') ;
-            /*if (empty($mid)) {
-                show(1,'mid is null');
-            }*/
-            $this->db->select('id, title, thumb');
-            $this->db->order_by("addtime", "desc");
-            $query = $this->db->get_where('fm_programme', array('mid'=>$mid ),$this->pagesize,$offset);
-            $list = $query->result_array();
-            foreach ($list as &$row) {
-                if($row['thumb']) $row['thumb'] = base_url().$row['thumb'];
-            }
-            $data['list']=$list;
-
-            $this->load->view("webios/programme_list",$data);
+        $page = intval ( $_GET ['page'] ) - 1;
+        $offset = $page > 0 ? $page * $this->pagesize : 0;
+        //$mid = 607 ;//$this->session->userdata('mid') ;
+        /*if (empty($mid)) {
+            show(1,'mid is null');
+        }*/
+        $this->db->select('id, title, thumb');
+        $this->db->order_by("addtime", "desc");
+        $query = $this->db->get_where('fm_programme', array('mid'=>$mid ),$this->pagesize,$offset);
+        $list = $query->result_array();
+        foreach ($list as &$row) {
+            if($row['thumb']) $row['thumb'] = base_url().$row['thumb'];
         }
+        $data['list']=$list;
+
+        $this->load->view("webios/programme_list",$data);
+
     }
 
     //节目单详情
     public function programme_detail(){
         $programme_id = $_GET['programme_id'];
-        $mid = 607 ;//$this->session->userdata('mid') ;
+        $mid = $this->session->userdata('mid') ;
+        $query_user = $this->db->query("select username from fm_member WHERE id=$mid");
+        $username = $query_user->row_array();
+
         if (empty($programme_id)) {
             show(1,'programme_id is null');
         }
@@ -324,7 +318,7 @@ class webios extends  CI_Controller
         }
         $data_list['program_list'] = $result;
         $data_list['programme_title'] = $programme_row['title'];
-
+        $data_list['username'] = $username['username'];
         $this->load->view("webios/programme_detail",$data_list);
     }
 
@@ -339,15 +333,13 @@ class webios extends  CI_Controller
 
     public function feedback_view(){
         $data['mid']= $mid = $this->session->userdata('mid') ;
-        if(empty($mid)){
-            $this->load->view("webios/login_view");
-        }else{
-            $this->load->view("webios/feedback_view",$data);
-        }
+
+        $this->load->view("webios/feedback_view",$data);
+
     }
 
     public function save_feedback(){
-        $data['mid']=607;//$this->session->userdata('mid') ;
+        $data['mid']=$this->session->userdata('mid') ;
         $value=$this->input->post("value");
         if (empty($value['mid'])) {
             show(1,'mid is null');
@@ -365,27 +357,23 @@ class webios extends  CI_Controller
 
     public function setting_list(){
         $data['mid'] = $mid = $this->session->userdata('mid') ;
-        if(empty($mid)){
-            $this->load->view("webios/login_view");
-        }else{
-            $data[web] = get_cache('android_version');
-            $this->load->view("webios/setting_list",$data);
-        }
+        $data[web] = get_cache('android_version');
+        $this->load->view("webios/setting_list",$data);
 
     }
 
     public function edit_passsword_view(){
-        $data['mid']=607;//$this->session->userdata('mid') ;
+        $data['mid']=$this->session->userdata('mid') ;
         $this->load->view("webios/edit_passsword_view",$data);
     }
 
     // 会员 密码 修改 保存post字段 uid, old_password, new_password
     function password_save() {
         //$uid = intval ( $this->input->post ('uid') );
-        $uid=607; //$this->session->userdata('mid') ;
+        $uid=$this->session->userdata('mid') ;
         $old_password =  trim ( $this->input->post ('old_password') );
         $new_password =  trim ( $this->input->post ('new_password') );
-        echo $old_password."||";echo $new_password;exit;
+
         if (empty ( $uid ) || empty ( $old_password ) || empty ( $new_password )) {
             show ( 1, '用户id, 原密码和新密码不能为空' );
         }
@@ -419,7 +407,7 @@ class webios extends  CI_Controller
     public function out(){
         //销毁session数据
         unset($_SESSION['mid']);
-        $this->load->view("webios/main_view");
+        $this->main_view();
     }
 
     public function collect_view(){
@@ -428,32 +416,36 @@ class webios extends  CI_Controller
 
     public function creat_programme_view(){
         $data['mid']= $mid = $this->session->userdata('mid') ;
-        if(empty($mid)){
-            $this->load->view("webios/login_view");
-        }else{
-            $query = $this->db->query ( "select id,title,thumb from fm_program_type where pid='0' limit 0,10" );
-            $list = $query->result_array ();
-            foreach ($list as $list_key=>&$row) {
-                if ($row['thumb']) $row['thumb'] = base_url() . $row['thumb'];
-            }
-            $data['list'] = $list;
-            $data['ids']='';
-            $this->load->view("webios/creat_programme_view",$data);
+
+        $query = $this->db->query ( "select id,title,thumb from fm_program_type where pid='0' limit 0,10" );
+        $list = $query->result_array ();
+        foreach ($list as $list_key=>&$row) {
+            if ($row['thumb']) $row['thumb'] = base_url() . $row['thumb'];
         }
+        $data['list'] = $list;
+        $data['ids']='';
+        $data['num'] = 0;
+        $data['title'] = '';
+        $this->load->view("webios/creat_programme_view",$data);
+
     }
 
     public function creat_programme_detail(){
         $id = $this->input->get("id");
         $ids = $this->input->get("ids");
+        $title = $this->input->get("title");
         $query = $this->db->query ( "select id,title,thumb from fm_program where type_id=$id limit 0,20" );
         $data['list'] = $query->result_array ();
-        $data['ids']=$ids;
+        $data['ids'] = $ids;
+        $data['title'] = $title;
+
         $this->load->view("webios/creat_programme_detail",$data);
     }
 
     public function creat_programme_process(){
         $len = $this->input->get("len");
         $ids = $this->input->get("ids");
+        $title = $this->input->get("title");
         echo $len."||".$ids;
         $query = $this->db->query ( "select id,title,thumb from fm_program_type where pid='0' limit 0,10" );
         $list = $query->result_array ();
@@ -462,12 +454,41 @@ class webios extends  CI_Controller
         }
         $data['list'] = $list;
         $data['ids']=$ids;
-
+        if(empty($ids)){
+            $data['num'] = 0;
+        }else{
+            $ids_arr = explode(",",substr($ids, 0, -1));
+            $data['num'] = count($ids_arr);
+        }
+        $data['title'] = $title;
         $this->load->view("webios/creat_programme_view",$data);
     }
 
 
+    public function save_creat_programme(){
+        $mid = $this->session->userdata('mid');
+        $data = array(
+            'title' => $this->input->post("title") ? $this->input->post("title") : "我的新节目单".$mid,
+            'mid' => $mid,
+            'addtime' => time()
+        );
+        $this->db->insert ( 'fm_programme', $data );
+        $insert_id = $this->db->insert_id();
+        $ids = $this->input->post("ids");
+        $ids_arr = explode(",",substr($ids, 0, -1));
+        if($insert_id){
+            foreach($ids_arr as $val){
+                $value = array(
+                    'programme_id' => $insert_id,
+                    'program_id' => $val,
+                    'type_id' => 1,
+                );
+                $this->db->insert ( 'fm_programme_list', $value );
+            }
+        }
 
+        $this->my_programme();
+    }
 
 
 

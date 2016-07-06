@@ -27,27 +27,31 @@
 
         <!-- 这里是页面内容区 -->
         <div class="content">
-            <div class="select">情感类</div>
             <input type="hidden" name="ids" id="ids" value="<?=$ids?>">
-            <?php foreach($list as $value) : ?>
-                <div class="list-block media-list">
-                    <ul>
-                        <li>
-                            <label class="label-checkbox item-content">
-                                <div class="item-media"><img src="static/webios/img/play_bg.jpg" style='width: 2.8rem; height:2.6rem'></div>
-                                <div class="item-inner">
-                                    <div class="item-title-row">
-                                        <div class="item-title"><?=$value['title']?></div>
+            <input type="hidden" name="title" id="search" value="<?=$title?>">
+            <?php if(!empty($list)) {?>
+                <?php foreach($list as $value) : ?>
+                    <div class="list-block media-list">
+                        <ul>
+                            <li>
+                                <label class="label-checkbox item-content">
+                                    <div class="item-media"><img src="static/webios/img/play_bg.jpg" style='width: 2.8rem; height:2.6rem'></div>
+                                    <div class="item-inner">
+                                        <div class="item-title-row">
+                                            <div class="item-title"><?=$value['title']?></div>
+                                        </div>
+                                        <div class="item-subtitle">上传者：xxxx</div>
                                     </div>
-                                    <div class="item-subtitle">上传者：xxxx</div>
-                                </div>
-                                <input type="checkbox" name="my-radio" value="<?=$value['id']?>">
-                                <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
-                            </label>
-                        </li>
-                    </ul>
-                </div>
-            <?php endforeach?>
+                                    <input type="checkbox" name="my-radio" value="<?=$value['id']?>">
+                                    <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                <?php endforeach?>
+            <?php }else{?>
+                <p style="color: #000000;">暂时类型没有资源</p>
+            <?php }?>
             <div class="fbtn">完成</div>
         </div>
     </div>

@@ -16,7 +16,7 @@
 <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
 <div class="page-group">
     <!-- 单个page ,第一个.page默认被展示-->
-    <div class="page">
+    <div class="page" id="programme_detail">
         <!-- 标题栏 -->
         <!--<header class="bar bar-nav regtitle">
             <button class="button button-link button-nav pull-left"> <span class="icon"></span> 返回 </button>
@@ -34,32 +34,35 @@
             <div class="card facebook-card">
                 <div class="card-header">
                     <div class="facebook-avatar"><img src="static/webios/img/play_bg.jpg" style='width: 2rem; height:2rem'></div>
-                    <div class="facebook-name">标题</div>
-                    <div class="facebook-date">小标题</div>
+                    <div class="facebook-name"><?=$programme_title;?></div>
+                    <div class="facebook-date"><?=$username;?></div>
                 </div>
                 <div class="card-footer"><a href="#" class="link">收藏 1</a> <a href="#" class="link">评论 4</a> <a href="#" class="link">分享 7</a> <a href="#" class="link">下载 5</a></div>
             </div>
+            <?php foreach($program_list as $value) :?>
             <div class="list-block media-list">
                 <ul>
-                    <li>
+                    <li class="play">
                         <label class="label-checkbox item-content">
                             <div class="item-media"><img src="static/webios/img/play_bg.jpg" style='width: 2.8rem; height:2.6rem'></div>
                             <div class="item-inner">
                                 <div class="item-title-row">
-                                    <div class="item-title">石头</div>
+                                    <div class="item-title"><?=$value['title']?></div>
                                 </div>
-                                <div class="item-subtitle">主持人：xxxx 时长：xx分钟</div>
+                                <div class="item-subtitle">上传者：<?=$value['nickname']?> .时长：xx分钟</div>
                             </div>
                         </label>
                     </li>
                 </ul>
             </div>
+            <?php endforeach?>
         </div>
     </div>
 </div>
 <script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='static/webios/js/jquery-1.8.1.min.js' charset='utf-8'></script>
+<!--<script type='text/javascript' src='static/webios/js/jquery-1.8.1.min.js' charset='utf-8'></script>-->
 <script type='text/javascript' src='static/webios/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='static/webios/js/sm-extend.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='static/webios/js/demo.js' charset='utf-8'></script>
 </body>
 </html>

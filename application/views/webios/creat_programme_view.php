@@ -28,7 +28,7 @@
             <div class="bar bar-header-secondary">
                 <div class="searchbar"> <a class="searchbar-cancel">取消</a>
                     <div class="search-input">
-                        <input type="text" name="title" id='search' placeholder='输入频道名称'/>
+                        <input type="text" name="title" id='search' placeholder='输入节目单名称' value="<?=$title?>"/>
                         <input type="hidden" name="ids" id="ids" value="<?=$ids?>">
                     </div>
                 </div>
@@ -36,7 +36,7 @@
 
             <!-- 这里是页面内容区 -->
             <div class="content">
-                <div class="select">已选择（）个节目<input type="button" name="" value="提交" class="tbtn"></div>
+                <div class="select">已选择（<?=$num?>）个节目<input type="submit" name="" value="提交" class="tbtn"></div>
                 <?php foreach($list as $value) : ?>
                     <div class="list-block media-list">
                         <ul>
