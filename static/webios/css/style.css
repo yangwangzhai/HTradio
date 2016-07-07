@@ -22,12 +22,18 @@ cite{font-style:normal;}
 .group { height:4.8rem; line-height:4.8rem; width:12.8rem; margin:.5rem auto 0 auto; text-align:center}
 
 
-.button1 { height:4rem; width:4rem; background:url(../img/radio_pre.png) no-repeat; background-size:100%; float:left; margin-top:.4rem}
-.button1:active{background:url(../img/radio_pre_hover.png) no-repeat;background-size:100%;}
-.button2{ height:4.8rem; width:4.8rem; background:url(../img/radio_pause.png) no-repeat; background-size:100%; float:left;}
-.button2:active{background:url(../img/radio_pause_hover.png) no-repeat;background-size:100%;}
-.button3 { height:4rem; width:4rem; background:url(../img/radio_next.png) no-repeat; background-size:100%; float:left; margin-top:.4rem}
-.button3:active{background:url(../img/radio_next_hover.png) no-repeat;background-size:100%;}
+.button1 { height:4rem; width:4rem; background:url(../images/radio_pre.png) no-repeat; background-size:100%; float:left; margin-top:.4rem}
+.button1:active{background:url(../images/radio_pre_hover.png) no-repeat;background-size:100%;}
+
+.button2{ height:4.8rem; width:4.8rem; background:url(../img/radio_play.png) no-repeat; background-size:100%; float:left;}
+.button2:active{background:url(../imagesradio_play_hover.png) no-repeat;background-size:100%;}
+
+#btn-pause{ display:none;height:4.8rem; width:4.8rem; background:url(../images/radio_pause.png) no-repeat; background-size:100%; float:left;}
+#btn-pause:active{background:url(../imagesradio_pause_hover.png) no-repeat;background-size:100%;}
+
+
+.button3 { height:4rem; width:4rem; background:url(../images/radio_next.png) no-repeat; background-size:100%; float:left; margin-top:.4rem}
+.button3:active{background:url(../images/radio_next_hover.png) no-repeat;background-size:100%;}
 
 
 .list-icon {width:1rem; height:1rem; position:absolute; bottom:1rem; right:1rem;}
@@ -45,7 +51,7 @@ cite{font-style:normal;}
 .panel ul li .icon2 {display:inline-block;width:.8rem; padding-top:.3rem}
 .panel ul li .icon3 {display:inline-block; width:.8rem;  padding-top:.3rem}
 .panel ul li .icon4 {display:inline-block;width:.8rem;  padding-top:.3rem}
-.pbtn { width:90%; height:2.6rem; background:#1d4884; color:#fff; font-size:1.2rem; border-radius:.2rem; margin:0 auto;display:block;}
+.pbtn { width:90%; height:2.6rem; background:#1d4884; color:#fff; font-size:1.2rem; border-radius:.2rem; margin:0 auto;display:block; text-align: center; line-height: 2.6rem;;}
 .pbtn:hover{ background: #0254cd;}
 .content-block{padding: 0;}
 /*login*/

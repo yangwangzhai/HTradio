@@ -6,7 +6,7 @@ $(function () {
            var id = $(this).attr("data-id");
            var ids = $("#ids").val();
            var title = $("#search").val();
-            alert(ids);
+           // alert(ids);
            window.location.href="index.php?d=webios&c=webios&m=creat_programme_detail&id="+id+"&ids="+ids+"&title="+title;
         });
     });
@@ -20,7 +20,7 @@ $(function () {
             $('input[name="my-radio"]:checked').each(function(){
                 ids +=$(this).val()+",";
             });
-            alert(ids);
+            //alert(ids);
             window.location.href="index.php?d=webios&c=webios&m=creat_programme_process&len="+len+"&ids="+ids+"&title="+title;
         });
 
@@ -33,7 +33,6 @@ $(function () {
         });
 
     });
-
 
 
 

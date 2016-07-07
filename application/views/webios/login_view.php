@@ -32,10 +32,10 @@
                 <div class="login">
                     <ul>
                         <li>
-                            <input name="username" type="text" class="loginuser" value="用户名">
+                            <input name="username" type="text" class="loginuser" placeholder="用户名" value="">
                         </li>
                         <li>
-                            <input name="password" type="text" class="loginpwd" value="密  码">
+                            <input name="password" type="password" class="loginpwd" placeholder="密码" value="">
                         </li>
                         <li>
                             <input type="submit" class="loginbtn" value="登  录">
@@ -46,7 +46,7 @@
                                 记住密码</label>
                             <label><a href="#" class="forget">忘记密码？</a></label>
                         </li>
-                        <li class="loginreg"><a href="#">新注册</a></li>
+                        <li class="loginreg"><a href="index.php?d=webios&c=webios&m=regist_view" class="external">新注册</a></li>
                     </ul>
                 </div>
             </form>
@@ -55,7 +55,7 @@
 </div>
 
 <script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='static/webios/js/jquery-1.8.1.min.js' charset='utf-8'></script>
+<!--<script type='text/javascript' src='static/webios/js/jquery-1.8.1.min.js' charset='utf-8'></script>-->
 <script type='text/javascript' src='static/webios/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='static/webios/js/sm-extend.min.js' charset='utf-8'></script>
 </body>

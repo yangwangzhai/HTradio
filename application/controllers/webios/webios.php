@@ -117,7 +117,9 @@ class webios extends  CI_Controller
         $username = trim ( $this->input->post ( 'username' ) );
         $password = trim ( $this->input->post ( 'password' ) );
         if (empty ( $username ) || empty ( $password )) {
-            show ( 5, '用户名和密码不能为空' );
+            $data['mess'] = "用户名或者密码不能为空！";
+            $data['url'] = "login_view";
+            $this->load->view("webios/show_message",$data);
         }
         // 手机号码
         if(strlen($username)>=11) {
@@ -375,22 +377,26 @@ class webios extends  CI_Controller
         $new_password =  trim ( $this->input->post ('new_password') );
 
         if (empty ( $uid ) || empty ( $old_password ) || empty ( $new_password )) {
-            show ( 1, '用户id, 原密码和新密码不能为空' );
+            //show ( 1, '用户id, 原密码和新密码不能为空' );
+            show_msg('原密码和新密码不能为空！', 'index.php?d=webios&c=webios&m=edit_passsword_view');
         }
         if ($old_password == $new_password) {
-            show ( 5, '原密码和新密码不能相同' );
+            //show ( 5, '原密码和新密码不能相同' );
+            show_msg('原密码和新密码不能相同！', 'index.php?d=webios&c=webios&m=edit_passsword_view');
         }
 
         $query = $this->db->get_where ( 'fm_member', 'id = '.$uid, 1 );
         $row = $query->row_array ();
         if (empty ( $row )) {
-            show ( 2, '该用户不存在' );
+            //show ( 2, '该用户不存在' );
+            show_msg('该用户不存在！', 'index.php?d=webios&c=webios&m=edit_passsword_view');
         }
 
         $old_password = get_password($old_password);
         $new_password = get_password($new_password);
         if( $row['password'] != $old_password) {
-            show ( 3, '原密码不正确' );
+            //show ( 3, '原密码不正确' );
+            show_msg('原密码不正确！', 'index.php?d=webios&c=webios&m=edit_passsword_view');
         }
 
         $this->db->update ( 'fm_member', array (
@@ -398,10 +404,11 @@ class webios extends  CI_Controller
         ), 'id = ' . $uid );
         $affected = $this->db->affected_rows ();
         if ($affected == 0) {
-            show ( 4, '对不起，出错了，请稍后再试' );
+            //show ( 4, '对不起，出错了，请稍后再试' );
+            show_msg('对不起，出错了，请稍后再试！', 'index.php?d=webios&c=webios&m=edit_passsword_view');
         }
-
-        show ( 0,'ok' );
+        show_msg('修改成功！', 'index.php?d=webios&c=webios&m=main_view');
+        //show ( 0,'ok' );
     }
 
     public function out(){
@@ -491,7 +498,14 @@ class webios extends  CI_Controller
     }
 
 
-
+    public function version(){
+        $data = array(
+            'version'=> '0.5',
+            "message"=>"版本说明",
+            "url"=>"http://school.wojia99.com/public/app_download/haitun/"
+        );
+        echo json_encode($data);
+    }
 
 
 

@@ -186,7 +186,7 @@ var innera = document.createElement("div");
 				});
 			}
 
-			settings.radius = Math.round( ( $(drum).height() /2) / Math.tan( Math.PI / settings.panelCount ) );
+			settings.radius = Math.round( ( $(drum).height() /2.6) / Math.tan( Math.PI / settings.panelCount ) );
 			settings.mapping = [];
 			var c = 0;
 			for (var i=0; i < settings.panelCount; i++) {
@@ -255,7 +255,7 @@ var innera = document.createElement("div");
 						settings.onChange(HTMLselect);
 
 					$(selected.elem).css({"opacity":"1","color":"#fbd009","font-size":"1.44rem"});
-					$("figure:not(.a" + (selected.angle*100) + ", .hidden)", drum).css({"opacity":".8","color":"#8892a1","font-size":"1.28rem"});
+					$("figure:not(.a" + (selected.angle*100) + ", .hidden)", drum).css({"opacity":".8","color":"#8892a1","font-size":"1.4rem"});
 					if (selected.angle != settings.last_angle && [0,90,180,270].indexOf(selected.angle) >= 0) {
 						settings.last_angle = selected.angle;
 						update(selected);
@@ -305,22 +305,25 @@ var innera = document.createElement("div");
 						settings.rotation += Math.round(e.gesture.deltaY - settings.distance) * -1;
 						transform(true);
 						settings.distance = e.gesture.deltaY;
+					
 					}
 				});
 
 				settings.touch.on("dragend", function (e) {
 					settings.rotation = getNearest();
 					transform(true);
+
+					
 				});
 			}
 
 			if (settings.interactive) {
-				$(".button1").click(function (e) {
+				$(".button3").click(function (e) {
 					var deg = settings.rotation + settings.theta + 1;
 					settings.rotation = getNearest(deg);
 					transform(true);
 				});
-				$(".button3").click(function (e) {
+				$(".button1").click(function (e) {
 					var deg = settings.rotation - settings.theta - 1;
 					settings.rotation = getNearest(deg);
 					transform(true);

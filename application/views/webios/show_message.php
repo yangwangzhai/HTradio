@@ -37,24 +37,18 @@
 </head>
 <body>
 <div class="page-group">
-    <div id="page-tabs" class="page">
+    <div id="show_message" class="page">
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left back" href="href="index.php?d=webios&c=webios&m=main_view" class="external"">
-                <span class="icon icon-left"></span>
-                返回
-            </a>
-            <h1 class="title">意见反馈</h1>
+            <h1 class="title">提示信息</h1>
         </header>
         <div class="content">
-            <form method="post" action="index.php?d=webios&c=webios&m=save_feedback">
-                <input type="hidden" name="value[mid]" value="<?=$mid?>">
                 <div class="list-block">
                     <ul>
                         <li class="align-top">
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-input">
-                                        <textarea name="value[content]"></textarea>
+                                        <h3 style="text-align: center;"><?=$mess?></h3>
                                     </div>
                                 </div>
                             </div>
@@ -63,11 +57,9 @@
                 </div>
                 <div class="content-block">
                     <div class="row">
-<!--                        <div class="col-50"><a href="#" class="button button-big button-fill button-danger">取消</a></div>
--->                        <div class="col-50" style="width: 80%;margin-left: 30px;"><input type="submit" class="button button-big button-fill button-success" value="提交"></div>
+                        <div class="col-50" style="width: 80%;margin-left: 30px;"><a href="index.php?d=webios&c=webios&m=<?=$url?>" class="button button-big button-fill button-success external">确定</a></div>
                     </div>
                 </div>
-            </form>
         </div>
     </div>
 
