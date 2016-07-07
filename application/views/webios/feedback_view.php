@@ -63,8 +63,8 @@
                 </div>
                 <div class="content-block">
                     <div class="row">
-<!--                        <div class="col-50"><a href="#" class="button button-big button-fill button-danger">取消</a></div>
--->                        <div class="col-50" style="width: 80%;margin-left: 30px;"><input type="submit" class="button button-big button-fill button-success" value="提交"></div>
+                        <div class="col-50"><a href="#" class="button button-big button-fill button-danger">取消</a></div>
+                        <div class="col-50"><input type="submit" class="button button-big button-fill button-success" value="提交"></div>
                     </div>
                 </div>
             </form>
