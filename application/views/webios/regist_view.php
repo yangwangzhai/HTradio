@@ -28,9 +28,9 @@
                             <div class="item-content">
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
                                 <div class="item-inner">
-                                    <div class="item-title label">真实姓名</div>
+                                    <div class="item-title label">用户名称</div>
                                     <div class="item-input">
-                                        <input type="text" name="username" placeholder="Your name">
+                                        <input type="text" name="username" id="username" placeholder="Your name">
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                                 <div class="item-inner">
                                     <div class="item-title label">确认密码</div>
                                     <div class="item-input">
-                                        <input type="password" name="password" id="com_password" placeholder="Password" class="">
+                                        <input type="password" name="password2" id="com_password" placeholder="Password" class="">
                                     </div>
                                 </div>
                             </div>
@@ -122,14 +122,23 @@
     $(document).ready(function(){
         //表单提交
         $(".button-success").click(function(){
-            //校验两次密码是否一致
+
+            $("#form").submit();
+
+            /*//校验两次密码是否一致
+            var username = $("#username").val();
             var pre_password = $("#pre_password").val();
             var com_password = $("#com_password").val();
-            if(pre_password==com_password){
-                $("#form").submit();
+            if(username==''){
+                alert("用户名不能为空");
             }else{
-                alert("两次密码不一致");
-            }
+                if(pre_password==com_password){
+                    $("#form").submit();
+                }else{
+                    alert("两次密码不一致");
+                }
+            }*/
+
 
         });
     })

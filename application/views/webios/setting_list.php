@@ -39,7 +39,7 @@
 <div class="page-group">
     <div id="page-tabs" class="page">
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left back" href="/demos">
+            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=main_view" class="external">
                 <span class="icon icon-left"></span>
                 返回
             </a>
@@ -47,7 +47,7 @@
         </header>
         <div class="content">
 
-            <div class="list-block">
+            <div class="list-block" style="margin-bottom: 0;">
                 <ul>
                     <li>
                         <a href="index.php?d=webios&c=webios&m=edit_passsword_view" class="item-link item-content">
@@ -70,14 +70,10 @@
                             </div>
                         </a>
                     </li>
-                    <li>
-                        <a href="index.php?d=webios&c=webios&m=out" class="item-link item-content external">
-                            <div class="item-inner">
-                                <div class="item-title">退出</div>
-                            </div>
-                        </a>
-                    </li>
                 </ul>
+            </div>
+            <div>
+                <div class="col-50" style="width: 100%;margin:0 auto;"><a href="index.php?d=webios&c=webios&m=out" class="button button-big button-fill button-success external">退出</a></div>
             </div>
         </div>
     </div>

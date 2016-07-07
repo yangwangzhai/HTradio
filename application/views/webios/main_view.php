@@ -432,7 +432,7 @@
                         <li id="r_0" class="on">
                             <div class="info_body">
                                 <div class="info_btn">直播</div>
-                                <div class="info_l"><img src="uploads/file/20160506/910.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>广西新闻广播</h2><p>我们只做新闻！</p></div>
+                                <div class="info_l"><img src="uploads/file/20160506/910.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>新闻910</h2><p>我们只做新闻！</p></div>
                                 <div class="zan">
                                     <p><a href="#" ><i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
                                     <p><a href="#" ><i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
@@ -549,6 +549,7 @@
                                 'http://media.bbrtv.com:1935/live/_definst_/bbr/playlist.m3u8',
                                 'http://media.bbrtv.com:1935/live/_definst_/fashion/playlist.m3u8',
                                 'http://media.bbrtv.com:1935/live/_definst_/lypl/playlist.m3u8',
+
                             ];
 
                             // 一般用模板引擎,把数据 与 模板 转换为 视图,来显示,这里是模拟
@@ -717,6 +718,9 @@
                     i=i+1;
                     $(this).children("span.zan_num").text(i);
                     niceIn($(this));
+                    //异步保存点赞或者差评数
+
+
                 });
                 function niceIn(prop){
                     $('.active i').addClass('zanicon');
@@ -743,7 +747,7 @@
     <div class="content-block">
         <dl>
             <dt><a href="#"><img src="static/webios/img/play_bg.jpg"></a></dt>
-            <dd><a href="#">广播之旅</a></dd>
+            <dd><a href="#"><?=$username['username']?></a></dd>
         </dl>
         <ul>
             <li><i class="fa fa-file-text-o"></i><a href="index.php?d=webios&c=webios&m=my_programme" class="external">我的节目单</a></li>

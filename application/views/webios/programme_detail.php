@@ -17,11 +17,6 @@
 <div class="page-group">
     <!-- 单个page ,第一个.page默认被展示-->
     <div class="page" id="programme_detail">
-        <!-- 标题栏 -->
-        <!--<header class="bar bar-nav regtitle">
-            <button class="button button-link button-nav pull-left"> <span class="icon"></span> 返回 </button>
-            <h1 class="title">节目单</h1>
-        </header>-->
         <header class="bar bar-nav">
             <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=my_programme" class="external">
                 <span class="icon icon-left"></span>
@@ -42,7 +37,7 @@
             <?php foreach($program_list as $value) :?>
             <div class="list-block media-list">
                 <ul>
-                    <li class="play">
+                    <li class="play" data-programme-id="<?=$programme_id?>" data-program-id="<?=$value[program_id]?>">
                         <label class="label-checkbox item-content">
                             <div class="item-media"><img src="static/webios/img/play_bg.jpg" style='width: 2.8rem; height:2.6rem'></div>
                             <div class="item-inner">

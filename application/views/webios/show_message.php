@@ -55,11 +55,10 @@
                         </li>
                     </ul>
                 </div>
-                <div class="content-block">
-                    <div class="row">
-                        <div class="col-50" style="width: 80%;margin-left: 30px;"><a href="index.php?d=webios&c=webios&m=<?=$url?>" class="button button-big button-fill button-success external">确定</a></div>
-                    </div>
+                <div>
+                    <div class="col-50" style="width: 100%;margin:0 auto;"><a href="index.php?d=webios&c=webios&m=<?=$url?>" class="button button-big button-fill button-success external">确定</a></div>
                 </div>
+
         </div>
     </div>
 

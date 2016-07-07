@@ -48,15 +48,19 @@
         <div class="content">
             <div class="list-block">
                 <ul>
-                    <?php foreach($list as $value) :?>
-                        <li>
-                            <a href="index.php?d=webios&c=webios&m=programme_detail&programme_id=<?=$value['id']?>" class="item-link item-content">
-                                <div class="item-inner">
-                                    <div class="item-title"><?=$value['title']?></div>
-                                </div>
-                            </a>
-                        </li>
-                    <?php endforeach?>
+                    <?php if(!empty($list)){?>
+                        <?php foreach($list as $value) :?>
+                            <li>
+                                <a href="index.php?d=webios&c=webios&m=programme_detail&programme_id=<?=$value['id']?>" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title"><?=$value['title']?></div>
+                                    </div>
+                                </a>
+                            </li>
+                        <?php endforeach?>
+                    <?php }else{?>
+                        <li style="text-align: center;">您还未创建有节目单！</li>
+                    <?php }?>
                 </ul>
             </div>
         </div>

@@ -90,82 +90,83 @@ class webios extends  CI_Controller
         );
 
         if ($postdate ['username'] == "" || $postdate ['password'] == "") {
-            show ( 1, '用户名或者密码不能为空' );
-        }
-        $query = $this->db->query ( "select id from fm_member where username='{$postdate[username]}' limit 1" );
-        if ($query->num_rows () > 0) {
-            show ( 2, '用户名已经存在，请换一个' );
-        }
-        $query = $this->db->query ( "select id from fm_member where email='{$postdate[email]}' limit 1" );
-        if ($query->num_rows () > 0) {
-            show ( 3, '邮箱已经被使用，请换一个' );
-        }
-
-        $postdate ['password'] = get_password ( $postdate ['password'] );
-        $query = $this->db->insert ( 'fm_member', $postdate );
-        if ($this->db->insert_id () > 0) {
-            //注册成功，跳转到登录页
-            $this->load->view("webios/login_view");
+            $data['mess'] = "用户名或者密码不能为空！";
+            $data['url'] = "regist_view";
+            $this->load->view("webios/show_message",$data);
         }else{
-            show ( 4, '未知错误' );
+            if (trim ( $_POST ['password'] )!=trim ( $_POST ['password2'] )) {
+                $data['mess'] = "两次输入密码不一致！";
+                $data['url'] = "regist_view";
+                $this->load->view("webios/show_message",$data);
+            }else{
+                $query = $this->db->query ( "select id from fm_member where username='{$postdate[username]}' limit 1" );
+                if ($query->num_rows () > 0) {
+                    $data['mess'] = "用户名已经存在，请换一个！";
+                    $data['url'] = "regist_view";
+                    $this->load->view("webios/show_message",$data);
+                }else{
+                    $postdate ['password'] = get_password ( $postdate ['password'] );
+                    $this->db->insert ( 'fm_member', $postdate );
+                    if ($this->db->insert_id () > 0) {
+                        //注册成功，跳转到登录页
+                        $data['mess'] = "注册成功，请登录！";
+                        $data['url'] = "login_view";
+                        $this->load->view("webios/show_message",$data);
+                    }else{
+                        $data['mess'] = "未知错误！";
+                        $data['url'] = "regist_view";
+                        $this->load->view("webios/show_message",$data);
+                    }
+                }
+            }
         }
     }
 
     //验证登陆
     public function check_login() {
-        //$catid = intval ( $this->input->get_post ('catid') );
         $username = trim ( $this->input->post ( 'username' ) );
         $password = trim ( $this->input->post ( 'password' ) );
         if (empty ( $username ) || empty ( $password )) {
             $data['mess'] = "用户名或者密码不能为空！";
             $data['url'] = "login_view";
             $this->load->view("webios/show_message",$data);
-        }
-        // 手机号码
-        if(strlen($username)>=11) {
+        }else{
             $wheredata = array (
-                //'catid' => $catid,
-                'tel' => $username
-            );
-        } else {  // 账号
-            $wheredata = array (
-                //	'catid' => $catid,
                 'username' => $username
             );
+            $query = $this->db->get_where ( 'fm_member', $wheredata, 1 );
+            $user = $query->row_array ();
+            if (empty ( $user )) {
+                $data['mess'] = "账号不存在！";
+                $data['url'] = "login_view";
+                $this->load->view("webios/show_message",$data);
+            }else{
+                $password = get_password ( $password );
+                if ($user ['password'] != $password) {
+                    $data['mess'] = "密码错误！";
+                    $data['url'] = "login_view";
+                    $this->load->view("webios/show_message",$data);
+                }else{
+                    $admin = $this->detail ( $user['id'] );
+                    $this->session->set_userdata ( 'mid', $admin['id'] );
+                    $this->main_view();
+                }
+            }
         }
-        $query = $this->db->get_where ( 'fm_member', $wheredata, 1 );
-        $user = $query->row_array ();
-        if (empty ( $user )) {
-            show ( '8', '账号不存在' );
-        }
-        $password = get_password ( $password );
-        if ($user ['password'] != $password) {
-            show ( '2', '密码错误' );
-        }
-        if ($user ['status'] == 0) {
-            show ( '3', '账号已被锁定，请联系管理员' );
-        }
-
-        $admin = $this->detail ( $user['id'] );
-
-        $this->session->set_userdata ( 'mid', $admin['id'] );
-
-        $this->main_view();
     }
 
     // 获取一条会员全部信息
     function detail($uid=0) {
-
-        if($_GET['uid']) {
+        /*if($_GET['uid']) {
             $uid = intval($_GET['uid']);
         }
         if(empty($uid)) {
             show ( 6, 'uid is null' );
-        }
+        }*/
         $row = $this->member_model->get_one($uid);
-        if(empty($row)) {
+        /*if(empty($row)) {
             show ( 7, 'user is null' );
-        }
+        }*/
         unset ( $row ['password'] );
         $row ['userid'] = $row ['id']; // ios需要
         if ($row ['avatar']) {
@@ -209,6 +210,14 @@ class webios extends  CI_Controller
     //
     public function main_view(){
         $data['mid'] = $mid = $this->session->userdata('mid');
+        if(!empty($mid)){
+            //获取用户名称
+            $sql="select username from fm_member WHERE id=$mid";
+            $query = $this->db->query($sql);
+            $data['username'] = $query->row_array();
+        }
+        //获取欧洲杯最新的一条新闻
+
         $this->load->view("webios/main_view",$data);
     }
 
@@ -217,10 +226,6 @@ class webios extends  CI_Controller
         $mid = $this->session->userdata('mid') ;
         $page = intval ( $_GET ['page'] ) - 1;
         $offset = $page > 0 ? $page * $this->pagesize : 0;
-        //$mid = 607 ;//$this->session->userdata('mid') ;
-        /*if (empty($mid)) {
-            show(1,'mid is null');
-        }*/
         $this->db->select('id, title, thumb');
         $this->db->order_by("addtime", "desc");
         $query = $this->db->get_where('fm_programme', array('mid'=>$mid ),$this->pagesize,$offset);
@@ -236,7 +241,7 @@ class webios extends  CI_Controller
 
     //节目单详情
     public function programme_detail(){
-        $programme_id = $_GET['programme_id'];
+       $data_list['programme_id'] = $programme_id = $_GET['programme_id'];
         $mid = $this->session->userdata('mid') ;
         $query_user = $this->db->query("select username from fm_member WHERE id=$mid");
         $username = $query_user->row_array();
@@ -321,14 +326,31 @@ class webios extends  CI_Controller
         $data_list['program_list'] = $result;
         $data_list['programme_title'] = $programme_row['title'];
         $data_list['username'] = $username['username'];
+        $data_list['programme_id'] = $_GET['programme_id'];
+
         $this->load->view("webios/programme_detail",$data_list);
     }
 
     public function program_play(){
-        $program_id = $_GET['program_id'];
+        $programme_id = 123/*$_GET['programme_id']*/;
+        $program_id = 1245/*$_GET['program_id']*/;
+        //获取节目单里的全部节目（除了当前点击的）
+        $sql_program = "select program_id from fm_programme_list WHERE programme_id=$programme_id AND program_id !=$program_id";
+        $query_program=$this->db->query($sql_program);
+        $program_arr = $query_program->result_array();
+        foreach($program_arr as &$value){
+            $sql="select title,path from fm_program WHERE id=$value[program_id]";
+            $query=$this->db->query($sql);
+            $result = $query->row_array();
+            $value['title'] = $result['title'];
+            $value['path'] = $result['path'];
+        }
+
         $sql="select title,path from fm_program WHERE id=$program_id";
         $query=$this->db->query($sql);
-        $data['program_row']=$query->row_array();
+        $data['program_first'] = $query->row_array();
+        $data['program_first']['id'] = $program_id;
+        $data['program_arr'] = $program_arr;
 
         $this->load->view("webios/program_play",$data);
     }
@@ -343,16 +365,17 @@ class webios extends  CI_Controller
     public function save_feedback(){
         $data['mid']=$this->session->userdata('mid') ;
         $value=$this->input->post("value");
-        if (empty($value['mid'])) {
-            show(1,'mid is null');
-        }
         if(!empty($value)){
             $value['addtime'] = time();
             $insert_id = $this->db->insert ( 'fm_feedback', $value );
             if ($insert_id) {
-                show_msg('添加成功！', 'index.php?d=webios&c=webios&m=main_view');
+                $data['mess'] = "添加成功！";
+                $data['url'] = "main_view";
+                $this->load->view("webios/show_message",$data);
             } else {
-                show(2, '未知错误，添加没有成功');
+                $data['mess'] = "未知错误，添加没有成功！";
+                $data['url'] = "feedback_view";
+                $this->load->view("webios/show_message",$data);
             }
         }
     }
@@ -377,38 +400,43 @@ class webios extends  CI_Controller
         $new_password =  trim ( $this->input->post ('new_password') );
 
         if (empty ( $uid ) || empty ( $old_password ) || empty ( $new_password )) {
-            //show ( 1, '用户id, 原密码和新密码不能为空' );
-            show_msg('原密码和新密码不能为空！', 'index.php?d=webios&c=webios&m=edit_passsword_view');
-        }
-        if ($old_password == $new_password) {
-            //show ( 5, '原密码和新密码不能相同' );
-            show_msg('原密码和新密码不能相同！', 'index.php?d=webios&c=webios&m=edit_passsword_view');
+            $data['mess'] = "原密码和新密码不能为空！";
+            $data['url'] = "edit_passsword_view";
+            $this->load->view("webios/show_message",$data);
+        }else{
+            if ($old_password == $new_password) {
+                $data['mess'] = "原密码和新密码不能相同！！";
+                $data['url'] = "edit_passsword_view";
+                $this->load->view("webios/show_message",$data);
+            }else{
+                $query = $this->db->get_where ( 'fm_member', 'id = '.$uid, 1 );
+                $row = $query->row_array ();
+
+                $old_password = get_password($old_password);
+                $new_password = get_password($new_password);
+                if( $row['password'] != $old_password) {
+                    $data['mess'] = "原密码不正确！！";
+                    $data['url'] = "edit_passsword_view";
+                    $this->load->view("webios/show_message",$data);
+                }else{
+                    $this->db->update ( 'fm_member', array (
+                        'password' => $new_password
+                    ), 'id = ' . $uid );
+                    $affected = $this->db->affected_rows ();
+                    if ($affected == 0) {
+                        $data['mess'] = "对不起，出错了，请稍后再试！";
+                        $data['url'] = "edit_passsword_view";
+                        $this->load->view("webios/show_message",$data);
+                    }else{
+                        $data['mess'] = "修改成功！";
+                        $data['url'] = "main_view";
+                        $this->load->view("webios/show_message",$data);
+                    }
+                    }
+
+            }
         }
 
-        $query = $this->db->get_where ( 'fm_member', 'id = '.$uid, 1 );
-        $row = $query->row_array ();
-        if (empty ( $row )) {
-            //show ( 2, '该用户不存在' );
-            show_msg('该用户不存在！', 'index.php?d=webios&c=webios&m=edit_passsword_view');
-        }
-
-        $old_password = get_password($old_password);
-        $new_password = get_password($new_password);
-        if( $row['password'] != $old_password) {
-            //show ( 3, '原密码不正确' );
-            show_msg('原密码不正确！', 'index.php?d=webios&c=webios&m=edit_passsword_view');
-        }
-
-        $this->db->update ( 'fm_member', array (
-            'password' => $new_password
-        ), 'id = ' . $uid );
-        $affected = $this->db->affected_rows ();
-        if ($affected == 0) {
-            //show ( 4, '对不起，出错了，请稍后再试' );
-            show_msg('对不起，出错了，请稍后再试！', 'index.php?d=webios&c=webios&m=edit_passsword_view');
-        }
-        show_msg('修改成功！', 'index.php?d=webios&c=webios&m=main_view');
-        //show ( 0,'ok' );
     }
 
     public function out(){

@@ -63,7 +63,7 @@
                 </div>
                 <div class="content-block">
                     <div class="row">
-                        <div class="col-50"><a href="#" class="button button-big button-fill button-danger">取消</a></div>
+                        <div class="col-50"><a href="index.php?d=webios&c=webios&m=main_view" class="button button-big button-fill button-danger external">取消</a></div>
                         <div class="col-50"><input type="submit" class="button button-big button-fill button-success" value="提交"></div>
                     </div>
                 </div>

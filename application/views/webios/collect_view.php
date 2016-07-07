@@ -48,7 +48,7 @@
         <div class="content">
             <div class="list-block">
                 <ul>
-                    <li>您没有收藏的节目！</li>
+                    <li style="text-align: center;">您没有收藏的节目！</li>
                 </ul>
             </div>
         </div>
