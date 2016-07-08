@@ -26,18 +26,6 @@ $(function () {
 
     });
 
-    $(document).on("pageInit", "#programme_detail", function(e, id, page) {
-        $(page).on('click','.play', function () {
-            var programme_id=$(this).attr("data-programme-id");
-            var program_id=$(this).attr("data-program-id");
-            alert(programme_id);
-            //跳转播放界面
-            window.location.href="index.php?d=webios&c=webios&m=program_play&programme_id="+programme_id+"&program_id="+program_id;
-        });
-
-    });
-
-
 
 
 

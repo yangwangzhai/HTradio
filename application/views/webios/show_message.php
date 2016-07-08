@@ -37,7 +37,7 @@
 </head>
 <body>
 <div class="page-group">
-    <div id="show_message" class="page">
+    <div id="show_message" class="page" style="margin-top: 0.5rem;">
         <header class="bar bar-nav">
             <h1 class="title">提示信息</h1>
         </header>
@@ -56,7 +56,7 @@
                     </ul>
                 </div>
                 <div>
-                    <div class="col-50" style="width: 100%;margin:0 auto;"><a href="index.php?d=webios&c=webios&m=<?=$url?>" class="button button-big button-fill button-success external">确定</a></div>
+                    <div class="col-50" style="width: 60%;margin:1rem auto;"><a href="index.php?d=webios&c=webios&m=<?=$url?>" class="button button-big button-fill button-success external">确定</a></div>
                 </div>
 
         </div>

@@ -37,7 +37,7 @@
 </head>
 <body>
 <div class="page-group">
-    <div id="page-tabs" class="page">
+    <div id="page-tabs" class="page" style="margin-top: 0.5rem;">
         <header class="bar bar-nav">
             <a class="button button-link button-nav pull-left back" href="href="index.php?d=webios&c=webios&m=main_view" class="external"">
                 <span class="icon icon-left"></span>

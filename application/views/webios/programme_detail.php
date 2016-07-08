@@ -10,15 +10,15 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="static/webios/css/sm.min.css">
     <link rel="stylesheet" href="static/webios/css/sm-extend.min.css">
-    <link rel="stylesheet" href="static/webios/css/style.css">
+    <link rel="stylesheet" href="static/webios/css/style_play.css">
 </head>
 <body>
 <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
 <div class="page-group">
     <!-- 单个page ,第一个.page默认被展示-->
-    <div class="page" id="programme_detail">
+    <div class="page" id="programme_detail" style="margin-top: 0.5rem;">
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=my_programme" class="external">
+            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=my_programme">
                 <span class="icon icon-left"></span>
                 返回
             </a>
@@ -37,7 +37,8 @@
             <?php foreach($program_list as $value) :?>
             <div class="list-block media-list">
                 <ul>
-                    <li class="play" data-programme-id="<?=$programme_id?>" data-program-id="<?=$value[program_id]?>">
+                    <li>
+                        <a href="index.php?d=webios&c=webios&m=program_play&programme_id=<?=$programme_id?>&program_id=<?=$value['program_id']?>">
                         <label class="label-checkbox item-content">
                             <div class="item-media"><img src="static/webios/img/play_bg.jpg" style='width: 2.8rem; height:2.6rem'></div>
                             <div class="item-inner">
@@ -47,6 +48,7 @@
                                 <div class="item-subtitle">上传者：<?=$value['nickname']?> .时长：xx分钟</div>
                             </div>
                         </label>
+                        </a>
                     </li>
                 </ul>
             </div>

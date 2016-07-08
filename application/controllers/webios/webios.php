@@ -332,8 +332,9 @@ class webios extends  CI_Controller
     }
 
     public function program_play(){
-        $programme_id = 123/*$_GET['programme_id']*/;
-        $program_id = 1245/*$_GET['program_id']*/;
+        $programme_id = $_GET['programme_id'];
+        $program_id = $_GET['program_id'];
+
         //获取节目单里的全部节目（除了当前点击的）
         $sql_program = "select program_id from fm_programme_list WHERE programme_id=$programme_id AND program_id !=$program_id";
         $query_program=$this->db->query($sql_program);
@@ -351,7 +352,7 @@ class webios extends  CI_Controller
         $data['program_first'] = $query->row_array();
         $data['program_first']['id'] = $program_id;
         $data['program_arr'] = $program_arr;
-
+        $data['programme_id'] = $programme_id;
         $this->load->view("webios/program_play",$data);
     }
 
@@ -528,14 +529,30 @@ class webios extends  CI_Controller
 
     public function version(){
         $data = array(
-            'version'=> '0.5',
+            'version'=> '1.0',
             "message"=>"版本说明",
             "url"=>"http://school.wojia99.com/public/app_download/haitun/"
         );
         echo json_encode($data);
     }
 
+    public function support_negative(){
+        $mid = $this->session->userdata('mid') ;
+        $id = $this->input->post("id");
+        $type = $this->input->post("type");
+        if($type=='support'){
+            $res_num=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND support_target_id=$id AND channel_type=1");
+            $num=$res_num->row_array();
+            if($num['num']){
+                echo json_encode("已经点过");
+            }else{
+                echo json_encode("未点过");
+            }
+        }else{
 
+        }
+
+    }
 
 
 

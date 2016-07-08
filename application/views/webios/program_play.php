@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="static/webios/css/sm.min.css">
     <link rel="stylesheet" href="static/webios/css/sm-extend.min.css">
-    <link rel="stylesheet" href="static/webios/css/style.css">
+    <link rel="stylesheet" href="static/webios/css/style_play.css">
     <script src="static/webios/js/jquery-1.9.1.js"></script>
     <script src="static/webios/js/hammer.min.js"></script>
     <script src="static/webios/js/hammer.fakemultitouch.js"></script>
@@ -418,12 +418,15 @@
 <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
 <div class="page-group indexbg">
     <!-- 单个page ,第一个.page默认被展示-->
-    <div class="page">
+    <div class="page" style="margin-top: 0.5rem;">
         <!-- 标题栏 -->
-        <header class="bar bar-nav"> <a class="icon pull-left open-panel pull-left-icon external" <?php if(empty($mid)){echo 'href="index.php?d=webios&c=webios&m=login_view"';}?>></a>
-            <h1 class="title">海豚FM</h1>
-            <a class="icon pull-right pull-right-icon"></a> </header>
-
+        <header class="bar bar-nav">
+            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=programme_detail&programme_id=<?=$programme_id?>" style="color:#fff">
+                <span class="icon icon-left"></span>
+                返回
+            </a>
+            <h1 class="title">播放列表</h1>
+        </header>
         <!-- 这里是页面内容区 -->
         <div class="content">
             <div class="infox_main">
@@ -432,7 +435,7 @@
                         <li id="r_0" class="on">
                             <div class="info_body">
                                 <div class="info_btn">直播</div>
-                                <div class="info_l"><img src="uploads/file/20160506/910.png"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$program_first['title']?></h2><p></p></div>
+                                <div class="info_l"><img src="uploads/file/20160506/910.png"  class="music_img" alt="left"/></div><div class="info_r" ><h3 style="color: #000000;"><?=$program_first['title']?></h3><p></p></div>
                                 <div class="zan">
                                     <p><a href="#" ><i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
                                     <p><a href="#" ><i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
@@ -444,7 +447,7 @@
                             <li id="r_<?=$k;?>">
                                 <div class="info_body">
                                     <div class="info_btn">直播</div>
-                                    <div class="info_l"><img src="uploads/file/20160506/930.png"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$value['title']?></h2><p></p></div>
+                                    <div class="info_l"><img src="uploads/file/20160506/930.png"  class="music_img" alt="left"/></div><div class="info_r"><h3 style="color: #000000;"><?=$value['title']?></h3><p></p></div>
                                     <div class="zan">
                                         <p><a href="#" ><i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
                                         <p><a href="#" ><i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>

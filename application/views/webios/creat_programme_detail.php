@@ -16,7 +16,7 @@
 <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
 <div class="page-group">
     <!-- 单个page ,第一个.page默认被展示-->
-    <div class="page" id="check_box">
+    <div class="page" id="check_box" style="margin-top: 0.5rem;">
         <!-- 标题栏 -->
         <header class="bar bar-nav  regtitle">
             <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=creat_programme_view" class="external" >

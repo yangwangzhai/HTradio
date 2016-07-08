@@ -418,12 +418,13 @@
 <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
 <div class="page-group indexbg">
     <!-- 单个page ,第一个.page默认被展示-->
-    <div class="page">
+    <div class="page page-current">
         <!-- 标题栏 -->
-        <header class="bar bar-nav"> <a class="icon pull-left open-panel pull-left-icon external" <?php if(empty($mid)){echo 'href="index.php?d=webios&c=webios&m=login_view"';}?>></a>
-            <h1 class="title">海豚FM</h1>
-            <a class="icon pull-right pull-right-icon"></a> </header>
-
+        <header class="bar bar-nav">
+            <a class="icon pull-left <?php if(!empty($mid)){echo 'open-panel';}?>  pull-left-icon
+ external" <?php if(empty($mid)){echo 'href="index.php?d=webios&c=webios&m=login_view"';}?>>
+            </a>
+        </header>
         <!-- 这里是页面内容区 -->
         <div class="content">
             <div class="infox_main">
@@ -434,8 +435,12 @@
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/910.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>新闻910</h2><p>我们只做新闻！</p></div>
                                 <div class="zan">
-                                    <p><a href="#" ><i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a href="#" ><i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p>
+                                        <a data-id="6" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>                                        <i class="fa fa-thumbs-up"></i>
+                                            <span class="zan_num">10</span>
+                                        </a>
+                                    </p>
+                                    <p><a data-id="6" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div>
                         </li>
@@ -443,56 +448,56 @@
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/930.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>私家车930</h2><p>广西私家车第一广播</p></div>
                                 <div class="zan">
-                                    <p><a href="#" ><i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a href="#" ><i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="8" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="8" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
                         <li id="r_2"><div class="info_body">
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/950.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>95.0MusicRadio</h2><p>就是爱音乐</p></div>
                                 <div class="zan">
-                                    <p><a href="#" ><i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a href="#" ><i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="9" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="9" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
                         <li id="r_3"><div class="info_body">
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/970.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>970女主播电台</h2><p>资讯+音乐</p></div>
                                 <div class="zan">
-                                    <p><a href="#" ><i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a href="#" ><i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="7" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="7" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
                         <li id="r_4"><div class="info_body">
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/1003.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>广西交通台1003</h2><p>跨越城市 声视交通</p></div>
                                 <div class="zan">
-                                    <p><a href="#" ><i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a href="#" ><i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="10" data-type="support" data-id="" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="10" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
                         <li id="r_5"><div class="info_body">
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/bbr.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>北部湾之声</h2><p>新媒时代 无处不在</p></div>
                                 <div class="zan">
-                                    <p><a href="#" ><i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a href="#" ><i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="11" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="11" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
                         <li id="r_6"><div class="info_body">
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/firu.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>风尚调频</h2><p>唯风尚不后退</p></div>
                                 <div class="zan">
-                                    <p><a href="#" ><i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a href="#" ><i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="12" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="12" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
                         <li id="r_7"><div class="info_body">
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/ly.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>广西旅游广播</h2><p>用耳朵来旅行</p></div>
                                 <div class="zan">
-                                    <p><a href="#" ><i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a href="#" ><i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="13" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="13" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
 
@@ -548,8 +553,7 @@
                                 'http://media.bbrtv.com:1935/live/_definst_/1003/playlist.m3u8',
                                 'http://media.bbrtv.com:1935/live/_definst_/bbr/playlist.m3u8',
                                 'http://media.bbrtv.com:1935/live/_definst_/fashion/playlist.m3u8',
-                                'http://media.bbrtv.com:1935/live/_definst_/lypl/playlist.m3u8',
-
+                                'http://media.bbrtv.com:1935/live/_definst_/lypl/playlist.m3u8'
                             ];
 
                             // 一般用模板引擎,把数据 与 模板 转换为 视图,来显示,这里是模拟
@@ -566,8 +570,6 @@
                             // 控制
 
                             Player.audio = Player.$audio.get(0);
-                            //Player.audio.src = Player.path + Player.data[0];
-                            //Player.audio.play();
                             $('#ctrl-area').on('click', 'button', function() {
                                 Player.$rmusic.html(Player.data[Player.currentIndex]);
                             });
@@ -577,13 +579,8 @@
                                 $(this).hide();
                                 $("#btn-pause").show();
                                 Player.audio.play();
-
                                 $(".info_box").find(".info_l").removeClass("play");
                                 $(".on").find(".info_l").addClass("play");
-
-
-
-
                                 if (Player.currentIndex == -1) {
                                     if (Player.currentIndex == -1) {
                                         Player.currentIndex = 0;
@@ -607,29 +604,35 @@
 
                             // 下一曲
                             $('#btn-next').click(function() {
+                                $("#btn-pause").show();
+                                $("#btn-play").hide();
                                 if (Player.currentIndex == -1) {
-                                    Player.currentIndex = 0;
+                                    Player.currentIndex = Player.data.length-1;
+                                } else if (Player.currentIndex == 0) {
+                                    Player.currentIndex = Player.data.length-1;
+                                } else {
+                                    Player.currentIndex--;
+                                }
+                                console.log("Player.currentIndex : " + Player.currentIndex);
+                                Player.audio.src = Player.path + Player.data[Player.currentIndex];
+                                Player.audio.play();
+
+                            });
+
+                            // 上一曲
+                            $('#btn-pre').click(function() {
+                                $("#btn-pause").show();
+                                $("#btn-play").hide();
+                                if (Player.currentIndex == -1) {
+                                    Player.currentIndex = 1;
                                 } else if (Player.currentIndex == (Player.data.length - 1)) {
                                     Player.currentIndex = 0;
                                 } else {
                                     Player.currentIndex++;
                                 }
-                                console.log("Player.currentIndex : " + Player.currentIndex);
                                 Player.audio.src = Player.path + Player.data[Player.currentIndex];
                                 Player.audio.play();
-                            });
 
-                            // 上一曲
-                            $('#btn-pre').click(function() {
-                                if (Player.currentIndex == -1) {
-                                    Player.currentIndex = 0;
-                                } else if (Player.currentIndex == 0) {
-                                    Player.currentIndex = (Player.data.length - 1);
-                                } else {
-                                    Player.currentIndex--;
-                                }
-                                Player.audio.src = Player.path + Player.data[Player.currentIndex];
-                                Player.audio.play();
                             });
 
                             // 单曲循环
@@ -676,6 +679,7 @@
                         $("#btn-pause").show();
                         $("#btn-play").hide();
                         var i=$("#numbers1_value").val();
+                        Player.currentIndex = i;
                         Player.audio.src = Player.path + Player.data[i];
                         Player.audio.play();
                     } );
@@ -689,6 +693,7 @@
 
 
             </script>
+
             <script>
 
                 Hammer.plugins.fakeMultitouch();
@@ -696,6 +701,7 @@
 
                     $("select.drum").drum({
                         onChange : function (e) {
+                            $(".info_box").find(".info_l").removeClass("play");
                             $(".info_box").find("li").removeClass("old");
                             $(".info_box").find(".on").addClass("old");
                             $(".info_box").find("li").removeClass("on");
@@ -709,16 +715,33 @@
 
                 });
                 $(".zan").find("p a").click(function() {
-                    $(".zan").find(".fa").removeClass("zanicon");
-                    $(this).children(".fa").addClass("zanicon");
-                    $(".zan").find("p a").removeClass("active");
-                    $(this).addClass("active");
-                    var j=$(this).children("span.zan_num").text();
-                    var i= parseInt(j);
-                    i=i+1;
-                    $(this).children("span.zan_num").text(i);
-                    niceIn($(this));
-                    //异步保存点赞或者差评数
+                        var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
+                        if( mid > 0 || mid != undefined){
+                            var id = $(this).attr("data-id");
+                            var type = $(this).attr("data-type");
+                            $.ajax({
+                                url: "index.php?d=webios&c=webios&m=support_negative",   //后台处理程序
+                                type: "post",         //数据发送方式
+                                dataType:"json",    //接受数据格式
+                                data:{id:id,type:type},  //要传递的数据
+                                success:function(data){
+                                    alert(data);
+                                },
+                                error:function(XMLHttpRequest, textStatus, errorThrown)
+                                {
+                                    //alert(errorThrown);
+                                }
+                            });
+                            $(".zan").find(".fa").removeClass("zanicon");
+                            $(this).children(".fa").addClass("zanicon");
+                            $(".zan").find("p a").removeClass("active");
+                            $(this).addClass("active");
+                            var j=$(this).children("span.zan_num").text();
+                            var i= parseInt(j);
+                            i=i+1;
+                            $(this).children("span.zan_num").text(i);
+                            niceIn($(this));
+                        }
 
 
                 });
@@ -737,7 +760,6 @@
     </div>
 
     <!-- 其他的单个page内联页（如果有） -->
-    <div class="page">...</div>
 </div>
 
 <!-- popup, panel 等放在这里 -->

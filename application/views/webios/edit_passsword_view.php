@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="page-group">
-    <div class="page page-current">
+    <div class="page page-current" style="margin-top: 0.5rem;">
         <!-- 你的html代码 -->
         <header class="bar bar-nav">
             <h1 class='title'>修改密码</h1>

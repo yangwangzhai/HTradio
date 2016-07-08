@@ -37,7 +37,7 @@
 </head>
 <body>
 <div class="page-group">
-    <div id="page-tabs" class="page">
+    <div id="page-tabs" class="page" style="margin-top: 0.5rem;">
         <header class="bar bar-nav">
             <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=main_view" class="external">
                 <span class="icon icon-left"></span>
@@ -73,7 +73,7 @@
                 </ul>
             </div>
             <div>
-                <div class="col-50" style="width: 100%;margin:0 auto;"><a href="index.php?d=webios&c=webios&m=out" class="button button-big button-fill button-success external">退出</a></div>
+                <div class="col-50" style="width: 60%;margin:1rem auto;"><a href="index.php?d=webios&c=webios&m=out" class="button button-big button-fill button-success external">退出</a></div>
             </div>
         </div>
     </div>

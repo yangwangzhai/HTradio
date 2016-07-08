@@ -13,7 +13,7 @@ cite{font-style:normal;}
 .page-group { background:none}
 .page { background:none}
 .bar { background:none; border:none}
-.title { color:#fff;}
+/*.title { color:#fff;}*/
 .button { border:none;}
 .pull-left-icon{ width:2.4rem; height:2.4rem; margin: .3rem; background:url(../img/ic_person.png) no-repeat center center; background-size:60%; border-radius: 50%;}
 .pull-left-icon:active{ background:#041a63 url(../img/ic_person.png) no-repeat center center; background-size:60%}
@@ -55,7 +55,7 @@ cite{font-style:normal;}
 .pbtn:hover{ background: #0254cd;}
 .content-block{padding: 0;}
 /*login*/
-.bar .button-link { color:#fff; background-image:url(../img/back_icon1.png); background-repeat:no-repeat; background-size:20%; background-position:center left; padding-left:.6rem;}
+/*.bar .button-link { color:#fff; background-image:url(../img/back_icon1.png); background-repeat:no-repeat; background-size:20%; background-position:center left; padding-left:.6rem;}*/
 .loginbg {background:url(../img/login_bg.jpg) no-repeat; background-size: cover; background-position: 50% 50%;}
 .login { height:16rem; margin:7rem .5rem 0 .5rem; background-color:rgba(25,139,228,0.5);}
 .login ul { padding:.6rem 1.4rem}

@@ -14,15 +14,11 @@
 </head>
 <body>
 <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
-<div class="page-group loginbg">
+<div class="page-group loginbg" >
     <!-- 单个page ,第一个.page默认被展示-->
-    <div class="page">
-        <!-- 标题栏 -->
-        <!--<header class="bar bar-nav">
-            <button class="button button-link button-nav pull-left "> <span class="icon back"></span> 返回 </button>
-        </header>-->
-        <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=main_view" class="external">
+    <div class="page" style="margin-top: 0.5rem;">
+        <header class="bar bar-nav" >
+            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=main_view" >
                 返回
             </a>
         </header>
