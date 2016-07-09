@@ -537,19 +537,48 @@ class webios extends  CI_Controller
     }
 
     public function support_negative(){
-        $mid = $this->session->userdata('mid') ;
+        $insert['mid'] = $mid = $this->session->userdata('mid') ;
         $id = $this->input->post("id");
+        $insert['channel_type'] = 1;//直播频道为 1
         $type = $this->input->post("type");
         if($type=='support'){
             $res_num=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND support_target_id=$id AND channel_type=1");
             $num=$res_num->row_array();
             if($num['num']){
-                echo json_encode("已经点过");
+                //已经点过赞
+                echo json_encode(0);
             }else{
-                echo json_encode("未点过");
+                //把该用户点赞或者差评过的记录到数据库中，这样知道该用户点赞过哪个频道，差评过哪个频道，
+                //同时防止同一个用户对同一个频道点赞或者差评多次
+                $insert['support_target_id'] = $id;
+                $this->db->insert ( 'fm_support_negative', $insert);
+                //先获取点赞数
+                $sql = "SELECT support_num FROM fm_live_channel WHERE id=$id";
+                $query = $this->db->query($sql);
+                $res=$query->row_array();
+                $support_num_new=$res['support_num']+1;
+                //更新数据库
+                $this->db->query("UPDATE fm_live_channel SET support_num=$support_num_new WHERE id=$id");
+                echo json_encode(1);
             }
         }else{
-
+            $res_num=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND negative_target_id=$id AND channel_type=1");
+            $num=$res_num->row_array();
+            if($num[num]){
+                //已经差评过
+                echo json_encode("0");
+            }else{
+                $insert['negative_target_id'] = $id;
+                $this->db->insert ( 'fm_support_negative', $insert);
+                //先获取差评数
+                $sql = "SELECT negative_num FROM fm_live_channel WHERE id=$id";
+                $query = $this->db->query($sql);
+                $res=$query->row_array();
+                $negative_num_new=$res['negative_num']+1;
+                //更新数据库
+                $this->db->query("UPDATE fm_live_channel SET negative_num=$negative_num_new WHERE id=$id");
+                echo json_encode(1);
+            }
         }
 
     }

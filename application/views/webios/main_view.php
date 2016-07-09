@@ -725,25 +725,33 @@
                                 dataType:"json",    //接受数据格式
                                 data:{id:id,type:type},  //要传递的数据
                                 success:function(data){
-                                    alert(data);
+                                    alert(typeof(data));
+                                    if(parseInt(data)==1){
+                                        $(".zan").find(".fa").removeClass("zanicon");
+                                        $(this).children(".fa").addClass("zanicon");
+                                        $(".zan").find("p a").removeClass("active");
+                                        $(this).addClass("active");
+                                        var j=$(this).children("span.zan_num").text();
+                                        var i= parseInt(j);
+                                        i=i+1;
+                                        $(this).children("span.zan_num").text(i);
+                                        alert(data);
+                                        niceIn($(this));
+                                    }else{
+                                        $(".zan").find(".fa").removeClass("zanicon");
+                                        $(this).children(".fa").addClass("zanicon");
+                                        $(".zan").find("p a").removeClass("active");
+                                        $(this).addClass("active");
+                                        alert(data);
+                                        niceIn($(this));
+                                    }
                                 },
                                 error:function(XMLHttpRequest, textStatus, errorThrown)
                                 {
                                     //alert(errorThrown);
                                 }
                             });
-                            $(".zan").find(".fa").removeClass("zanicon");
-                            $(this).children(".fa").addClass("zanicon");
-                            $(".zan").find("p a").removeClass("active");
-                            $(this).addClass("active");
-                            var j=$(this).children("span.zan_num").text();
-                            var i= parseInt(j);
-                            i=i+1;
-                            $(this).children("span.zan_num").text(i);
-                            niceIn($(this));
                         }
-
-
                 });
                 function niceIn(prop){
                     $('.active i').addClass('zanicon');
