@@ -430,17 +430,35 @@
             <div class="infox_main">
                 <div class="info_box">
                     <ul>
-                        <li id="r_0" class="on">
+                        <?php foreach($channel_list as $key=>$value) :?>
+
+                            <li id="r_<?=$key?>" class="<?php if($key==0){echo "on";}else{ echo "info_body";} ?>">
+                                <div class="info_body">
+                                    <div class="info_btn">直播</div>
+                                    <div class="info_l"><img src="<?=$value['logo'];?>"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$value['title'];?></h2><p><?=$value['description'];?></p></div>
+                                    <div class="zan">
+                                        <p>
+                                            <a data-id="<?=$value['id'];?>" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>                                        <i class="fa fa-thumbs-up"></i>
+                                                <span class="zan_num"><?=$value['support_num'];?></span>
+                                            </a>
+                                        </p>
+                                        <p><a data-id="<?=$value['id'];?>" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num"><?=$value['negative_num'];?></span></a></p>
+                                    </div>
+                                </div>
+                            </li>
+
+                        <?php endforeach?>
+                        <!--<li id="r_0" class="on">
                             <div class="info_body">
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/910.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>新闻910</h2><p>我们只做新闻！</p></div>
                                 <div class="zan">
                                     <p>
-                                        <a data-id="6" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>                                        <i class="fa fa-thumbs-up"></i>
+                                        <a data-id="6" data-type="support" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>                                        <i class="fa fa-thumbs-up"></i>
                                             <span class="zan_num">10</span>
                                         </a>
                                     </p>
-                                    <p><a data-id="6" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="6" data-type="negative" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div>
                         </li>
@@ -448,73 +466,78 @@
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/930.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>私家车930</h2><p>广西私家车第一广播</p></div>
                                 <div class="zan">
-                                    <p><a data-id="8" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a data-id="8" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="8" data-type="support" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="8" data-type="negative" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
                         <li id="r_2"><div class="info_body">
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/950.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>95.0MusicRadio</h2><p>就是爱音乐</p></div>
                                 <div class="zan">
-                                    <p><a data-id="9" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a data-id="9" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="9" data-type="support" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="9" data-type="negative" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
                         <li id="r_3"><div class="info_body">
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/970.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>970女主播电台</h2><p>资讯+音乐</p></div>
                                 <div class="zan">
-                                    <p><a data-id="7" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a data-id="7" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="7" data-type="support" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="7" data-type="negative" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
                         <li id="r_4"><div class="info_body">
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/1003.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>广西交通台1003</h2><p>跨越城市 声视交通</p></div>
                                 <div class="zan">
-                                    <p><a data-id="10" data-type="support" data-id="" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a data-id="10" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="10" data-type="support" data-id="" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="10" data-type="negative" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
                         <li id="r_5"><div class="info_body">
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/bbr.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>北部湾之声</h2><p>新媒时代 无处不在</p></div>
                                 <div class="zan">
-                                    <p><a data-id="11" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a data-id="11" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="11" data-type="support" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="11" data-type="negative" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
                         <li id="r_6"><div class="info_body">
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/firu.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>风尚调频</h2><p>唯风尚不后退</p></div>
                                 <div class="zan">
-                                    <p><a data-id="12" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a data-id="12" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="12" data-type="support" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="12" data-type="negative" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
                         <li id="r_7"><div class="info_body">
                                 <div class="info_btn">直播</div>
                                 <div class="info_l"><img src="uploads/file/20160506/ly.png"  class="music_img" alt="left"/></div><div class="info_r"><h2>广西旅游广播</h2><p>用耳朵来旅行</p></div>
                                 <div class="zan">
-                                    <p><a data-id="13" data-type="support" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
-                                    <p><a data-id="13" data-type="negative" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
+                                    <p><a data-id="13" data-type="support" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-up"></i><span class="zan_num">10</span></a></p>
+                                    <p><a data-id="13" data-type="negative" href="<?php /*if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}*/?>" <?php /*if(empty($mid)){echo 'class="external"';}*/?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num">6</span></a></p>
                                 </div>
                             </div></li>
-
+-->
                     </ul>
 
                 </div>
             </div>
 
             <select   id="numbers1" class="drum">
-                <option value="0">广西新闻广播</option>
+
+                <?php foreach($channel_list as $key=>$value) :?>
+                    <option value="<?=$key?>"><?=$value['title'];?></option>
+                <?php endforeach?>
+
+                <!--<option value="0">广西新闻广播</option>
                 <option value="1">私家车930</option>
                 <option value="2">95.0MusicRadio</option>
                 <option value="3">970女主播电台</option>
                 <option value="4">广西交通台1003</option>
                 <option value="5">北部湾之声</option>
                 <option value="6">风尚调频</option>
-                <option value="7">广西旅游广播</option>
+                <option value="7">广西旅游广播</option>-->
 
             </select>
             <audio id="audio" controls style="width:0; height:0; position:absolute; left:-9999px;" autoplay="autoplay" preload="preload"></audio>
@@ -546,14 +569,21 @@
 
                             // 数据一般来自服务器端,通过ajax 加载数据,这里是模拟
                             Player.data = [
-                                'http://media.bbrtv.com:1935/live/_definst_/910/playlist.m3u8',
+                                <?php foreach($channel_list as $key=>$value) :?>
+                                    <?php if($key==count($channel_list)-1){?>
+                                        '<?=$value['add_channel'];?>'
+                                    <?php }else{?>
+                                        '<?=$value['add_channel'];?>',
+                                    <?php }?>
+                                <?php endforeach?>
+                                /*'http://media.bbrtv.com:1935/live/_definst_/910/playlist.m3u8',
                                 'http://media.bbrtv.com:1935/live/_definst_/930/playlist.m3u8',
                                 'http://media.bbrtv.com:1935/live/_definst_/950/playlist.m3u8',
                                 'http://media.bbrtv.com:1935/live/_definst_/970/playlist.m3u8',
                                 'http://media.bbrtv.com:1935/live/_definst_/1003/playlist.m3u8',
                                 'http://media.bbrtv.com:1935/live/_definst_/bbr/playlist.m3u8',
                                 'http://media.bbrtv.com:1935/live/_definst_/fashion/playlist.m3u8',
-                                'http://media.bbrtv.com:1935/live/_definst_/lypl/playlist.m3u8'
+                                'http://media.bbrtv.com:1935/live/_definst_/lypl/playlist.m3u8'*/
                             ];
 
                             // 一般用模板引擎,把数据 与 模板 转换为 视图,来显示,这里是模拟
@@ -719,30 +749,25 @@
                         if( mid > 0 || mid != undefined){
                             var id = $(this).attr("data-id");
                             var type = $(this).attr("data-type");
+                            $(".zan").find(".fa").removeClass("zanicon");
+                            $(this).children(".fa").addClass("zanicon");
+                            $(".zan").find("p a").removeClass("active");
+                            $(this).addClass("active");
+                            var j=$(this).children("span.zan_num").text();
+                            var i= parseInt(j);
+                            i=i+1;
                             $.ajax({
                                 url: "index.php?d=webios&c=webios&m=support_negative",   //后台处理程序
                                 type: "post",         //数据发送方式
                                 dataType:"json",    //接受数据格式
                                 data:{id:id,type:type},  //要传递的数据
                                 success:function(data){
-                                    alert(typeof(data));
                                     if(parseInt(data)==1){
-                                        $(".zan").find(".fa").removeClass("zanicon");
-                                        $(this).children(".fa").addClass("zanicon");
-                                        $(".zan").find("p a").removeClass("active");
-                                        $(this).addClass("active");
-                                        var j=$(this).children("span.zan_num").text();
-                                        var i= parseInt(j);
-                                        i=i+1;
-                                        $(this).children("span.zan_num").text(i);
-                                        alert(data);
+                                        //加 1
+                                        $(".active").children("span.zan_num").text(i);
                                         niceIn($(this));
                                     }else{
-                                        $(".zan").find(".fa").removeClass("zanicon");
-                                        $(this).children(".fa").addClass("zanicon");
-                                        $(".zan").find("p a").removeClass("active");
-                                        $(this).addClass("active");
-                                        alert(data);
+                                        //已经点过赞或者差评过
                                         niceIn($(this));
                                     }
                                 },

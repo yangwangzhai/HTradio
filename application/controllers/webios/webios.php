@@ -216,7 +216,10 @@ class webios extends  CI_Controller
             $query = $this->db->query($sql);
             $data['username'] = $query->row_array();
         }
-        //获取欧洲杯最新的一条新闻
+        //获取所有直播频道信息
+        $sql_channel = "select * from fm_live_channel";
+        $query_channel = $this->db->query($sql_channel);
+        $data['channel_list'] = $query_channel->result_array();
 
         $this->load->view("webios/main_view",$data);
     }
