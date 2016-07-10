@@ -71,6 +71,23 @@ class webios extends  CI_Controller
         $this->load->view("webios/live_channel_list",$data);
     }
 
+    //主页
+    public function main_view(){
+        $data['mid'] = $mid = $this->session->userdata('mid');
+        if(!empty($mid)){
+            //获取用户名称
+            $sql="select username,avatar from fm_member WHERE id=$mid";
+            $query = $this->db->query($sql);
+            $data['user'] = $query->row_array();
+        }
+        //获取所有直播频道信息
+        $sql_channel = "select * from fm_live_channel";
+        $query_channel = $this->db->query($sql_channel);
+        $data['channel_list'] = $query_channel->result_array();
+
+        $this->load->view("webios/main_view",$data);
+    }
+
     public function regist_view(){
         $this->load->view("webios/regist_view");
     }
@@ -88,6 +105,14 @@ class webios extends  CI_Controller
             'status' => 1,
             'lastlogintime' => time ()
         );
+        //将用户所填信息存入cookie
+        set_cookie("username",trim ( $_POST ['username'] ),time()+3600);
+        set_cookie("password",trim ( $_POST ['password'] ),time()+3600);
+        set_cookie("password2",trim ( $_POST ['password2'] ),time()+3600);
+        set_cookie("email",trim ( $_POST ['email'] ),time()+3600);
+        set_cookie("nickname",trim ( $_POST ['nickname'] ),time()+3600);
+        set_cookie("tel",trim ( $_POST ['tel'] ),time()+3600);
+        set_cookie("IDcard",trim ( $_POST ['IDcard'] ),time()+3600);
 
         if ($postdate ['username'] == "" || $postdate ['password'] == "") {
             $data['mess'] = "用户名或者密码不能为空！";
@@ -122,10 +147,24 @@ class webios extends  CI_Controller
         }
     }
 
+    //跳转登陆界面
+    public function login_view(){
+        $this->load->view("webios/login_view");
+    }
+
     //验证登陆
     public function check_login() {
         $username = trim ( $this->input->post ( 'username' ) );
         $password = trim ( $this->input->post ( 'password' ) );
+        $remember = trim ( $this->input->post ( 'remember' ) );
+        //是否设置了 记住密码
+        if($remember){
+            set_cookie("username",$username,time()+3600*24*7);
+            set_cookie("password",$password,time()+3600*24*7);
+        }else{
+            set_cookie("username","",time()-1);
+            set_cookie("password","",time()-1);
+        }
         if (empty ( $username ) || empty ( $password )) {
             $data['mess'] = "用户名或者密码不能为空！";
             $data['url'] = "login_view";
@@ -200,28 +239,6 @@ class webios extends  CI_Controller
         $row['private_letter'] = $favor_data['num'];
 
         return $row;
-    }
-
-    //跳转登陆界面
-    public function login_view(){
-        $this->load->view("webios/login_view");
-    }
-
-    //
-    public function main_view(){
-        $data['mid'] = $mid = $this->session->userdata('mid');
-        if(!empty($mid)){
-            //获取用户名称
-            $sql="select username from fm_member WHERE id=$mid";
-            $query = $this->db->query($sql);
-            $data['username'] = $query->row_array();
-        }
-        //获取所有直播频道信息
-        $sql_channel = "select * from fm_live_channel";
-        $query_channel = $this->db->query($sql_channel);
-        $data['channel_list'] = $query_channel->result_array();
-
-        $this->load->view("webios/main_view",$data);
     }
 
     //我的节目单

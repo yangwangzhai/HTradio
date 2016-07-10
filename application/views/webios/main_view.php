@@ -801,12 +801,12 @@
 <div class="panel panel-left panel-reveal">
     <div class="content-block">
         <dl>
-            <dt><a href="#"><img src="static/webios/img/play_bg.jpg"></a></dt>
-            <dd><a href="#"><?=$username['username']?></a></dd>
+            <dt><a href="#"><img src="<?php if(!empty($user['avatar'])){echo $user['avatar'];}else{echo 'static/webios/img/play_bg.jpg';}?>"></a></dt>
+            <dd><a href="#"><?=$user['username']?></a></dd>
         </dl>
         <ul>
             <li><i class="fa fa-file-text-o"></i><a href="index.php?d=webios&c=webios&m=my_programme" class="external">我的节目单</a></li>
-            <li><i class="fa fa-heart-o"></i><a href="index.php?d=webios&c=webios&m=collect_view" class="external">我的收藏节目</a></li>
+            <li><i class="fa fa-heart-o"></i><a href="index.php?d=webios&c=webios&m=collect_view" class="external">我收藏的节目单</a></li>
             <li><i class="fa fa-pencil-square-o"></i><a href="index.php?d=webios&c=webios&m=feedback_view" class="external">意见反馈</a</li>
             <li><i class="fa fa-cog"></i><a href="index.php?d=webios&c=webios&m=setting_list" class="external">软件设置</a></li>
         </ul>

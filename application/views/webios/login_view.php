@@ -28,17 +28,17 @@
                 <div class="login">
                     <ul>
                         <li>
-                            <input name="username" type="text" class="loginuser" placeholder="用户名" value="">
+                            <input name="username" type="text" class="loginuser" placeholder="用户名" value="<?php echo $_COOKIE['username'];?>">
                         </li>
                         <li>
-                            <input name="password" type="password" class="loginpwd" placeholder="密码" value="">
+                            <input name="password" type="password" class="loginpwd" placeholder="密码" value="<?php echo $_COOKIE['password'];?>">
                         </li>
                         <li>
                             <input type="submit" class="loginbtn" value="登  录">
                         </li>
                         <li>
                             <label>
-                                <input name="" type="checkbox" value="" checked="checked">
+                                <input name="remember" type="checkbox" value="1" checked="checked">
                                 记住密码</label>
                             <label><a href="#" class="forget">忘记密码？</a></label>
                         </li>

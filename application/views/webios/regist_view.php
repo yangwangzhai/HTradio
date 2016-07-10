@@ -30,7 +30,7 @@
                                 <div class="item-inner">
                                     <div class="item-title label">用户名称</div>
                                     <div class="item-input">
-                                        <input type="text" name="username" id="username" placeholder="Your name">
+                                        <input type="text" name="username" id="username" placeholder="Your name" value="<?php echo $_COOKIE['username'];?>">
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                                 <div class="item-inner">
                                     <div class="item-title label">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</div>
                                     <div class="item-input">
-                                        <input type="text" name="nickname" placeholder="nickname">
+                                        <input type="text" name="nickname" placeholder="nickname" value="<?php echo $_COOKIE['nickname'];?>">
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                 <div class="item-inner">
                                     <div class="item-title label">手机号码</div>
                                     <div class="item-input">
-                                        <input type="text" name="tel" placeholder="tel">
+                                        <input type="text" name="tel" placeholder="tel" value="<?php echo $_COOKIE['tel'];?>">
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                                 <div class="item-inner">
                                     <div class="item-title label">身份证号</div>
                                     <div class="item-input">
-                                        <input type="text" name="IDcard" placeholder="IDcard">
+                                        <input type="text" name="IDcard" placeholder="IDcard" value="<?php echo $_COOKIE['IDcard'];?>">
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                                 <div class="item-inner">
                                     <div class="item-title label">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</div>
                                     <div class="item-input">
-                                        <input type="email" name="email" placeholder="E-mail">
+                                        <input type="email" name="email" placeholder="E-mail" value="<?php echo $_COOKIE['email'];?>">
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                 <div class="item-inner">
                                     <div class="item-title label">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</div>
                                     <div class="item-input">
-                                        <input type="password" name="password" placeholder="Password" id="pre_password" class="">
+                                        <input type="password" name="password" placeholder="Password" id="pre_password" class="" value="<?php echo $_COOKIE['password'];?>">
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                                 <div class="item-inner">
                                     <div class="item-title label">确认密码</div>
                                     <div class="item-input">
-                                        <input type="password" name="password2" id="com_password" placeholder="Password" class="">
+                                        <input type="password" name="password2" id="com_password" placeholder="Password" class="" value="<?php echo $_COOKIE['password2'];?>">
                                     </div>
                                 </div>
                             </div>
