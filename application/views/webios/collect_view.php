@@ -57,7 +57,12 @@
                                 <div class="facebook-date"><?=$value['name']?></div>
                             </div>
                         </a>
-                        <div class="card-footer"><a href="#" class="link">收藏 <?=$value['col_num']?></a> <a href="#" class="link">评论 4</a> <a href="#" class="link">分享 7</a> <a href="#" class="link">下载 5</a></div>
+                        <div class="card-footer">
+                            <a href="#" class="link">收藏 <?=$value['col_num']?></a>
+                            <a href="#" class="link">评论 4</a>
+                            <a href="#" class="link">分享 7</a>
+                            <a href="#" class="link">下载 5</a>
+                        </div>
                     </div>
                 <?php endforeach?>
             <?php }else{?>

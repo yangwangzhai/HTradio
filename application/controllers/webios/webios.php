@@ -749,9 +749,35 @@ class webios extends  CI_Controller
         $this->load->view("webios/col_program_play",$data);
     }
 
+    public function forget_view(){
+        $this->load->view("webios/forget_view");
+    }
 
+    public function forget_active(){
+        $username = trim ( $_POST ['username'] );
+        $email = trim ( $_POST ['email'] );
 
+        if(empty($username)||empty($email)){
+            $data['mess'] = "用户名或者邮箱不能为空！";
+            $data['url'] = "regist_view";
+            $this->load->view("webios/show_message2",$data);
+        }else{
+            //根据用户名，判断用户输入的邮箱是否与数据库的匹配
+            $sql = "select email from fm_member WHERE username='$username'";
+            $query = $this->db->query($sql);
+            $result_email = $query->row_array();
+            if($result_email['email']==$email){
+                $data['mess'] = "请打开邮箱，重置密码！";
+                $data['url'] = "main_view";
+                $this->load->view("webios/show_message",$data);
+            }else{
+                $data['mess'] = "用户名与邮箱不匹配，请重新输入！";
+                $data['url'] = "main_view";
+                $this->load->view("webios/show_message2",$data);
+            }
+        }
 
+    }
 
 
 

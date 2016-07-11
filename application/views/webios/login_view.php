@@ -40,7 +40,7 @@
                             <label>
                                 <input name="remember" type="checkbox" value="1" checked="checked">
                                 记住密码</label>
-                            <label><a href="#" class="forget">忘记密码？</a></label>
+                            <label><a href="index.php?d=webios&c=webios&m=forget_view" class="forget external">忘记密码？</a></label>
                         </li>
                         <li class="loginreg"><a href="index.php?d=webios&c=webios&m=regist_view" class="external">新注册</a></li>
                     </ul>
