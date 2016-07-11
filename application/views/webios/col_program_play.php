@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="static/webios/css/sm.min.css">
     <link rel="stylesheet" href="static/webios/css/sm-extend.min.css">
-    <link rel="stylesheet" href="static/webios/css/style_play.css">
+    <!--    <link rel="stylesheet" href="static/webios/css/style.css">-->
     <script src="static/webios/js/jquery-1.9.1.js"></script>
     <script src="static/webios/js/hammer.min.js"></script>
     <script src="static/webios/js/hammer.fakemultitouch.js"></script>
@@ -266,6 +266,7 @@
         .info_r{float:left;  margin:2.8rem 0 0 1rem ; text-align:left; width:13rem;}
         .info_r h2{font-size:1.2rem;line-height:.8rem; color:#333;  margin:0;}
         .info_r p{font-size:.96rem; color:#666;  height:1.4rem; overflow:hidden; margin:.3rem 0 0 0; padding:0;white-space: nowrap;
+            text-overflow: ellipsis;}
         .music_img{max-width:100%; width:4.56rem; height:4.56rem; border:#fff 4px solid; border-radius:50%;}
         .zan{width:100%; height:2.92rem; position:absolute; bottom:0px; z-index:9999}
         .zan p{float:left; width:50%; margin:0; padding:0; font-size:1rem; line-height:2.2rem ; color:#666;}

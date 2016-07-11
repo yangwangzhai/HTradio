@@ -56,13 +56,13 @@
                             </div>
                         </a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="#" class="item-link item-content">
                             <div class="item-inner">
                                 <div class="item-title">设置默认节目</div>
                             </div>
                         </a>
-                    </li>
+                    </li>-->
                     <!--<li>
                         <a href="#" class="item-link item-content">
                             <div class="item-inner">

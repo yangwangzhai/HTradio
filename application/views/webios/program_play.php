@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="static/webios/css/sm.min.css">
     <link rel="stylesheet" href="static/webios/css/sm-extend.min.css">
-    <link rel="stylesheet" href="static/webios/css/style.css">
+<!--    <link rel="stylesheet" href="static/webios/css/style.css">-->
     <script src="static/webios/js/jquery-1.9.1.js"></script>
     <script src="static/webios/js/hammer.min.js"></script>
     <script src="static/webios/js/hammer.fakemultitouch.js"></script>
