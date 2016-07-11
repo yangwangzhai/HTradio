@@ -10,49 +10,49 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="static/webios/css/sm.min.css">
     <link rel="stylesheet" href="static/webios/css/sm-extend.min.css">
-    <link rel="stylesheet" href="static/webios/css/style.css">
+    <link rel="stylesheet" href="static/webios/css/style_play.css">
 </head>
 <body>
 <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
 <div class="page-group">
     <!-- 单个page ,第一个.page默认被展示-->
-    <div class="page" id="check_box" style="margin-top: 0.5rem;">
-        <!-- 标题栏 -->
-        <header class="bar bar-nav  regtitle">
-            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=creat_programme_view" class="external" >
+    <div class="page" id="programme_detail" style="margin-top: 0.5rem;">
+        <header class="bar bar-nav">
+            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=collect_view">
+                <span class="icon icon-left"></span>
                 返回
             </a>
-            <h1 class="title" >添加节目</h1>
+            <h1 class="title">收藏的节目单</h1>
         </header>
-
         <!-- 这里是页面内容区 -->
         <div class="content">
-            <input type="hidden" name="ids" id="ids" value="<?=$ids?>">
-            <input type="hidden" name="title" id="search" value="<?=$title?>">
-            <?php if(!empty($list)) {?>
-                <?php foreach($list as $value) : ?>
-                    <div class="list-block media-list">
-                        <ul>
-                            <li>
+            <div class="card facebook-card">
+                <div class="card-header">
+                    <div class="facebook-avatar"><img src="static/webios/img/play_bg.jpg" style='width: 2rem; height:2rem'></div>
+                    <div class="facebook-name"><?=$programme_title;?></div>
+                    <div class="facebook-date"><?=$username;?></div>
+                </div>
+                <div class="card-footer"><a href="#" class="link">收藏 <?=$col_num?></a> <a href="#" class="link">评论 4</a> <a href="#" class="link">分享 7</a> <a href="#" class="link">下载 5</a></div>
+            </div>
+            <?php foreach($program_list as $value) :?>
+                <div class="list-block media-list">
+                    <ul>
+                        <li>
+                            <a href="index.php?d=webios&c=webios&m=col_program_play&programme_id=<?=$programme_id?>&program_id=<?=$value['program_id']?>&programme_title=<?=$programme_title;?>&col_num=<?=$col_num?>">
                                 <label class="label-checkbox item-content">
                                     <div class="item-media"><img src="static/webios/img/play_bg.jpg" style='width: 2.8rem; height:2.6rem'></div>
                                     <div class="item-inner">
                                         <div class="item-title-row">
                                             <div class="item-title"><?=$value['title']?></div>
                                         </div>
-                                        <div class="item-subtitle">上传者：xxxx</div>
+                                        <div class="item-subtitle">上传者：<?=$value['nickname']?> <!--.时长：xx分钟--></div>
                                     </div>
-                                    <input type="checkbox" name="my-radio" value="<?=$value['id']?>">
-                                    <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
                                 </label>
-                            </li>
-                        </ul>
-                    </div>
-                <?php endforeach?>
-            <?php }else{?>
-                <p style="color: #000000;">暂时类型没有资源</p>
-            <?php }?>
-            <div class="fbtn" id="btn_creat">完成</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            <?php endforeach?>
         </div>
     </div>
 </div>

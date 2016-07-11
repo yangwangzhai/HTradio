@@ -20,7 +20,7 @@
             <h1 class='title'>注册</h1>
         </header>
         <div class="content">
-            <form method="post" action="index.php?d=webios&c=webios&m=regist" id="form">
+            <form method="post" action="index.php?d=webios&c=webios&m=regist">
                 <div class="list-block">
                     <ul>
                         <!-- Text inputs -->
@@ -106,7 +106,7 @@
                 <div class="content-block">
                     <div class="row">
                         <div class="col-50"><a href="index.php?d=webios&c=webios&m=main_view" class="button button-big button-fill button-danger external">取消</a></div>
-                        <div class="col-50"><a href="#" class="button button-big button-fill button-success">提交</a></div>
+                        <div class="col-50"><input type="submit" class="button button-big button-fill button-success" value="提交"></div>
                     </div>
                 </div>
             </form>
@@ -118,30 +118,5 @@
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-<script>
-    $(document).ready(function(){
-        //表单提交
-        $(".button-success").click(function(){
-
-            $("#form").submit();
-
-            /*//校验两次密码是否一致
-            var username = $("#username").val();
-            var pre_password = $("#pre_password").val();
-            var com_password = $("#com_password").val();
-            if(username==''){
-                alert("用户名不能为空");
-            }else{
-                if(pre_password==com_password){
-                    $("#form").submit();
-                }else{
-                    alert("两次密码不一致");
-                }
-            }*/
-
-
-        });
-    })
-</script>
 </body>
 </html>

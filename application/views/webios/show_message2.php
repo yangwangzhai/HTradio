@@ -37,44 +37,28 @@
 </head>
 <body>
 <div class="page-group">
-    <div id="page-tabs" class="page" style="margin-top: 0.5rem;">
+    <div id="show_message" class="page" style="margin-top: 0.5rem;">
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=main_view" class="external">
-                <span class="icon icon-left"></span>
-                返回
-            </a>
-            <h1 class="title">设置</h1>
+            <h1 class="title">提示信息</h1>
         </header>
         <div class="content">
-
-            <div class="list-block" style="margin-bottom: 0;">
+            <div class="list-block">
                 <ul>
-                    <li>
-                        <a href="index.php?d=webios&c=webios&m=edit_passsword_view" class="item-link item-content">
+                    <li class="align-top">
+                        <div class="item-content">
                             <div class="item-inner">
-                                <div class="item-title">安全与账户</div>
+                                <div class="item-input">
+                                    <h3 style="text-align: center;"><?=$mess?></h3>
+                                </div>
                             </div>
-                        </a>
+                        </div>
                     </li>
-                    <li>
-                        <a href="#" class="item-link item-content">
-                            <div class="item-inner">
-                                <div class="item-title">设置默认节目</div>
-                            </div>
-                        </a>
-                    </li>
-                    <!--<li>
-                        <a href="#" class="item-link item-content">
-                            <div class="item-inner">
-                                <div class="item-title">检查更新（当前版本<?/*=$web['version']*/?>）</div>
-                            </div>
-                        </a>
-                    </li>-->
                 </ul>
             </div>
             <div>
-                <div class="col-50" style="width: 60%;margin:1rem auto;"><a href="index.php?d=webios&c=webios&m=out" class="button button-big button-fill button-success external">退出</a></div>
+                <div class="col-50" style="width: 60%;margin:1rem auto;"><a href="#" class="button button-big button-fill button-success back">确定</a></div>
             </div>
+
         </div>
     </div>
 

@@ -117,18 +117,18 @@ class webios extends  CI_Controller
         if ($postdate ['username'] == "" || $postdate ['password'] == "") {
             $data['mess'] = "用户名或者密码不能为空！";
             $data['url'] = "regist_view";
-            $this->load->view("webios/show_message",$data);
+            $this->load->view("webios/show_message2",$data);
         }else{
             if (trim ( $_POST ['password'] )!=trim ( $_POST ['password2'] )) {
                 $data['mess'] = "两次输入密码不一致！";
                 $data['url'] = "regist_view";
-                $this->load->view("webios/show_message",$data);
+                $this->load->view("webios/show_message2",$data);
             }else{
                 $query = $this->db->query ( "select id from fm_member where username='{$postdate[username]}' limit 1" );
                 if ($query->num_rows () > 0) {
                     $data['mess'] = "用户名已经存在，请换一个！";
                     $data['url'] = "regist_view";
-                    $this->load->view("webios/show_message",$data);
+                    $this->load->view("webios/show_message2",$data);
                 }else{
                     $postdate ['password'] = get_password ( $postdate ['password'] );
                     $this->db->insert ( 'fm_member', $postdate );
@@ -140,7 +140,7 @@ class webios extends  CI_Controller
                     }else{
                         $data['mess'] = "未知错误！";
                         $data['url'] = "regist_view";
-                        $this->load->view("webios/show_message",$data);
+                        $this->load->view("webios/show_message2",$data);
                     }
                 }
             }
@@ -267,7 +267,9 @@ class webios extends  CI_Controller
         $username = $query_user->row_array();
 
         if (empty($programme_id)) {
-            show(1,'programme_id is null');
+            $data['mess'] = "节目单不存在！";
+            $data['url'] = "my_programme";
+            $this->load->view("webios/show_message",$data);
         }
         if (empty($mid)) {
             $mid = 0;
@@ -466,10 +468,6 @@ class webios extends  CI_Controller
         $this->main_view();
     }
 
-    public function collect_view(){
-        $this->load->view("webios/collect_view");
-    }
-
     public function creat_programme_view(){
         $data['mid']= $mid = $this->session->userdata('mid') ;
 
@@ -523,8 +521,12 @@ class webios extends  CI_Controller
 
     public function save_creat_programme(){
         $mid = $this->session->userdata('mid');
+        $sql_user = "select username,nickname from fm_member WHERE id=$mid";
+        $query_user = $this->db->query($sql_user);
+        $result_user = $query_user->row_array();
+        $p_name = $result_user['nickname'] ? $result_user['nickname'].date('y-m-d',time()) : $result_user['username'].date('y-m-d',time());
         $data = array(
-            'title' => $this->input->post("title") ? $this->input->post("title") : "我的新节目单".$mid,
+            'title' => $this->input->post("title") ? $this->input->post("title") : $p_name,
             'mid' => $mid,
             'addtime' => time()
         );
@@ -549,7 +551,7 @@ class webios extends  CI_Controller
 
     public function version(){
         $data = array(
-            'version'=> '1.0',
+            'version'=> '1.1',
             "message"=>"版本说明",
             "url"=>"http://school.wojia99.com/public/app_download/haitun/"
         );
@@ -602,6 +604,156 @@ class webios extends  CI_Controller
         }
 
     }
+
+    //收藏页面
+    public function collect_view(){
+        $mid = $this->session->userdata('mid') ;
+        $query = $this->db->query ( "select programme_id from fm_collect where mid=$mid");
+        $list = $query->result_array ();
+        if(!empty($list)){
+            foreach($list as &$value){
+                $query = $this->db->query ( "select mid,title from fm_programme where id=$value[programme_id]");
+                $title = $query->row_array ();
+                $value['title'] = $title['title'];
+                $value['mid'] = $title['mid'];
+            }
+        }
+        if(!empty($list)) {
+            foreach ($list as &$value) {
+                $sql_user = "select username,nickname from fm_member WHERE id=$value[mid]";
+                $query_user = $this->db->query($sql_user);
+                $result = $query_user->row_array();
+                if ($result['nickname']) {
+                    $value['name'] = $result['nickname'];
+                } else {
+                    $value['name'] = $result['username'];
+                }
+            }
+        }
+        //统计收藏的次数
+        if(!empty($list)){
+            foreach ($list as &$value) {
+                $sql_col= "select count(*) as num from fm_collect WHERE programme_id=$value[programme_id]";
+                $query_col = $this->db->query($sql_col);
+                $result_col = $query_col->row_array();
+                if ($result_col) {
+                    $value['col_num'] = $result_col['num'];
+                } else {
+                    $value['col_num'] = 0;
+                }
+            }
+        }
+
+        $data['list'] = $list;
+
+        $this->load->view("webios/collect_view",$data);
+    }
+
+    public function add_col_programme_view(){
+        //获取节目单
+        $mid = $this->session->userdata('mid') ;
+        $sql = "select id , title , mid from fm_programme WHERE mid !=$mid ORDER by addtime DESC";
+        $query = $this->db->query($sql);
+        $list = $query->result_array();
+        if(!empty($list)){
+            foreach($list as &$value){
+                $sql_user="select username,nickname from fm_member WHERE id=$value[mid]";
+                $query_user = $this->db->query($sql_user);
+                $result = $query_user->row_array();
+                if($result['nickname']){
+                    $value['name'] = $result['nickname'];
+                }else{
+                    $value['name'] = $result['username'];
+                }
+            }
+        }
+        $data['list'] = $list;
+
+        $this->load->view("webios/add_col_programme_view",$data);
+    }
+
+    public function save_col_programme(){
+        $mid = $this->session->userdata('mid') ;
+        $ids = $this->input->get("ids");
+        $ids_arr = explode(",",substr($ids, 0, -1));
+        foreach($ids_arr as $val){
+            $value = array(
+                'mid' => $mid,
+                'programme_id' => $val
+            );
+            $this->db->insert ( 'fm_collect', $value );
+        }
+
+        $this->collect_view();
+    }
+
+    //节目单详情
+    public function col_programme_detail(){
+        $data_list['programme_id'] = $programme_id = $_GET['programme_id'];
+        $data_list['programme_title'] = $programme_title = $_GET['programme_title'];
+        $data_list['col_num'] = $col_num = $_GET['col_num'];
+        $query_mid = $this->db->query("select mid from fm_programme WHERE id=$programme_id");
+        $mid = $query_mid->row_array();
+        $query_user = $this->db->query("select username from fm_member WHERE id=$mid[mid]");
+        $username = $query_user->row_array();
+        $data_list['username'] = $username['username'];
+
+        if (empty($programme_id)) {
+            $data['mess'] = "节目单不存在！";
+            $data['url'] = "collect_view";
+            $this->load->view("webios/show_message",$data);
+        }else{
+            //取出具体的节目
+            $sql_program_ids = "select program_id from fm_programme_list WHERE programme_id=$programme_id";
+            $query_program_ids = $this->db->query($sql_program_ids);
+            $result_program_ids = $query_program_ids->result_array();
+            if(!empty($result_program_ids)){
+                foreach($result_program_ids as &$value){
+                    $sql_program = "select title , path from fm_program WHERE id=$value[program_id]";
+                    $query_program = $this->db->query($sql_program);
+                    $result_program = $query_program->row_array();
+                    $value['title'] = $result_program['title'];
+                    $value['path'] = $result_program['path'];
+                }
+            }
+            $data_list['program_list'] = $result_program_ids;
+
+            $this->load->view("webios/col_programme_detail",$data_list);
+        }
+
+    }
+
+    public function col_program_play(){
+        $programme_id = $_GET['programme_id'];
+        $program_id = $_GET['program_id'];
+        $data['programme_title'] = $programme_title = $_GET['programme_title'];
+        $data['col_num'] = $col_num = $_GET['col_num'];
+        //获取节目单里的全部节目（除了当前点击的）
+        $sql_program = "select program_id from fm_programme_list WHERE programme_id=$programme_id AND program_id !=$program_id";
+        $query_program=$this->db->query($sql_program);
+        $program_arr = $query_program->result_array();
+        foreach($program_arr as &$value){
+            $sql="select title,path from fm_program WHERE id=$value[program_id]";
+            $query=$this->db->query($sql);
+            $result = $query->row_array();
+            $value['title'] = $result['title'];
+            $value['path'] = $result['path'];
+        }
+
+        $sql="select title,path from fm_program WHERE id=$program_id";
+        $query=$this->db->query($sql);
+        $data['program_first'] = $query->row_array();
+        $data['program_first']['id'] = $program_id;
+        $data['program_arr'] = $program_arr;
+        $data['programme_id'] = $programme_id;
+        $this->load->view("webios/col_program_play",$data);
+    }
+
+
+
+
+
+
 
 
 

@@ -12,6 +12,7 @@ table{border-collapse:collapse;border-spacing: 0;}
 cite{font-style:normal;}
 .page-group { background:none}
 .page { background:none}
+.bar-nav{position: absolute;top:.8rem}
 .bar { background:none; border:none}
 .title { color:#fff;}
 .button { border:none;}
@@ -21,7 +22,7 @@ cite{font-style:normal;}
 .pull-right-icon:active{ background:#041a63 url(../img/radio_icon.png) no-repeat center center; background-size:75%}
 .group { height:4.8rem; line-height:4.8rem; width:12.8rem; margin:.5rem auto 0 auto; text-align:center}
 
-
+.pull-right{margin:.4rem 0 0 0;}
 .button1 { height:4rem; width:4rem; background:url(../images/radio_pre.png) no-repeat; background-size:100%; float:left; margin-top:.4rem}
 .button1:active{background:url(../images/radio_pre_hover.png) no-repeat;background-size:100%;}
 
@@ -57,7 +58,7 @@ cite{font-style:normal;}
 /*login*/
 .bar .button-link { color:#fff; background-image:url(../img/back_icon1.png); background-repeat:no-repeat; background-size:20%; background-position:center left; padding-left:.6rem;}
 .loginbg {background:url(../img/login_bg.jpg) no-repeat; background-size: cover; background-position: 50% 50%;}
-.login { height:16rem; margin:7rem .5rem 0 .5rem; background-color:rgba(25,139,228,0.5);}
+.login { height:16rem; margin:10rem .5rem 0 .5rem; background-color:rgba(25,139,228,0.5);}
 .login ul { padding:.6rem 1.4rem}
 .login ul li { line-height:2.4rem}
 .loginuser { width:100%; background:url(../img/user.png) no-repeat; background-size:7%; background-position:center left; padding-left:1.6rem; height:2rem; border-bottom:1px solid #def0ff}

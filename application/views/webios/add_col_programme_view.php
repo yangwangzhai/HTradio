@@ -16,19 +16,17 @@
 <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->
 <div class="page-group">
     <!-- 单个page ,第一个.page默认被展示-->
-    <div class="page" id="check_box" style="margin-top: 0.5rem;">
+    <div class="page" id="col_programme" style="margin-top: 0.5rem;">
         <!-- 标题栏 -->
         <header class="bar bar-nav  regtitle">
-            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=creat_programme_view" class="external" >
+            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=collect_view">
                 返回
             </a>
-            <h1 class="title" >添加节目</h1>
+            <h1 class="title" >添加节目单</h1>
         </header>
 
         <!-- 这里是页面内容区 -->
         <div class="content">
-            <input type="hidden" name="ids" id="ids" value="<?=$ids?>">
-            <input type="hidden" name="title" id="search" value="<?=$title?>">
             <?php if(!empty($list)) {?>
                 <?php foreach($list as $value) : ?>
                     <div class="list-block media-list">
@@ -40,7 +38,7 @@
                                         <div class="item-title-row">
                                             <div class="item-title"><?=$value['title']?></div>
                                         </div>
-                                        <div class="item-subtitle">上传者：xxxx</div>
+                                        <div class="item-subtitle">作者：<?=$value['name']?></div>
                                     </div>
                                     <input type="checkbox" name="my-radio" value="<?=$value['id']?>">
                                     <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
@@ -52,7 +50,7 @@
             <?php }else{?>
                 <p style="color: #000000;">暂时类型没有资源</p>
             <?php }?>
-            <div class="fbtn" id="btn_creat">完成</div>
+            <div class="fbtn" id="btn_col">完成</div>
         </div>
     </div>
 </div>

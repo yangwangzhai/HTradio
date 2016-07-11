@@ -12,7 +12,7 @@ $(function () {
     });
 
     $(document).on("pageInit", "#check_box", function(e, id, page) {
-        $(page).on('click','.fbtn', function () {
+        $(page).on('click','#btn_creat', function () {
             //选择的个数
             var len = $("input[type='checkbox']:checked").length;
             var ids= $("#ids").val();
@@ -26,7 +26,18 @@ $(function () {
 
     });
 
+    $(document).on("pageInit", "#col_programme", function(e, id, page) {
+        $(page).on('click','#btn_col', function () {
+            //选择的个数
+            var ids= '';
+            $('input[name="my-radio"]:checked').each(function(){
+                ids +=$(this).val()+",";
+            });
+            //alert(ids);
+            window.location.href="index.php?d=webios&c=webios&m=save_col_programme&ids="+ids;
+        });
 
+    });
 
 
 
