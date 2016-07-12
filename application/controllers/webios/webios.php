@@ -90,10 +90,32 @@ class webios extends  CI_Controller
 
     //上传头像
     public function upload_avatar_view(){
-        $data['mid'] = $this->session->userdata('mid') ;
-        $this->load->view("webios/upload_avatar_view",$data);
+        $this->load->view("webios/upload_avatar_view");
     }
 
+    public function save_upload_avatar(){
+        $mid = $this->session->userdata('mid') ;
+        $avatar = uploadFile("file","member");
+        if(empty($avatar)){
+            $data['mess'] = "上传失败！";
+            $data['url'] = "";
+            $this->load->view("webios/show_message2",$data);
+        }else{
+            $sql = "update fm_member set avatar='$avatar' WHERE id=$mid";
+            $this->db->query($sql);
+            $affect_result = $this->db->affected_rows();
+            if($affect_result){
+                $data['mess'] = "上传成功！";
+                $data['url'] = "main_view";
+                $this->load->view("webios/show_message",$data);
+            }else{
+                $data['mess'] = "上传失败！";
+                $data['url'] = "";
+                $this->load->view("webios/show_message2",$data);
+            }
+
+        }
+    }
 
     public function regist_view(){
         $this->load->view("webios/regist_view");

@@ -19,7 +19,7 @@
             <h1 class='title'>上传头像</h1>
         </header>
         <div class="content">
-            <form method="post" action="index.php?d=webios&c=webios&m=regist" enctype="multipart/form-data">
+            <form method="post" action="index.php?d=webios&c=webios&m=save_upload_avatar" enctype="multipart/form-data">
                 <div class="list-block">
                     <ul>
                         <!-- Text inputs -->
@@ -28,6 +28,7 @@
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
                                 <div class="item-inner">
                                     <div class="item-input">
+                                        <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
                                         <input type="file" name="file" id="file"  value="">
                                     </div>
                                 </div>
