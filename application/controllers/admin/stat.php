@@ -19,8 +19,7 @@ class stat extends Content
 
         
     }
-    
-	
+
 	  // 首页
     public function index ()
     {        

@@ -43,27 +43,27 @@ class Api extends CI_Controller {
 	// 基础统计 保存
 	function base_save() {
 		$data = array (
-				'mid' => intval ( $_POST ['mid'] ),
-				'city' => trim ( $_POST ['city'] ),
-				'district' => trim ( $_POST ['district'] ),
-				'lnglat' => trim ( $_POST ['lnglat'] ),
-				'version' => trim ( $_POST ['version'] ),
-				'os_version' => trim ( $_POST ['os_version'] ),
-				'phone_model' => trim ( $_POST ['phone_model'] ),
-				'phone_brand' => trim ( $_POST ['phone_brand'] ),
-				'phone_os' => trim ( $_POST ['phone_os'] ),
+				'mid' => intval ( $_POST ['mid'] ) ? intval ( $_POST ['mid'] ) : 0,
+				'city' => trim ( $_POST ['city'] ) ? trim ( $_POST ['city'] ) : "南宁",
+				'district' => trim ( $_POST ['district'] ) ? trim ( $_POST ['district'] ) : "欢迎使用",
+				'lnglat' => trim ( $_POST ['lnglat'] ) ? trim ( $_POST ['lnglat'] ) : "4.9E-324,4.9E-324",
+				'version' => trim ( $_POST ['version'] ) ? trim ( $_POST ['version'] ) : "1.0",
+				'os_version' => trim ( $_POST ['os_version'] ) ? trim ( $_POST ['os_version'] ) : "5.1.1",
+				'phone_model' => trim ( $_POST ['phone_model'] ) ? trim ( $_POST ['phone_model'] ) : "MX4",
+				'phone_brand' => trim ( $_POST ['phone_brand'] ) ? trim ( $_POST ['phone_brand'] ) : "phone",
+				'phone_os' => trim ( $_POST ['phone_os'] ) ? trim ( $_POST ['phone_os'] ) : "1",
 				'ip' => ip (),
 				'addtime' => time (),
-				'isfirst' =>  trim ( $_POST ['isfirst'] ),
+				'isfirst' =>  trim ( $_POST ['isfirst'] ) ? trim ( $_POST ['isfirst'] ) : "0",
 		);
 		
 		if (empty ( $data ['version'] )) {
 			show ( 1, 'data version is null' );
-		}
-		
-		$query = $this->db->insert ( 'fm_stat', $data ); // 写入基础统计表
-		$id = $this->db->insert_id ();		
-		show(0, 'ok', $id);  	
+		}else{
+            $query = $this->db->insert ( 'fm_stat', $data ); // 写入基础统计表
+            $id = $this->db->insert_id ();
+            show(0, 'ok', $id);
+        }
 	}
 	
     //反馈留言

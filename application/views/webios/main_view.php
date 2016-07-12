@@ -802,7 +802,7 @@
 <div class="panel panel-left panel-reveal">
     <div class="content-block">
         <dl>
-            <dt><a href="#"><img src="<?php if(!empty($user['avatar'])){echo $user['avatar'];}else{echo 'static/webios/img/play_bg.jpg';}?>"></a></dt>
+            <dt><a href="index.php?d=webios&c=webios&m=upload_avatar_view" class="external"><img src="<?php if(!empty($user['avatar'])){echo $user['avatar'];}else{echo 'static/webios/img/play_bg.jpg';}?>"></a></dt>
             <dd><a href="#"><?=$user['username']?></a></dd>
         </dl>
         <ul>

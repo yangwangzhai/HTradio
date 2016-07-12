@@ -39,22 +39,34 @@
 <div class="page-group">
     <div id="page-tabs" class="page" style="margin-top: 0.5rem;">
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=main_view">
+            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=collect_view">
                 <span class="icon icon-left"></span>
                 返回
             </a>
-            <h1 class="title">意见反馈</h1>
+            <h1 class="title">评论</h1>
         </header>
         <div class="content">
-            <form method="post" action="index.php?d=webios&c=webios&m=save_feedback">
-                <input type="hidden" name="value[mid]" value="<?=$mid?>">
+            <?php foreach($list as $value) :?>
+                <div class="card facebook-card">
+                    <div class="card-header no-border">
+                        <div class="facebook-avatar">
+                            <img src="<?=$value['avatar']?>" width="34" height="34">
+                        </div>
+                        <div class="facebook-name"><?=$value['username']?></div>
+                        <div class="facebook-date"><?=$value['addtime']?></div>
+                    </div>
+                    <div class="card-content"><?=$value['content']?></div>
+                </div>
+            <?php endforeach?>
+            <form method="post" action="index.php?d=webios&c=webios&m=save_comment">
+                <input type="hidden" name="value[programme_id]" value="<?=$programme_id?>">
                 <div class="list-block">
                     <ul>
                         <li class="align-top">
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-input">
-                                        <textarea name="value[content]"></textarea>
+                                        <textarea name="value[content]" placeholder="发表评论..."></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +75,7 @@
                 </div>
                 <div class="content-block">
                     <div class="row">
-                        <div class="col-50"><a href="index.php?d=webios&c=webios&m=main_view" class="button button-big button-fill button-danger external">取消</a></div>
+                        <div class="col-50"><a href="index.php?d=webios&c=webios&m=collect_view" class="button button-big button-fill button-danger external">取消</a></div>
                         <div class="col-50"><input type="submit" class="button button-big button-fill button-success" value="提交"></div>
                     </div>
                 </div>

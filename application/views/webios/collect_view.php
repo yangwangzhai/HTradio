@@ -50,18 +50,18 @@
             <?php if(!empty($list)){?>
                 <?php foreach($list as $value) :?>
                     <div class="card facebook-card">
-                        <a href="index.php?d=webios&c=webios&m=col_programme_detail&programme_id=<?=$value['programme_id']?>&programme_title=<?=$value['title']?>&col_num=<?=$value['col_num']?>">
+                        <a href="index.php?d=webios&c=webios&m=col_programme_detail&programme_id=<?=$value['programme_id']?>&programme_title=<?=$value['title']?>&col_num=<?=$value['col_num']?>&con_num=<?=$value['con_num']?>">
                             <div class="card-header">
-                                <div class="facebook-avatar"><img src="static/webios/img/play_bg.jpg" style='width: 2rem; height:2rem'></div>
+                                <div class="facebook-avatar"><img src="<?=$value['avatar']?>" style='width: 2rem; height:2rem'></div>
                                 <div class="facebook-name"><?=$value['title']?></div>
                                 <div class="facebook-date"><?=$value['name']?></div>
                             </div>
                         </a>
                         <div class="card-footer">
                             <a href="#" class="link">收藏 <?=$value['col_num']?></a>
-                            <a href="#" class="link">评论 4</a>
-                            <a href="#" class="link">分享 7</a>
-                            <a href="#" class="link">下载 5</a>
+                            <a href="index.php?d=webios&c=webios&m=comment_view&programme_id=<?=$value['programme_id']?>" class="link">评论 <?=$value['con_num']?></a>
+                            <a href="#" class="link" style="visibility:hidden;">分享 7</a>
+                            <a href="#" class="link" style="visibility:hidden;">下载 5</a>
                         </div>
                     </div>
                 <?php endforeach?>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SUI Mobile Demo</title>
+    <title>海豚电台</title>
     <meta name="description" content="MSUI: Build mobile apps with simple HTML, CSS, and JS components.">
     <meta name="author" content="阿里巴巴国际UED前端">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
@@ -51,7 +51,7 @@
                     <?php if(!empty($list)){?>
                         <?php foreach($list as $value) :?>
                             <li>
-                                <a href="index.php?d=webios&c=webios&m=programme_detail&programme_id=<?=$value['id']?>" class="item-link item-content">
+                                <a href="index.php?d=webios&c=webios&m=programme_detail&programme_id=<?=$value['id']?>&mid=<?=$mid?>" class="item-link item-content">
                                     <div class="item-inner">
                                         <div class="item-title"><?=$value['title']?></div>
                                     </div>

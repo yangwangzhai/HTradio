@@ -28,11 +28,20 @@
         <div class="content">
             <div class="card facebook-card">
                 <div class="card-header">
-                    <div class="facebook-avatar"><img src="static/webios/img/play_bg.jpg" style='width: 2rem; height:2rem'></div>
+                    <div class="facebook-avatar"><img src="<?=$avatar?>" style='width: 2rem; height:2rem'></div>
                     <div class="facebook-name"><?=$programme_title;?></div>
                     <div class="facebook-date"><?=$username;?></div>
                 </div>
-                <div class="card-footer"><a href="#" class="link">收藏 1</a> <a href="#" class="link">评论 4</a> <a href="#" class="link">分享 7</a> <a href="#" class="link">下载 5</a></div>
+                <div class="card-footer">
+                    <a href="#" class="link">收藏 <?=$col_num;?></a>
+                    <a href="index.php?d=webios&c=webios&m=my_comment_view&programme_id=<?=$programme_id?>" class="link">评论 <?=$con_num;?></a>
+                    <a href="#" class="link" style="visibility:hidden;">分享 7</a>
+                    <a href="#" class="link" style="visibility:hidden;">下载 5</a>
+                    <!--<div class="bdsharebuttonbox">
+                        <a href="#" class="bds_more link" data-cmd="more" style="background-image: none;">分享 7</a>
+                    </div>
+                    <a href="#" class="link">下载 5</a>-->
+                </div>
             </div>
             <?php foreach($program_list as $value) :?>
             <div class="list-block media-list">
@@ -40,7 +49,7 @@
                     <li>
                         <a href="index.php?d=webios&c=webios&m=program_play&programme_id=<?=$programme_id?>&program_id=<?=$value['program_id']?>">
                         <label class="label-checkbox item-content">
-                            <div class="item-media"><img src="static/webios/img/play_bg.jpg" style='width: 2.8rem; height:2.6rem'></div>
+                            <div class="item-media"><img src="static/webios/img/program_default.jpg" style='width: 2.8rem; height:2.6rem'></div>
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item-title"><?=$value['title']?></div>
@@ -53,6 +62,12 @@
                 </ul>
             </div>
             <?php endforeach?>
+            <!--<div class="bdsharebuttonbox">
+                <a href="#" class="bds_more" data-cmd="more"></a>
+            </div>-->
+           <!-- <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+            </script>-->
+
         </div>
     </div>
 </div>

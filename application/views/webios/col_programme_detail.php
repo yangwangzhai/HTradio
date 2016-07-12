@@ -28,11 +28,16 @@
         <div class="content">
             <div class="card facebook-card">
                 <div class="card-header">
-                    <div class="facebook-avatar"><img src="static/webios/img/play_bg.jpg" style='width: 2rem; height:2rem'></div>
+                    <div class="facebook-avatar"><img src="<?=$avatar;?>" style='width: 2rem; height:2rem'></div>
                     <div class="facebook-name"><?=$programme_title;?></div>
                     <div class="facebook-date"><?=$username;?></div>
                 </div>
-                <div class="card-footer"><a href="#" class="link">收藏 <?=$col_num?></a> <a href="#" class="link">评论 4</a> <a href="#" class="link">分享 7</a> <a href="#" class="link">下载 5</a></div>
+                <div class="card-footer">
+                    <a href="#" class="link">收藏 <?=$col_num?></a>
+                    <a href="#" class="link">评论 <?=$con_num?></a>
+                    <a href="#" class="link" style="visibility:hidden;">分享 7</a>
+                    <a href="#" class="link" style="visibility:hidden;">下载 5</a>
+                </div>
             </div>
             <?php foreach($program_list as $value) :?>
                 <div class="list-block media-list">
@@ -40,7 +45,7 @@
                         <li>
                             <a href="index.php?d=webios&c=webios&m=col_program_play&programme_id=<?=$programme_id?>&program_id=<?=$value['program_id']?>&programme_title=<?=$programme_title;?>&col_num=<?=$col_num?>">
                                 <label class="label-checkbox item-content">
-                                    <div class="item-media"><img src="static/webios/img/play_bg.jpg" style='width: 2.8rem; height:2.6rem'></div>
+                                    <div class="item-media"><img src="static/webios/img/program_default.jpg" style='width: 2.8rem; height:2.6rem'></div>
                                     <div class="item-inner">
                                         <div class="item-title-row">
                                             <div class="item-title"><?=$value['title']?></div>
