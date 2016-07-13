@@ -53,6 +53,49 @@
 			});
 
 			$('#groupname').val('<?=$groupname?>');
+            //点击更改发布状态
+            $(".push").click(function(){
+                $(".push").removeClass("activ_status");
+                $(this).addClass("activ_status");
+               var val = $(this).text();
+               var id = $(this).attr("data-id");
+                if(val=='已发布'){
+                    var status = 0;
+                    $.ajax({
+                        url: "index.php?d=admin&c=channel&m=set_status",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{status:status,id:id},  //要传递的数据
+                        success:function(data){
+                            //alert(data)
+                            $(".activ_status").text('未发布');
+                            $(".activ_status").css("color","red");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }else{
+                    var status = 1;
+                    $.ajax({
+                        url: "index.php?d=admin&c=channel&m=set_status",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{status:status,id:id},  //要传递的数据
+                        success:function(data){
+                            //alert(data)
+                            $(".activ_status").text('已发布');
+                            $(".activ_status").css("color","");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }
+            })
+
 
 		});
 
@@ -117,9 +160,11 @@
 				<td><?=$key+1?></td>
 				<td><?=$r['title']?></td>
 				<td><?=$r['description']?></td>
-				<td><?=getNickName($r['mid'])?></td>
+				<td><?=($r['name'])?></td>
 				<td><?=times($r['addtime'],1)?></td>
 				<td>
+                    <a href="javascript:void(0)" class="push" data-id="<?=$r['id']?>" style="text-decoration: none;">已发布</a>
+                    &nbsp;&nbsp;
 					<?php if(checkAccess('channel_edit')){?>
 						<a href="<?=$this->baseurl?>&m=edit&id=<?=$r['id']?>">修改</a>
 					<?php }else{echo '--';}?>

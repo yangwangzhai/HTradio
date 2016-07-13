@@ -63,8 +63,7 @@ class programme extends Content
         $data['list'] = $query->result_array();
         $data['catid'] = $catid;
         $data['type_id'] = $type_id;
-		
-    
+
         $_SESSION['url_forward'] =  $config['base_url']. "&per_page=$offset";
         $this->load->view('admin/' . $this->list_view, $data);
     }
@@ -133,6 +132,7 @@ class programme extends Content
         $id = intval($_POST['id']);
         $data = trims($_POST['value']);
         $list =trims($_POST['list']);
+
         //因为手机端的缘故，这里需要将1，2对调
         foreach($list as &$value){
             if($value['type_id']==1){
@@ -167,6 +167,8 @@ class programme extends Content
             show_msg('修改成功！', $_SESSION['url_forward']);
         } else { // ===========添加 ===========
             $data['addtime'] = time();
+            $data['uid'] = $this->uid;
+            $data['status'] = 1;//总节目单（1:在手机客户端人人都可以看见,0:个人节目单，只有创建者能看到）
             $query = $this->db->insert($this->table, $data);
             $programme_id=$this->db->insert_id ();;
 

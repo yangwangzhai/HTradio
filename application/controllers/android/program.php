@@ -99,31 +99,6 @@ class program extends Api {
 		echo json_encode ( array('list' => $list ) );
 
 	 }
-		 
-		 
-		 //按类型搜索节目(可获取该类型下的子孙类型节目，比如获取音乐类型节目，将取出类型为音乐的节目，同时所有以音乐为父类型的节目)
-		function get_list_by_type(){
-
-			$typeid = $_GET['type_id'];
-			if(empty($typeid)){
-				show(1,'type_id is null');	
-			}
-			$page = intval ( $_GET ['page'] ) - 1;
-			$offset = $page > 0 ? $page * $this->pagesize : 0;
-			$query = $this->db->query ( "select id,title,thumb,program_time,mid,path,playtimes from fm_program WHERE  ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) ) order by playtimes desc limit $offset,$this->pagesize" );
-			$list = $query->result_array ();
-			
-			$i = 0;
-			foreach ($list as &$row) {
-				if($row['thumb']) $row['thumb'] = base_url().$row['thumb'];
-				if($row['path']) $row['path'] =$row['path'];
-				if($row['mid'])  $row['owner'] = getNickName($row['mid']);
-				
-			}
-			$data = array('list'=>$list );
-
-			echo json_encode ($data );
-		}
 
 	 //添加频道
 	 public function add_channel(){
@@ -725,6 +700,31 @@ class program extends Api {
 		echo json_encode ($data );
 	}
 
+
+    //按类型搜索节目(可获取该类型下的子孙类型节目，比如获取音乐类型节目，将取出类型为音乐的节目，同时所有以音乐为父类型的节目)
+    function get_list_by_type(){
+
+        $typeid = $_GET['type_id'];
+        if(empty($typeid)){
+            show(1,'type_id is null');
+        }
+        $page = intval ( $_GET ['page'] ) - 1;
+        $offset = $page > 0 ? $page * $this->pagesize : 0;
+        $query = $this->db->query ( "select id,title,thumb,program_time,mid,path,playtimes from fm_program WHERE  ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) ) order by playtimes desc limit $offset,$this->pagesize" );
+        $list = $query->result_array ();
+
+        $i = 0;
+        foreach ($list as &$row) {
+            if($row['thumb']) $row['thumb'] = base_url().$row['thumb'];
+            if($row['path']) $row['path'] =$row['path'];
+            if($row['mid'])  $row['owner'] = getNickName($row['mid']);
+
+        }
+        $data = array('list'=>$list );
+
+        echo json_encode ($data );
+    }
+
     /**
      *  接口说明：首页获取节目类型列表信息
      *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=type_index
@@ -788,6 +788,201 @@ class program extends Api {
         }
         echo json_encode ($list );
     }
+
+    /**
+     *  接口说明：获取个人频道的列表信息
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=personal_channel_list
+     *  参数接收方式：get
+     *	接收参数：
+     *  mid；用户ID
+     *  返回参数：
+     *  id：个人频道ID
+     *  title：个人频道的名称
+     *  description：个人频道简介
+     *  logo：个人频道的logo
+     *  support_num：当前点赞数
+     *  negative_num：当前差评数
+     *  support_status：点赞状态，0:表示未点赞，1:表示已经点过赞
+     *  negative_status：差评状态，0:表示未差评，1:已经差评过
+     */
+    public function personal_channel_list(){
+        $mid=$this->input->get("mid");
+        if(empty($mid)){
+            $result=array("code"=>1,"message"=>"参数传输出错","time"=>time(),"data"=>array());
+            echo json_encode($result);
+        }else{
+            $data['list'] = array();
+            $num=$this->content_model->db_counts("fm_programme","");
+            $data['count'] = $num;
+            $this->load->library('pagination');
+            $config['total_rows'] = $num;
+            $config['per_page'] = 20;
+            $this->pagination->initialize($config);
+            $data['pages'] = $this->pagination->create_links();
+            $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
+            $per_page = $config['per_page'];
+            $sql = "SELECT id,title,intro as description,thumb as logo ,status,0 as sort , addtime,uid,support_num,negative_num  FROM fm_programme WHERE status=1 ORDER BY id DESC limit $offset,$per_page";
+            $query = $this->db->query($sql);
+            $list = $query->result_array();
+            foreach($list as $list_key=>&$list_value){
+                $list[$list_key]['logo']=$list_value['logo'] ? "http://vroad.bbrtv.com/cmradio/".$list_value['logo'] : "http://vroad.bbrtv.com/cmradio/uploads/default_images/default_program.jpg";
+                /*$list[$list_key]['sort'] = 0;*/
+                //查看该频道是否被该用户点赞过
+                if(!empty($mid)){
+                    $support_res=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND support_target_id=$list_value[id] AND channel_type=4");
+                    $support_num=$support_res->row_array();
+                    if($support_num['num']){
+                        $list[$list_key]['support_status']=1;
+                    }else{
+                        $list[$list_key]['support_status']=0;
+                    }
+                    //查看该频道是否被该用户差评过
+                    $negative_res=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND negative_target_id=$list_value[id] AND channel_type=4");
+                    $negative_num=$negative_res->row_array();
+                    if($negative_num['num']){
+                        $list[$list_key]['negative_status']=1;
+                    }else{
+                        $list[$list_key]['negative_status']=0;
+                    }
+                }else{
+                    $list[$list_key]['support_status']=0;
+                    $list[$list_key]['negative_status']=0;
+                }
+            }
+            echo json_encode($list);
+        }
+
+    }
+
+   /* public function personal_channel_list(){
+        $mid=$this->input->get("mid");
+        $data['list'] = array();
+        $num=$this->content_model->db_counts("fm_channel","");
+        $data['count'] = $num;
+        $this->load->library('pagination');
+        $config['total_rows'] = $num;
+        $config['per_page'] = 20;
+        $this->pagination->initialize($config);
+        $data['pages'] = $this->pagination->create_links();
+        $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
+        $per_page = $config['per_page'];
+        $sql = "SELECT * FROM fm_channel WHERE status=1 ORDER BY id DESC limit $offset,$per_page";
+        $query = $this->db->query($sql);
+        $list = $query->result_array();
+        foreach($list as $list_key=>$list_value){
+            $list[$list_key]['logo']=$list_value['logo'] ? "http://vroad.bbrtv.com/cmradio/".$list_value['logo'] : "http://vroad.bbrtv.com/cmradio/uploads/default_images/default_program.jpg";
+            //查看该频道是否被该用户点赞过
+            if(!empty($mid)){
+                $support_res=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND support_target_id=$list_value[id] AND channel_type=4");
+                $support_num=$support_res->row_array();
+                if($support_num['num']){
+                    $list[$list_key]['support_status']=1;
+                }else{
+                    $list[$list_key]['support_status']=0;
+                }
+                //查看该频道是否被该用户差评过
+                $negative_res=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND negative_target_id=$list_value[id] AND channel_type=4");
+                $negative_num=$negative_res->row_array();
+                if($negative_num['num']){
+                    $list[$list_key]['negative_status']=1;
+                }else{
+                    $list[$list_key]['negative_status']=0;
+                }
+            }else{
+                $list[$list_key]['support_status']=0;
+                $list[$list_key]['negative_status']=0;
+            }
+        }
+        echo json_encode($list);
+    }*/
+
+    /**
+     *  接口说明：获取个人频道的节目
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=get_personal_channel_program
+     *  参数接收方式：get
+     *  接收参数：
+     *  id：个人频道ID
+     *  成功时返回的数据：
+     *  {
+            "code": 0,
+            "message": "获取成功",
+            "time": 1467360686,
+            "data": [
+                        {
+                        "id": "1349",
+                        "title": "成长没烦恼_2016-04-28",
+                        "path": "http://media2.bbrtv.com:1935/vod/_definst_/mp4:Archive/1003/2016/04/28/ccmfn_14568269163661003_1461798001090.mp4/playlist.m3u8"
+                        },
+                        {
+                        "id": "1479",
+                        "title": "资讯和音乐_2016-05-04",
+                        "path": "http://media2.bbrtv.com:1935/vod/_definst_/mp4:Archive/970/2016/05/04/z_hyl_1439264080090970_1462323601027.mp4/playlist.m3u8"
+                        }
+            ]
+        }
+     *
+     * 	"code"：返回码 0 表示获取成功，大于0表示获取失败
+     * 	"message"：描述信息
+     * 	"time"：时间戳
+     *  "id"：节目ID
+     *  "title"：节目名称
+     *  "path"：节目路径
+     */
+    public function get_personal_channel_program(){
+        $id=$this->input->get("id");
+        if(empty($id)){
+            $result=array("code"=>1,"message"=>"个人频道参数没有传进来","time"=>time(),"data"=>array());
+            echo json_encode($result);
+        }else{
+            $sql_program = "select id,title,path from fm_program WHERE id IN (SELECT program_id FROM fm_programme_list WHERE programme_id=$id ORDER BY addtime DESC)";
+            $query_program = $this->db->query($sql_program);
+            $program=$query_program->result_array();
+            if(!empty($program)){
+                $result=array("code"=>0,"message"=>"获取成功","time"=>time(),"data"=>$program);
+                echo json_encode($result);
+            }else{
+                $result=array("code"=>1,"message"=>"没有节目","time"=>time(),"data"=>array());
+                echo json_encode($result);
+            }
+        }
+
+    }
+
+
+    /*public function get_personal_channel_program(){
+        $id=$this->input->get("id");
+        if(empty($id)){
+            $result=array("code"=>1,"message"=>"个人频道参数没有传进来","time"=>time(),"data"=>array());
+            echo json_encode($result);
+        }else{
+            //根据频道ID，从fm_programme表获取应的节目单
+            $sql_programme = "SELECT id FROM fm_programme WHERE channel_id=$id ORDER BY addtime DESC";
+            $query_programme = $this->db->query($sql_programme);
+            $result_programme=$query_programme->result_array();
+            if(empty($result_programme)){
+                $result=array("code"=>1,"message"=>"该频道没有节目","time"=>time(),"data"=>array());
+                echo json_encode($result);
+            }else{
+                //根据节目单ID，获取该节目单的所有节目ID
+                foreach($result_programme as $key=>$value){
+                    $program = array();
+                    $sql_program = "select id,title,path from fm_program WHERE id IN (SELECT program_id FROM fm_programme_list WHERE programme_id=$value[id] ORDER BY addtime DESC)";
+                    $query_program = $this->db->query($sql_program);
+                    $program=$query_program->result_array();
+                    if(!empty($program)){
+                        foreach($program as $p_key=>$p_value){
+                            $result_program[] = $program[$p_key];
+                        }
+                    }
+                }
+                $result=array("code"=>0,"message"=>"获取成功","time"=>time(),"data"=>$result_program);
+                echo json_encode($result);
+            }
+        }
+    }*/
+
+
+
 
     /**
      *  接口说明：获取直播频道的列表信息
@@ -894,7 +1089,7 @@ class program extends Api {
      *  参数接收方式：post
      *	接收参数：
      * 	id：频道id
-     * 	channel_type：频道类型，1:直播频道 ，2:录播频道，3:我的频道
+     * 	channel_type：频道类型，1:直播频道 ，2:录播频道，3:我的频道,4:个人频道
      *  mid；用户ID
      * 	返回参数：
      * 	code：返回码 0正确, 大于0 都是错误的
@@ -903,7 +1098,7 @@ class program extends Api {
      *  "data":{"id":1,"channel_type":1,"support_num":5}
      *  其中：
      *  "id":频道id
-     *  "channel_type":频道类型，1:直播频道 ，2:录播频道，3:我的频道
+     *  "channel_type":频道类型，1:直播频道 ，2:录播频道，3:我的频道，4:个人频道
      *  "support_num":当前点赞数
      *
      */
@@ -954,7 +1149,7 @@ class program extends Api {
      *  参数接收方式：post
      *	接收参数：
      * 	id：频道id
-     * 	channel_type：频道类型，1:直播频道 ，2:录播频道，3:我的频道
+     * 	channel_type：频道类型，1:直播频道 ，2:录播频道，3:我的频道，4:个人频道
      *  mid；用户ID
      * 	返回参数：
      * 	code：返回码 0正确, 大于0 都是错误的
@@ -963,7 +1158,7 @@ class program extends Api {
      *  "data":{"id":1,"channel_type":1,"negative_num":5}
      *  其中：
      *  "id":频道id
-     *  "channel_type":频道类型，1:直播频道 ，2:录播频道，3:我的频道
+     *  "channel_type":频道类型，1:直播频道 ，2:录播频道，3:我的频道，4:个人频道
      *  "negative_num":当前差评数
      *
      */

@@ -41,20 +41,20 @@ function checkForm(){
  		flag = false;
  	}
  	
- 	if(!$('#mid').val()){
+ 	/*if(!$('#mid').val()){
  		$('#mid').siblings(".errortip").html('*必须填写创建者');
  		flag = false;
- 	}
+ 	}*/
 	/*
  	if(!$('#program_ids').val()){
  		$('#program_ids').siblings(".errortip").html('*请上传音频文件');
  		flag = false;
  	}
 	*/
- 	if(!$('#channel_id').val()){
+ 	/*if(!$('#channel_id').val()){
  		$('#channel_id').siblings(".errortip").html('*请选择频道');
  		flag = false;
- 	}
+ 	}*/
  	return flag;
  }
 
@@ -163,16 +163,16 @@ function select_type(id,len){
 				<td><input name="value[intro]" class="txt"  type="text" value="<?=$value[intro]?>" /></td>
 				
 			</tr>
-			<tr>
+			<!--<tr>
 				<th>创建者</th>
 				<td>
-					<input id="mid" name="value[mid]" class="txt" type="text" value="<?=$value[mid]?>" />
+					<input id="mid" name="value[mid]" class="txt" type="text" value="<?/*=$value[mid]*/?>" />
 					<span class="errortip"></span><br>
 					
 				</td>
 				<th>&nbsp;&nbsp;&nbsp;&nbsp;所属频道</th>
-				<td><select name="value[channel_id]" id="channel_id"><?=getSelect($channel,$value[channel_id],'--请选择频道--')?></select><span class="errortip"></span></td>
-			</tr>
+				<td><select name="value[channel_id]" id="channel_id"><?/*=getSelect($channel,$value[channel_id],'--请选择频道--')*/?></select><span class="errortip"></span></td>
+			</tr>-->
             
             <tr class="add me1"><th>&nbsp;&nbsp;&nbsp;&nbsp;音频</th>
                     <td>时长：<input name="list[1][timespan]" value="00:00:00" style="width:100px;" />格式：XX:XX:XX</td>
@@ -200,10 +200,9 @@ function select_type(id,len){
 			</tr>
 			<tr>
 				<th>&nbsp;</th>
-				<td><input type="submit" name="submit" value=" 提 交 " class="btn"
-					tabindex="3" /> &nbsp;&nbsp;&nbsp;<input type="button"
-					name="submit" value=" 取消 " class="btn"
-					onclick="javascript:history.back();" /></td>
+				<td>
+                    <input type="submit" name="submit" value=" 提 交 " class="btn" tabindex="3" /> &nbsp;&nbsp;&nbsp;
+                    <input type="button" name="submit" value=" 取消 " class="btn" onclick="javascript:history.back();" /></td>
                   
 			</tr>
 		</table>

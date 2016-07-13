@@ -1,64 +1,40 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>无标题文档</title>
-	<link href="static/ql/css/style.css" rel="stylesheet" type="text/css" />
-	<link href="static/ql/css/select.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="static/ql/js/jquery.js"></script>
+<?php $this->load->view('admin/header');?>
 
-	<script type="text/javascript">
-		KE.show({
-			id : 'content7',
-			cssPath : './index.css'
-		});
-	</script>
+    <script>
+        KindEditor.ready(function(K) {
+            K.create('#content',{urlType :'relative'});
+        });
+    </script>
+    <div class="mainbox nomargin">
+        <form action="<?=$this->baseurl?>&m=save" method="post">
+            <input type="hidden" name="id" value="<?=$id?>">
+            <table class="opt">
+                <tr>
+                    <th >频道名称</th>
+                    <td><input name="value[title]" type="text" class="txt" value="<?=$value[title]?>" /></td>
+                </tr>
+                <tr>
+                    <th>频道简介</th>
+                    <td><textarea name="value[description]" id='address' cols="" rows="" class="text" placeholder=""><?=$value[description]?></textarea></td>
+                </tr>
+                <tr>
+                    <th>频道logo</th>
+                    <td>
+                        <input name="value[logo]" class="txt" type="text" id="thumb" value="<?=$value[logo]?>" />
+                        <input type="button" value="选择.." onclick="upfile('thumb')" class="btn" />&nbsp;&nbsp;
+                        <input type="button" value="预览" onclick="showImg('thumb',350,200)" class="btn" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>&nbsp;</th>
+                    <td><input type="submit" name="submit" value=" 提 交 " class="btn"
+                               tabindex="3" /> &nbsp;&nbsp;&nbsp;<input type="button"
+                                                                        name="submit" value=" 取消 " class="btn"
+                                                                        onclick="javascript:history.back();" /></td>
+                </tr>
+            </table>
+        </form>
 
-	<script type="text/javascript">
-		$(document).ready(function(e) {
-			$(".select1").uedSelect({
-				width : 345
-			});
-			$(".select2").uedSelect({
-				width : 167
-			});
-			$(".select3").uedSelect({
-				width : 100
-			});
-		});
-	</script>
-</head>
+    </div>
 
-<body>
-
-<div class="place">
-	<span>位置：</span>
-	<ul class="placeul">
-		<li><a href="#">首页</a></li>
-		<li><a href="#">系统设置</a></li>
-	</ul>
-</div>
-
-<div class="formbody">
-
-	<div id="usual1" class="usual">
-		<form action="<?=$this->baseurl?>&m=save" method="post">
-			<input type="hidden" name="id" value="<?=$id?>">
-			<div id="tab1" class="tabson">
-				<ul class="forminfo">
-					<li><label>频道名称<b>*</b></label><input name="value[title]" value="<?=$value[title]?>" type="text" class="dfinput" style="width:518px;"/></li>
-					<li><label>频道简介<b>*</b></label><input name="value[description]" value="<?=$value[description]?>" type="text" class="dfinput" style="width:518px;"/></li>
-					<li><label>排序<b>*</b></label><input name="value[sort]" value="<?=$value[sort]?>" type="text" class="dfinput" style="width:518px;"/></li>
-					<li><label>创建者<b>*</b></label><input name="value[mid]" value="<?=$value[mid]?>" type="text" class="dfinput" style="width:518px;"/></li>
-					<li><label>&nbsp;</label><input name="" type="submit" class="btn" value="提交"/></li>
-				</ul>
-			</div>
-		</form>
-	</div>
-
-</div>
-
-
-</body>
-
-</html>
+<?php $this->load->view('admin/footer');?>

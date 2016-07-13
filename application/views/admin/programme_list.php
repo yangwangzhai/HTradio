@@ -158,7 +158,7 @@
             <th>节目单名称</th>
             <th>节目单简介</th>
             <th>节目单内容</th>
-            <th>所属频道</th>
+           <!--<th>所属频道</th>-->
             <th>创建人</th>
             <th>创建时间</th>
             <th>操作</th>
@@ -174,8 +174,8 @@
                 <td><?=$r['title']?></td>
                 <td><?=$r['intro']?></td>
                 <td><?=$r['content']?></td>
-                <td><?=getChannelName($r['channel_id'])?></td>
-                <td><?=getNickName($r['mid'])?></td>
+                <!--<td><?/*=getChannelName($r['channel_id'])*/?></td>-->
+                <td><?=getNickName_admin($r['uid'])?></td>
                 <td><?=times($r['addtime'],1)?></td>
                 <td>
                     <?php if(checkAccess('programme_view')){?>

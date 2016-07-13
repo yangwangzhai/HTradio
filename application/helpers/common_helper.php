@@ -755,6 +755,16 @@ function getNickName($uid) {
     return $user['nickname'];
 }
 
+// 获取会员信息 昵称 单条
+function getNickName_admin($uid) {
+    if(empty($uid)) return "";
+    $CI = &get_instance();
+    $query = $CI->db->query("select username,truename from fm_admin where id=$uid limit 1");
+    $user = $query->row_array();
+    $result = $user['username'] ? $user['username'] : $user['truename'];
+    return $result;
+}
+
 // 获取会员信息 昵称 多条
 function getMemberNickname($array) {
     if(empty($array)) return array();

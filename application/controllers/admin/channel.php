@@ -54,9 +54,20 @@ class channel extends Content
         $per_page = $config['per_page'];
         $sql = "SELECT * FROM $this->table WHERE  $searchsql ORDER BY id DESC limit $offset,$per_page";
         $query = $this->db->query($sql);
-        $data['list'] = $query->result_array();
+        $list= $query->result_array();
+        if(!empty($list)){
+            foreach($list as &$value){
+                $sql_user = "select username,truename from fm_admin WHERE id=$value[uid]";
+                $query_user = $this->db->query($sql_user);
+                $result_user = $query_user->row_array();
+                if(!empty($result_user)){
+                    $value['name'] = $result_user['username'] ? $result_user['username'] : $result_user['truename'];
+                }
+            }
+        }
+
         $data['catid'] = $catid;
-		
+        $data['list'] = $list;
 
 		/**$query = $this->db->query("SELECT * FROM fm_role_group");
         $roles = $query->result_array();
@@ -104,7 +115,8 @@ class channel extends Content
     {
         $id = intval($_POST['id']);
         $data = trims($_POST['value']);
-        
+        $data['uid'] = $this->uid;
+
         if($data['title'] == '') {
             show_msg('频道名称不能为空');
         }
@@ -120,6 +132,18 @@ class channel extends Content
 			adminlog('添加信息: '.$this->control.' -> '.$this->db->insert_id());
             show_msg('添加成功！', $_SESSION['url_forward']);
         }
+    }
+
+    public function set_status(){
+        $status = $this->input->post("status");
+        $id = $this->input->post("id");
+        $sql = "update fm_channel set status=$status WHERE id=$id";
+        $this->db->query($sql);
+        $result = $this->db->affected_rows();
+        if($result){
+            echo json_encode(1);
+        }
+
     }
 
     //直播频道列表
