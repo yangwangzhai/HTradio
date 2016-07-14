@@ -39,20 +39,20 @@
         <ul class="menuson">
             <li><cite></cite><a href="index.php?d=admin&c=stat&m=PV" target="rightFrame">客户端访问量统计</a><i></i></li>
             <li><cite></cite><a href="index.php?d=admin&c=stat&m=Installs" target="rightFrame">客户端安装量统计</a><i></i></li>
-            <li><cite></cite><a href="index.php?d=admin&c=stat&m=res_type" target="rightFrame">资源分类统计</a><i></i></li>
+            <!--<li><cite></cite><a href="index.php?d=admin&c=stat&m=res_type" target="rightFrame">资源分类统计</a><i></i></li>-->
             <li><cite></cite><a href="index.php?d=admin&c=stat&m=program_stat" target="rightFrame">节目统计</a><i></i></li>
-            <li><cite></cite><a href="index.php?d=admin&c=stat&m=renqi_stat&type=1" target="rightFrame">主持人气统计</a><i></i></li>
-            <li><cite></cite><a href="index.php?d=admin&c=stat&m=renqi_stat&type=0" target="rightFrame">用户人气统计</a><i></i></li>
+<!--            <li><cite></cite><a href="index.php?d=admin&c=stat&m=renqi_stat&type=1" target="rightFrame">主持人气统计</a><i></i></li>-->
+<!--            <li><cite></cite><a href="index.php?d=admin&c=stat&m=renqi_stat&type=0" target="rightFrame">用户人气统计</a><i></i></li>-->
         </ul>
     </dd>
 
     <dd>
         <div class="title">互动管理</div>
         <ul class="menuson">
-            <li><cite></cite><a href="index.php?d=admin&c=comment&m=index" target="rightFrame">评论管理</a><i></i></li>
-            <li><cite></cite><a href="index.php?d=admin&c=message&m=index" target="rightFrame">私信管理</a><i></i></li>
+            <!--<li><cite></cite><a href="index.php?d=admin&c=comment&m=index" target="rightFrame">评论管理</a><i></i></li>
+            <li><cite></cite><a href="index.php?d=admin&c=message&m=index" target="rightFrame">私信管理</a><i></i></li>-->
             <li><cite></cite><a href="index.php?d=admin&c=feedback&m=index" target="rightFrame">意见管理</a><i></i></li>
-            <li><cite></cite><a href="index.php?d=admin&c=report_all&m=index" target="rightFrame">举报管理</a><i></i></li>
+            <!--<li><cite></cite><a href="index.php?d=admin&c=report_all&m=index" target="rightFrame">举报管理</a><i></i></li>-->
         </ul>
     </dd>
 
@@ -68,11 +68,11 @@
         <div class="title">媒资管理</div>
         <ul class="menuson">
             <li><cite></cite><a href="index.php?d=admin&c=channel&m=live_channel_list" target="rightFrame">直播频道</a><i></i></li>
-            <li><cite></cite><a href="index.php?d=admin&c=channel&m=index" target="rightFrame">频道列表</a><i></i></li>
+            <li><cite></cite><a href="index.php?d=admin&c=programme&m=public_index" target="rightFrame">公共频道</a><i></i></li>
+            <li><cite></cite><a href="index.php?d=admin&c=programme&m=index" target="rightFrame">个人频道</a><i></i></li>
             <li><cite></cite><a href="index.php?d=admin&c=program&m=index" target="rightFrame">节目列表</a><i></i></li>
             <li><cite></cite><a href="index.php?d=admin&c=program_type&m=index" target="rightFrame">节目类型</a><i></i></li>
-            <li><cite></cite><a href="index.php?d=admin&c=programme&m=index" target="rightFrame">节目单</a><i></i></li>
-            <li><cite></cite><a href="index.php?d=admin&c=tag&m=index" target="rightFrame">标签管理</a><i></i></li>
+            <!--<li><cite></cite><a href="index.php?d=admin&c=tag&m=index" target="rightFrame">标签管理</a><i></i></li>-->
         </ul>
 
     </dd>

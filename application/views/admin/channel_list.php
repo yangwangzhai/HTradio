@@ -54,6 +54,7 @@
 
 			$('#groupname').val('<?=$groupname?>');
             //点击更改发布状态
+
             $(".push").click(function(){
                 $(".push").removeClass("activ_status");
                 $(this).addClass("activ_status");

@@ -26,7 +26,8 @@ $(function(){
         
     <ul class="nav">
     <li><a href="index.php?d=admin&c=common&m=right" target="rightFrame" class="selected"><img src="static/ql/images/icon01.png" title="首页" /><h2>首页</h2></a></li>
-    <li><a href="index.php?d=admin&c=channel&m=index" target="rightFrame"><img src="static/ql/images/icon02.png" title="频道列表" /><h2>频道列表</h2></a></li>
+<!--    <li><a href="index.php?d=admin&c=channel&m=index" target="rightFrame"><img src="static/ql/images/icon02.png" title="频道列表" /><h2>频道列表</h2></a></li>-->
+    <li><a href="index.php?d=admin&c=programme&m=public_index"  target="rightFrame"><img src="static/ql/images/icon02.png" title="节目列表" /><h2>公共频道</h2></a></li>
     <li><a href="index.php?d=admin&c=program&m=index"  target="rightFrame"><img src="static/ql/images/icon03.png" title="节目列表" /><h2>节目列表</h2></a></li>
     <li><a href="index.php?d=admin&c=program_type&m=index"  target="rightFrame"><img src="static/ql/images/icon04.png" title="节目类型" /><h2>节目类型</h2></a></li>
     <!--<li><a href="index.php?d=admin&c=stat&m=program_stat" target="rightFrame"><img src="static/ql/images/icon05.png" title="节目统计" /><h2>节目统计</h2></a></li>-->

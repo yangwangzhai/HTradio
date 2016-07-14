@@ -31,12 +31,12 @@
           </map>
         </p>
     </div>
-    <div class="service">
+    <!--<div class="service">
    	  <div class="ftitle">客服中心</div>
         <p>400-8888-910</p>
       <div class="ftitle">客服邮箱</div>
         <p>4008888910@nawaa.com</p>
-    </div>
+    </div>-->
 </div>
 </div>
 </body>

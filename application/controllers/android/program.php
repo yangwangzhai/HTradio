@@ -444,7 +444,7 @@ class program extends Api {
 	
 	
 	
-	//我的节目单
+	//获取我的节目单
 	public function my_programme(){
 		$page = intval ( $_GET ['page'] ) - 1;
 		$offset = $page > 0 ? $page * $this->pagesize : 0;
@@ -454,13 +454,13 @@ class program extends Api {
     	}
 		$this->db->select('id, title, thumb');
 		$this->db->order_by("addtime", "desc");
-		$query = $this->db->get_where('fm_programme', array('mid'=>$mid ),$this->pagesize,$offset); 
+		$query = $this->db->get_where('fm_programme', array('mid'=>$mid,'status'=>0,'publish_flag'=>1),$this->pagesize,$offset);
 		$list = $query->result_array();
 		foreach ($list as &$row) {
 				if($row['thumb']) $row['thumb'] = base_url().$row['thumb'];				
 		}
+
 		echo json_encode ($list );
-		
 	}
 	
 	//节目单详情
@@ -821,7 +821,7 @@ class program extends Api {
             $data['pages'] = $this->pagination->create_links();
             $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
             $per_page = $config['per_page'];
-            $sql = "SELECT id,title,intro as description,thumb as logo ,status,0 as sort , addtime,uid,support_num,negative_num  FROM fm_programme WHERE status=1 ORDER BY id DESC limit $offset,$per_page";
+            $sql = "SELECT id,title,intro as description,thumb as logo ,status,0 as sort , addtime,uid,support_num,negative_num  FROM fm_programme WHERE status=1 AND publish_flag=1 ORDER BY id DESC limit $offset,$per_page";
             $query = $this->db->query($sql);
             $list = $query->result_array();
             foreach($list as $list_key=>&$list_value){
@@ -829,7 +829,7 @@ class program extends Api {
                 /*$list[$list_key]['sort'] = 0;*/
                 //查看该频道是否被该用户点赞过
                 if(!empty($mid)){
-                    $support_res=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND support_target_id=$list_value[id] AND channel_type=4");
+                    $support_res=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND support_target_id=$list_value[id] AND channel_type=5");
                     $support_num=$support_res->row_array();
                     if($support_num['num']){
                         $list[$list_key]['support_status']=1;
@@ -837,7 +837,7 @@ class program extends Api {
                         $list[$list_key]['support_status']=0;
                     }
                     //查看该频道是否被该用户差评过
-                    $negative_res=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND negative_target_id=$list_value[id] AND channel_type=4");
+                    $negative_res=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND negative_target_id=$list_value[id] AND channel_type=5");
                     $negative_num=$negative_res->row_array();
                     if($negative_num['num']){
                         $list[$list_key]['negative_status']=1;
@@ -853,48 +853,6 @@ class program extends Api {
         }
 
     }
-
-   /* public function personal_channel_list(){
-        $mid=$this->input->get("mid");
-        $data['list'] = array();
-        $num=$this->content_model->db_counts("fm_channel","");
-        $data['count'] = $num;
-        $this->load->library('pagination');
-        $config['total_rows'] = $num;
-        $config['per_page'] = 20;
-        $this->pagination->initialize($config);
-        $data['pages'] = $this->pagination->create_links();
-        $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
-        $per_page = $config['per_page'];
-        $sql = "SELECT * FROM fm_channel WHERE status=1 ORDER BY id DESC limit $offset,$per_page";
-        $query = $this->db->query($sql);
-        $list = $query->result_array();
-        foreach($list as $list_key=>$list_value){
-            $list[$list_key]['logo']=$list_value['logo'] ? "http://vroad.bbrtv.com/cmradio/".$list_value['logo'] : "http://vroad.bbrtv.com/cmradio/uploads/default_images/default_program.jpg";
-            //查看该频道是否被该用户点赞过
-            if(!empty($mid)){
-                $support_res=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND support_target_id=$list_value[id] AND channel_type=4");
-                $support_num=$support_res->row_array();
-                if($support_num['num']){
-                    $list[$list_key]['support_status']=1;
-                }else{
-                    $list[$list_key]['support_status']=0;
-                }
-                //查看该频道是否被该用户差评过
-                $negative_res=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND negative_target_id=$list_value[id] AND channel_type=4");
-                $negative_num=$negative_res->row_array();
-                if($negative_num['num']){
-                    $list[$list_key]['negative_status']=1;
-                }else{
-                    $list[$list_key]['negative_status']=0;
-                }
-            }else{
-                $list[$list_key]['support_status']=0;
-                $list[$list_key]['negative_status']=0;
-            }
-        }
-        echo json_encode($list);
-    }*/
 
     /**
      *  接口说明：获取个人频道的节目
@@ -947,42 +905,6 @@ class program extends Api {
         }
 
     }
-
-
-    /*public function get_personal_channel_program(){
-        $id=$this->input->get("id");
-        if(empty($id)){
-            $result=array("code"=>1,"message"=>"个人频道参数没有传进来","time"=>time(),"data"=>array());
-            echo json_encode($result);
-        }else{
-            //根据频道ID，从fm_programme表获取应的节目单
-            $sql_programme = "SELECT id FROM fm_programme WHERE channel_id=$id ORDER BY addtime DESC";
-            $query_programme = $this->db->query($sql_programme);
-            $result_programme=$query_programme->result_array();
-            if(empty($result_programme)){
-                $result=array("code"=>1,"message"=>"该频道没有节目","time"=>time(),"data"=>array());
-                echo json_encode($result);
-            }else{
-                //根据节目单ID，获取该节目单的所有节目ID
-                foreach($result_programme as $key=>$value){
-                    $program = array();
-                    $sql_program = "select id,title,path from fm_program WHERE id IN (SELECT program_id FROM fm_programme_list WHERE programme_id=$value[id] ORDER BY addtime DESC)";
-                    $query_program = $this->db->query($sql_program);
-                    $program=$query_program->result_array();
-                    if(!empty($program)){
-                        foreach($program as $p_key=>$p_value){
-                            $result_program[] = $program[$p_key];
-                        }
-                    }
-                }
-                $result=array("code"=>0,"message"=>"获取成功","time"=>time(),"data"=>$result_program);
-                echo json_encode($result);
-            }
-        }
-    }*/
-
-
-
 
     /**
      *  接口说明：获取直播频道的列表信息
@@ -1138,6 +1060,17 @@ class program extends Api {
                 //返回数据
                 $result=array("code"=>0,"message"=>"success","time"=>time(),"data"=>array("id"=>$id,"channel_type"=>$channel_type,"support_num"=>$support_num_new));
                 echo json_encode($result);
+            }elseif($channel_type==5){  //我的频道（公共频道）
+                //先获取点赞数
+                $sql = "SELECT support_num FROM fm_programme WHERE id=$id";
+                $query = $this->db->query($sql);
+                $res=$query->row_array();
+                $support_num_new=$res['support_num']+1;
+                //更新数据库
+                $this->db->query("UPDATE fm_programme SET support_num=$support_num_new WHERE id=$id");
+                //返回数据
+                $result=array("code"=>0,"message"=>"success","time"=>time(),"data"=>array("id"=>$id,"channel_type"=>$channel_type,"support_num"=>$support_num_new));
+                echo json_encode($result);
             }
         }
 
@@ -1195,6 +1128,17 @@ class program extends Api {
                 $negative_num_new=$res['negative_num']+1;
                 //更新数据库
                 $this->db->query("UPDATE fm_program_type SET negative_num=$negative_num_new WHERE id=$id");
+                //返回数据
+                $result=array("code"=>0,"message"=>"success","time"=>time(),"data"=>array("id"=>$id,"channel_type"=>$channel_type,"negative_num"=>$negative_num_new));
+                echo json_encode($result);
+            }elseif($channel_type==5){
+                //先获取差评数
+                $sql = "SELECT negative_num FROM fm_programme WHERE id=$id";
+                $query = $this->db->query($sql);
+                $res=$query->row_array();
+                $negative_num_new=$res['negative_num']+1;
+                //更新数据库
+                $this->db->query("UPDATE fm_programme SET negative_num=$negative_num_new WHERE id=$id");
                 //返回数据
                 $result=array("code"=>0,"message"=>"success","time"=>time(),"data"=>array("id"=>$id,"channel_type"=>$channel_type,"negative_num"=>$negative_num_new));
                 echo json_encode($result);

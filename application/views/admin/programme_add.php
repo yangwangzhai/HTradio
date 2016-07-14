@@ -142,12 +142,13 @@ function select_type(id,len){
 	<form action="<?=$this->baseurl?>&m=save" method="post" onsubmit="return checkForm()">
 		<input type="hidden" name="id" value="<?=$id?>"> <!--input type="hidden"
 			name="value[catid]" value="<?=$value[catid]?>"-->
+        <input type="hidden" name="public_flag" value="<?=$public_flag?>">
 		<table class="opt">
         <!--th width="90">分组 </th>
 				<td><select name="value[catid]" id="gender"><?=getSelect($group, $value['catid'])?></select></td>
 			</tr-->		
 			<tr>
-				<th >节目单名称</th>
+				<th >频道名称</th>
 				<td><input name="value[title]" type="text" class="txt"
 					value="<?=$value[title]?>" id="title" /><span class="errortip"></span></td>
 				<th>&nbsp;&nbsp;&nbsp;&nbsp;封面图片</th>
@@ -159,7 +160,7 @@ function select_type(id,len){
 				</td>
 			</tr>
 			<tr>
-				<th>节目简介</th>
+				<th>频道简介</th>
 				<td><input name="value[intro]" class="txt"  type="text" value="<?=$value[intro]?>" /></td>
 				
 			</tr>

@@ -20,7 +20,7 @@ class programme extends Content
         $this->add_view = 'programme_add';
     }
     
-    // 首页
+    // 个人频道（也叫个人节目单）
     public function index ()
     {
         $catid = intval($_REQUEST['catid']);
@@ -58,17 +58,66 @@ class programme extends Content
         $data['pages'] = $this->pagination->create_links();
         $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
         $per_page = $config['per_page'];
-        $sql = "SELECT * FROM $this->table WHERE  $searchsql ORDER BY id DESC limit $offset,$per_page";
+        $sql = "SELECT * FROM $this->table WHERE  $searchsql AND status=0 ORDER BY id DESC limit $offset,$per_page";
         $query = $this->db->query($sql);
         $data['list'] = $query->result_array();
         $data['catid'] = $catid;
         $data['type_id'] = $type_id;
+        $data['public_flag'] = 0;
 
         $_SESSION['url_forward'] =  $config['base_url']. "&per_page=$offset";
         $this->load->view('admin/' . $this->list_view, $data);
     }
-	
-	
+
+    //公共频道列表（也叫公共节目单）
+    public function public_index(){
+        $catid = intval($_REQUEST['catid']);
+        $keywords = trim($_REQUEST['keywords']);
+        $type_id = trim($_REQUEST['type_id']);
+        $searchsql = '1';
+        //         if ($catid) {
+        //             $searchsql .= " AND catid=$catid ";
+        //         }
+        // 是否是查询
+        if (empty($keywords)) {
+            if (empty($type_id)) {
+                $config['base_url'] = $this->baseurl . "&m=index&catid=$catid";
+            }else{
+                $config['base_url'] = $this->baseurl . "&m=index&catid=$catid&type_id=$type_id";
+
+                $searchsql .= " AND (type_id = $type_id)";
+            }
+        } else {
+            $searchsql .= " AND (title like '%{$keywords}%' or mid in (SELECT id from fm_member WHERE nickname like '%{$keywords}%'))";
+            $config['base_url'] = $this->baseurl .
+                "&m=index&catid=$catid&keywords=" . rawurlencode($keywords);
+        }
+
+        $data['list'] = array();
+        $query = $this->db->query(
+            "SELECT COUNT(*) AS num FROM $this->table WHERE  $searchsql");
+        $count = $query->row_array();
+        $data['count'] = $count['num'];
+        $this->load->library('pagination');
+
+        $config['total_rows'] = $count['num'];
+        $config['per_page'] = 20;
+        $this->pagination->initialize($config);
+        $data['pages'] = $this->pagination->create_links();
+        $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
+        $per_page = $config['per_page'];
+        $sql = "SELECT * FROM $this->table WHERE  $searchsql AND status=1 ORDER BY id DESC limit $offset,$per_page";
+        $query = $this->db->query($sql);
+        $data['list'] = $query->result_array();
+        $data['catid'] = $catid;
+        $data['type_id'] = $type_id;
+        $data['public_flag'] = 1;
+
+        $_SESSION['url_forward'] =  $config['base_url']. "&per_page=$offset";
+        $this->load->view('admin/' . $this->list_view, $data);
+    }
+
+
 	// 添加
     public function add ()
     {
@@ -90,7 +139,8 @@ class programme extends Content
         foreach($program_types as $program_type){
             $data['program_type'][$program_type['id']] =$program_type['title'];
         }
-        
+        $data['public_flag'] = $this->input->get("public_flag");
+
         $this->load->view('admin/' . $this->add_view, $data);
     }
     
@@ -168,7 +218,12 @@ class programme extends Content
         } else { // ===========添加 ===========
             $data['addtime'] = time();
             $data['uid'] = $this->uid;
-            $data['status'] = 1;//总节目单（1:在手机客户端人人都可以看见,0:个人节目单，只有创建者能看到）
+            $public_flag = $this->input->post("public_flag");
+            if($public_flag){
+                $data['status'] = 1;//总节目单（1:在手机客户端人人都可以看见,0:个人节目单，只有创建者能看到）
+            }else{
+                $data['status'] = 0;//总节目单（1:在手机客户端人人都可以看见,0:个人节目单，只有创建者能看到）
+            }
             $query = $this->db->insert($this->table, $data);
             $programme_id=$this->db->insert_id ();;
 
@@ -191,7 +246,18 @@ class programme extends Content
             }
 
 			adminlog('添加信息: '.$this->control.' -> '.$this->db->insert_id());
-            show_msg('添加成功！', $_SESSION['url_forward']);
+            show_msg('添加成功！', $this->baseurl."&m=public_index");
+        }
+    }
+
+    public function set_status(){
+        $publish_flag = $this->input->post("publish_flag");
+        $id = $this->input->post("id");
+        $sql = "update fm_programme set publish_flag=$publish_flag WHERE id=$id";
+        $this->db->query($sql);
+        $result = $this->db->affected_rows();
+        if($result){
+            echo json_encode(1);
         }
     }
 

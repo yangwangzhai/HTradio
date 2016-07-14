@@ -143,7 +143,6 @@ class channel extends Content
         if($result){
             echo json_encode(1);
         }
-
     }
 
     //直播频道列表

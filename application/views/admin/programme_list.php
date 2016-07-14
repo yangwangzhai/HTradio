@@ -30,7 +30,7 @@
             });
 
             $(".add_click").click(function(){
-                location.href="<?=$this->baseurl?>&m=add&catid=<?=$catid?>'";
+                location.href="<?=$this->baseurl?>&m=add&catid=<?=$catid?>&public_flag=<?=$public_flag?>";
             });
 
             // 点击更改状态
@@ -73,6 +73,50 @@
             function gettype(){
                 $('#mysearch').trigger('click');
             }
+
+            $(".push").click(function(){
+                $(".push").removeClass("activ_status");
+                $(this).addClass("activ_status");
+                var val = $(this).text();
+                var id = $(this).attr("data-id");
+                if(val=='已发布'){
+                    var publish_flag = 0;
+                    $.ajax({
+                        url: "index.php?d=admin&c=programme&m=set_status",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{publish_flag:publish_flag,id:id},  //要传递的数据
+                        success:function(data){
+                            //alert(data)
+                            $(".activ_status").text('未发布');
+                            $(".activ_status").css("color","red");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }else{
+                    var publish_flag = 1;
+                    $.ajax({
+                        url: "index.php?d=admin&c=programme&m=set_status",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{publish_flag:publish_flag,id:id},  //要传递的数据
+                        success:function(data){
+                            //alert(data)
+                            $(".activ_status").text('已发布');
+                            $(".activ_status").css("color","");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }
+            })
+
+
 
         });
 
@@ -134,7 +178,9 @@
     <div class="tools">
 
         <ul class="toolbar">
-            <li class="add_click"><span><img src="static/ql/images/t01.png" /></span>添加</li>
+            <?php /*if($public_flag){*/?>
+                <li class="add_click"><span><img src="static/ql/images/t01.png" /></span>添加</li>
+            <?php /*}*/?>
             <li class="click"><span><img src="static/ql/images/t03.png" /></span>删除</li>
         </ul>
 
@@ -155,9 +201,9 @@
             <th><input type="checkbox" name="chkall" id="chkall" onclick="checkall('delete[]')" class="checkbox" /></th>
             <th></th>
             <th width="60">封面图片</th>
-            <th>节目单名称</th>
-            <th>节目单简介</th>
-            <th>节目单内容</th>
+            <th>频道名称</th>
+            <th>频道简介</th>
+            <th>频道内容</th>
            <!--<th>所属频道</th>-->
             <th>创建人</th>
             <th>创建时间</th>
@@ -170,7 +216,7 @@
                 <td><input type="checkbox" name="delete[]" value="<?=$r['id']?>"
                            class="checkbox" /></td>
                 <td><?=$key+1?></td>
-                <td style="text-indent: 0;"><img src="<?=$r['thumb']?>" width="100%" /></td>
+                <td style="text-indent: 0;"><img src="<?php if(!empty($r['thumb'])){echo $r['thumb'];}else{echo base_url()."static/webios/img/play_bg.jpg";}?>" width="100%" /></td>
                 <td><?=$r['title']?></td>
                 <td><?=$r['intro']?></td>
                 <td><?=$r['content']?></td>
@@ -178,9 +224,7 @@
                 <td><?=getNickName_admin($r['uid'])?></td>
                 <td><?=times($r['addtime'],1)?></td>
                 <td>
-                    <?php if(checkAccess('programme_view')){?>
-                        <a href="javascript:;" onclick="showList(this,'<?=$r['title']?>',300,300)" data-ids="<?=$r['program_ids']?>">查看</a>
-                    <?php }else{echo '--';}?>
+                    <a href="javascript:void(0)" class="push" data-id="<?=$r['id']?>" style="text-decoration: none;<?php if($r['publish_flag']==0){echo 'color:red;';}?>"><?php if($r['publish_flag']==0){echo '未发布';}else{echo '已发布';}?></a>
                     &nbsp;&nbsp;
                     <?php if(checkAccess('programme_edit')){?>
                         <a href="<?=$this->baseurl?>&m=edit&id=<?=$r['id']?>">修改</a>
