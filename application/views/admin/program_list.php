@@ -4,12 +4,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>无标题文档</title>
 	<link href="static/ql/css/style.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="static/ql/js/jquery.js"></script>
+
 	<script charset="utf-8" src="static/js/kindeditor410/kindeditor.js?2"></script>
 	<script charset="utf-8" src="static/js/kindeditor410/lang/zh_CN.js"></script>
 	<script type="text/javascript" src="static/js/common.js?1"></script>
+	<script type="text/javascript" src="static/js/jquery-3.1.0.min.js"></script>
 	<link href="static/plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="plugin/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="static/plugin/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$(".click").click(function(){
@@ -161,7 +162,7 @@
 			<th width="50">封面</th>
 			<th>节目名称</th>
 			<th>节目简介</th>
-			<th>频道</th>
+			<!--<th>频道</th>-->
 			<th>类型</th>
 			<th>时长</th>
 			<th>上传人</th>
@@ -180,7 +181,7 @@
 				<td style="text-indent: 0;"><a onclick="vPics('<?=$r['title']?>','<?=$r['thumb']?>');" href="javascript:;"><img width="100%" src="<?=$r['thumb']?>"/></a></td>
 				<td><a href="javascript:;" class="info" data-id="<?=$r['id']?>" data-title="<?=$r['title']?>"><?=$r['title']?></a></td>
 				<td><?=$r['description']?></td>
-				<td><?=getChannelName($r['channel_id'])?></td>
+				<!--<td><?/*=getChannelName($r['channel_id'])*/?></td>-->
 				<td><?=getProgramTypeName($r['type_id'])?></td>
 				<td><?=getAudioTime($r['path'])?></td>
 				<td><?=getNickName($r['mid'])?></td>
@@ -192,6 +193,8 @@
 						<a href="javascript:" title="点击更改状态" class="updatestatus <?php if($r[status]==0){echo 'red';} ?>" name="<?=$r['id']?>"><?=$this->status[$r[status]]?></a>
 					<?php }else{echo '--';}?>
 					&nbsp;&nbsp;
+                    <button onclick="return false" data-target="#push<?=$key?>" data-toggle="modal">推送</button>
+                    &nbsp;&nbsp;
 					<?php if(checkAccess('program_tj')){?>
 						<a
 								href="javascript:"  onclick="updateStatus('<?=$r['id']?>','<?=$r['hot']?>','hot')" id="hot_<?=$r['id']?>"><?=$r['hot']?'推荐':'未推荐'?></a>
@@ -227,10 +230,8 @@
 	</div>
 	</form>
 
-
 	<div class="tip">
 		<div class="tiptop"><span>提示信息</span><a></a></div>
-
 		<div class="tipinfo">
 			<span><img src="static/ql/images/ticon.png" /></span>
 			<div class="tipright">
@@ -238,22 +239,54 @@
 				<cite>如果是请点击确定按钮 ，否则请点取消。</cite>
 			</div>
 		</div>
-
 		<div class="tipbtn">
 			<input name="" type="button"  class="sure" value="确定" />&nbsp;
 			<input name="" type="button"  class="cancel" value="取消" />
 		</div>
-
 	</div>
 
 
-
-
+</div>
 </div>
 
 <script type="text/javascript">
 	$('.tablelist tbody tr:odd').addClass('odd');
 </script>
+
+<?php foreach($list as $key=>$r) {?>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="push<?=$key?>" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    模态框（Modal）标题
+                </h4>
+            </div>
+            <div class="modal-body">
+                在这里添加一些文本
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭
+                </button>
+                <button type="button" class="btn btn-primary">
+                    提交更改
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+    <?php }?>
+
+
 
 </body>
 

@@ -74,20 +74,6 @@ class program extends Api {
 
 		echo json_encode ($list);
 	}
-	
-	public function find(){
-		$query = $this->db->query ( "select id,title from fm_program_type where pid='0' " );
-		$list_type = $query->result_array ();
-		
-		$query = $this->db->query ( "select id,nickname,avatar from fm_member where catid='3' " );
-		$list_member = $query->result_array ();
-		foreach ($list_member as &$row) {
-    		if($row['avatar']) $row['avatar'] = base_url().$row['avatar'];
-			
-    	}	
-		echo json_encode (array('radio_list'=>$list_member,'type_list'=>$list_type));
-	}
-
 
 	 //首页推送的节目类型
 	 function homepage_type(){
@@ -444,24 +430,7 @@ class program extends Api {
 	
 	
 	
-	//获取我的节目单
-	public function my_programme(){
-		$page = intval ( $_GET ['page'] ) - 1;
-		$offset = $page > 0 ? $page * $this->pagesize : 0;
-		$mid = $_GET ['mid'];
-		if (empty($mid)) {
-    		show(1,'mid is null');	   	
-    	}
-		$this->db->select('id, title, thumb');
-		$this->db->order_by("addtime", "desc");
-		$query = $this->db->get_where('fm_programme', array('mid'=>$mid,'status'=>0,'publish_flag'=>1),$this->pagesize,$offset);
-		$list = $query->result_array();
-		foreach ($list as &$row) {
-				if($row['thumb']) $row['thumb'] = base_url().$row['thumb'];				
-		}
 
-		echo json_encode ($list );
-	}
 	
 	//节目单详情
 	public function programme_detail(){
@@ -700,6 +669,38 @@ class program extends Api {
 		echo json_encode ($data );
 	}
 
+    //获取我的节目单
+    public function my_programme(){
+        $page = intval ( $_GET ['page'] ) - 1;
+        $offset = $page > 0 ? $page * $this->pagesize : 0;
+        $mid = $_GET ['mid'];
+        if (empty($mid)) {
+            show(1,'mid is null');
+        }
+        $this->db->select('id, title, thumb');
+        $this->db->order_by("addtime", "desc");
+        $query = $this->db->get_where('fm_programme', array('mid'=>$mid,'status'=>0,'publish_flag'=>1),$this->pagesize,$offset);
+        $list = $query->result_array();
+        foreach ($list as &$row) {
+            if($row['thumb']) $row['thumb'] = base_url().$row['thumb'];
+        }
+
+        echo json_encode ($list );
+    }
+
+    //获取节目类型
+    public function find(){
+        $query = $this->db->query ( "select id,title from fm_program_type where pid='0' " );
+        $list_type = $query->result_array ();
+
+        $query = $this->db->query ( "select id,nickname,avatar from fm_member where catid='3' " );
+        $list_member = $query->result_array ();
+        foreach ($list_member as &$row) {
+            if($row['avatar']) $row['avatar'] = base_url().$row['avatar'];
+
+        }
+        echo json_encode (array('radio_list'=>$list_member,'type_list'=>$list_type));
+    }
 
     //按类型搜索节目(可获取该类型下的子孙类型节目，比如获取音乐类型节目，将取出类型为音乐的节目，同时所有以音乐为父类型的节目)
     function get_list_by_type(){

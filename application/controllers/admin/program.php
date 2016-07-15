@@ -233,7 +233,14 @@ class program extends Content
         }
     }
 	
-	
+	public function save_push(){
+        $value = $this->input->post("vaule");
+        echo "<pre>";
+        print_r($value);
+        echo "<pre/>";
+
+
+    }
 	  // 删除
     public function delete ()
     {
