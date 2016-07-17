@@ -81,21 +81,21 @@ class programme extends Content
         // 是否是查询
         if (empty($keywords)) {
             if (empty($type_id)) {
-                $config['base_url'] = $this->baseurl . "&m=index&catid=$catid";
+                $config['base_url'] = $this->baseurl . "&m=public_index&catid=$catid";
             }else{
-                $config['base_url'] = $this->baseurl . "&m=index&catid=$catid&type_id=$type_id";
+                $config['base_url'] = $this->baseurl . "&m=public_index&catid=$catid&type_id=$type_id";
 
                 $searchsql .= " AND (type_id = $type_id)";
             }
         } else {
             $searchsql .= " AND (title like '%{$keywords}%' or mid in (SELECT id from fm_member WHERE nickname like '%{$keywords}%'))";
             $config['base_url'] = $this->baseurl .
-                "&m=index&catid=$catid&keywords=" . rawurlencode($keywords);
+                "&m=public_index&catid=$catid&keywords=" . rawurlencode($keywords);
         }
 
         $data['list'] = array();
         $query = $this->db->query(
-            "SELECT COUNT(*) AS num FROM $this->table WHERE  $searchsql");
+            "SELECT COUNT(*) AS num FROM $this->table WHERE  $searchsql AND  status=1");
         $count = $query->row_array();
         $data['count'] = $count['num'];
         $this->load->library('pagination');

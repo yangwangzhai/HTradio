@@ -72,7 +72,7 @@
             <li><cite></cite><a href="index.php?d=admin&c=programme&m=index" target="rightFrame">个人频道</a><i></i></li>
             <li><cite></cite><a href="index.php?d=admin&c=program&m=index" target="rightFrame">节目列表</a><i></i></li>
             <li><cite></cite><a href="index.php?d=admin&c=program_type&m=index" target="rightFrame">节目类型</a><i></i></li>
-            <!--<li><cite></cite><a href="index.php?d=admin&c=tag&m=index" target="rightFrame">标签管理</a><i></i></li>-->
+            <li><cite></cite><a href="index.php?d=admin&c=program&m=collect_program_view" target="rightFrame">媒资采集</a><i></i></li>
         </ul>
 
     </dd>

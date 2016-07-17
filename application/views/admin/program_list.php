@@ -41,10 +41,13 @@
 				{	 mystatus = 1;
 					$(this).text("未审");
 					$(this).addClass("red");
+                    $(this).css("color","red");
+                    $(this).next().attr("data-toggle","");
 				} else {
-
 					$(this).text("已审");
 					$(this).removeClass("red");
+					$(this).css("color","");
+					$(this).next().attr("data-toggle","modal");
 				}
 
 				$.get("<?=$this->baseurl?>&m=updatestatus", { id: tid, status: mystatus , field: 'status' },function(data){
@@ -71,6 +74,14 @@
 			});
 
 			$('#type_id').val('<?=$type_id?>');
+
+            $(".a").on("click",function(){
+                var data_toggle = $(this).attr("data-toggle");
+                if(data_toggle!='modal'){
+                    alert("请先审核，再推送");
+                }
+            })
+
 
 		});
 
@@ -159,12 +170,9 @@
 		<tr>
 			<th><input type="checkbox" name="chkall" id="chkall" onclick="checkall('delete[]')" class="checkbox" /></th>
 			<th></th>
-			<th width="50">封面</th>
+			<!--<th width="50">封面</th>-->
 			<th>节目名称</th>
-			<th>节目简介</th>
-			<!--<th>频道</th>-->
-			<th>类型</th>
-			<th>时长</th>
+			<th>已推送频道</th>
 			<th>上传人</th>
 			<th>收听量</th>
 			<th>试听</th>
@@ -178,22 +186,19 @@
 				<td><input type="checkbox" name="delete[]" value="<?=$r['id']?>"
 						   class="checkbox" /></td>
 				<td><?=$key+1?></td>
-				<td style="text-indent: 0;"><a onclick="vPics('<?=$r['title']?>','<?=$r['thumb']?>');" href="javascript:;"><img width="100%" src="<?=$r['thumb']?>"/></a></td>
+				<!--<td style="text-indent: 0;"><a onclick="vPics('<?/*=$r['title']*/?>','<?/*=$r['thumb']*/?>');" href="javascript:;"><img width="100%" src="<?/*=$r['thumb']*/?>"/></a></td>-->
 				<td><a href="javascript:;" class="info" data-id="<?=$r['id']?>" data-title="<?=$r['title']?>"><?=$r['title']?></a></td>
-				<td><?=$r['description']?></td>
-				<!--<td><?/*=getChannelName($r['channel_id'])*/?></td>-->
-				<td><?=getProgramTypeName($r['type_id'])?></td>
-				<td><?=getAudioTime($r['path'])?></td>
+				<td><?=$r['channel_name']?></td>
 				<td><?=getNickName($r['mid'])?></td>
 				<td><?=$r['playtimes']?></td>
 				<td><?=QuickTimeJS($key,$r['path'])?><span id="player-<?=$key?>"></span></td>
 				<td><?=times($r['addtime'],1)?></td>
 				<td>
 					<?php if(checkAccess('program_check')){?>
-						<a href="javascript:" title="点击更改状态" class="updatestatus <?php if($r[status]==0){echo 'red';} ?>" name="<?=$r['id']?>"><?=$this->status[$r[status]]?></a>
+						<a href="javascript:" title="点击更改状态" class="updatestatus <?php if($r[status]==0){echo 'red';} ?>" style="<?php if($r[status]==0){echo 'color:red';} ?>" name="<?=$r['id']?>"><?=$this->status[$r[status]]?></a>
 					<?php }else{echo '--';}?>
 					&nbsp;&nbsp;
-                    <button onclick="return false" data-target="#push<?=$key?>" data-toggle="modal">推送</button>
+                    <a onclick="return false" class="a" data-status="<?=$r['status'];?>" data-target="#push<?=$key?>" data-toggle="<?php echo $r['status'] ? 'modal' : ''; ?>" style="cursor: pointer;">推送</a>
                     &nbsp;&nbsp;
 					<?php if(checkAccess('program_tj')){?>
 						<a
@@ -255,36 +260,39 @@
 
 <?php foreach($list as $key=>$r) {?>
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="push<?=$key?>" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close"
-                        data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    模态框（Modal）标题
-                </h4>
-            </div>
-            <div class="modal-body">
-                在这里添加一些文本
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default"
-                        data-dismiss="modal">关闭
-                </button>
-                <button type="button" class="btn btn-primary">
-                    提交更改
-                </button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
-
-
-    <?php }?>
+<form action="index.php?d=admin&c=program&m=save_push" method="post">
+    <input type="hidden" name="program_id" value="<?=$r[id]?>"/>
+    <div class="modal fade" id="push<?=$key?>" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        选择推送频道
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <?php foreach($public_channel_list as $value) :?>
+                        <input type="checkbox" name="value[<?=$value[id]?>]" value="1" <?php echo empty($r['channel_id']) ? '' : in_array($value['id'],$r['channel_id']) ? "checked=checked" : '';?>/><?=$value['title']?> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php endforeach?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        提交更改
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</form>
+<?php }?>
 
 
 

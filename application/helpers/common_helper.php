@@ -4,6 +4,28 @@
  * by tangjian 
  */
 
+
+//频道id转换（因为海豚的频道id和风尚的不一样）
+function change_channel_id($channel_id){
+    $change_channel_id = array(
+        4=>6,
+        6=>8,
+        2=>10,
+        8=>7,
+        12=>9,
+        11=>11,
+        13=>12,
+        35=>13,
+    );
+    foreach($change_channel_id as $key=>$value){
+        if($key==$channel_id){
+            return $value;
+        }
+    }
+}
+
+
+
 //删除空格和回车
 function trimall($str){
     $qian=array(" ","　","\t","\n","\r");
@@ -745,6 +767,17 @@ function getMember($id) {
     $query = $CI->db->query("select * from fm_member where id=$id limit 1");
     return $query->row_array();
 }
+
+// 获取频道名称
+function getLiveChannelName($channel_id) {
+    if(empty($channel_id)) return "";
+    $CI = &get_instance();
+    $query = $CI->db->query("select title from fm_live_channel where id=$channel_id limit 1");
+    $user = $query->row_array();
+    $result = $user['title'] ? $user['title'] : '';
+    return $result;
+}
+
 
 // 获取会员信息 昵称 单条
 function getNickName($uid) { 

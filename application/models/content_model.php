@@ -11,6 +11,15 @@ class Content_model extends CI_Model {
 		parent::__construct ();
 	}
 
+    function get_column($column,$table,$where='')
+    {
+        if($where) {
+            $where = "where $where";
+        }
+        $query = $this->db->query ( "select $column from $table  $where" );
+        return $value = $query->result_array();
+    }
+
 
 	function get_column2($column,$table,$where='')
 	{

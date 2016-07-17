@@ -110,12 +110,29 @@ class program extends Content
 	//	print_r( $data['pages']);exit;
         $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
         $per_page = $config['per_page'];
-        $sql = "SELECT * FROM $this->table WHERE  $searchsql ORDER BY show_homepage DESC,hot DESC,id DESC limit $offset,$per_page";
+        $sql = "SELECT id,thumb,title,mid,playtimes,path,addtime,status FROM $this->table WHERE  $searchsql ORDER BY show_homepage DESC,hot DESC,id DESC limit $offset,$per_page";
         $query = $this->db->query($sql);
         $data['list'] = $query->result_array();
         $data['catid'] = $catid;
         $data['type_id'] = $type_id;
-		
+		foreach($data['list'] as $list_key=>$list_value){
+            $result = $this->content_model->get_column("programme_id","fm_programme_list","program_id=$list_value[id]");
+            if(!empty($result)){
+                $str = '';
+                $res = array();
+                foreach($result as $value){
+                    $title = $this->content_model->get_column2("title","fm_programme","id=$value[programme_id] AND status=1 AND publish_flag=1");
+                    if(!empty($title)){
+                        $str .=$title['title'].',';
+                        $res[] = $value['programme_id'];
+                    }
+                }
+                $data['list'][$list_key]['channel_name'] = substr($str,0,strlen($str)-1);
+                $data['list'][$list_key]['channel_id'] = $res;
+            }
+
+
+        }
 
 		$query = $this->db->query("SELECT * FROM fm_program_type");
         $program_types = $query->result_array();
@@ -123,6 +140,9 @@ class program extends Content
 			$data['program_type'][$program_type['id']] =$program_type['title'];
 		}
         $_SESSION['url_forward'] =  $config['base_url']. "&per_page=$offset";
+        //获取所有的公共频道
+        $data['public_channel_list'] = $this->content_model->get_column("id,title","fm_programme","status=1 AND publish_flag=1");
+
         $this->load->view('admin/' . $this->list_view, $data);
     }
 	
@@ -234,11 +254,25 @@ class program extends Content
     }
 	
 	public function save_push(){
-        $value = $this->input->post("vaule");
-        echo "<pre>";
-        print_r($value);
-        echo "<pre/>";
-
+        $value = $this->input->post("value");
+        $insert['program_id'] = $this->input->post("program_id");
+        $insert['type_id'] = 1;
+        //存入fm_programme_list表
+        if(!empty($value)){
+            foreach($value as $k=>$v){
+                //查找是否已经存在
+                $num = $this->content_model->db_counts("fm_programme_list","program_id=$insert[program_id] AND programme_id=$k");
+                if($num){
+                    continue;
+                }else{
+                    $insert['programme_id'] = $k;
+                    $this->content_model->db_insert_table("fm_programme_list",$insert);
+                    show_msg('推送成功！', 'index.php?d=admin&c=program&m=index');
+                }
+            }
+        }else{
+            show_msg('请选择频道！', 'index.php?d=admin&c=program&m=index');
+        }
 
     }
 	  // 删除
@@ -349,5 +383,117 @@ class program extends Content
 		$data = $query->row_array();		
 		$this->load->view('admin/program_info', $data);
 	}
+
+    public function collect_program_view(){
+        date_default_timezone_set('PRC');//设置北京时间
+
+        $catid = intval($_REQUEST['catid']);
+        $keywords = trim($_REQUEST['keywords']);
+        $searchsql = '1';
+        //         if ($catid) {
+        //             $searchsql .= " AND catid=$catid ";
+        //         }
+        // 是否是查询
+        if (empty($keywords)) {
+            $config['base_url'] = $this->baseurl . "&m=collect_program_view&catid=$catid";
+        } else {
+            $searchsql .= " AND roel_name like '%{$keywords}%'";
+            $config['base_url'] = $this->baseurl .
+                "&m=collect_program_view&catid=$catid&keywords=" . rawurlencode($keywords);
+        }
+
+        $data['list'] = array();
+        $query = $this->db->query(
+            "SELECT COUNT(*) AS num FROM fm_collect_record WHERE  $searchsql");
+        $count = $query->row_array();
+        $data['count'] = $count['num'];
+        $this->load->library('pagination');
+
+        $config['total_rows'] = $count['num'];
+        $config['per_page'] = 20;
+        $this->pagination->initialize($config);
+        $data['pages'] = $this->pagination->create_links();
+        $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
+        $per_page = $config['per_page'];
+        $sql = "SELECT * FROM fm_collect_record WHERE  $searchsql ORDER BY id DESC limit $offset,$per_page";
+        $query = $this->db->query($sql);
+        $data['list'] = $query->result_array();
+        $data['catid'] = $catid;
+
+
+        $_SESSION['url_forward'] =  $config['base_url']. "&per_page=$offset";
+        $this->load->view("admin/collect_program_view",$data);
+    }
+
+    public function collect_program()
+    {
+        date_default_timezone_set('PRC');//设置北京时间
+
+        $channel_id = $this->input->post("channel_id");
+        $collect_num = $this->input->post("collect_num");
+
+        $insert = array();
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "http://video.bbrtv.com/api/ziyunServices.php?access_token=wudngbwvzkdndjua&action=getContentList&itemId=$channel_id&page=1&per_page=$collect_num");
+        //curl_setopt($ch, CURLOPT_URL, "http://video.bbrtv.com/api/ziyunServices.php?access_token=wudngbwvzkdndjua&action=getContentDetail&id=31396");
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        $result = json_decode($output, true);
+        if(!empty($result)){
+            foreach ($result['content_lists'] as $res_key => $res_value) {
+                $insert['title'] = $res_value['title'];
+                $insert['addtime'] = strtotime("$res_value[created]");
+                $insert['channel_id'] = change_channel_id($channel_id);
+                $insert['mid'] = $this->uid;
+                $insert['status'] = 1;
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, "http://video.bbrtv.com/api/ziyunServices.php?access_token=wudngbwvzkdndjua&action=getContentDetail&id=$res_value[id]");
+                curl_setopt($ch, CURLOPT_HEADER, 0);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                $out = curl_exec($ch);
+                curl_close($ch);
+                $detail = json_decode($out, true);
+                if (!empty($detail)) {
+                    $insert['path'] = $detail['content_detail']['play_url']['stream'][0]['streamURL'];
+                }
+                //检查是否已经存在该条记录，防止重复插入
+                $num = $this->content_model->db_counts("fm_program","path='$insert[path]'");
+                if($num){
+                    continue;
+                }else{
+                    //插入数据库
+                    $res = $this->content_model->db_insert_table("fm_program", $insert);
+                }
+            }
+            if($res){
+                $insert_record['uid'] = $this->uid;
+                $insert_record['collect_channel_id'] = change_channel_id($channel_id);
+                $insert_record['collect_num'] = $collect_num;
+                $insert_record['addtime'] = time();
+                $this->content_model->db_insert_table("fm_collect_record", $insert_record);
+                show_msg('采集成功！', 'index.php?d=admin&c=program&m=collect_program_view');
+            }
+
+        }else{
+                show_msg('暂时没有数据！', 'index.php?d=admin&c=program&m=collect_program_view');
+            }
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 }
 

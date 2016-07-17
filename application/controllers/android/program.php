@@ -897,6 +897,21 @@ class program extends Api {
             $query_program = $this->db->query($sql_program);
             $program=$query_program->result_array();
             if(!empty($program)){
+                foreach($program as &$value){
+                    if ($value ['path']) {
+                        //判断图片路径是否为http或者https开头
+                        $preg="/(http:\/\/)|(https:\/\/)(.*)/iUs";
+                        if(preg_match($preg,$value ['path'])){
+                            //不需要操作
+                        }else{
+                            $value ['path'] = base_url(). $value ['path'];
+                        }
+
+                    }
+                }
+            }
+
+            if(!empty($program)){
                 $result=array("code"=>0,"message"=>"获取成功","time"=>time(),"data"=>$program);
                 echo json_encode($result);
             }else{
