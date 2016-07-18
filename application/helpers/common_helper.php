@@ -550,6 +550,7 @@ function trims ($data)
  */
 function times ($time, $type = 0)
 {
+    date_default_timezone_set(PRC);//设置北京时间
     if ($type == 0) {
         return date('Y-m-d', $time);
     } else {

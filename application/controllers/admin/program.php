@@ -82,7 +82,7 @@ class program extends Content
         //             $searchsql .= " AND catid=$catid ";
         //         }
         // 是否是查询
-        //if (empty($keywords)) {
+        if (empty($keywords)) {
             if (empty($type_id)) {
                 $config['base_url'] = $this->baseurl . "&m=index&catid=$catid";  
             }else{
@@ -90,19 +90,19 @@ class program extends Content
                 
                 $searchsql .= " AND (type_id = $type_id)"; 
             }
-        //} else {
+        } else {
         $searchsql .= " AND (title like '%{$keywords}%' or mid in (SELECT id from fm_member WHERE nickname like '%{$keywords}%'))";
         $config['base_url'] = $config['base_url'] .
         "&keywords=" . rawurlencode($keywords);
-        //}
-        
+        }
+
         $data['list'] = array();
         $query = $this->db->query(
         "SELECT COUNT(*) AS num FROM $this->table WHERE  $searchsql");
         $count = $query->row_array();
         $data['count'] = $count['num'];
         $this->load->library('pagination');
-        
+
         $config['total_rows'] = $count['num'];
         $config['per_page'] = $this->per_page;
         $this->pagination->initialize($config);
@@ -110,7 +110,7 @@ class program extends Content
 	//	print_r( $data['pages']);exit;
         $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
         $per_page = $config['per_page'];
-        $sql = "SELECT id,thumb,title,mid,playtimes,path,addtime,status FROM $this->table WHERE  $searchsql ORDER BY show_homepage DESC,hot DESC,id DESC limit $offset,$per_page";
+        $sql = "SELECT id,thumb,title,mid,playtimes,path,download_path,addtime,status FROM $this->table WHERE  $searchsql ORDER BY id DESC limit $offset,$per_page";
         $query = $this->db->query($sql);
         $data['list'] = $query->result_array();
         $data['catid'] = $catid;
@@ -428,7 +428,6 @@ class program extends Content
     public function collect_program()
     {
         date_default_timezone_set('PRC');//设置北京时间
-
         $channel_id = $this->input->post("channel_id");
         $collect_num = $this->input->post("collect_num");
 
@@ -441,7 +440,7 @@ class program extends Content
         $output = curl_exec($ch);
         curl_close($ch);
         $result = json_decode($output, true);
-        if(!empty($result)){
+        if(!empty($result['content_lists'])){
             foreach ($result['content_lists'] as $res_key => $res_value) {
                 $insert['title'] = $res_value['title'];
                 $insert['addtime'] = strtotime("$res_value[created]");
@@ -457,6 +456,7 @@ class program extends Content
                 $detail = json_decode($out, true);
                 if (!empty($detail)) {
                     $insert['path'] = $detail['content_detail']['play_url']['stream'][0]['streamURL'];
+                    $insert['download_path'] = $detail['content_detail']['play_url']['stream'][0]['downLoadUrl'];
                 }
                 //检查是否已经存在该条记录，防止重复插入
                 $num = $this->content_model->db_counts("fm_program","path='$insert[path]'");

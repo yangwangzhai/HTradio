@@ -704,9 +704,8 @@ class program extends Api {
 
     //按类型搜索节目(可获取该类型下的子孙类型节目，比如获取音乐类型节目，将取出类型为音乐的节目，同时所有以音乐为父类型的节目)
     function get_list_by_type(){
-
         $typeid = $_GET['type_id'];
-        if(empty($typeid)){
+        if($typeid==''){
             show(1,'type_id is null');
         }
         $page = intval ( $_GET ['page'] ) - 1;

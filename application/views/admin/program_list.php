@@ -191,7 +191,7 @@
 				<td><?=$r['channel_name']?></td>
 				<td><?=getNickName($r['mid'])?></td>
 				<td><?=$r['playtimes']?></td>
-				<td><?=QuickTimeJS($key,$r['path'])?><span id="player-<?=$key?>"></span></td>
+				<td><?=QuickTimeJS($key,$r['download_path'])?><span id="player-<?=$key?>"></span></td>
 				<td><?=times($r['addtime'],1)?></td>
 				<td>
 					<?php if(checkAccess('program_check')){?>
