@@ -1,7 +1,7 @@
 <div class="radio_left">
       <div class="userwrap">
       	<div class="userface" onclick="setPhotos('<?=$zb['nickname']?>','<?=$_SESSION['uid']?>')">
-          <img width="200" height="200" title="点击修改图片"   id="img" src="<?=show_thumb($zb['avatar'])?>" />
+          <img width="200" height="200" title="点击修改图片"   id="img" src="<?php if($zb['avatar']){echo show_thumb($zb['avatar']);}else{echo 'uploads/default_images/default_avatar.jpg';}?>" />
         </div>
         <div class="usertitle">
           <h1><?=$zb['nickname']?></h1>

@@ -138,7 +138,7 @@
 				<td><?=$r['id']?></td>
 				<td><?=$category[$r['catid']]?></td>
 				<td><?php if($r['avatar']){?>
-					<a onclick="vPics('<?=$r['nickname']?>','<?=$r['avatar']?>');" href="javascript:;"><img src="<?=new_thumbname($r['avatar'],100,100)?>" width="30" height="30"></a><?php }?>
+					<a onclick="vPics('<?=$r['nickname']?>','<?=$r['avatar']?>');" href="javascript:;"><img src="<?php if($r['avatar']){ echo new_thumbname($r['avatar'],100,100);}else{echo "uploads/default_images/default_avatar.jpg";}?>" width="30" height="30"></a><?php }?>
 				</td>
 				<td><?=$r['username']?></td>
 				<td><?=$r['nickname']?></td>

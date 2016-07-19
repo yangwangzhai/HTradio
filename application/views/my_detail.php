@@ -42,7 +42,7 @@
     <div class="main">
         <div class="pro_details">
             <div class="details_top">
-                <div class="dleft"><img src="<?=show_thumb($me_data['thumb'])?>" /></div>
+                <div class="dleft"><img src="<?php if(!empty($me_data['thumb'])){echo show_thumb( $me_data['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" /></div>
                 <div class="dright">
                     <h1><?=$me_data['title']?></h1>
                     <p>主播：<?=getNickName($me_data['mid'])?></p>

@@ -144,6 +144,9 @@ class Member extends Content
         }
         if($data['avatar']) {
         	thumb($data['avatar'] );
+        }else{
+            $data['avatar'] = "uploads/default_images/default_avatar.jpg";
+            thumb($data['avatar']);
         }
         
         if ($id) { // 修改 ===========

@@ -807,8 +807,8 @@ class program extends Api {
      */
     public function personal_channel_list(){
         $mid=$this->input->get("mid");
-        if(empty($mid)){
-            $result=array("code"=>1,"message"=>"参数传输出错","time"=>time(),"data"=>array());
+        if($mid==0){
+            $result=array();
             echo json_encode($result);
         }else{
             $data['list'] = array();

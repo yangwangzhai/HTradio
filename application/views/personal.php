@@ -27,7 +27,7 @@ function mouseover_event(){
             <div class="find_pic">
                 <?php foreach($me_list as $v) { ?>
             	<dl>
-                  <dt><a href="./index.php?c=player&meid=<?=$v['id']?>"><img src="<?=show_thumb( $v['thumb'] )?>" /></a></dt>
+                  <dt><a href="./index.php?c=player&meid=<?=$v['id']?>"><img src="<?php if(!empty($v['thumb'])){echo show_thumb( $v['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" /></a></dt>
                   <dd>
                     <h3><a href="./index.php?c=player&meid=<?=$v['id']?>"><?=$v['title']?></a></h3>
                     <p><a><?=getNickName($v['mid'])?></a></p>
