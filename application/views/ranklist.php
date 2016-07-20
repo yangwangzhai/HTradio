@@ -12,7 +12,7 @@
 				if($k == 1){$color = '#bf0000';}else if($k == 2){$color = '#ff4e00';}else if($k == 3){$color = '#ffa200';} ?>
 					<li>
                    	  <div class="numbers" style="color:<?=$color?>"><?=$k?></div>
-                      <div class="picture"><a href="index.php?c=player&id=<?=$r['id']?>"><img src="<?=show_thumb($r['thumb'])?>" /></a></div>
+                      <div class="picture"><a href="index.php?c=player&id=<?=$r['id']?>"><img src="<?php if(!empty($r['thumb'])){echo show_thumb( $r['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" /></a></div>
                       <div class="informat">
                         	<h1><a href="index.php?c=player&id=<?=$r['id']?>"><?=$r['title']?></a></h1>
                             <p><a href="index.php?c=zhubo&mid=<?=$r['mid']?>"><?=getNickName($r['mid'])?></a></p>

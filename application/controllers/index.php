@@ -96,7 +96,7 @@ class Index extends Common
 		
 		$data['uname'] = $this->session->userdata('uname');
 		$data['uid'] = $this->session->userdata('uid');
-		
+
 		$this->load->view('find',$data);
 	}
 	

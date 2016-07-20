@@ -24,7 +24,7 @@
     <span class="prev"></span>   
     <span class="next"></span>    
 </div>  
-<script type="text/javascript">
+    <script type="text/javascript">
 	Qfast.add('widgets', { path: "static/js/terminator2.2.min.js", type: "js", requires: ['fx'] });  
 	Qfast(false, 'widgets', function () {
 		K.tabs({
@@ -42,61 +42,68 @@
 		}) 
 	})  
 </script>
-<!-- 代码 结束 -->
+    <!-- 代码 结束 -->
         <div class="find_list">
         	<div class="find_title">
-            <div class="icon"><img src="static/images/icon.png" /></div>
-            <div class="name">推荐</div>
-            <div class="coutit">           
-            <a href="./index.php?c=index&m=program">全部</a> 
+                <div class="icon">
+                    <img src="static/images/icon.png" />
+                </div>
+                <div class="name">推荐</div>
+                <div class="coutit">
+                    <a href="./index.php?c=index&m=program">全部</a>
+                </div>
             </div>
-          </div>
             <div class="find_pic">
-            <?php foreach($hot_list as $r){?>
-            	<dl>
-                  <dt><a href="index.php?c=player&id=<?=$r['id']?>">
-                  <div class="shade">
-                  <div class="ear"><?=$r['playtimes']?></div>
-                  <div class="play1"><img src="static/images/play1.png" /></div></div>
-                  <img src="<?=show_thumb($r['thumb'])?>" />
-                  </a></dt>
-                  <dd>
-                    <h3><a href="index.php?c=player&id=<?=$r['id']?>" title="<?=$r['title']?>"><?=str_cut($r['title'],45)?></a></h3>
-                    <p><a target="_blank"  href="./index.php?c=zhubo&mid=<?=$r['mid']?>"><?=getNickName($r['mid'])?></a></p>
-                  </dd>
-                </dl>
-              <?php }?>
+                <?php foreach($hot_list as $r){?>
+                    <dl>
+                      <dt>
+                          <a href="index.php?c=player&id=<?=$r['id']?>">
+                              <div class="shade">
+                                  <div class="ear"><?=$r['playtimes']?></div>
+                                  <div class="play1"><img src="static/images/play1.png" /></div>
+                              </div>
+                              <img src="<?php if(!empty($r['thumb'])){echo show_thumb( $r['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" />
+                          </a>
+                      </dt>
+                      <dd>
+                        <h3><a href="index.php?c=player&id=<?=$r['id']?>" title="<?=$r['title']?>"><?=str_cut($r['title'],45)?></a></h3>
+                        <p><a target="_blank"  href="./index.php?c=zhubo&mid=<?=$r['mid']?>"><?=getNickName($r['mid'])?></a></p>
+                      </dd>
+                    </dl>
+                  <?php }?>
             </div>
         </div>
         <?php foreach($type_list as $r){?>
-        <div class="find_list">
-        	<div class="find_title">
-            <div class="icon"><img src="static/images/icon1.png" /></div>
-            <div class="name"><?=$r['title']?></div>
-            <div class="coutit">
-            <?php foreach($r['type_child'] as $c){?>
-            <a href="./index.php?c=index&m=program&type_id=<?=$c['id']?>"><?=$c['title']?></a>  
+            <?php if(!empty($r['program_list'])){?>
+                <div class="find_list">
+                    <div class="find_title">
+                    <div class="icon"><img src="static/images/icon1.png" /></div>
+                    <div class="name"><?=$r['title']?></div>
+                    <div class="coutit">
+                    <?php foreach($r['type_child'] as $c){?>
+                    <a href="./index.php?c=index&m=program&type_id=<?=$c['id']?>"><?=$c['title']?></a>
+                    <?php }?>
+                     <a href="./index.php?c=index&m=program&type_id=<?=$r['id']?>">更多</a>
+                    </div>
+                  </div>
+                    <div class="find_pic">
+                    <?php foreach($r['program_list'] as $p){?>
+                        <dl>
+                          <dt><a href="index.php?c=player&id=<?=$p['id']?>">
+                          <div class="shade">
+                          <div class="ear"><?=$p['playtimes']?></div>
+                          <div class="play1"><img src="static/images/play1.png" /></div></div>
+                          <img src="<?php if(!empty($p['thumb'])){echo show_thumb( $p['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" />
+                          </a></dt>
+                          <dd>
+                            <h3><a href="index.php?c=player&id=<?=$p['id']?>" title="<?=$p['title']?>"><?=str_cut($p['title'],45)?></a></h3>
+                            <p><a  target="_blank"  href="./index.php?c=zhubo&mid=<?=$p['mid']?>"><?=getNickName($p['mid'])?></a></p>
+                          </dd>
+                        </dl>
+                     <?php }?>
+                    </div>
+                </div>
             <?php }?>
-             <a href="./index.php?c=index&m=program&type_id=<?=$r['id']?>">更多</a> 
-            </div>
-          </div>
-            <div class="find_pic">
-            <?php foreach($r['program_list'] as $p){?>
-            	<dl>
-                  <dt><a href="index.php?c=player&id=<?=$p['id']?>">
-                  <div class="shade">
-                  <div class="ear"><?=$p['playtimes']?></div>
-                  <div class="play1"><img src="static/images/play1.png" /></div></div>
-                  <img src="<?=show_thumb($p['thumb'])?>" />
-                  </a></dt>
-                  <dd>
-                    <h3><a href="index.php?c=player&id=<?=$p['id']?>" title="<?=$p['title']?>"><?=str_cut($p['title'],45)?></a></h3>
-                    <p><a  target="_blank"  href="./index.php?c=zhubo&mid=<?=$p['mid']?>"><?=getNickName($p['mid'])?></a></p>
-                  </dd>
-                </dl>
-             <?php }?>
-            </div>
-        </div>
         <?php }?>
        </div>
     <div class="find_right">
