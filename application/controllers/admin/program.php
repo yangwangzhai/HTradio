@@ -447,6 +447,7 @@ class program extends Content
                 $insert['channel_id'] = change_channel_id($channel_id);
                 $insert['mid'] = $this->uid;
                 $insert['status'] = 1;
+                $insert['type_id'] = 86;//未分类的id为 86
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, "http://video.bbrtv.com/api/ziyunServices.php?access_token=wudngbwvzkdndjua&action=getContentDetail&id=$res_value[id]");
                 curl_setopt($ch, CURLOPT_HEADER, 0);

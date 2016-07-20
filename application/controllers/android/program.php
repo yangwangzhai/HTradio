@@ -427,110 +427,7 @@ class program extends Api {
 		}
 		
 	}
-	
-	
-	
 
-	
-	//节目单详情
-	public function programme_detail(){
-		$programme_id = $_GET['programme_id'];
-		$mid = $_GET['mid'];
-		if (empty($programme_id)) {
-    		show(1,'programme_id is null');
-    	}
-		if (empty($mid)) {
-    		$mid = 0;
-    	}
-		$query = $this->db->get_where('fm_programme', array('id'=>$programme_id ),1); 
-		$row = $query->row_array();
-		$row_member = getMember($row['mid']);
-		
-		$row_data['programme_name'] = $row['title'];
-        $row_data['programme_thumb'] = base_url().$row['thumb'];
-        $row_data['member_name'] = $row_member['nickname'];
-        $row_data['member_thumb'] = base_url().$row_member['avatar'];
-        $row_data['member_id'] = $row['mid'];
-		
-		//关注数
-		$sql = "SELECT count(*) as num from fm_programme_data where programme_id = $programme_id  AND type=1 ";		
-		$query = $this->db->query ( $sql );
-		$favor_data = $query->row_array();
-		$row_data['programme_fav'] = $favor_data['num'];
-		
-		
-		//判断是否收藏
-		$sql = "SELECT count(*) as num from fm_programme_data where programme_id = $programme_id  AND type=1 AND mid=$mid";		
-		$query = $this->db->query ( $sql );
-		$favor_data = $query->row_array();
-		$row_data['is_favorite'] = intval($favor_data['num']) > 0 ? 1:0;
-		
-		
-		//未做		
-		$row_data['programme_comment'] = 2091;	
-		$row_data['programme_share'] = 308;
-		$row_data['programme_dl'] = 1; //是否下载
-		
-		
-		$data_list = array();
-		$this->db->order_by('sort');
-		$query = $this->db->get_where('fm_programme_list', array('programme_id'=>$programme_id )); 
-		$result = $query->result_array();
-		//类型id,1节目id，2是类型id
-		foreach($result as &$row){
-			if($row['type_id'] == 1){
-				$this->db->select('id, title, addtime , program_time , mid , path , thumb');
-				$query = $this->db->get_where('fm_program', array('id'=>$row['program_id'] ),1); 
-				$program = $query->row_array();
-				
-				if($program['path']) $row['path'] = $program['path'];
-				if($program['thumb']) $row['thumb'] = base_url().$program['thumb'];
-				$row['addtime'] = date('Y/m/d',$program['addtime']);
-				$row['nickname'] = getNickName($program['mid']);
-				$row['title'] = $program['title'];
-			}else{
-				$this->db->select('id, title');
-				$query = $this->db->get_where('fm_program_type', array('id'=>$row['program_id'] ),1); 
-				$program = $query->row_array();
-				
-				$row['path'] = "";
-				$row['thumb'] = "";
-				$row['addtime'] = "";
-				$row['nickname'] = "";
-				$row['title'] = $program['title'];
-				$typeid = $row['program_id'];
-				$offset = 0;
-				$query = $this->db->query ( "select id,title,thumb,program_time,mid,path from fm_program WHERE  ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) ) order by playtimes desc limit $offset,$this->pagesize" );
-				$list = $query->result_array ();
-				
-				$i = 0;
-				foreach ($list as &$type_row) {
-					if($type_row['thumb']) $type_row['thumb'] = base_url().$type_row['thumb'];
-					if($type_row['path']) $type_row['path'] = base_url().$type_row['path'];
-					if($type_row['mid'])  $type_row['owner'] = getNickName($type_row['mid']);
-					
-				}
-				$row['contentlist'] = $list;
-				
-				
-			}
-			
-		}
-		/*$ids = explode(',', trim($row['program_ids']));
-		foreach($ids as $id){
-			$this->db->select('id, title, addtime , program_time , mid , path , thumb');
-			$query = $this->db->get_where('fm_program', array('id'=>$id ),1); 
-			$program = $query->row_array();
-			if($program['path']) $program['path'] = base_url().$program['path'];
-			if($program['thumb']) $program['thumb'] = base_url().$program['thumb'];
-			$program['addtime'] = date('Y/m/d',$program['addtime']);
-			$program['nickname'] = getNickName($program['mid']);
-			$data_list[] = $program;
-		}*/
-		$data = array('row' => $row_data , 'list' => $result );
-		echo json_encode ($data );
-	}
-	
 	//删除我的节目单
 	public function programme_del(){
 		$programme_id = $_GET['programme_id'];
@@ -688,6 +585,102 @@ class program extends Api {
         echo json_encode ($list );
     }
 
+    //根据programme_id获取对应的节目单详情
+    public function programme_detail(){
+        $programme_id = $_GET['programme_id'];
+        //$row['mid'] = $mid = $_GET['mid'];
+        if (empty($programme_id)) {
+            $result1=array("code"=>1,"message"=>"节目单ID没有传进来","time"=>time(),"data"=>array());
+            echo json_encode($result1);
+        }else{
+            $query = $this->db->get_where('fm_programme', array('id'=>$programme_id ),1);
+            $row = $query->row_array();
+            if(empty($row['mid'])){
+                $result1=array("code"=>1,"message"=>"找不到对应的数据","time"=>time(),"data"=>array());
+                echo json_encode($result1);
+            }else{
+                $row_member = getMember($row['mid']);
+                $row_data['programme_name'] = $row['title'];
+                $row_data['programme_thumb'] = base_url().$row['thumb'];
+                $row_data['member_name'] = $row_member['nickname'];
+                $row_data['member_thumb'] = base_url().$row_member['avatar'];
+                $row_data['member_id'] = $row['mid'];
+
+                $data_list = array();
+                $this->db->order_by('sort');
+                $query = $this->db->get_where('fm_programme_list', array('programme_id'=>$programme_id ));
+                $result = $query->result_array();
+                //类型id,1节目id，2是类型id
+                foreach($result as &$row){
+                    if($row['type_id'] == 1){
+                        $this->db->select('id, title, addtime , program_time , mid , path ,download_path ,thumb');
+                        $query = $this->db->get_where('fm_program', array('id'=>$row['program_id'] ),1);
+                        $program = $query->row_array();
+
+                        if ($program['path']) {
+                            //判断图片路径是否为http或者https开头
+                            $preg="/(http:\/\/)|(https:\/\/)(.*)/iUs";
+                            if(preg_match($preg,$program['path'])){
+                                $row['path'] = $program['path'];
+                            }else{
+                                $row['path'] = base_url(). $program['path'];
+                            }
+
+                        }else{
+                            $row['path'] = '';
+                        }
+
+                        if ($program['download_path']) {
+                            //判断图片路径是否为http或者https开头
+                            $preg="/(http:\/\/)|(https:\/\/)(.*)/iUs";
+                            if(preg_match($preg,$program['download_path'])){
+                                $row['download_path'] = $program['download_path'];
+                            }else{
+                                $row['download_path'] = base_url(). $program['download_path'];
+                            }
+
+                        }else{
+                            $row['download_path'] = '';
+                        }
+
+                        if($program['thumb']) $row['thumb'] = base_url().$program['thumb'];
+                        $row['addtime'] = date('Y/m/d',$program['addtime']);
+                        $row['nickname'] = getNickName($program['mid']);
+                        $row['title'] = $program['title'];
+                    }else{
+                        $this->db->select('id, title');
+                        $query = $this->db->get_where('fm_program_type', array('id'=>$row['program_id'] ),1);
+                        $program = $query->row_array();
+
+                        $row['path'] = "";
+                        $row['thumb'] = "";
+                        $row['addtime'] = "";
+                        $row['nickname'] = "";
+                        $row['title'] = $program['title'];
+                        $typeid = $row['program_id'];
+                        $offset = 0;
+                        $query = $this->db->query ( "select id,title,thumb,program_time,mid,path ,download_path from fm_program WHERE  ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) ) order by playtimes desc limit $offset,$this->pagesize" );
+                        $list = $query->result_array ();
+                        $i = 0;
+                        foreach ($list as &$type_row) {
+                            if($type_row['thumb']) $type_row['thumb'] = base_url().$type_row['thumb'];
+                            if($type_row['path']) $type_row['path'] = base_url().$type_row['path'];
+                            if($type_row['mid'])  $type_row['owner'] = getNickName($type_row['mid']);
+
+                        }
+                        $row['contentlist'] = $list;
+                    }
+
+                }
+                $data = array('row' => $row_data , 'list' => $result );
+                echo json_encode ($data );
+            }
+
+        }
+
+    }
+
+
     //获取节目类型
     public function find(){
         $query = $this->db->query ( "select id,title from fm_program_type where pid='0' " );
@@ -702,7 +695,11 @@ class program extends Api {
         echo json_encode (array('radio_list'=>$list_member,'type_list'=>$list_type));
     }
 
-    //按类型搜索节目(可获取该类型下的子孙类型节目，比如获取音乐类型节目，将取出类型为音乐的节目，同时所有以音乐为父类型的节目)
+    /**
+     *  接口说明：按类型搜索节目(可获取该类型下的子孙类型节目，比如获取音乐类型节目，将取出类型为音乐的节目，同时所有以音乐为父类型的节目)
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=get_list_by_type
+     *
+     */
     function get_list_by_type(){
         $typeid = $_GET['type_id'];
         if($typeid==''){
@@ -717,8 +714,7 @@ class program extends Api {
         foreach ($list as &$row) {
             if($row['thumb']) $row['thumb'] = base_url().$row['thumb'];
             if($row['path']) $row['path'] =$row['path'];
-            if($row['mid'])  $row['owner'] = getNickName($row['mid']);
-
+            $row['owner'] = getNickName($row['mid']) ? getNickName($row['mid']) : '无名';
         }
         $data = array('list'=>$list );
 
@@ -1009,7 +1005,8 @@ class program extends Api {
 					'type_id' => $type_id,
 					'audio_flag' => 1,
 					'addtime' => time(),
-					'path' => $path
+					'path' => $path,
+					'download_path' => $path
 			);
 			$this->db->insert ( 'fm_program', $data );
 			$result=array("status"=>1,"msg"=>"success","time"=>time());

@@ -216,7 +216,7 @@
                 <td><input type="checkbox" name="delete[]" value="<?=$r['id']?>"
                            class="checkbox" /></td>
                 <td><?=$key+1?></td>
-                <td style="text-indent: 0;"><img src="<?php if(!empty($r['thumb'])){echo $r['thumb'];}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" width="100%" /></td>
+                <td style="text-indent: 0;"><img src="<?php if(!empty($r['thumb'])){echo $r['thumb'];}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" width="100%"/></td>
                 <td><?=$r['title']?></td>
                 <td><?=$r['intro']?></td>
                 <td><?=$r['content']?></td>

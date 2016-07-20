@@ -6,8 +6,9 @@
     <meta name="keywords" content="HLSPlayer,m3u8Player,支持PC终端,Android安卓终端,iOS苹果终端,WindowsPhone终端" />
     <meta name="description" content="支持PC终端,Android安卓终端,iOS苹果终端,WindowsPhone终端,纯HLS(m3u8)跨平台技术(跨平台多终端测试)" />
     <link rel="stylesheet" type="text/css" href="static/m3u8/images/common.css"/>
-<script type="text/javascript" src="static/js/jplayer/jquery.jplayer.min.js"></script>
-
+    <script type="text/javascript" src="static/js/jplayer/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="static/flowplayer/flowplayer-3.2.12.min.js"></script>
+    <script type="text/javascript" src="static/flowplayer/flowplayer.ipad-3.2.12.min.js"></script>
     <script>
         $(document).ready(function(){
             mouseover_event();
@@ -25,7 +26,7 @@
 <div class="main">
 	<div class="pro_details">
        	<div class="details_top">
-       		<div class="dleft"><img src="<?=show_thumb($me_data['thumb'])?>" /></div>
+       		<div class="dleft"><img src="<?php if(!empty($me_data['thumb'])){echo show_thumb( $me_data['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" /></div>
             <div class="dright">
             	<h1><?=$me_data['title']?></h1>
                 <p>主播：<?=getNickName($me_data['mid'])?></p>
@@ -51,7 +52,7 @@
        	<div id="jp-playlist" class="details_list">
 	        <ul>
 	        	<?php foreach($list as $key=>$val) { ?>
-		        <li data-id="<?=$val['id']?>" class="click_player" data-hls="hls<?=$key?>" data-num=<?=count($list)?>>
+                    <li class="playmenu" data-title="<?=$val['title']?>" data-thumb="<?=$val['thumb']?>" data-url="<?=$val['path']?>">
 		        <span><a href="" class="c"></a>
 		        <a href="" class="d"></a>
 		        <a href="" class="e"></a>
@@ -87,27 +88,14 @@
     <div class="pro_details" style="height: 500px;" >
         <!--header/begin-->
         <div id="header" style="width: 800px;">
-            <h2 style="color: #6A6AFF;line-height: 46px;"><?= $me_data['title']?></h2>
+            <h2 style="color: #6A6AFF;line-height: 46px;text-align: center;"><?= $me_data['title']?></h2>
         </div>
         <!--header/end-->
         <!--content/begin-->
         <div id="content" style="width: 800px;">
-            <!--HLSPlayer代码开始-->
-            <div class="video" id="HLSPlayer" >
-                <SCRIPT LANGUAGE=JavaScript>
-                    var vID        = "HLSPlayer";
-                    var vWidth     = "100%";                //播放器宽度设置
-                    var vHeight    = 400;                   //播放器宽度设置
-                    var vPlayer    = "static/m3u8/HLSplayer.swf?v=1.5"; //播放器文件
-                    var vHLSset    = "static/m3u8/HLS.swf";             //HLS配置
-                    var vPic       = "static/m3u8/930.jpg";    //视频缩略图
-                    var vCssurl    = "static/m3u8/images/mini.css";     //移动端CSS应用文件
-                    //HLS(m3u8)地址,适配PC,安卓,iOS,WP
-                    var vHLSurl    = "<?= $me_data['path']?>";
-                </SCRIPT>
-                <script type="text/javascript" src="static/m3u8/js/hls.min.js?rand=20141217"></script>
-            </div>
-            <!--HLSPlayer代码结束-->
+            <!--flowplayer代码开始-->
+            <a style="display: block; width: 800px; height: 500px;" id="flashls_vod"></a>
+            <!--flowplayer代码结束-->
         </div>
     </div>
 
@@ -210,7 +198,7 @@ var player = $("#cmplayer").jPlayer({
     smoothPlayBar: true,
     keyEnabled: true,
     toggleDuration: true
-});
+}).jPlayer("play");
 
 function geturl(id){
     $.ajax({
@@ -319,9 +307,24 @@ function addMtimes(meid) {
         });
     }
 }
-
-
 </script>
-
+    <script type="text/javascript">
+        flowplayer("flashls_vod", "static/flowplayer/flowplayer.swf", {
+            plugins: {
+                flashls: {
+                    url: 'static/flowplayer/flashlsFlowPlayer.swf'
+                },
+                controls:{
+                    autoHide: false//功能条是否自动隐藏
+                }
+            },
+            clip: {
+                url: "<?=$me_data['path']?>",
+                live: true,
+                urlResolvers: "flashls",
+                provider: "flashls"
+            }
+        }).ipad();
+    </script>
 
 <?php $this->load->view('footer');?>

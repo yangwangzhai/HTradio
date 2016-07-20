@@ -38,10 +38,10 @@
         <div class="play ">
         
         
-        <!--效果html开始-->
+<!--效果html开始-->
 <div id="background"></div>
 	<div id="player">
-		<div class="cover"><img id="playthumb" src="<?=$list[0]['thumb']?>"></div>
+		<div class="cover"><img id="playthumb" src="<?php echo $list[0]['thumb'] ? $list[0]['thumb'] : 'uploads/default_images/default_jiemu.jpg'?>" width="130" height="130"></div>
 		<div class="ctrl">
 			<div class="tag">
 				<strong id="playtitle">Title：<?=$list[0]['title']?></strong>
@@ -83,8 +83,11 @@
 	flowplayer("flashls_vod", "static/flowplayer/flowplayer.swf", {
 		plugins: {
 			flashls: {
-				url: 'static/flowplayer/flashlsFlowPlayer.swf',
-			}
+				url: 'static/flowplayer/flashlsFlowPlayer.swf'
+			},
+            controls:{
+                autoHide: false//功能条是否自动隐藏
+            }
 		},
 		clip: {
 			url: "<?=$list[0]['path']?>",
@@ -106,7 +109,10 @@
 		$("#playtitle").text(title);
 		//节目缩略图
 		var thumb=$(this).attr("data-thumb");
-		$("#playthumb").attr("src",thumb);
+        if(thumb!=''){
+            $("#playthumb").attr("src",thumb);
+        }
+
 	});
 
 	function fplayer(id,url){
@@ -114,8 +120,11 @@
 			// configure the required plugins
 			plugins: {
 				flashls: {
-					url: 'static/flowplayer/flashlsFlowPlayer.swf',
-				}
+					url: 'static/flowplayer/flashlsFlowPlayer.swf'
+				},
+                controls:{
+                    autoHide: false //功能条是否自动隐藏
+                }
 			},
 			clip: {
 				url: url,
@@ -125,6 +134,5 @@
 			}
 		}).ipad();
 	}
-
 </script>
 </html>

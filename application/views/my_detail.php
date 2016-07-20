@@ -2,42 +2,18 @@
 
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" />
     <meta charset="utf-8">
-    <title>纯HLS(m3u8)跨平台技术(跨平台多终端测试)HLSPlayer,m3u8Player</title>
-    <meta name="keywords" content="HLSPlayer,m3u8Player,支持PC终端,Android安卓终端,iOS苹果终端,WindowsPhone终端" />
-    <meta name="description" content="支持PC终端,Android安卓终端,iOS苹果终端,WindowsPhone终端,纯HLS(m3u8)跨平台技术(跨平台多终端测试)" />
-    <link rel="stylesheet" type="text/css" href="static/m3u8/images/common.css"/>
-    <script type="text/javascript" src="static/js/jplayer/jquery.jplayer.min.js"></script>
-
-
-
-
+    <title>节目播放</title>
+    <script type="text/javascript" src="static/flowplayer/flowplayer-3.2.12.min.js"></script>
+    <script type="text/javascript" src="static/flowplayer/flowplayer.ipad-3.2.12.min.js"></script>
     <script>
         $(document).ready(function(){
-            mouseover_event();
-            $(".click_player").click(function(){
-                var id=$(this).attr("data-hls");
-                var num=$(this).attr("data-num");
-                for(var i=0;i<num;i++){
-                    $("#hls"+i).hide();
-                }
-                $("#"+id).show();
-                var height=43*num+240;
-                $(".find_right").css("margin-top","-"+height+"px");
-            })
-        });
-
-        function mouseover_event(){
             $(".details_list ul li").mouseover(function(){
                 $(this).addClass("current");
             });
             $(".details_list ul li").mouseout(function(){
                 $(this).removeClass("current");
-
             });
-        }
-
-
-
+        });
     </script>
     <div class="main">
         <div class="pro_details">
@@ -67,16 +43,22 @@
             <?php if($list){ ?>
                 <div id="jp-playlist" class="details_list">
                     <ul>
-                        <?php foreach($list as $key=>$val) { ?>
-                            <li data-id="<?=$val['id']?>" class="click_player" data-hls="hls<?=$key?>" data-num=<?=count($list)?>>
-		        <span><a href="" class="c"></a>
-		        <a href="" class="d"></a>
-		        <a href="" class="e"></a>
-		        <a href="" class="f"></a></span>
-                                <em><strong><?=$val['program_time']?$val['program_time']:'--:--'?></strong><strong><?=$val['playtimes']?>次播放</strong><strong><?=date('Y-m-d',$val['addtime'])?></strong></em>
-                                <b><?=$val['title']?></b>
-                            </li>
-                        <?php } ?>
+                    <?php foreach($list as $key=>$val) { ?>
+                        <li class="playmenu" data-title="<?=$val['title']?>" data-thumb="<?=$val['thumb']?>" data-url="<?=$val['path']?>">
+                            <span>
+                                <a href="" class="c"></a>
+                                <a href="" class="d"></a>
+                                <a href="" class="e"></a>
+                                <a href="" class="f"></a>
+                            </span>
+                            <em>
+                                <strong><?=$val['program_time']?$val['program_time']:'--:--'?></strong>
+                                <strong><?=$val['playtimes']?>次播放</strong>
+                                <strong><?=date('Y-m-d',$val['addtime'])?></strong>
+                            </em>
+                            <b><?=$val['title']?></b>
+                        </li>
+                        <?php }?>
                     </ul>
                 </div>
 
@@ -101,36 +83,21 @@
             <?php } ?>
         </div>
 
-        <?php foreach($list as $k=>$val) { ?>
-            <div class="pro_details" style="height: 500px;display: none;" id="hls<?=$k?>">
-                <!--header/begin-->
-                <div id="header" style="width: 800px;">
-                    <h2 style="color: #6A6AFF;line-height: 46px;"><?= $val['title']?></h2>
-                </div>
-                <!--header/end-->
-                <!--content/begin-->
-                <div id="content" style="width: 800px;">
-                    <!--HLSPlayer代码开始-->
-                    <div class="video" id="HLSPlayer<?=$k?>" >
-                        <SCRIPT LANGUAGE=JavaScript>
-                            var vID        = "HLSPlayer<?=$k?>";
-                            var vWidth     = "100%";                //播放器宽度设置
-                            var vHeight    = 400;                   //播放器宽度设置
-                            var vPlayer    = "static/m3u8/HLSplayer.swf?v=1.5"; //播放器文件
-                            var vHLSset    = "static/m3u8/HLS.swf";             //HLS配置
-                            var vPic       = "static/m3u8/930.jpg";    //视频缩略图
-                            var vCssurl    = "static/m3u8/images/mini.css";     //移动端CSS应用文件
-                            //HLS(m3u8)地址,适配PC,安卓,iOS,WP
-                            var vHLSurl    = "<?= $val['path']?>";
-                        </SCRIPT>
-                        <script type="text/javascript" src="static/m3u8/js/hls.min.js?rand=20141217"></script>
-                    </div>
-                    <!--HLSPlayer代码结束-->
-                </div>
+        <div class="pro_details" style="height: 500px;">
+            <!--header/begin-->
+            <div id="header" style="width: 800px;">
+                <h2 style="color: #6A6AFF;line-height: 46px; text-align: center;"><?=$list[0]['title']?></h2>
             </div>
-        <?php } ?>
+            <!--header/end-->
+            <!--content/begin-->
+            <div id="content" style="width: 800px;">
+                <!--flowplayer代码开始-->
+                <a style="display: block; width: 800px; height: 500px;" id="flashls_vod"></a>
+                <!--flowplayer代码结束-->
+            </div>
+        </div>
 
-        <div class="find_right" style="margin-top: 30px;">
+        <div class="find_right" style="margin-top: -360px;">
             <div class="down"><a href="./index.php?c=download&m=getApk"><img src="static/images/down.png" /></a></div>
             <div class="title">Ta的其他节目<a href="index.php?c=zhubo&mid=<?=$me_data['mid']?>">/更多</a></div>
             <div class="radiolist">
@@ -138,7 +105,7 @@
                     <dl>
                         <dt><a href="index.php?c=player&id=<?=$val['id']?>"><img src="<?=show_thumb($val['thumb'])?>" /></a></dt>
                         <dd>
-                            <h5><a href="index.php?c=player&id=<?=$val['id']?>" title="<?=$val['title']?>"><?=str_cut($val['title'],25)?></a></h5>
+                            <h5><a href="index.php?c=player&id=<?=$val['id']?>" title="<?=$val['title']?>"><?=str_cut($val['title'],20)?></a></h5>
                             <p>类别：<?=getProgramTypeName($val['type_id'])?></p>
                         </dd>
                     </dl>
@@ -161,186 +128,62 @@
             </div>
         </div>
     </div>
-    <div id="cmplayer"></div><!--播放音频的flash隐藏窗口-->
-
 
     <script type="text/javascript">
-
-        $(document).ready(function(){
-
-            $('#jp-playlist li').click(function(){
-                var id = $(this).attr('data-id');
-                geturl(id);
-                $(this).addClass('curr').css({backgroundImage:'url("static/images/pause.png")'});
-                $(this).siblings().removeClass('curr').css({backgroundImage:''});
-                if($('.dbtn').text() != '正在收听') {
-                    addMtimes(<?=$meid?>);
+        flowplayer("flashls_vod", "static/flowplayer/flowplayer.swf", {
+            plugins: {
+                flashls: {
+                    url: 'static/flowplayer/flashlsFlowPlayer.swf'
+                },
+                controls:{
+                    autoHide: false//功能条是否自动隐藏
                 }
-                addPtimes(id);
-            });
+            },
+            clip: {
+                url: "<?=$list[0]['path']?>",
+                live: true,
+                urlResolvers: "flashls",
+                provider: "flashls"
+            }
+        }).ipad();
 
-            $('.jp-next').click(function(){
-                next();
-            });
-
-            $('.jp-previous').click(function(){
-                previous();
-            });
-
-            $('#sss').click(function(){
-                musicplay();
-            });
-
-
-
+        $(".playmenu").click(function(){
+            var id="flashls_vod";
+            var url=$(this).attr("data-url");
+            fplayer(id,url);
+            var title=$(this).attr("data-title");
+            $("#header h2").text(title);
+            //当前播放的节目，高亮
+           /* $(".playmenu").css("color","#aaa");
+            $(this).css("color","#ffffff");
+            //播放器标题
+            var title=$(this).attr("data-title");
+            $("#playtitle").text(title);
+            //节目缩略图
+            var thumb=$(this).attr("data-thumb");
+            $("#playthumb").attr("src",thumb);*/
         });
 
-        var player = $("#cmplayer").jPlayer({
-
-            ended:function(event) {
-                next();
-
-            },
-            play:function(event){
-                var id = $('.curr').eq(0).attr('data-id');
-                if(id == undefined){
-                    id = <?=$id?>;
-                }
-                $('#jp_container_1').show();
-                $('.dbtn').text('正在收听');
-
-            },
-            pause:function(event){
-
-            },
-
-            error:function(event){
-                if(event.jPlayer.error.type == 'e_url' || event.jPlayer.error.type == 'e_url_not_set') {
-                    $('#jp_container_1').show();
-                    $('.jp-title').eq(0).html('<span style="color:red;">音频文件加载失败</span>');
-                }
-            },
-            swfPath: "static/js/jplayer",
-            supplied: "m4a, mp3",
-            solution: 'flash,html',
-            wmode: "window",
-            useStateClassSkin: true,
-            autoBlur: false,
-            smoothPlayBar: true,
-            keyEnabled: true,
-            toggleDuration: true
-        });
-
-        function geturl(id){
-            $.ajax({
-                url:'index.php?c=player&m=getUrl&id='+id,
-                type:'get',
-                dataType:'json',
-                success:function(res){
-                    player.jPlayer("setMedia",res).jPlayer('play');
-                }
-            });
-        }
-
-        function next() {
-            var obj = $('#jp-playlist .curr').eq(0);
-            var next = $('.curr').next();
-
-            var id = next.attr('data-id');
-            if(id == undefined){
-                if($('#jp_container_1').hasClass('jp-state-looped')) {
-                    id = $('#jp-playlist li').first().attr('data-id');
-                    geturl(id);
-                    $("#cmplayer").jPlayer('play');
-                    $('.curr').removeClass('curr');
-                    $('#jp-playlist li').first().addClass('curr').css({backgroundImage:'url("static/images/pause.png")'});
-                    return;
-                }else{
-                    return false;
-                }
-
-            }
-            geturl(id);
-            addPtimes(id);
-            obj.removeClass('curr').css({backgroundImage:''});
-            next.addClass('curr').css({backgroundImage:'url("static/images/pause.png")'});
-            return true;
-        }
-
-        function previous() {
-            var obj = $('#jp-playlist .curr').eq(0);
-            var prev = $('.curr').prev();
-
-            var id = prev.attr('data-id');
-            if(id == undefined){
-                return false;
-            }
-            geturl(id);
-            addPtimes(id);
-            obj.removeClass('curr').css({backgroundImage:''});
-            prev.addClass('curr').css({backgroundImage:'url("static/images/pause.png")'});
-            return true;
-        }
-
-        function musicplay() {
-            var first = $('#jp-playlist li').first();
-            var container = $('#jp_container_1');
-            var id = first.attr('data-id');
-            first.addClass('curr').css({backgroundImage:'url("static/images/pause.png")'});
-            if($('.dbtn').text() == '正在收听') {
-                return;
-            }
-            if(id != undefined) {
-
-                geturl(id);
-                addPtimes(id);
-                addMtimes(<?=$meid?>);
-            }else {
-                geturl(<?=$id?>);
-                addPtimes(<?=$id?$id:''?>);
-            }
-
-
-            $('.dbtn').text('正在收听');
-        }
-
-        function addPtimes(id) {
-            if(id){
-                var times = parseInt($('.dbtn').eq(0).next('span').text());
-                $.ajax({
-                    url: 'index.php?c=ajax&m=addPlayTimes',
-                    type: 'post',
-                    data: 'id='+id,
-                    success:function(res) {
-                        if(res == '0'){
-                            if($('.curr').attr('data-id') == undefined) {
-                                $('.dbtn').eq(0).next('span').text(times+1);
-                            }
-
-                        }
+        function fplayer(id,url){
+            flowplayer(id, "static/flowplayer/flowplayer.swf", {
+                // configure the required plugins
+                plugins: {
+                    flashls: {
+                        url: 'static/flowplayer/flashlsFlowPlayer.swf'
+                    },
+                    controls:{
+                        autoHide: false //功能条是否自动隐藏
                     }
-                });
-            }
+                },
+                clip: {
+                    url: url,
+                    live: true,
+                    urlResolvers: "flashls",
+                    provider: "flashls"
+                }
+            }).ipad();
         }
-
-        function addMtimes(meid) {
-            if(meid){
-                var times = parseInt($('.dbtn').eq(0).next('span').text());
-                $.ajax({
-                    url: 'index.php?c=ajax&m=addPlayTimes',
-                    type: 'post',
-                    data: 'meid='+meid,
-                    success:function(res) {
-                        if(res == '0'){
-                            $('.dbtn').eq(0).next('span').text(times+1);
-                        }
-                    }
-                });
-            }
-        }
-
 
     </script>
-
 
 <?php $this->load->view('footer');?>
