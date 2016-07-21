@@ -866,7 +866,7 @@ filter:progid:DXImageTransform.Microsoft.gradient( GradientType = 0, startColors
 }
 .details_top .dright a:hover {
 	display: block;
-	background: #bf0000
+	//background: #bf0000
 }
 .details_top .dright span {
 	height: 40px;
@@ -962,6 +962,19 @@ filter:progid:DXImageTransform.Microsoft.gradient( GradientType = 0, startColors
 .details_list ul li.current span a:hover.f {
 	display: block;
 	background: url(../images/f1.png) no-repeat;
+}
+.details_list ul li.current span a.g {
+    display: block;
+    background: url(../images/del.png) no-repeat;
+    height: 18px;
+    width: 18px;
+    float: left;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+.details_list ul li.current span a:hover.g {
+    display: block;
+    background: url(../images/del1.png) no-repeat;
 }
 .details_list ul li.current span a.edit {
 	display: block;

@@ -7,7 +7,7 @@
     <div id="D1pic1" class="fPic">  
     <?php foreach($top_list as $r){?>
         <div class="fcon" style="display: none;">
-            <a target="_blank" href="index.php?c=player&id=<?=$r['id']?>"><img src="<?=show_thumb($r['thumb'])?>" style="opacity: 1; "></a>
+            <a target="_blank" href="index.php?c=player&id=<?=$r['id']?>"><img src="<?php if(!empty($r['thumb'])){echo show_thumb( $r['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" style="opacity: 1; "></a>
             <span class="shadow"><a target="_blank" href="#<?=$r['id']?>"><?=$r['title']?></a></span>
         </div>
     <?php }?>    

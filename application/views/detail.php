@@ -105,7 +105,7 @@
       <div class="radiolist">
         <?php foreach($other as $val) { ?>
       	<dl>
-        <dt><a href="index.php?c=player&id=<?=$val['id']?>"><img src="<?=show_thumb($val['thumb'])?>" /></a></dt>
+        <dt><a href="index.php?c=player&id=<?=$val['id']?>"><img src="<?php if(!empty($val['thumb'])){echo show_thumb( $val['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" /></a></dt>
         <dd>
         <h5><a href="index.php?c=player&id=<?=$val['id']?>" title="<?=$val['title']?>"><?=str_cut($val['title'],25)?></a></h5>
         <p>类别：<?=getProgramTypeName($val['type_id'])?></p>
@@ -119,7 +119,7 @@
       <div class="radiolist">
         <?php foreach($listen as $val) { ?>
       	<dl>
-        <dt><a href="index.php?c=player&id=<?=$val['id']?>"><img src="<?=show_thumb($val['thumb'])?>" /></a></dt>
+        <dt><a href="index.php?c=player&id=<?=$val['id']?>"><img src="<?php if(!empty($val['thumb'])){echo show_thumb( $val['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" /></a></dt>
         <dd>
         <h5><a href="index.php?c=player&id=<?=$val['id']?>" title="<?=$val['title']?>"><?=str_cut($val['title'],25)?></a></h5>
         <p>类别：<?=getProgramTypeName($val['type_id'])?></p>

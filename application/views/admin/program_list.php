@@ -11,6 +11,8 @@
 	<script type="text/javascript" src="static/js/jquery-3.1.0.min.js"></script>
 	<link href="static/plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="static/plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="static/flowplayer/flowplayer-3.2.12.min.js"></script>
+    <script type="text/javascript" src="static/flowplayer/flowplayer.ipad-3.2.12.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$(".click").click(function(){
@@ -191,7 +193,9 @@
 				<td><?=$r['channel_name']?></td>
 				<td><?=getNickName($r['mid'])?></td>
 				<td><?=$r['playtimes']?></td>
-				<td><?=QuickTimeJS($key,$r['download_path'])?><span id="player-<?=$key?>"></span></td>
+				<td>
+                    <img class="playmenu" src="static/images/play_h.png" data-flag="0" data-title="<?=$r['title']?>" data-url="<?=$r['path']?>" style="cursor: pointer;"/>
+                </td>
 				<td><?=times($r['addtime'],1)?></td>
 				<td>
 					<?php if(checkAccess('program_check')){?>
@@ -227,7 +231,7 @@
 		</tbody>
 	</table>
 
-	<div class="pagin">
+	<div class="pagin" style="padding: 0 0 30px;margin-bottom: 15px">
 		<div class="message">共<i class="blue"><?=$count?></i>条记录</div>
 		<ul class="paginList">
 			<li><?=$pages?></li>
@@ -294,8 +298,96 @@
 </form>
 <?php }?>
 
+<div id="player_box" style="display:none;position: fixed;bottom: 0px;height: 50px;width: 100%;background: #272727;">
+    <div style="margin-left: auto;margin-right: auto;width: 50%;clear: both;">
+        <p id="player_title" style="color:#d1d1d1;font-size: 12px;text-decoration: none;margin-bottom: 0;">私家车上班路上2016-07-21</p>
+        <a style="display: block; width: 100%; height: 30px;" id="flashls_vod"></a>
+    </div>
+</div>
 
 
 </body>
+
+<script type="text/javascript">
+    $(".playmenu").click(function(){
+        $("#player_box").show();
+        var id="flashls_vod";
+        var title=$(this).attr("data-title");
+        var url=$(this).attr("data-url");
+        var flag=$(this).attr("data-flag");
+        if(flag==0){
+            fplayer(id,url)
+            //当前播放的节目，高亮
+            /*$(".playmenu").css("color","#0097BD");
+             $(this).css("color","red");*/
+            $("#player_title").text(title);
+            $(".playmenu").attr("src","static/images/play_h.png");
+            $(this).attr("src","static/images/pause.png");
+            $(this).attr("data-flag","1");
+        }else{
+            $("#player_title").text(title);
+            flowplayer(id, "static/flowplayer/flowplayer.swf", {
+                // configure the required plugins
+                plugins: {
+                    flashls: {
+                        url: 'static/flowplayer/flashlsFlowPlayer.swf'
+                    },
+                    controls:{
+                        autoHide: false, //功能条是否自动隐藏
+                        tooltips: {
+                            buttons: true,//是否显示
+                            fullscreen: '全屏',//全屏按钮，鼠标指上时显示的文本
+                            stop:'停止',
+                            play:'开始',
+                            volume:'音量',
+                            mute: '静音',
+                            next:'下一个',
+                            previous:'上一个'
+                        }
+                    }
+                },
+                clip: {
+                    url: url,
+                    live: true,
+                    autoPlay: false,
+                    urlResolvers: "flashls",
+                    provider: "flashls"
+                }
+            }).stop();
+            $(this).attr("data-flag","0");
+            $(this).attr("src","static/images/play_h.png");
+        }
+    });
+
+    function fplayer(id,url){
+        flowplayer(id, "static/flowplayer/flowplayer.swf", {
+            // configure the required plugins
+            plugins: {
+                flashls: {
+                    url: 'static/flowplayer/flashlsFlowPlayer.swf'
+                },
+                controls:{
+                    autoHide: false, //功能条是否自动隐藏
+                    tooltips: {
+                        buttons: true,//是否显示
+                        fullscreen: '全屏',//全屏按钮，鼠标指上时显示的文本
+                        stop:'停止',
+                        play:'开始',
+                        volume:'音量',
+                        mute: '静音',
+                        next:'下一个',
+                        previous:'上一个'
+                    }
+                }
+            },
+            clip: {
+                url: url,
+                live: true,
+                urlResolvers: "flashls",
+                provider: "flashls"
+            }
+        }).ipad();
+    }
+</script>
 
 </html>

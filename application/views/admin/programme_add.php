@@ -139,7 +139,7 @@ function select_type(id,len){
            
 
 <div class="mainbox nomargin">
-	<form action="<?=$this->baseurl?>&m=save" method="post" onsubmit="return checkForm()">
+	<form action="<?=$this->baseurl?>&m=<?php echo$flag?'personal_programme_save':'save'?>" method="post" onsubmit="return checkForm()">
 		<input type="hidden" name="id" value="<?=$id?>"> <!--input type="hidden"
 			name="value[catid]" value="<?=$value[catid]?>"-->
         <input type="hidden" name="public_flag" value="<?=$public_flag?>">

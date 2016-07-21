@@ -148,6 +148,7 @@ class programme extends Content
     public function edit ()
     {
         $id = intval($_GET['id']);
+        $data['flag'] = intval($_GET['flag']);
 
         // 这条信息
         $query = $this->db->get_where($this->table, 'id = ' . $id, 1);
@@ -249,6 +250,7 @@ class programme extends Content
             show_msg('添加成功！', $this->baseurl."&m=public_index");
         }
     }
+
 
     public function set_status(){
         $publish_flag = $this->input->post("publish_flag");

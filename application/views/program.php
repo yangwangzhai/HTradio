@@ -35,7 +35,7 @@
             <div class="prolist">
              <?php foreach($program_list as $r){?>
             	<dl>
-                	<dt><a href="./index.php?c=player&id=<?=$r['id']?>"><img src="<?=show_thumb($r['thumb'])?>" /></a></dt>
+                	<dt><a href="./index.php?c=player&id=<?=$r['id']?>"><img src="<?php if(!empty($r['thumb'])){echo show_thumb( $r['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu2.jpg";}?>" /></a></dt>
                   <dd>
                     	<h1><a href="./index.php?c=player&id=<?=$r['id']?>" title="<?=$r['title']?>"><?=str_cut($r['title'],30)?></a></h1>
                         <p style="color:#999;"><?=$r['description']?str_cut($r['description'],50,'...'):'&nbsp;'?></p>

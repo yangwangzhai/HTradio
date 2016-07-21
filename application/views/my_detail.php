@@ -20,7 +20,7 @@
             <div class="details_top">
                 <div class="dleft"><img src="<?php if(!empty($me_data['thumb'])){echo show_thumb( $me_data['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" /></div>
                 <div class="dright">
-                    <h1><?=$me_data['title']?></h1>
+                    <h1><a href="index.php?c=player&m=edit&id=<?=$meid?>" title="点击可进行编辑" target="_blank" ><?=$me_data['title']?></a></h1>
                     <p>主播：<?=getNickName($me_data['mid'])?></p>
                     <p>最后更新: <?=date('Y-m-d',$me_data['addtime'])?></p>
                     <p style=" padding:10px 0;"><a href="javascript:void(0);" id="sss" class="dbtn">立即收听</a><span><?=$me_data['playtimes']?></span>次播放</p>
@@ -46,10 +46,11 @@
                     <?php foreach($list as $key=>$val) { ?>
                         <li class="playmenu" data-title="<?=$val['title']?>" data-thumb="<?=$val['thumb']?>" data-url="<?=$val['path']?>">
                             <span>
-                                <a href="" class="c"></a>
-                                <a href="" class="d"></a>
-                                <a href="" class="e"></a>
-                                <a href="" class="f"></a>
+                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0)" class="c"></a>
+                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0)" class="d"></a>
+                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0)" class="e"></a>
+                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0)" class="f"></a>
+                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0)" class="g"></a>
                             </span>
                             <em>
                                 <strong><?=$val['program_time']?$val['program_time']:'--:--'?></strong>
@@ -103,7 +104,7 @@
             <div class="radiolist">
                 <?php foreach($other as $val) { ?>
                     <dl>
-                        <dt><a href="index.php?c=player&id=<?=$val['id']?>"><img src="<?=show_thumb($val['thumb'])?>" /></a></dt>
+                        <dt><a href="index.php?c=player&id=<?=$val['id']?>"><img src="<?php if(!empty($val['thumb'])){echo show_thumb( $val['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" /></a></dt>
                         <dd>
                             <h5><a href="index.php?c=player&id=<?=$val['id']?>" title="<?=$val['title']?>"><?=str_cut($val['title'],20)?></a></h5>
                             <p>类别：<?=getProgramTypeName($val['type_id'])?></p>
@@ -117,7 +118,7 @@
             <div class="radiolist">
                 <?php foreach($listen as $val) { ?>
                     <dl>
-                        <dt><a href="index.php?c=player&id=<?=$val['id']?>"><img src="<?=show_thumb($val['thumb'])?>" /></a></dt>
+                        <dt><a href="index.php?c=player&id=<?=$val['id']?>"><img src="<?php if(!empty($val['thumb'])){echo show_thumb( $val['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" /></a></dt>
                         <dd>
                             <h5><a href="index.php?c=player&id=<?=$val['id']?>" title="<?=$val['title']?>"><?=str_cut($val['title'],25)?></a></h5>
                             <p>类别：<?=getProgramTypeName($val['type_id'])?></p>
