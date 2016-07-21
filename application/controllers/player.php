@@ -29,7 +29,7 @@ class Player extends CI_Controller
             $sql = "SELECT title,mid,intro,thumb,program_ids,addtime,playtimes FROM fm_programme WHERE id=$me_id";
             $query = $this->db->query($sql);
             $data['me_data'] = $me_data = $query->row_array();
-            $sql = "SELECT a.id,title,path,playtimes,ADDTIME,program_time FROM fm_program a LEFT JOIN  fm_programme_list b ON a.id =b.program_id WHERE b.type_id=1 AND b.programme_id=$me_id;";
+            $sql = "SELECT a.id,title,path,download_path,playtimes,ADDTIME,program_time FROM fm_program a LEFT JOIN  fm_programme_list b ON a.id =b.program_id WHERE b.type_id=1 AND b.programme_id=$me_id;";
             $query = $this->db->query($sql);
             $data['list'] = $query->result_array();
         }
@@ -44,10 +44,7 @@ class Player extends CI_Controller
         $sql = "SELECT id,title,thumb,type_id FROM fm_program WHERE id in (SELECT program_id FROM fm_program_data WHERE type = 3 ORDER BY addtime DESC) limit 6";
         $query = $this->db->query($sql);
         $data['listen'] = $query->result_array();
-        echo "<pre>";
-        print_r($data);
-        echo "<pre/>";
-        exit;
+        
         if($id){
             $this->load->view('detail',$data);
         }elseif($me_id){
@@ -212,6 +209,14 @@ class Player extends CI_Controller
         $query = $this->db->query($sql);
         $list = $query->result_array();
         echo json_encode($list);
+    }
+
+    //异步删除节目
+    public function delete_progarm(){
+        $meid = $this->input->post("meid");
+        $id = $this->input->post("id");
+        $affect = $this->db->delete('fm_programme_list', array('programme_id' => $meid,'program_id' => $id));
+        echo json_encode($affect);
     }
 
     //下一首 

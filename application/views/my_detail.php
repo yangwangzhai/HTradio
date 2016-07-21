@@ -13,6 +13,37 @@
             $(".details_list ul li").mouseout(function(){
                 $(this).removeClass("current");
             });
+            //异步删除节目
+            $(".g").on("click", function () {
+                var meid = $(this).attr("data-meid");
+                var id = $(this).attr("data-id");
+                var com = confirm("确定要删除该节目？");
+                if(com){
+                    $(this).parent().parent().addClass("active");
+                    $.ajax({
+                        url:"index.php?c=player&m=delete_progarm",
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{meid:meid,id:id},  //要传递的数据
+                        success:function(data){
+                            if(data){
+                                $(".active").remove();
+                                var title = $(".playmenu").eq(0).attr("data-title");
+                                $("#header h2").text(title);
+                            }else{
+                                alert("删除失败");
+                            }
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }
+            })
+            //下载
+
+
         });
     </script>
     <div class="main">
@@ -44,20 +75,20 @@
                 <div id="jp-playlist" class="details_list">
                     <ul>
                     <?php foreach($list as $key=>$val) { ?>
-                        <li class="playmenu" data-title="<?=$val['title']?>" data-thumb="<?=$val['thumb']?>" data-url="<?=$val['path']?>">
+                        <li>
                             <span>
-                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0)" class="c"></a>
-                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0)" class="d"></a>
-                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0)" class="e"></a>
-                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0)" class="f"></a>
-                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0)" class="g"></a>
+                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0);" class="c"></a>
+                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0);" class="d"></a>
+                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0);" class="e"></a>
+                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="<?=$val['download_path']?>" class="f"></a>
+                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0);" class="g"></a>
                             </span>
                             <em>
                                 <strong><?=$val['program_time']?$val['program_time']:'--:--'?></strong>
                                 <strong><?=$val['playtimes']?>次播放</strong>
                                 <strong><?=date('Y-m-d',$val['addtime'])?></strong>
                             </em>
-                            <b><?=$val['title']?></b>
+                            <b class="playmenu" data-title="<?=$val['title']?>" data-thumb="<?=$val['thumb']?>" data-url="<?=$val['path']?>"><?=$val['title']?></b>
                         </li>
                         <?php }?>
                     </ul>
