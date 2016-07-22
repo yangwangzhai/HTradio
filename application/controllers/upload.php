@@ -120,6 +120,7 @@ class Upload extends CI_Controller
             show_msg('修改成功！','index.php?c=personal');
         } else { // ===========添加 ===========
             $data['addtime'] = time();
+            $data['download_path'] = $data['path'];
 			$data['mid']=$this->session->userdata('uid');
             $query = $this->content_model->db_insert_table($this->table, $data);	//返回插入成功的数据的ID
 			//根据ID获取音频路径
@@ -134,7 +135,8 @@ class Upload extends CI_Controller
 
 
 	public function change_m3u8($path){
-		$ffmepg = "D:/wamp/www/HTradio/ffmpeg.exe"; // 指定转码器
+		//$ffmepg = "D:/wamp/www/HTradio/ffmpeg.exe"; // 指定转码器
+		$ffmepg = "E:/www/cmradio/ffmpeg.exe"; // 指定转码器
 		date_default_timezone_set('PRC');
 		$rand=rand(100000,999999);
 		$date=date('ymdhis',time());
@@ -175,7 +177,7 @@ class Upload extends CI_Controller
 	//上传音频文件
 	public function upload_audio(){
 		
-		 //获取节目类型列表
+        //获取节目类型列表
         $query = $this->db->query("SELECT * FROM fm_program_type");
         $program_types = $query->result_array();
         $data['program_types'] =$program_types;

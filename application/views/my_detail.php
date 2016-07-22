@@ -42,7 +42,12 @@
                 }
             })
             //下载
-
+            $(".f").on("click",function(){
+                var download_path = $(this).attr("data-download-path");
+                var title = $(this).attr("data-title");
+                var meid = $(this).attr("data-meid");
+                location.href="index.php?c=player&m=download&download_path="+download_path+"&title="+title+"&meid="+meid;
+            })
 
         });
     </script>
@@ -77,10 +82,10 @@
                     <?php foreach($list as $key=>$val) { ?>
                         <li>
                             <span>
-                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0);" class="c"></a>
-                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0);" class="d"></a>
-                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0);" class="e"></a>
-                                <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="<?=$val['download_path']?>" class="f"></a>
+                                <!--<a data-meid="<?/*=$meid*/?>" data-id="<?/*=$val['id']*/?>" href="javascript:void(0);" class="c"></a>-->
+                                <!--<a data-meid="<?/*=$meid*/?>" data-id="<?/*=$val['id']*/?>" href="javascript:void(0);" class="d"></a>-->
+                                <!--<a data-meid="<?/*=$meid*/?>" data-id="<?/*=$val['id']*/?>" href="javascript:void(0);" class="e"></a>-->
+                                <a data-meid="<?=$meid?>" data-title="<?=$val['title']?>" data-download-path="<?=$val['download_path']?>" href="javascript:void(0);" class="f"></a>
                                 <a data-meid="<?=$meid?>" data-id="<?=$val['id']?>" href="javascript:void(0);" class="g"></a>
                             </span>
                             <em>
@@ -174,6 +179,7 @@
             clip: {
                 url: "<?=$list[0]['path']?>",
                 live: true,
+                autoPlay: false,//关闭自动播放
                 urlResolvers: "flashls",
                 provider: "flashls"
             }

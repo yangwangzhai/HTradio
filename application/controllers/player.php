@@ -219,6 +219,32 @@ class Player extends CI_Controller
         echo json_encode($affect);
     }
 
+    //下载
+    public function download(){
+        $link = $this->input->get("download_path");
+        $meid = $this->input->get("meid");
+        if($link){
+            //判断图片路径是否为http或者https开头
+            $preg="/(http:\/\/)|(https:\/\/)(.*)/iUs";
+            if(preg_match($preg,$link)){
+                //不需要操作
+            }else{
+                $link = base_url(). $link;
+            }
+            $filename = $this->input->get("title") ? $this->input->get("title") : "我下载的音频";
+            $ext=strrchr($link,".");
+            //文件的类型
+            header('Content-type: application/video');
+            //下载显示的名字
+            header('Content-Disposition: attachment; filename='."$filename"."$ext");
+            readfile("$link");
+            exit();
+        }else{
+            show_msg('文件不存在！', "index.php?c=player&meid=$meid");
+        }
+
+    }
+
     //下一首 
     public function next_one() {
         $curr = intval($_GET['curr']);

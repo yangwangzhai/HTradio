@@ -14,6 +14,7 @@ class Index extends Common
     public function index ()
     {
 
+        //echo dirname(dirname(dirname(__FILE__)));exit;
 		 $code=$this->input->get('code');
 		 
 		 if($code){
