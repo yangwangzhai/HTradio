@@ -135,18 +135,27 @@ function select_type(id,len){
 	
 	}
 
+    $(document).ready(function(){
+        $("#channel_type").change(function(){
+            var channel_type = $("#channel_type").val();
+            if(channel_type==1){
+                $(".vbd").css("display","none");
+                $(".me1").show();
+            }else{
+                $(".vbd").show();
+                $(".me1").css("display","none");
+            }
+        })
+    })
+
 </script>
-           
+
 
 <div class="mainbox nomargin">
 	<form action="<?=$this->baseurl?>&m=<?php echo$flag?'personal_programme_save':'save'?>" method="post" onsubmit="return checkForm()">
-		<input type="hidden" name="id" value="<?=$id?>"> <!--input type="hidden"
-			name="value[catid]" value="<?=$value[catid]?>"-->
+		<input type="hidden" name="id" value="<?=$id?>">
         <input type="hidden" name="public_flag" value="<?=$public_flag?>">
 		<table class="opt">
-        <!--th width="90">分组 </th>
-				<td><select name="value[catid]" id="gender"><?=getSelect($group, $value['catid'])?></select></td>
-			</tr-->		
 			<tr>
 				<th >频道名称</th>
 				<td><input name="value[title]" type="text" class="txt"
@@ -159,41 +168,44 @@ function select_type(id,len){
 					<span class="errortip"></span>
 				</td>
 			</tr>
-			<tr>
-				<th>频道简介</th>
-				<td><input name="value[intro]" class="txt"  type="text" value="<?=$value[intro]?>" /></td>
-				
-			</tr>
-			<!--<tr>
-				<th>创建者</th>
-				<td>
-					<input id="mid" name="value[mid]" class="txt" type="text" value="<?/*=$value[mid]*/?>" />
-					<span class="errortip"></span><br>
-					
-				</td>
-				<th>&nbsp;&nbsp;&nbsp;&nbsp;所属频道</th>
-				<td><select name="value[channel_id]" id="channel_id"><?/*=getSelect($channel,$value[channel_id],'--请选择频道--')*/?></select><span class="errortip"></span></td>
-			</tr>-->
+            <tr>
+                <th>频道类型</th>
+                <td style="width: 250px;">
+                    <select name="channel_type" id="channel_type">
+                        <option value="1">录播</option>
+                        <option value="2">语音播报</option>
+                    </select>
+                </td>
+                <th class="vbd" style="display: none;">&nbsp;&nbsp;&nbsp;&nbsp;播报内容</th>
+                <td class="vbd" style="display: none;">
+                    <select name="vbd_type">
+                        <option value="1">欧洲杯</option>
+                        <option value="2">奥运会</option>
+                        <option value="3">世界杯</option>
+                    </select>
+                </td>
+            </tr>
             
-            <tr class="add me1"><th>&nbsp;&nbsp;&nbsp;&nbsp;音频</th>
-                    <td>时长：<input name="list[1][timespan]" value="00:00:00" style="width:100px;" />格式：XX:XX:XX</td>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;播放方法</th>
-                    <td>
-                     <select name="list[1][type_id]" class="type" data-len="1" onchange="select_type(this.value,1)" >
-                        <option value="" >--请选择</option> 
-                        <option value="1" >播放分类</option>
-                        <option value="2" >播放具体节目</option>
-                     </select>
-                      <span class="pra1"></span>
-                    <!--span id="play-btn">
-                            <a href="javascript:void(0)" id="playbtn-1" onclick="playQtime(1,$('#path').val(),'')">试听</a>
-                        </span-->
-                      <span id="player-1"></span><span class="errortip"></span><a href="javascript:" onclick="add()">+</a>
-                  </td>       
-                          
-                          
-             </tr>
-                 
+            <tr class="add me1">
+                <th>音频时长</th>
+                <td><input name="list[1][timespan]" value="00:00:00" style="width:100px;" />格式：XX:XX:XX</td>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;播放方法</th>
+                <td>
+                 <select name="list[1][type_id]" class="type" data-len="1" onchange="select_type(this.value,1)" >
+                    <option value="" >--请选择</option>
+                    <option value="1" >播放分类</option>
+                    <option value="2" >播放具体节目</option>
+                 </select>
+                  <span class="pra1"></span>
+                  <span id="player-1"></span><span class="errortip"></span><a href="javascript:" onclick="add()">+</a>
+              </td>
+            </tr>
+            <tr>
+                <th>频道简介</th>
+                <td><input name="value[intro]" class="txt"  type="text" value="<?=$value[intro]?>"/></td>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;标签</th>
+                <td><input name="tag_name" class="txt"  type="text" value="<?=$tag_name?>"/></td>
+            </tr>
              <tr>
 				<td>内容</td>
 				<td colspan="3"><textarea id="content" name="value[content]"

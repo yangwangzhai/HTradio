@@ -44,7 +44,7 @@ $(".details_list ul li").mouseout(function(){
             <div class="find_pic">
                 <?php foreach($me_list as $v) { ?>
             	<dl>
-                  	<dt><a href="./index.php?c=player&meid=<?=$v['id']?>"><img src="<?=show_thumb( $v['thumb'] )?>" /></a></dt>
+                  	<dt><a href="./index.php?c=player&meid=<?=$v['id']?>"><img src="<?php if(!empty($v['thumb'])){echo show_thumb( $v['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" /></a></dt>
                   	<dd>
                     	<h3><a href="./index.php?c=player&meid=<?=$v['id']?>"><?=$v['title']?></a></h3>
                     	<p><a href="./index.php?c=zhubo&mid=<?=$v['mid']?>"><?=getNickName($v['mid'])?></a></p>
@@ -100,7 +100,7 @@ $(".details_list ul li").mouseout(function(){
           <div class="prolist">
               <?php foreach($member_list as $r){?>
               <dl>
-                  <dt><a href="./index.php?c=zhubo&mid=<?=$r['id']?>"><img src="<?=show_thumb($r['avatar'])?>" /></a></dt>
+                  <dt><a href="./index.php?c=zhubo&mid=<?=$r['id']?>"><img src="<?php if(!empty($r['avatar'])){echo show_thumb( $r['avatar'] );}else{echo base_url()."uploads/default_images/default_avatar.jpg";}?>"/></a></dt>
                   <dd>
                       <h1><a href="./index.php?c=zhubo&mid=<?=$r['id']?>"><?=$r['nickname']?></a></h1>
                         <p style="color:#999"><?=$r['sign']?$r['sign']:'&nbsp;'?></p>

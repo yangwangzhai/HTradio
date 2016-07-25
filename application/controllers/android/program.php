@@ -1084,6 +1084,18 @@ class program extends Api {
                 $result=array("code"=>0,"message"=>"success","time"=>time(),"data"=>array("id"=>$id,"channel_type"=>$channel_type,"support_num"=>$support_num_new));
                 echo json_encode($result);
             }
+            elseif($channel_type==4){  //我的频道（公共频道）
+                //先获取点赞数
+                $sql = "SELECT support_num FROM fm_programme WHERE id=$id";
+                $query = $this->db->query($sql);
+                $res=$query->row_array();
+                $support_num_new=$res['support_num']+1;
+                //更新数据库
+                $this->db->query("UPDATE fm_programme SET support_num=$support_num_new WHERE id=$id");
+                //返回数据
+                $result=array("code"=>0,"message"=>"success","time"=>time(),"data"=>array("id"=>$id,"channel_type"=>$channel_type,"support_num"=>$support_num_new));
+                echo json_encode($result);
+            }
         }
 
     }
@@ -1103,7 +1115,7 @@ class program extends Api {
      *  "data":{"id":1,"channel_type":1,"negative_num":5}
      *  其中：
      *  "id":频道id
-     *  "channel_type":频道类型，1:直播频道 ，2:录播频道，3:我的频道，4:个人频道
+     *  "channel_type":频道类型，1:直播频道 ，2:录播频道，3:我的频道，4:语音频道
      *  "negative_num":当前差评数
      *
      */
@@ -1154,7 +1166,20 @@ class program extends Api {
                 //返回数据
                 $result=array("code"=>0,"message"=>"success","time"=>time(),"data"=>array("id"=>$id,"channel_type"=>$channel_type,"negative_num"=>$negative_num_new));
                 echo json_encode($result);
+            }elseif($channel_type==4){
+                //先获取差评数
+                $sql = "SELECT negative_num FROM fm_programme WHERE id=$id";
+                $query = $this->db->query($sql);
+                $res=$query->row_array();
+                $negative_num_new=$res['negative_num']+1;
+                //更新数据库
+                $this->db->query("UPDATE fm_programme SET negative_num=$negative_num_new WHERE id=$id");
+                //返回数据
+                $result=array("code"=>0,"message"=>"success","time"=>time(),"data"=>array("id"=>$id,"channel_type"=>$channel_type,"negative_num"=>$negative_num_new));
+                echo json_encode($result);
             }
+
+
         }
 
 
@@ -1252,8 +1277,77 @@ class program extends Api {
     }
 
     /**
-     *  接口说明：获取欧洲杯新闻列表
+     *  接口说明：获取语音播报频道的列表
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=vbd_channel_list
+     *  参数接收方式：get
+     *	接收参数：
+     *  mid；用户ID
+     *  返回参数：
+     *  id：语音播报频道ID
+     *  title：语音播报频道的名称
+     *  description：语音播报频道简介
+     *  logo：语音播报频道的logo
+     *  support_num：当前点赞数
+     *  negative_num：当前差评数
+     *  support_status：点赞状态，0:表示未点赞，1:表示已经点过赞
+     *  negative_status：差评状态，0:表示未差评，1:已经差评过
+     */
+    public function vbd_channel_list(){
+        $mid=$this->input->get("mid");
+        if($mid==0){
+            //$result=array();
+            $result=array("code"=>1,"message"=>"用户id参数没有传进来","time"=>time(),"data"=>array());
+            echo json_encode($result);
+        }else{
+            $data['list'] = array();
+            $num=$this->content_model->db_counts("fm_programme","");
+            $data['count'] = $num;
+            $this->load->library('pagination');
+            $config['total_rows'] = $num;
+            $config['per_page'] = 20;
+            $this->pagination->initialize($config);
+            $data['pages'] = $this->pagination->create_links();
+            $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
+            $per_page = $config['per_page'];
+            $sql = "SELECT id,title,intro as description,thumb as logo ,status,0 as sort , addtime,uid,support_num,negative_num  FROM fm_programme WHERE status=2 AND publish_flag=1 ORDER BY id DESC limit $offset,$per_page";
+            $query = $this->db->query($sql);
+            $list = $query->result_array();
+            foreach($list as $list_key=>&$list_value){
+                $list[$list_key]['logo']=$list_value['logo'] ? "http://vroad.bbrtv.com/cmradio/".$list_value['logo'] : "http://vroad.bbrtv.com/cmradio/uploads/default_images/default_program.jpg";
+                /*$list[$list_key]['sort'] = 0;*/
+                //查看该频道是否被该用户点赞过
+                if(!empty($mid)){
+                    $support_res=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND support_target_id=$list_value[id] AND channel_type=4");
+                    $support_num=$support_res->row_array();
+                    if($support_num['num']){
+                        $list[$list_key]['support_status']=1;
+                    }else{
+                        $list[$list_key]['support_status']=0;
+                    }
+                    //查看该频道是否被该用户差评过
+                    $negative_res=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND negative_target_id=$list_value[id] AND channel_type=4");
+                    $negative_num=$negative_res->row_array();
+                    if($negative_num['num']){
+                        $list[$list_key]['negative_status']=1;
+                    }else{
+                        $list[$list_key]['negative_status']=0;
+                    }
+                }else{
+                    $list[$list_key]['support_status']=0;
+                    $list[$list_key]['negative_status']=0;
+                }
+            }
+            echo json_encode($list);
+        }
+
+    }
+
+    /**
+     *  接口说明：获取语音播报内容列表
      *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=get_news_list
+    *   参数接收方式：get
+     *  接收参数：
+     *  id：语音播报频道ID
      * 	返回参数：
      * 	code：返回码 0正确, 大于0 都是错误的
      * 	message：描述信息
@@ -1265,19 +1359,63 @@ class program extends Api {
      *  "content":新闻详细内容
      */
     public function get_news_list(){
-        //从数据库获取录音列表
-        $sql = "SELECT content FROM fm_eurocup ORDER BY addtime DESC";
-        $query = $this->db->query($sql);
-        $res=$query->result_array();
-        foreach($res as $key=>$value){
-            if($key==0){
-                $list['new'][]=$value;
-            }else{
-                $list['old'][]=$value;
+        $id = $this->input->get("id");
+        if(empty($id)){
+            //从数据库获取录音列表
+            $sql = "SELECT content FROM fm_eurocup ORDER BY addtime DESC LIMIT 0,5";
+            $query = $this->db->query($sql);
+            $res=$query->result_array();
+            if(empty($res)){
+                $list['new']= array();
+                $list['old'] = array();
+                $result=array("code"=>1,"message"=>"暂时没有数据","time"=>time(),"data"=>$list);
+                echo json_encode($result);
+            }else {
+                foreach ($res as $key => $value) {
+                    if ($key == 0) {
+                        $list['new'][] = $value;
+                    } else {
+                        $list['old'][] = $value;
+                    }
+                }
+                $result = array("code" => 0, "message" => "success", "time" => time(), "data" => $list);
+                echo json_encode($result);
             }
+        }else{
+            $vbd_array = array(1=>"fm_eurocup",2=>"fm_olympic",3=>"fm_world_cup");
+            $sql_vbd_type = "select vbd_type from fm_programme WHERE id=$id";
+            $query_vbd_type = $this->db->query($sql_vbd_type);
+            $vbd_type = $query_vbd_type->row_array();
+            if(empty($vbd_type)){
+                $list['new']= array();
+                $list['old'] = array();
+                $result=array("code"=>1,"message"=>"语音播报频道id有误","time"=>time(),"data"=>$list);
+                echo json_encode($result);
+            }else{
+                $key = $vbd_type['vbd_type'];
+                //从数据库获取录音列表
+                $sql = "SELECT content FROM $vbd_array[$key] ORDER BY addtime DESC LIMIT 0,5";
+                $query = $this->db->query($sql);
+                $res=$query->result_array();
+                if(empty($res)){
+                    $list['new']= array();
+                    $list['old'] = array();
+                    $result=array("code"=>1,"message"=>"暂时没有数据","time"=>time(),"data"=>$list);
+                    echo json_encode($result);
+                }else{
+                    foreach($res as $key=>$value){
+                        if($key==0){
+                            $list['new'][]=$value;
+                        }else{
+                            $list['old'][]=$value;
+                        }
+                    }
+                    $result=array("code"=>0,"message"=>"success","time"=>time(),"data"=>$list);
+                    echo json_encode($result);
+                }
+            }
+
         }
-        $result=array("code"=>0,"message"=>"success","time"=>time(),"data"=>$list);
-        echo json_encode($result);
     }
 
     //静态网页，使用js定时器，定时执行程序.
@@ -1364,105 +1502,7 @@ class program extends Api {
     }
 
 
-    //定时抓取网页数据存入数据库
-    //http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=get_news
-    public function get_news_old(){
-        $timeout=1468339200;
-        //获取当前时间戳
-        $timenow=time();
-        ignore_user_abort();//关闭浏览器后，继续执行php代码
-        set_time_limit(0);//程序执行时间无限制
-        $sleep_time = 300;//多长时间执行一次
-        $wait_time = 300;//等待时间
-        while($timenow<$timeout){
-            $date=date("Ymd",time());
-            $url = "http://sports.qq.com/l/isocce/2016eurocup/list.htm";
-            $ch = curl_init();
-            $timeout = 5;
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-            $contents = curl_exec($ch);
 
-            //匹配新闻列表链接
-            $patter='/<a .*?href="http:\/\/sports.qq.com\/a\/'.$date;
-            $pat=$patter.'\/(.*?)".*?>/is';
-            /*$pat='/<a .*?href="http:\/\/sports.qq.com\/a\/20160625\/(.*?)".*?>/is';*/
-            preg_match_all($pat, $contents, $arr);//匹配内容到arr数组
-            curl_close($ch);
-
-            //选择获取第几条链接
-            $con_url="http://sports.qq.com/a/"."$date/".$arr[1][0];
-            //echo $con_url;
-            $ch2 = curl_init();
-            $timeout = 5;
-            curl_setopt($ch2, CURLOPT_URL, $con_url);
-            curl_setopt($ch2, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch2, CURLOPT_CONNECTTIMEOUT, $timeout);
-            $contents_detail = curl_exec($ch2);
-            $patter_link='/<link rel="alternate" (.*?) href="(.*?)">/i';
-            preg_match_all($patter_link,$contents_detail,$arr_link);
-            curl_close($ch2);
-            if(empty($arr_link)){
-                sleep($sleep_time);
-                //从数据库获取程序是否允许标志
-                $sql = "SELECT eurocup_flag FROM fm_eurocup_flag WHERE id=1";
-                $query = $this->db->query($sql);
-                $res=$query->row_array();
-                $timeout=$res['eurocup_flag'];
-                continue;
-            }
-            $con_link=$arr_link[2][0];
-            //判断是否已经抓取过
-            $sql_url="select url from  fm_eurocup ORDER BY id DESC limit 0,1";
-            $result_url=$this->db->query($sql_url);
-            $url=$result_url->row_array();
-            if($url['url']==$con_link){
-                //相同新闻退出
-                sleep($sleep_time);
-                //从数据库获取程序是否允许标志
-                $sql = "SELECT eurocup_flag FROM fm_eurocup_flag WHERE id=1";
-                $query = $this->db->query($sql);
-                $res=$query->row_array();
-                $timeout=$res['eurocup_flag'];
-                continue;
-            }
-            $ch3 = curl_init();
-            $timeout = 5;
-            curl_setopt($ch3, CURLOPT_URL, $con_link);
-            curl_setopt($ch3, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch3, CURLOPT_CONNECTTIMEOUT, $timeout);
-            $contents_final = curl_exec($ch3);
-            //<meta name="Description" content="C罗一传两射扛全队晋级 近全票获选23日最佳">
-            $pat2='/<p class="split">.*?<\/p>/ism';
-            preg_match_all($pat2, $contents_final, $arr_final);//匹配内容到arr数组
-            $title=trimall($arr_final[0][0]);
-            $title=preg_replace('/<pclass=\"split\">/si',"",$title); //过滤html标签
-            $title=preg_replace('/<\/p>/si',"",$title); //过滤html标签
-            $str='';
-            foreach($arr_final[0] as $value){
-                $str .=trimall($value); //删除空格和回车;
-            }
-            $str=preg_replace('/<pclass=\"split\">/si',"",$str); //过滤html标签
-            $str=preg_replace('/<\/p>/si',"",$str); //过滤html标签
-            $insert['title']=$title;
-            $insert['content']=$str;
-            $insert['url']=$con_link;
-            $insert['addtime']=time();
-            if(!empty($insert['content'])&&!empty($insert['title'])){
-                $insert_sql="INSERT INTO fm_eurocup (title, content,url, addtime) VALUES ('$insert[title]','$insert[content]','$insert[url]',$insert[addtime])";
-            }
-            $this->db->query($insert_sql);
-            //$this->db->insert ( 'fm_eurocup', $insert );
-            sleep($sleep_time);
-            //从数据库获取程序是否允许标志
-            $sql = "SELECT eurocup_flag FROM fm_eurocup_flag WHERE id=1";
-            $query = $this->db->query($sql);
-            $res=$query->row_array();
-            $timeout=$res['eurocup_flag'];
-            }
-        exit();
-    }
 
 
 

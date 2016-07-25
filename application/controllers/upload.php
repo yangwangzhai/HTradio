@@ -99,6 +99,7 @@ class Upload extends CI_Controller
         $id = intval($_POST['id']);
         $data = trims($_POST['value']);
 		$type= trims($_POST['type']);
+
 		//处理图片路径
 		$str=$data['thumb'];	// 原路径： /HTradio/uploads/image/20160408/20160408031935_71951.jpg，想去掉前面的 /HTradio/
 		$str=substr($str,1);	//去掉第一个 “/”
@@ -112,7 +113,11 @@ class Upload extends CI_Controller
 			$data['tag_ids'] = getTagidByName($data['tag']);
 			unset($data['tag']);
 		}
-
+        echo "<pre>";
+        print_r($data);
+        print_r($type);
+        echo "<pre/>";
+        exit;
         if ($id) { // 修改 ===========
             $this->db->where('id', $id);
             $query = $this->db->update($this->table, $data);

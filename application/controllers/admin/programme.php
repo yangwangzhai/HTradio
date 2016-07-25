@@ -106,7 +106,7 @@ class programme extends Content
         $data['pages'] = $this->pagination->create_links();
         $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
         $per_page = $config['per_page'];
-        $sql = "SELECT * FROM $this->table WHERE  $searchsql AND status=1 ORDER BY id DESC limit $offset,$per_page";
+        $sql = "SELECT * FROM $this->table WHERE  $searchsql AND status>=1 ORDER BY id DESC limit $offset,$per_page";
         $query = $this->db->query($sql);
         $data['list'] = $query->result_array();
         $data['catid'] = $catid;
@@ -183,7 +183,7 @@ class programme extends Content
         $id = intval($_POST['id']);
         $data = trims($_POST['value']);
         $list =trims($_POST['list']);
-
+        $tag_name = trims($_POST['tag_name']);
         //因为手机端的缘故，这里需要将1，2对调
         foreach($list as &$value){
             if($value['type_id']==1){
@@ -197,7 +197,7 @@ class programme extends Content
             $this->db->where('id', $id);
             $query = $this->db->update($this->table, $data);
 
-            $this->db->query("delete from fm_programme_list where programme_id=$id");
+            //$this->db->query("delete from fm_programme_list where programme_id=$id");
             foreach($list as  $key=>&$v){
                 $v['programme_id']=$id;
                 $program_ids[$key]=explode(",",$v['program_id']);
@@ -221,28 +221,36 @@ class programme extends Content
             $data['uid'] = $this->uid;
             $public_flag = $this->input->post("public_flag");
             if($public_flag){
-                $data['status'] = 1;//总节目单（1:在手机客户端人人都可以看见,0:个人节目单，只有创建者能看到）
+                $channel_type = $this->input->post("channel_type");
+                if($channel_type==1){
+                    $data['status'] = 1;//总节目单（1:在手机客户端人人都可以看见,0:个人节目单，只有创建者能看到）
+                }else{
+                    $data['status'] = 2;//总节目单（1:在手机客户端人人都可以看见,0:个人节目单，只有创建者能看到）
+                    $data['vbd_type'] = $this->input->post("vbd_type");
+                }
             }else{
                 $data['status'] = 0;//总节目单（1:在手机客户端人人都可以看见,0:个人节目单，只有创建者能看到）
             }
+
             $query = $this->db->insert($this->table, $data);
             $programme_id=$this->db->insert_id ();;
 
+            if(!empty($list)){
+                foreach($list as  $key=>&$v){
+                    $v['programme_id']=$programme_id;
+                    $program_ids[$key]=explode(",",$v['program_id']);
+                    unset($v['program_id']);
+                }
 
-            foreach($list as  $key=>&$v){
-              $v['programme_id']=$programme_id;
-              $program_ids[$key]=explode(",",$v['program_id']);
-              unset($v['program_id']);
-            }
+                foreach($program_ids as $program_ids_key=>$program_ids_value){
+                    foreach($program_ids_value as $program_ids_value_k=>$program_ids_value_v){
+                        $insert=array();
+                        $insert[$program_ids_key]=$list[$program_ids_key];
+                        $insert[$program_ids_key]['program_id']=$program_ids_value_v;
+                        $this->db->insert_batch('fm_programme_list',$insert);
+                        unset($insert);
 
-            foreach($program_ids as $program_ids_key=>$program_ids_value){
-                foreach($program_ids_value as $program_ids_value_k=>$program_ids_value_v){
-                    $insert=array();
-                    $insert[$program_ids_key]=$list[$program_ids_key];
-                    $insert[$program_ids_key]['program_id']=$program_ids_value_v;
-                    $this->db->insert_batch('fm_programme_list',$insert);
-                    unset($insert);
-
+                    }
                 }
             }
 
