@@ -23,6 +23,9 @@ class Player extends CI_Controller
             $sql = "SELECT path,title,mid,description intro,thumb,addtime,playtimes FROM fm_program WHERE id=$id";
             $query = $this->db->query($sql);
             $data['me_data'] = $query->row_array();
+            //获取标签
+            $query_tag = $this->db->query("SELECT tag_name FROM fm_program_tag WHERE program_id=$id");
+            $data['result_tag'] = $query_tag->result_array();
         }
         
         if($me_id) {
@@ -32,6 +35,9 @@ class Player extends CI_Controller
             $sql = "SELECT a.id,title,path,download_path,playtimes,ADDTIME,program_time FROM fm_program a LEFT JOIN  fm_programme_list b ON a.id =b.program_id WHERE b.type_id=1 AND b.programme_id=$me_id;";
             $query = $this->db->query($sql);
             $data['list'] = $query->result_array();
+            //获取标签
+            $query_tag = $this->db->query("SELECT tag_name FROM fm_programme_tag WHERE programme_id=$me_id");
+            $data['result_tag'] = $query_tag->result_array();
         }
 
         //TA的其他节目

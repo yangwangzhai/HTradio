@@ -5,6 +5,35 @@
     <title>节目播放</title>
     <script type="text/javascript" src="static/flowplayer/flowplayer-3.2.12.min.js"></script>
     <script type="text/javascript" src="static/flowplayer/flowplayer.ipad-3.2.12.min.js"></script>
+
+    <style>
+        div.mt25 {
+            margin-top: 5px;
+            margin-bottom: 4px;
+        }
+        div.mt25 a {
+            padding: 0 14px;
+            line-height: 18px;
+            border-radius: 9px;
+            margin-left: 12px;
+            color: #666;
+            background-color: #fff;
+            margin-bottom: 6px;
+        }
+        .bd_d1 {
+            border: 1px solid #d1d1d1;
+        }
+        a.bd_d1{
+            display: inline-block;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        a.bd_d1:hover{
+            border: 2px solid #d1d1d1;
+        }
+    </style>
+
     <script>
         $(document).ready(function(){
             $(".details_list ul li").mouseover(function(){
@@ -75,7 +104,17 @@
                     <!-- JiaThis Button END -->
                 </div>
             </div>
-            <div class="details_infro"><?=$me_data['intro']?></div>
+
+            <div class="mt25 mb10">
+                标签:
+                <?php if(!empty($result_tag)){?>
+                    <?php foreach($result_tag as $tag_value) :?>
+                        <a class="bd_d1" href="index.php?c=search&keyword=<?=$tag_value['tag_name']?>"><?=$tag_value['tag_name']?></a>
+                    <?php endforeach?>
+                <?php }?>
+            </div>
+
+            <div class="details_infro" style="padding: 0;">简介：<?=$me_data['intro']?></div>
             <?php if($list){ ?>
                 <div id="jp-playlist" class="details_list">
                     <ul>

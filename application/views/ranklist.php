@@ -29,7 +29,7 @@
 				if($k == 1){$color = '#bf0000';}else if($k == 2){$color = '#ff4e00';}else if($k == 3){$color = '#ffa200';} ?>
 					<li>
                    	  <div class="numbers" style="color:<?=$color?>"><?=$k?></div>
-                      <div class="picture"><a href="./index.php?c=zhubo&mid=<?=$r['mid']?>"><img title="<?=$r['avatar']?>" src="<?=show_thumb($r['avatar'])?>" /></a></div>
+                      <div class="picture"><a href="./index.php?c=zhubo&mid=<?=$r['mid']?>"><img title="<?=$r['avatar']?>" src="<?php if(!empty($r['avatar'])){echo show_thumb( $r['avatar'] );}else{echo base_url()."uploads/default_images/default_avatar.jpg";}?>" /></a></div>
                       <div class="informat">
                         	<h1><a  target="_blank"  href="./index.php?c=zhubo&mid=<?=$r['mid']?>"><?=$r['nickname']?></a></h1>
                         </div>

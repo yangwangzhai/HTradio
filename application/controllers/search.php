@@ -14,6 +14,7 @@ class Search extends CI_Controller
     {
         $data['uid'] = $this->session->userdata('uid');
         $data['keyword'] = $keyword = trim($_GET['keyword']);
+
         $sql = "SELECT id,title,thumb,mid FROM fm_programme WHERE title like '%$keyword%'";
         $query = $this->db->query($sql);
         $data['me_list'] = $query->result_array();
@@ -26,8 +27,6 @@ class Search extends CI_Controller
         $query = $this->db->query($sql);
         $data['member_list'] = $query->result_array();
 
-
-    	
     	$this->load->view("search",$data);
     }
 }
