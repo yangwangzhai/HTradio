@@ -166,21 +166,7 @@
                 <label class="errortip" ></label>
               </li>
               <li><span>标签</span>
-                <?php if(empty($data['tag_ids'])) { ?>
-                <div id="tag_wrap">
-                  <div id="tags"></div>
-                  <div>
-                    <input type="hidden" id="tag" name="value[tag]" />
-                    <div id="tag_input" style="width:370px;height:25px;" contenteditable="true"></div>
-                  </div>
-                  <div id="default_tag">
-                    <div class="tag">asfi</div>
-                  </div>
-                </div>
-                <?php }else{ foreach(getTagnameById($data['tag_ids']) as $v){ ?>
-                  <div class="tag" style="display:inline-block;"><?=$v['tag_name']?></div>
-                <?php }}?>
-                
+                  <input name="tag_name" class="txt"  type="text" value="" placeholder="多个标签以逗号分隔"/>
               </li>
             </ul>
             <div class="login-btn">

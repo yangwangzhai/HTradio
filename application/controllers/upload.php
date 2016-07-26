@@ -99,6 +99,7 @@ class Upload extends CI_Controller
         $id = intval($_POST['id']);
         $data = trims($_POST['value']);
 		$type= trims($_POST['type']);
+        $tag_name = trims($_POST['tag_name']);
 
 		//处理图片路径
 		$str=$data['thumb'];	// 原路径： /HTradio/uploads/image/20160408/20160408031935_71951.jpg，想去掉前面的 /HTradio/
@@ -113,14 +114,26 @@ class Upload extends CI_Controller
 			$data['tag_ids'] = getTagidByName($data['tag']);
 			unset($data['tag']);
 		}
-        echo "<pre>";
-        print_r($data);
-        print_r($type);
-        echo "<pre/>";
-        exit;
+        if(!empty($tag_name)){
+            $tag_name = preg_replace("/(\n)|(\s{1,})|(\t)|(\')|(')|(，)|(\.)|(、)|(\|)/",',',$tag_name);//中文逗号转换成英文
+            $tags = explode(",",$tag_name);
+        }
+
         if ($id) { // 修改 ===========
             $this->db->where('id', $id);
             $query = $this->db->update($this->table, $data);
+
+            $this->db->query("delete from fm_program_tag where program_id=$id");
+            if(!empty($tags)){
+                foreach($tags as $t){
+                    $insert_tag = array();
+                    $insert_tag['program_id'] = $id;
+                    $insert_tag['tag_name'] = $t;
+                    $insert_tag['addtime'] = time();
+                    $this->db->insert('fm_program_tag',$insert_tag);
+                    unset($insert_tag);
+                }
+            }
 
             show_msg('修改成功！','index.php?c=personal');
         } else { // ===========添加 ===========
@@ -128,6 +141,18 @@ class Upload extends CI_Controller
             $data['download_path'] = $data['path'];
 			$data['mid']=$this->session->userdata('uid');
             $query = $this->content_model->db_insert_table($this->table, $data);	//返回插入成功的数据的ID
+            //添加标签
+            if(!empty($tags)){
+                foreach($tags as $t){
+                    $insert_tag = array();
+                    $insert_tag['program_id'] = $query;
+                    $insert_tag['tag_name'] = $t;
+                    $insert_tag['addtime'] = time();
+                    $this->db->insert('fm_program_tag',$insert_tag);
+                    unset($insert_tag);
+                }
+            }
+
 			//根据ID获取音频路径
 			$path=$this->content_model->get_column2("path","fm_program","id=$query");
 			//对音频转换格式，并将新格式的路径替换原来的路径
@@ -140,8 +165,8 @@ class Upload extends CI_Controller
 
 
 	public function change_m3u8($path){
-		//$ffmepg = "D:/wamp/www/HTradio/ffmpeg.exe"; // 指定转码器
-		$ffmepg = "E:/www/cmradio/ffmpeg.exe"; // 指定转码器
+		$ffmepg = "D:/wamp/www/HTradio/ffmpeg.exe"; // 指定转码器
+		//$ffmepg = "E:/www/cmradio/ffmpeg.exe"; // 指定转码器
 		date_default_timezone_set('PRC');
 		$rand=rand(100000,999999);
 		$date=date('ymdhis',time());

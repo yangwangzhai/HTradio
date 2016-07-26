@@ -158,6 +158,16 @@ class programme extends Content
         $data['value'] = $value;
         
         $data['id'] = $id;
+        //获取该频道的节目
+        $query_program = $this->db->query("SELECT program_id FROM fm_programme_list WHERE programme_id=$id");
+        $result_program = $query_program->result_array();
+        if(!empty($result_program)){
+            $str_program= '';
+            foreach($result_program as $program_value){
+                $str_program .= $program_value['program_id'].",";
+            }
+            $data['str_program'] = substr($str_program,0,strlen($str_program)-1);
+        }
 
         //获取频道列表
         $query = $this->db->query("SELECT * FROM fm_channel");
@@ -172,7 +182,17 @@ class programme extends Content
         foreach($program_types as $program_type){
             $data['program_type'][$program_type['id']] =$program_type['title'];
         }
-        
+        //获取标签
+        $query_tag = $this->db->query("SELECT tag_name FROM fm_programme_tag WHERE programme_id=$id");
+        $result_tag = $query_tag->result_array();
+        if(!empty($result_tag)){
+            $str_tag= '';
+            foreach($result_tag as $tag_value){
+                $str_tag .= $tag_value['tag_name'].",";
+            }
+            $data['tag_name'] = substr($str_tag,0,strlen($str_tag)-1);
+        }
+
         $this->load->view('admin/' . $this->add_view, $data);
     }
 	
@@ -192,12 +212,16 @@ class programme extends Content
                 $value['type_id']=1;
             }
         }
+        if(!empty($tag_name)){
+            $tag_name = preg_replace("/(\n)|(\s{1,})|(\t)|(\')|(')|(，)|(\.)|(、)|(\|)/",',',$tag_name);//中文逗号转换成英文
+            $tags = explode(",",$tag_name);
+        }
 
         if ($id) { // 修改 ===========
             $this->db->where('id', $id);
             $query = $this->db->update($this->table, $data);
 
-            //$this->db->query("delete from fm_programme_list where programme_id=$id");
+            $this->db->query("delete from fm_programme_list where programme_id=$id");
             foreach($list as  $key=>&$v){
                 $v['programme_id']=$id;
                 $program_ids[$key]=explode(",",$v['program_id']);
@@ -214,6 +238,18 @@ class programme extends Content
 
                 }
             }
+            $this->db->query("delete from fm_programme_tag where programme_id=$id");
+            if(!empty($tags)){
+                foreach($tags as $t){
+                    $insert_tag = array();
+                    $insert_tag['programme_id'] = $id;
+                    $insert_tag['tag_name'] = $t;
+                    $insert_tag['addtime'] = time();
+                    $this->db->insert('fm_programme_tag',$insert_tag);
+                    unset($insert_tag);
+                }
+            }
+
 			adminlog('修改信息: '.$this->control.' -> '.$id);
             show_msg('修改成功！', $_SESSION['url_forward']);
         } else { // ===========添加 ===========
@@ -251,6 +287,16 @@ class programme extends Content
                         unset($insert);
 
                     }
+                }
+            }
+            if(!empty($tags)){
+                foreach($tags as $t){
+                    $insert_tag = array();
+                    $insert_tag['programme_id'] = $programme_id;
+                    $insert_tag['tag_name'] = $t;
+                    $insert_tag['addtime'] = time();
+                    $this->db->insert('fm_programme_tag',$insert_tag);
+                    unset($insert_tag);
                 }
             }
 

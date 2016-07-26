@@ -126,7 +126,8 @@ function select_type(id,len){
     $(".pra"+len).html(html);      
 		}
 	if(id==2){
-	var html='选择节目<input name="list['+len+'][program_id]" " class="txt fanhui'+len+' "  style=" width:150px;" class="txt" type="text" id="program_ids'+len+'" value="" />';
+    var program_ids = $("#program_ids").val();
+	var html='选择节目<input name="list['+len+'][program_id]" " class="txt fanhui'+len+' "  style=" width:150px;" class="txt" type="text" id="program_ids'+len+'" value="'+program_ids+'"/>';
 	html+='<input type="button" value="选择.." ';
 	html+='onclick="showList(\'program_ids\',600,430,'+len+')" class="btn" />&nbsp;&nbsp;';
     $(".pra"+len).html(html);
@@ -155,6 +156,7 @@ function select_type(id,len){
 	<form action="<?=$this->baseurl?>&m=<?php echo$flag?'personal_programme_save':'save'?>" method="post" onsubmit="return checkForm()">
 		<input type="hidden" name="id" value="<?=$id?>">
         <input type="hidden" name="public_flag" value="<?=$public_flag?>">
+        <input type="hidden" id="program_ids" value="<?php echo $str_program ? $str_program :'';?>">
 		<table class="opt">
 			<tr>
 				<th >频道名称</th>
