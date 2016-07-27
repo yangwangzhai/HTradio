@@ -171,10 +171,10 @@
             <th><input type="checkbox" name="chkall" id="chkall" onclick="checkall('delete[]')" class="checkbox" /></th>
             <th></th>
             <!--<th width="50">封面</th>-->
-            <th>标题</th>
-            <th>内容</th>
-            <th>采集时间</th>
-            <th>操作</th>
+            <th width="20%">标题</th>
+            <th width="50%">内容</th>
+            <th width="100">采集时间</th>
+            <th width="150">操作</th>
         </tr>
         </thead>
         <tbody>
