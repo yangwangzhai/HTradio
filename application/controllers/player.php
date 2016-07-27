@@ -50,7 +50,7 @@ class Player extends CI_Controller
         $sql = "SELECT id,title,thumb,type_id FROM fm_program WHERE id in (SELECT program_id FROM fm_program_data WHERE type = 3 ORDER BY addtime DESC) limit 6";
         $query = $this->db->query($sql);
         $data['listen'] = $query->result_array();
-        
+
         if($id){
             $this->load->view('detail',$data);
         }elseif($me_id){
@@ -285,7 +285,45 @@ class Player extends CI_Controller
             echo json_encode($data);
         }
     }
-	
+
+    //保存标签
+    public function save_tag(){
+        $tag_name = $this->input->post("tag_name");
+        $id = $this->input->post("id");
+        $tag_flag = $this->input->post("tag_flag");
+        if(!empty($tag_name)){
+            $tag_name = preg_replace("/(\n)|(\s{1,})|(\t)|(\')|(')|(，)|(\.)|(、)|(\|)/",',',$tag_name);//中文逗号转换成英文
+            $tags = explode(",",$tag_name);
+            if($tag_flag==1){
+                foreach($tags as $t){
+                    $insert_tag = array();
+                    $insert_tag['program_id'] = $id;
+                    $insert_tag['tag_name'] = $t;
+                    $insert_tag['addtime'] = time();
+                    $this->db->insert('fm_program_tag',$insert_tag);
+                    unset($insert_tag);
+                }
+                //添加成功，返回标签数组
+                echo json_encode($tags);
+            }elseif($tag_flag==2){
+                foreach($tags as $t){
+                    $insert_tag = array();
+                    $insert_tag['programme_id'] = $id;
+                    $insert_tag['tag_name'] = $t;
+                    $insert_tag['addtime'] = time();
+                    $this->db->insert('fm_programme_tag',$insert_tag);
+                    unset($insert_tag);
+                }
+                //添加成功，返回标签数组
+                echo json_encode($tags);
+            }
+        }
+
+    }
+
+
+
+
 	
 	
 		

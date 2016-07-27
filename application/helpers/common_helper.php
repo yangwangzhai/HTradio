@@ -297,8 +297,8 @@ function uploadAudio ($filename, $dir_name = 'audio')
     if (empty($_FILES)) return '';
 
     $save_path = 'uploads/' .$dir_name . '/';
-    $max_size = 5000 * 1024; // 最大文件大小5M
-    $AllowedExtensions = array('mp3','wav','wma','mid','mka','ogg','aac','aac','amr','awb'); // 允许格式
+    $max_size = 50000 * 1024; // 最大文件大小50M
+    $AllowedExtensions = array('mp3','wav','wma','mid','mka','ogg','flac','aac','amr','awb'); // 允许格式
 
     $file_size = $_FILES[$filename]['size'];
     if ($file_size > $max_size) {

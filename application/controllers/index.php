@@ -172,9 +172,10 @@ class Index extends Common
 			 }
 		
 		$sql = "SELECT SUM(playtimes) AS playtimes,mid FROM fm_program  GROUP BY MID ORDER BY  playtimes DESC limit $offset,$per_page";
+
 		$query = $this->db->query($sql);
 		$data['radio_list'] = $query->result_array();
-	 
+
 		foreach($data['radio_list'] as &$r){
 			$row = getMember($r['mid']);
 			$r['nickname'] = $row['nickname'];
@@ -190,10 +191,7 @@ class Index extends Common
 
 		//人气排行榜
 		$data['popularity_list'] = $this->popularityList();
-        echo "<pre>";
-        print_r($data);
-        echo "<pre/>";
-        exit;
+
 		$this->load->view('ranklist',$data);
 	}
 	

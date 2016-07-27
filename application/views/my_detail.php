@@ -69,7 +69,45 @@
                         }
                     });
                 }
-            })
+            });
+            $("#tag").on("click",function(){
+                if($(this).next().css("display")=="none"){
+                    $(this).next().show();
+                    $(this).text("-");
+                }else{
+                    $(this).next().hide();
+                    $(this).text("+");
+                }
+            });
+
+            $("#tag_submit").on("click",function(){
+                var tag_name = $("#tag_name").val();
+                var id = $("#tag_name").attr("data-id");
+                if(tag_name){
+                    $.ajax({
+                        url:"index.php?c=player&m=save_tag",
+                        type:"post",
+                        dataType:"json",
+                        data:{tag_name:tag_name,id:id,tag_flag:2},
+                        success:function(data){
+                            if(data){
+                                $.each(data,function(key,value){
+                                    $("#tag").before('<a class="bd_d1" href="index.php?c=search&keyword='+value+'">'+value+'</a>');
+                                });
+                                $("#tag").next().hide();
+                                $("#tag").text("+");
+                                $("#tag_name").val("");
+                            }
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }else{
+                    alert("标签不能为空");
+                }
+            });
             //下载
             $(".f").on("click",function(){
                 var download_path = $(this).attr("data-download-path");
@@ -112,6 +150,11 @@
                         <a class="bd_d1" href="index.php?c=search&keyword=<?=$tag_value['tag_name']?>"><?=$tag_value['tag_name']?></a>
                     <?php endforeach?>
                 <?php }?>
+                <a class="bd_d1" id="tag" href="javascript:void(0);">+</a>
+                <span style="display: none">
+                    <input id="tag_name" data-id="<?=$meid;?>" type="text" style="width: 100px;">
+                    <input id="tag_submit" type="button" value="提交" style="cursor: pointer;">
+                </span>
             </div>
 
             <div class="details_infro" style="padding: 0;">简介：<?=$me_data['intro']?></div>

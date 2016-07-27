@@ -44,8 +44,39 @@
             $("#tag").on("click",function(){
                 if($(this).next().css("display")=="none"){
                     $(this).next().show();
+                    $(this).text("-");
                 }else{
                     $(this).next().hide();
+                    $(this).text("+");
+                }
+            });
+
+            $("#tag_submit").on("click",function(){
+                var tag_name = $("#tag_name").val();
+                var id = $("#tag_name").attr("data-id");
+                if(tag_name){
+                    $.ajax({
+                        url:"index.php?c=player&m=save_tag",
+                        type:"post",
+                        dataType:"json",
+                        data:{tag_name:tag_name,id:id,tag_flag:1},
+                        success:function(data){
+                            if(data){
+                                $.each(data,function(key,value){
+                                    $("#tag").before('<a class="bd_d1" href="index.php?c=search&keyword='+value+'">'+value+'</a>');
+                                });
+                                $("#tag").next().hide();
+                                $("#tag").text("+");
+                                $("#tag_name").val("");
+                            }
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }else{
+                    alert("标签不能为空");
                 }
             })
         });
@@ -68,7 +99,6 @@
                 <p>主播：<?=getNickName($me_data['mid'])?></p>
                 <p>最后更新: <?=date('Y-m-d',$me_data['addtime'])?></p>
                 <p style=" padding:10px 0;"><a href="javascript:void(0);" id="sss" class="dbtn">立即收听</a><span><?=$me_data['playtimes']?></span>次播放</p>
-                <!-- JiaThis Button BEGIN -->
                 <!-- JiaThis Button BEGIN -->
 				<div class="jiathis_style_24x24">
 					<a class="jiathis_button_qzone"></a>
@@ -93,8 +123,8 @@
             <?php }?>
             <a class="bd_d1" id="tag" href="javascript:void(0);">+</a>
             <span style="display: none">
-                <input name="tag_name" type="text" style="width: 100px;">
-                <input type="submit" value="提交" style="cursor: pointer;">
+                <input id="tag_name" data-id="<?=$id;?>" type="text" style="width: 100px;">
+                <input id="tag_submit" type="button" value="提交" style="cursor: pointer;">
             </span>
         </div>
 

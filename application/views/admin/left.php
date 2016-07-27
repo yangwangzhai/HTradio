@@ -73,6 +73,7 @@
             <li><cite></cite><a href="index.php?d=admin&c=program&m=index" target="rightFrame">节目列表</a><i></i></li>
             <li><cite></cite><a href="index.php?d=admin&c=program_type&m=index" target="rightFrame">节目类型</a><i></i></li>
             <li><cite></cite><a href="index.php?d=admin&c=program&m=collect_program_view" target="rightFrame">媒资采集</a><i></i></li>
+            <li><cite></cite><a href="index.php?d=admin&c=voicebroadcast&m=index" target="rightFrame">语音列表</a><i></i></li>
         </ul>
 
     </dd>

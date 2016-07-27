@@ -672,6 +672,18 @@ class program extends Api {
                     }
 
                 }
+                //获取标签
+                $query_tag = $this->db->query("SELECT tag_name FROM fm_programme_tag WHERE programme_id=$programme_id");
+                $result_tag = $query_tag->result_array();
+                if(!empty($result_tag)){
+                    $tag = array();
+                    foreach($result_tag as $tag_value){
+                        $tag[] = $tag_value['tag_name'];
+                    }
+                    $row_data['tag'] = $tag;
+                }else{
+                    $row_data['tag'] =array();
+                }
                 $data = array('row' => $row_data , 'list' => $result );
                 echo json_encode ($data );
             }
@@ -1501,11 +1513,133 @@ class program extends Api {
 
     }
 
+    /**
+     *  接口说明：保存节目标签接口
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=program_tag_save
+     *   参数接收方式：get
+     *  接收参数：
+     *  id：节目ID
+     *  tag_name：节目标签
+     * 	返回参数：
+     * 	code：返回码 0正确, 大于0 都是错误的
+     * 	message：描述信息
+     * 	time：时间戳
+     *  "data":[]
+     *
+     */
+    public function program_tag_save(){
+        $id = $this->input->get("id");
+        if(empty($id)){
+            $result=array("code"=>1,"message"=>"节目ID为空","time"=>time(),"data"=>array());
+            echo json_encode($result);
+        }else{
+            $query = $this->db->query("select count(*) as num from fm_program WHERE id=$id");
+            $num = $query->row_array();
+            if($num['num']){
+                $tag_name = $this->input->get("tag_name");
+                if(!empty($tag_name)) {
+                    $tag_name = preg_replace("/(\n)|(\s{1,})|(\t)|(\')|(')|(，)|(\.)|(、)|(\|)/", ',', $tag_name);//中文逗号转换成英文
+                    $tags = explode(",", $tag_name);
+                    foreach($tags as $t){
+                        $insert_tag = array();
+                        $insert_tag['program_id'] = $id;
+                        $insert_tag['tag_name'] = $t;
+                        $insert_tag['addtime'] = time();
+                        $this->db->insert('fm_program_tag',$insert_tag);
+                        unset($insert_tag);
+                    }
+                    $result=array("code"=>0,"message"=>"保存成功","time"=>time(),"data"=>array());
+                    echo json_encode($result);
+                }else{
+                    $result=array("code"=>1,"message"=>"标签为空","time"=>time(),"data"=>array());
+                    echo json_encode($result);
+                }
+            }else{
+                $result=array("code"=>1,"message"=>"节目ID不存在","time"=>time(),"data"=>array());
+                echo json_encode($result);
+            }
+        }
 
+    }
 
+    /**
+     *  接口说明：保存频道标签接口
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=programme_tag_save
+     *   参数接收方式：get
+     *  接收参数：
+     *  id：频道ID
+     *  tag_name：频道标签
+     * 	返回参数：
+     * 	code：返回码 0正确, 大于0 都是错误的
+     * 	message：描述信息
+     * 	time：时间戳
+     *  "data":[]
+     *
+     */
 
+    public function programme_tag_save(){
+        $id = $this->input->get("id");
+        if(empty($id)){
+            $result=array("code"=>1,"message"=>"节目单ID为空","time"=>time(),"data"=>array());
+            echo json_encode($result);
+        }else{
+            $query = $this->db->query("select count(*) as num from fm_programme WHERE id=$id");
+            $num = $query->row_array();
+            if($num['num']){
+                $tag_name = $this->input->get("tag_name");
+                if(!empty($tag_name)) {
+                    $tag_name = preg_replace("/(\n)|(\s{1,})|(\t)|(\')|(')|(，)|(\.)|(、)|(\|)/", ',', $tag_name);//中文逗号转换成英文
+                    $tags = explode(",", $tag_name);
+                    foreach($tags as $t){
+                        //查看数据库是否已经有这个标签
+                        $query = $this->db->query("select count(*) as num from fm_programme_tag WHERE programme_id=$id AND tag_name='$t'");
+                        $programme_tag_num = $query->row_array();
+                        if($programme_tag_num['num']){
+                            continue;
+                        }else{
+                            $insert_tag = array();
+                            $insert_tag['programme_id'] = $id;
+                            $insert_tag['tag_name'] = $t;
+                            $insert_tag['addtime'] = time();
+                            $this->db->insert('fm_programme_tag',$insert_tag);
+                            unset($insert_tag);
+                        }
+                    }
+                    $query = $this->db->query("select program_id from fm_programme_list WHERE programme_id=$id");
+                    $program_id_arr = $query->result_array();
+                    if(!empty($program_id_arr)){
+                        foreach($tags as $t) {
+                            foreach ($program_id_arr as $value) {
+                                //查看数据库是否已经有这个标签
+                                $query = $this->db->query("select count(*) as num from fm_program_tag WHERE program_id=$value[program_id] AND tag_name='$t'");
+                                $program_tag_num = $query->row_array();
+                                if($program_tag_num['num']){
+                                    continue;
+                                }else{
+                                    $insert_tag = array();
+                                    $insert_tag['program_id'] = $value['program_id'];
+                                    $insert_tag['tag_name'] = $t;
+                                    $insert_tag['addtime'] = time();
+                                    $this->db->insert('fm_program_tag',$insert_tag);
+                                    unset($insert_tag);
+                                }
+                            }
+                        }
+                    }
 
+                    $result=array("code"=>0,"message"=>"保存成功","time"=>time(),"data"=>array());
+                    echo json_encode($result);
+                }else{
+                    $result=array("code"=>1,"message"=>"标签为空","time"=>time(),"data"=>array());
+                    echo json_encode($result);
+                }
+            }else{
+                $result=array("code"=>1,"message"=>"频道ID不存在","time"=>time(),"data"=>array());
+                echo json_encode($result);
+            }
+        }
 
+    }
 
 
 

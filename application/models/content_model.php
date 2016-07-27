@@ -93,6 +93,22 @@ class Content_model extends CI_Model {
 		return $list;
 	}
 
+    function get_list_table($field = '*',$table, $where = '', $offset = 0, $limit = 20) {
+        $wheresql = '';
+        if($where) {
+            $wheresql = "WHERE $where";
+        }
+        $sql = "SELECT $field FROM $table $wheresql ORDER BY id DESC limit $offset,$limit";
+        $query = $this->db->query ( $sql );
+        $list = $query->result_array ();
+        foreach ( $list as &$value ) {
+            if($value ['thumb']) {
+                $value ['thumb'] = base_url().new_thumbname ( $value ['thumb']);
+            }
+        }
+        return $list;
+    }
+
 	/**
 	 * 获取一组信息
 	 *
