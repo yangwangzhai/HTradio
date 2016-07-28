@@ -4,9 +4,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>语音播报列表</title>
     <link href="static/ql/css/style.css" rel="stylesheet" type="text/css" />
-
-    <script charset="utf-8" src="static/js/kindeditor410/kindeditor.js?2"></script>
-    <script charset="utf-8" src="static/js/kindeditor410/lang/zh_CN.js"></script>
+    <link href="static/ql/css/select.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="static/ql/js/jquery.js"></script>
+    <script type="text/javascript" src="static/ql/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="static/ql/js/select-ui.min.js"></script>
+    <script type="text/javascript" src="static/ql/editor/kindeditor.js"></script>
     <script type="text/javascript" src="static/js/common.js?1"></script>
     <script type="text/javascript" src="static/js/jquery-3.1.0.min.js"></script>
     <link href="static/plugin/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -30,7 +32,7 @@
             });
 
             $(".add_click").click(function(){
-                location.href="<?=$this->baseurl?>&m=add&catid=<?=$catid?>'";
+                location.href="<?=$this->baseurl?>&m=add";
             });
 
             // 点击更改状态
@@ -68,7 +70,7 @@
                     margin:0,
                     width:600,
                     height:250,
-                    ok:true,
+                    ok:true
                 });
                 $('.ui_title').css('text-align','left');
             });
@@ -82,6 +84,47 @@
                 }
             })
 
+            $(".push").click(function(){
+                $(".push").removeClass("activ_status");
+                $(this).addClass("activ_status");
+                var val = $(this).text();
+                var id = $(this).attr("data-id");
+                if(val=='已审'){
+                    var status = 0;
+                    $.ajax({
+                        url: "<?=$this->baseurl?>&m=set_status",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{status:status,id:id},  //要传递的数据
+                        success:function(data){
+                            //alert(data)
+                            $(".activ_status").text('未审');
+                            $(".activ_status").css("color","red");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }else{
+                    var status = 1;
+                    $.ajax({
+                        url: "<?=$this->baseurl?>&m=set_status",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{status:status,id:id},  //要传递的数据
+                        success:function(data){
+                            //alert(data)
+                            $(".activ_status").text('已审');
+                            $(".activ_status").css("color","");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }
+            })
 
         });
 
@@ -108,8 +151,11 @@
 
         }
     </script>
-
-
+<style>
+    .form-group {
+        margin-bottom: 80px;
+    }
+</style>
 </head>
 
 
@@ -131,10 +177,6 @@
 		<span style="float: right">
 		<form action="<?=$this->baseurl?>&m=index" method="post">
             <input type="hidden" name="catid" value="<?=$catid?>">
-            分类
-            <select class="select1" id="type_id" name="type_id" onchange="gettype()" style="border: inset;height: 30px;">
-                <?=getSelect($program_type,'','全部')?>
-            </select>
             <input class="dfinput" type="text" name="keywords" value="" style="width: 150px;">
             <input class="btn btn-primary" type="submit" id="mysearch" name="submit" value=" 搜索" style="width: 50px;">
         </form>
@@ -149,58 +191,39 @@
                 <li style="padding-right: 0px;">
                     <input class="btn btn-danger" style="width: 100%;height: 35px;" type="submit" value="删除 " name="del" onclick="return confirm('确定要删除吗？');" />
                 </li>
-                <li style="padding-right: 0px;">
-                    <input class="btn btn-success" style="width: 100%;height: 35px;" type="submit" value=" 推荐 " name="tj" onclick="return confirm('确定要推荐吗？');" />
-                </li>
-                <li style="padding-right: 0px;">
-                    <input class="btn btn-warning" style="width: 100%;height: 35px;" type="submit" value=" 取消推荐 " name="qxtj" onclick="return confirm('确定要取消推荐吗？');" />
-                </li>
-                <li style="padding-right: 0px;">
-                    <input class="btn btn-info" style="width: 100%;height: 35px;" type="submit" value=" 置顶 " name="zd" onclick="return confirm('确定要置顶吗？');" />
-                </li>
-                <li style="padding-right: 0px;">
-                    <input class="btn btn-warning" style="width: 100%;height: 35px;" type="submit" value=" 取消置顶 " name="qxzd"  onclick="return confirm('确定要取消置顶吗？');" />
-                </li>
             </ul>
     </div>
 
 
-    <table class="tablelist">
+    <table class="tablelist" style="table-layout: fixed;">
         <thead>
         <tr>
-            <th><input type="checkbox" name="chkall" id="chkall" onclick="checkall('delete[]')" class="checkbox" /></th>
-            <th></th>
-            <!--<th width="50">封面</th>-->
-            <th>标题</th>
-            <th>内容</th>
-            <th>采集时间</th>
-            <th>操作</th>
+            <th style="width: 3%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><input type="checkbox" name="chkall" id="chkall" onclick="checkall('delete[]')" class="checkbox" /></th>
+            <th style="width: 5%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">序号</th>
+            <th style="width: 20%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">标题</th>
+            <th style="width: 50%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">内容</th>
+            <th style="width: 12%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">采集时间</th>
+            <th style="width: 10%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">操作</th>
         </tr>
         </thead>
         <tbody>
         <?php foreach($list as $key=>$r) {?>
             <tr>
-                <td><input type="checkbox" name="delete[]" value="<?=$r['id']?>"
-                           class="checkbox" /></td>
-                <td><?=$key+1?></td>
-                <!--<td style="text-indent: 0;"><a onclick="vPics('<?/*=$r['title']*/?>','<?/*=$r['thumb']*/?>');" href="javascript:;"><img width="100%" src="<?/*=$r['thumb']*/?>"/></a></td>-->
-                <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><?=$r['title']?></a></td>
-                <td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><?=$r['content']?></td>
-                <td><?=times($r['addtime'],1)?></td>
-                <td>
-                    <?php if(checkAccess('program_check')){?>
-                        <a href="javascript:" title="点击更改状态" class="updatestatus <?php if($r[status]==0){echo 'red';} ?>" style="<?php if($r[status]==0){echo 'color:red';} ?>" name="<?=$r['id']?>"><?=$this->status[$r[status]]?></a>
-                    <?php }else{echo '--';}?>
+                <td style="width: 3%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><input type="checkbox" name="delete[]" value="<?=$r['id']?>" class="checkbox" /></td>
+                <td style="width: 5%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><?=$key+1?></td>
+                <td style="width: 20%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor: pointer" data-target="#title<?=$key?>" data-toggle="modal"><?=$r['title']?></a></td>
+                <td style="width: 50%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor: pointer;" data-target="#content<?=$key?>" data-toggle="modal"><?=$r['content']?></td>
+                <td style="width: 12%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><?=times($r['addtime'],1)?></td>
+                <td style="width: 10%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                    <a href="javascript:void(0)" class="push" data-id="<?=$r['id']?>" style="text-decoration: none;<?php if($r['status']==0){echo 'color:red;';}?>"><?php if($r['status']==0){echo '未审';}else{echo '已审';}?></a>
                     &nbsp;&nbsp;
-                    <a onclick="return false" class="a" data-status="<?=$r['status'];?>" data-target="#push<?=$key?>" data-toggle="<?php echo $r['status'] ? 'modal' : ''; ?>" style="cursor: pointer;">推送</a>
-                    &nbsp;&nbsp;
-                    <?php if(checkAccess('program_edit')){?>
-                        <a href="<?=$this->baseurl?>&m=edit&id=<?=$r['id']?>">修改</a>
-                    <?php }else{echo '--';}?>
-                    &nbsp;&nbsp;
+                    <?php /*if(checkAccess('program_edit')){*/?><!--
+                        <a href="<?/*=$this->baseurl*/?>&m=edit&id=<?/*=$r['id']*/?>">修改</a>
+                    <?php /*}else{echo '--';}*/?>
+                    &nbsp;&nbsp;-->
                     <?php if(checkAccess('program_del')){?>
                         <a
-                            href="<?=$this->baseurl?>&m=delete&catid=<?=$catid?>&id=<?=$r['id']?>"
+                            href="<?=$this->baseurl?>&m=delete&id=<?=$r['id']?>"
                             onclick="return confirm('确定要删除吗？');">删除</a>
                     <?php }else{echo '--';}?>
                 </td>
@@ -242,9 +265,9 @@
 
 <?php foreach($list as $key=>$r) {?>
     <!-- 模态框（Modal） -->
-    <form action="index.php?d=admin&c=program&m=save_push" method="post">
-        <input type="hidden" name="program_id" value="<?=$r[id]?>"/>
-        <div class="modal fade" id="push<?=$key?>" tabindex="-1" role="dialog"
+    <form action="<?=$this->baseurl?>&m=save" method="post">
+        <input type="hidden" name="id" value="<?=$r[id]?>"/>
+        <div class="modal fade" id="content<?=$key?>" tabindex="-1" role="dialog"
              aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -254,13 +277,77 @@
                             &times;
                         </button>
                         <h4 class="modal-title" id="myModalLabel">
-                            选择推送频道
+                            详细内容
                         </h4>
                     </div>
                     <div class="modal-body">
-                        <?php foreach($public_channel_list as $value) :?>
-                            <input type="checkbox" name="value[<?=$value[id]?>]" value="1" <?php echo empty($r['channel_id']) ? '' : in_array($value['id'],$r['channel_id']) ? "checked=checked" : '';?>/><?=$value['title']?> &nbsp;&nbsp;&nbsp;&nbsp;
-                        <?php endforeach?>
+                        <div id="usual1" class="usual">
+                            <table style="table-layout: fixed;border: 1px;">
+                                <div id="tab1" class="tabson">
+                                    <ul class="forminfo">
+                                        <li>
+                                            <label>标题<b>*</b></label>
+                                            <input name="value[title]" value="<?=$r['title']?>" type="text" class="dfinput" style="width:500px;word-break: break-all; word-wrap:break-word;"/>
+                                        </li>
+                                        <li>
+                                            <label>描述<b>*</b></label>
+                                            <textarea id="content7" name="value[content]" style="width:500px;height:400px;word-break: break-all; word-wrap:break-word;border: 1px solid #A7B5BC;"><?=$r['content'];?>
+                                            </textarea>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            提交更改
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </form>
+<?php }?>
+
+<?php foreach($list as $key=>$r) {?>
+    <!-- 模态框（Modal） -->
+    <form action="<?=$this->baseurl?>&m=save" method="post">
+        <input type="hidden" name="id" value="<?=$r[id]?>"/>
+        <div class="modal fade" id="title<?=$key?>" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            详细内容
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="usual1" class="usual">
+                            <table style="table-layout: fixed;border: 1px;">
+                                <div id="tab1" class="tabson">
+                                    <ul class="forminfo">
+                                        <li>
+                                            <label>标题<b>*</b></label>
+                                            <input name="value[title]" value="<?=$r['title']?>" type="text" class="dfinput" style="width:500px;word-break: break-all; word-wrap:break-word;"/>
+                                        </li>
+                                        <li>
+                                            <label>描述<b>*</b></label>
+                                            <textarea id="content7" name="value[content]" style="width:500px;height:400px;word-break: break-all; word-wrap:break-word;border: 1px solid #A7B5BC;"><?=$r['content'];?>
+                                            </textarea>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </table>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default"

@@ -50,6 +50,28 @@ class voicebroadcast extends Content
         $this->load->view('admin/' . $this->list_view, $data);
     }
 
+    public function save(){
+        $value = $this->input->post("value");
+        $id = $this->input->post("id");
+        if($id){
+            $this->db->where('id', $id);
+            $query = $this->db->update($this->table, $value);
+            adminlog('修改信息: '.$this->control.' -> '.$id);
+            show_msg('修改成功！', $_SESSION['url_forward']);
+        }
+
+    }
+
+    public function set_status(){
+        $status = $this->input->post("status");
+        $id = $this->input->post("id");
+        $sql = "update fm_eurocup set status=$status WHERE id=$id";
+        $this->db->query($sql);
+        $result = $this->db->affected_rows();
+        if($result){
+            echo json_encode(1);
+        }
+    }
 
 
 

@@ -1374,7 +1374,7 @@ class program extends Api {
         $id = $this->input->get("id");
         if(empty($id)){
             //从数据库获取录音列表
-            $sql = "SELECT content FROM fm_eurocup ORDER BY addtime DESC LIMIT 0,5";
+            $sql = "SELECT content FROM fm_eurocup WHERE status=1 ORDER BY addtime DESC LIMIT 0,5";
             $query = $this->db->query($sql);
             $res=$query->result_array();
             if(empty($res)){
@@ -1641,9 +1641,212 @@ class program extends Api {
 
     }
 
+    /**
+     *  接口说明：根据标签搜索相关节目单和节目
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=search_by_tag
+     *   参数接收方式：get
+     *  接收参数：
+     *  tag_name：标签名字
+     * 	返回参数：
+     * 	code：返回码 0正确, 大于0 都是错误的
+     * 	message：描述信息
+     * 	time：时间戳
+     *  "data": {
+            "programme": [
+                    {
+                        "id": "118",
+                        "title": "音乐节目单",
+                        "thumb": "http://vroad.bbrtv.com/cmradio/uploads/default_images/default_program.jpg",
+                        "mid": "607",
+                        "username": "杨旺摘"
+                    }
+                ],
+            "program": [
+                    {
+                        "id": "1440",
+                        "title": "资讯和音乐_2016-05-06",
+                        "path": "http://media2.bbrtv.com:1935/vod/_definst_/mp4:Archive/970/2016/05/06/z_hyl_1439264081447970_1462500001034.mp4/playlist.m3u8",
+                        "mid": "607",
+                        "username": "杨旺摘"
+                    }
+                ]
+
+     *  programme：搜索到的节目单
+     *  其中
+     *  id：节目单ID
+     *  title：节目单名称
+     *  thumb：节目单的封面图片
+     *  mid：该节目单的用户ID
+     *  username：该节目单用户姓名
+     *
+     *  program：搜索到的节目
+     *  其中
+     *  id：节目ID
+     *  title：节目名称
+     *  path：节目播放地址（流）
+     *  mid：上传该节目的用户ID
+     *  username：上传该节目的用户姓名
+     */
+
+    public function search_by_tag(){
+        $tag_name = trim($this->input->get("tag_name"));
+        if(empty($tag_name)){
+            $result=array("code"=>1,"message"=>"标签为空","time"=>time(),"data"=>array("programme"=>array(),"program"=>array()));
+            echo json_encode($result);
+        }else{
+            //根据标签，搜索对应的节目单
+            $sql = "SELECT id FROM fm_programme WHERE title like '%$tag_name%' AND status=0 AND publish_flag=1";
+            $query = $this->db->query($sql);
+            $programme_ids = $query->result_array();
+            if(!empty($programme_ids)){
+                foreach($programme_ids as $programme_ids_value){
+                    $temp[] = $programme_ids_value['id'];
+                }
+            }
+
+            $sql = "SELECT programme_id FROM fm_programme_tag WHERE tag_name like '%$tag_name%'";
+            $query = $this->db->query($sql);
+            $result_programme = $query->result_array();
+
+            if(!empty($result_programme)){
+                foreach($result_programme as $result_programme_value){
+                    $temp[] = $result_programme_value['programme_id'];
+                }
+            }
+
+            if(!empty($temp)){
+                $temp_uniqe = array_unique($temp);
+                foreach($temp_uniqe as $temp_uniqe_value){
+                    $sql = "SELECT id,title,thumb,mid FROM fm_programme WHERE id=$temp_uniqe_value AND status=0 AND publish_flag=1";
+                    $query = $this->db->query($sql);
+                    $res = $query->row_array();
+                    if(empty($res)){
+                        continue;
+                    }else{
+                        $programme[] = $res;
+                    }
+                }
+
+                if(!empty($programme)){
+                    foreach($programme as &$programme_value){
+                        //是否有图片，没有给默认图片
+                        if($programme_value['thumb']){
+                            //判断图片路径是否为http或者https开头
+                            $preg="/(http:\/\/)|(https:\/\/)(.*)/iUs";
+                            if(preg_match($preg,$programme_value['thumb'])){
+
+                            }else{
+                                $programme_value['thumb'] = base_url(). $programme_value['thumb'];
+                            }
+                        }else{
+                            $programme_value['thumb'] = "http://vroad.bbrtv.com/cmradio/uploads/default_images/default_program.jpg";
+                        }
+                        //先判断有无次用户
+                        $sql = "select count(*) as num from fm_member WHERE id=$programme_value[mid]";
+                        $query = $this->db->query($sql);
+                        $num = $query->row_array();
+                        if($num['num']){
+                            $sql = "select nickname,username from fm_member WHERE id=$programme_value[mid]";
+                            $query = $this->db->query($sql);
+                            $name = $query->row_array();
+                            $programme_value['username'] = $name['nickname'] ? $name['nickname'] : ($name['username'] ? $name['username'] : '佚名');
+                        }else{
+                            $programme_value['username'] = '佚名';
+                        }
+                    }
+                }else{
+                    $programme = array();
+                }
+            }else{
+                $programme = array();
+            }
+
+            unset($temp);
+            unset($temp_uniqe);
+            //根据标签查找节目
+            $sql = "SELECT id FROM fm_program WHERE title like '%$tag_name%' AND status=1 limit 0,15";
+            $query = $this->db->query($sql);
+            $program_ids = $query->result_array();
+            if(!empty($program_ids)){
+                foreach($program_ids as $program_ids_value){
+                    $temp[] = $program_ids_value['id'];
+                }
+            }
+            $sql = "SELECT program_id FROM fm_program_tag WHERE tag_name like '%$tag_name%'";
+            $query = $this->db->query($sql);
+            $result_program = $query->result_array();
+            if(!empty($result_program)){
+                foreach($result_programme as $result_programme_value){
+                    if(empty($result_programme_value['program_id'])){
+                        continue;
+                    }else{
+                        $temp[] = $result_programme_value['program_id'];
+                    }
+                }
+            }
+
+            if(!empty($temp)){
+                $temp_uniqe2 = array_unique($temp);
+                foreach($temp_uniqe2 as $temp_uniqe2_value){
+                    $sql = "SELECT id,title,path,mid FROM fm_program WHERE id=$temp_uniqe2_value AND status=1";
+                    $query = $this->db->query($sql);
+                    $res = $query->row_array();
+                    if(empty($res)){
+                        continue;
+                    }else{
+                        $program[] = $res;
+                    }
+                }
+
+                if(!empty($program)){
+                    foreach($program as &$program_value){
+                        //是否有图片，没有给默认图片
+                        if($program_value['path']){
+                            //判断图片路径是否为http或者https开头
+                            $preg="/(http:\/\/)|(https:\/\/)(.*)/iUs";
+                            if(preg_match($preg,$program_value['path'])){
+
+                            }else{
+                                $program_value['path'] = base_url(). $program_value['path'];
+                            }
+                        }else{
+                            $program_value['path'] = "";
+                        }
+                        //先判断有无次用户
+                        $sql = "select count(*) as num from fm_member WHERE id=$program_value[mid]";
+                        $query = $this->db->query($sql);
+                        $num = $query->row_array();
+                        if($num['num']){
+                            $sql = "select nickname,username from fm_member WHERE id=$program_value[mid]";
+                            $query = $this->db->query($sql);
+                            $name = $query->row_array();
+                            $program_value['username'] = $name['nickname'] ? $name['nickname'] : ($name['username'] ? $name['username'] : '佚名');
+                        }else{
+                            $program_value['username'] = '佚名';
+                        }
+                    }
+                }else{
+                    $program = array();
+                }
+            }else{
+                $program = array();
+            }
+
+            //输出
+            if(!empty($programme)||!empty($program)){
+                $result=array("code"=>0,"message"=>"success","time"=>time(),"data"=>array("programme"=>$programme,"program"=>$program));
+                echo json_encode($result);
+            }else{
+                $result=array("code"=>1,"message"=>"没有搜索到相关数据","time"=>time(),"data"=>array("programme"=>$programme,"program"=>$program));
+                echo json_encode($result);
+            }
+
+
+        }
 
 
 
+    }
 
 
 

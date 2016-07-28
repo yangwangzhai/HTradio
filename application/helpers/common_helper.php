@@ -5,6 +5,22 @@
  */
 
 
+/**
+ *  对一个二维数组，运用array_unique()函数处理。
+ *  先将二维降为一维
+ *
+ **/
+function unique($array){
+    $temp=array();
+    foreach($array as $key=>$vaule){
+        foreach($vaule as $k=>$val){
+            $temp[]=$val;
+        }
+    }
+    return array_unique($temp);
+}
+
+
 //频道id转换（因为海豚的频道id和风尚的不一样）
 function change_channel_id($channel_id){
     $change_channel_id = array(
