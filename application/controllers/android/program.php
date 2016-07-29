@@ -1695,7 +1695,7 @@ class program extends Api {
             echo json_encode($result);
         }else{
             //根据标签，搜索对应的节目单
-            $sql = "SELECT id FROM fm_programme WHERE title like '%$tag_name%' AND status=0 AND publish_flag=1";
+            $sql = "SELECT id FROM fm_programme WHERE title like '%$tag_name%' AND status=0 AND publish_flag=1 limit 0,15";
             $query = $this->db->query($sql);
             $programme_ids = $query->result_array();
             if(!empty($programme_ids)){
@@ -1704,7 +1704,7 @@ class program extends Api {
                 }
             }
 
-            $sql = "SELECT programme_id FROM fm_programme_tag WHERE tag_name like '%$tag_name%'";
+            $sql = "SELECT programme_id FROM fm_programme_tag WHERE tag_name like '%$tag_name%' limit 0,15";
             $query = $this->db->query($sql);
             $result_programme = $query->result_array();
 
@@ -1772,7 +1772,7 @@ class program extends Api {
                     $temp[] = $program_ids_value['id'];
                 }
             }
-            $sql = "SELECT program_id FROM fm_program_tag WHERE tag_name like '%$tag_name%'";
+            $sql = "SELECT program_id FROM fm_program_tag WHERE tag_name like '%$tag_name%' limit 0,15";
             $query = $this->db->query($sql);
             $result_program = $query->result_array();
             if(!empty($result_program)){

@@ -321,6 +321,19 @@ class Player extends CI_Controller
 
     }
 
+    public function play_over(){
+        $id = $this->input->post("id");
+        if($id){
+            //先获取此前听完的次数
+            $query = $this->db->query("select play_over_times from fm_program WHERE id=$id");
+            $play_over_times_before = $query->row_array();
+            $play_over_times_current = $play_over_times_before['play_over_times']+1;
+            $this->db->query("update fm_program set play_over_times=$play_over_times_current WHERE id=$id");
+            echo json_encode($play_over_times_current);
+        }
+    }
+
+
 
 
 

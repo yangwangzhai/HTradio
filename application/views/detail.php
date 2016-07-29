@@ -402,8 +402,23 @@ function addMtimes(meid) {
             clip: {
                 url: "<?=$me_data['path']?>",
                 live: true,
+                autoPlay: true,
                 urlResolvers: "flashls",
                 provider: "flashls"
+            },
+            
+            onFinish: function() {
+                //统计播完率
+                var id = <?=$id?>;
+                $.ajax({
+                    url: 'index.php?c=player&m=play_over',
+                    type: 'post',
+                    dataType:'json',
+                    data: {id:id},
+                    success:function(data) {
+                        //alert(data);
+                    }
+                });
             }
         }).ipad();
     </script>

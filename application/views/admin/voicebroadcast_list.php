@@ -198,22 +198,12 @@
     <table class="tablelist" style="table-layout: fixed;">
         <thead>
         <tr>
-<<<<<<< HEAD
             <th style="width: 3%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><input type="checkbox" name="chkall" id="chkall" onclick="checkall('delete[]')" class="checkbox" /></th>
             <th style="width: 5%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">序号</th>
             <th style="width: 20%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">标题</th>
             <th style="width: 50%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">内容</th>
             <th style="width: 12%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">采集时间</th>
             <th style="width: 10%;height:25px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">操作</th>
-=======
-            <th><input type="checkbox" name="chkall" id="chkall" onclick="checkall('delete[]')" class="checkbox" /></th>
-            <th></th>
-            <!--<th width="50">封面</th>-->
-            <th width="20%">标题</th>
-            <th width="50%">内容</th>
-            <th width="100">采集时间</th>
-            <th width="150">操作</th>
->>>>>>> 197f97961ee864999030838d9eed5215f2f4ca56
         </tr>
         </thead>
         <tbody>

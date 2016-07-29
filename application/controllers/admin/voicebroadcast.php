@@ -63,6 +63,7 @@ class voicebroadcast extends Content
             adminlog('修改信息: '.$this->control.' -> '.$id);
             show_msg('修改成功！', $_SESSION['url_forward']);
         }else{
+            $value['addtime'] = time();
             $this->db->insert("fm_eurocup",$value);
             adminlog('添加信息: '.$this->control.' -> '.$this->db->insert_id());
             show_msg('添加成功！', $this->baseurl."&m=index");
