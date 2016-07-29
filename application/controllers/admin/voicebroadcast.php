@@ -50,6 +50,10 @@ class voicebroadcast extends Content
         $this->load->view('admin/' . $this->list_view, $data);
     }
 
+    public function add(){
+        $this->load->view("admin/".$this->add_view);
+    }
+
     public function save(){
         $value = $this->input->post("value");
         $id = $this->input->post("id");
@@ -58,6 +62,10 @@ class voicebroadcast extends Content
             $query = $this->db->update($this->table, $value);
             adminlog('修改信息: '.$this->control.' -> '.$id);
             show_msg('修改成功！', $_SESSION['url_forward']);
+        }else{
+            $this->db->insert("fm_eurocup",$value);
+            adminlog('添加信息: '.$this->control.' -> '.$this->db->insert_id());
+            show_msg('添加成功！', $this->baseurl."&m=index");
         }
 
     }
