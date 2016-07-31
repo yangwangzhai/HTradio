@@ -59,7 +59,7 @@
 	<ul id="playlist">
 		<?php foreach($list as $list_key=>$list_value):?>
 			<li <?php if($list_key==0){echo "style='color:#ffffff'";}?> class="playmenu"
-				data-title="<?=$list_value['title']?>" data-thumb="<?=$list_value['thumb']?>" data-url="<?=$list_value['path']?>">
+				data-id="<?=$list_value['id']?>" data-title="<?=$list_value['title']?>" data-thumb="<?=$list_value['thumb']?>" data-url="<?=$list_value['path']?>">
 				<?=$list_value['title']?>
 			</li>
 		<?php endforeach?>
@@ -94,13 +94,30 @@
 			live: true,
 			urlResolvers: "flashls",
 			provider: "flashls"
-		}
+		},
+        onFinish: function() {
+            //统计播完率
+            var id = <?=$list[0]['id']?>;
+            $.ajax({
+                url: 'index.php?c=player&m=play_over',
+                type: 'post',
+                dataType:'json',
+                data: {id:id},
+                success:function(data) {
+                    //alert(data);
+                }
+            });
+        }
+
 	}).ipad();
 
 	$(".playmenu").click(function(){
 		var id="flashls_vod";
 		var url=$(this).attr("data-url");
-		fplayer(id,url)
+		var pid=$(this).attr("data-id");
+        //当前播放的节目数量+1
+
+		fplayer(id,url,pid)
 		//当前播放的节目，高亮
 		$(".playmenu").css("color","#aaa");
 		$(this).css("color","#ffffff");
@@ -111,11 +128,20 @@
 		var thumb=$(this).attr("data-thumb");
         if(thumb!=''){
             $("#playthumb").attr("src",thumb);
-        }
+        };
+        $.ajax({
+            url: 'index.php?c=index&m=playtimes',
+            type: 'post',
+            dataType:'json',
+            data: {pid:pid},
+            success:function(data) {
+                //alert(data);
+            }
+        });
 
 	});
 
-	function fplayer(id,url){
+	function fplayer(id,url,pid){
 		flowplayer(id, "static/flowplayer/flowplayer.swf", {
 			// configure the required plugins
 			plugins: {
@@ -131,7 +157,19 @@
 				live: true,
 				urlResolvers: "flashls",
 				provider: "flashls"
-			}
+			},
+            onFinish: function() {
+                //统计播完率
+                $.ajax({
+                    url: 'index.php?c=player&m=play_over',
+                    type: 'post',
+                    dataType:'json',
+                    data: {id:pid},
+                    success:function(data) {
+                        //alert(data);
+                    }
+                });
+            }
 		}).ipad();
 	}
 </script>

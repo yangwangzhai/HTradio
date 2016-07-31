@@ -96,9 +96,9 @@
        		<div class="dleft"><img src="<?php if(!empty($me_data['thumb'])){echo show_thumb( $me_data['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" /></div>
             <div class="dright">
             	<h1><?=$me_data['title']?></h1>
-                <p>主播：<?=getNickName($me_data['mid'])?></p>
+                <p>上传者：<?=getNickName($me_data['mid'])?></p>
                 <p>最后更新: <?=date('Y-m-d',$me_data['addtime'])?></p>
-                <p style=" padding:10px 0;"><a href="javascript:void(0);" id="sss" class="dbtn">立即收听</a><span><?=$me_data['playtimes']?></span>次播放</p>
+                <p style=" padding:10px 0;margin-bottom: 50px;"><a style="text-decoration: none;" href="javascript:void(0);" id="sss" class="dbtn">播放次数：<?=$me_data['playtimes']+1?></a><!--<span><?/*=$me_data['playtimes']+1*/?></span>次播放--></p>
                 <!-- JiaThis Button BEGIN -->
 				<div class="jiathis_style_24x24">
 					<a class="jiathis_button_qzone"></a>
@@ -237,9 +237,9 @@ $(document).ready(function(){
         previous();
     });
 
-    $('#sss').click(function(){
+    /*$('#sss').click(function(){
         musicplay();
-    });
+    });*/
 
 
     
@@ -349,8 +349,6 @@ function musicplay() {
         geturl(<?=$id?>);
         addPtimes(<?=$id?$id:''?>);
     }
-
-    
     $('.dbtn').text('正在收听');
 }
 
@@ -406,7 +404,6 @@ function addMtimes(meid) {
                 urlResolvers: "flashls",
                 provider: "flashls"
             },
-            
             onFinish: function() {
                 //统计播完率
                 var id = <?=$id?>;

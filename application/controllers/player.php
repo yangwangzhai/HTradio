@@ -52,8 +52,22 @@ class Player extends CI_Controller
         $data['listen'] = $query->result_array();
 
         if($id){
+            //直接播放的是节目，该节目播放数量+1
+            $playtimes_current = $data['me_data']['playtimes']+1;
+            $this->db->query("update fm_program set playtimes=$playtimes_current WHERE id=$id");
+            //统计播放该节目的时间
+            $insert['program_id'] = $id;
+            $insert['addtime'] = time();
+            $this->db->insert("fm_program_playtimes",$insert);
             $this->load->view('detail',$data);
         }elseif($me_id){
+            //直接播放的是节目，该节目播放数量+1
+            $playtimes_current = $data['me_data']['playtimes']+1;
+            $this->db->query("update fm_programme set playtimes=$playtimes_current WHERE id=$me_id");
+            //统计播放该节目单的时间
+            $insert['programme_id'] = $me_id;
+            $insert['addtime'] = time();
+            $this->db->insert("fm_programme_playtimes",$insert);
             $this->load->view('my_detail',$data);
         }
 
@@ -322,13 +336,16 @@ class Player extends CI_Controller
     }
 
     public function play_over(){
-        $id = $this->input->post("id");
+        $insert['program_id'] = $id = $this->input->post("id");
         if($id){
             //先获取此前听完的次数
             $query = $this->db->query("select play_over_times from fm_program WHERE id=$id");
             $play_over_times_before = $query->row_array();
             $play_over_times_current = $play_over_times_before['play_over_times']+1;
             $this->db->query("update fm_program set play_over_times=$play_over_times_current WHERE id=$id");
+            //统计播放完该节目的时间
+            $insert['addtime'] = time();
+            $this->db->insert("fm_program_playover",$insert);
             echo json_encode($play_over_times_current);
         }
     }

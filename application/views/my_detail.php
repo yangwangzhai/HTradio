@@ -126,7 +126,7 @@
                     <h1><a href="index.php?c=player&m=edit&id=<?=$meid?>" title="点击可进行编辑" target="_blank" ><?=$me_data['title']?></a></h1>
                     <p>主播：<?=getNickName($me_data['mid'])?></p>
                     <p>最后更新: <?=date('Y-m-d',$me_data['addtime'])?></p>
-                    <p style=" padding:10px 0;"><a href="javascript:void(0);" id="sss" class="dbtn">立即收听</a><span><?=$me_data['playtimes']?></span>次播放</p>
+                    <p style=" padding:10px 0;margin-bottom: 50px;"><a style="text-decoration: none;" href="javascript:void(0);" id="sss" class="dbtn">播放次数：<?=$me_data['playtimes']+1?></a><!--<span><?/*=$me_data['playtimes']+1*/?></span>次播放--></p>
                     <!-- JiaThis Button BEGIN -->
                     <!-- JiaThis Button BEGIN -->
                     <div class="jiathis_style_24x24">
@@ -175,7 +175,7 @@
                                 <strong><?=$val['playtimes']?>次播放</strong>
                                 <strong><?=date('Y-m-d',$val['addtime'])?></strong>
                             </em>
-                            <b class="playmenu" data-title="<?=$val['title']?>" data-thumb="<?=$val['thumb']?>" data-url="<?=$val['path']?>"><?=$val['title']?></b>
+                            <b class="playmenu" data-id="<?=$val['id']?>" data-title="<?=$val['title']?>" data-thumb="<?=$val['thumb']?>" data-url="<?=$val['path']?>"><?=$val['title']?></b>
                         </li>
                         <?php }?>
                     </ul>
@@ -264,27 +264,42 @@
                 autoPlay: false,//关闭自动播放
                 urlResolvers: "flashls",
                 provider: "flashls"
+            },
+            onFinish: function() {
+                //统计播完率
+                var id = <?=$list[0]['id']?>;
+                $.ajax({
+                    url: 'index.php?c=player&m=play_over',
+                    type: 'post',
+                    dataType:'json',
+                    data: {id:id},
+                    success:function(data) {
+                        alert(data);
+                    }
+                });
             }
+
         }).ipad();
 
         $(".playmenu").click(function(){
             var id="flashls_vod";
             var url=$(this).attr("data-url");
-            fplayer(id,url);
+            var pid=$(this).attr("data-id");
+            $.ajax({
+                url: 'index.php?c=index&m=playtimes',
+                type: 'post',
+                dataType:'json',
+                data: {pid:pid},
+                success:function(data) {
+                    //alert(data);
+                }
+            });
+            fplayer(id,url,pid);
             var title=$(this).attr("data-title");
             $("#header h2").text(title);
-            //当前播放的节目，高亮
-           /* $(".playmenu").css("color","#aaa");
-            $(this).css("color","#ffffff");
-            //播放器标题
-            var title=$(this).attr("data-title");
-            $("#playtitle").text(title);
-            //节目缩略图
-            var thumb=$(this).attr("data-thumb");
-            $("#playthumb").attr("src",thumb);*/
         });
 
-        function fplayer(id,url){
+        function fplayer(id,url,pid){
             flowplayer(id, "static/flowplayer/flowplayer.swf", {
                 // configure the required plugins
                 plugins: {
@@ -300,7 +315,20 @@
                     live: true,
                     urlResolvers: "flashls",
                     provider: "flashls"
+                },
+                onFinish: function() {
+                    //统计播完率
+                    $.ajax({
+                        url: 'index.php?c=player&m=play_over',
+                        type: 'post',
+                        dataType:'json',
+                        data: {id:pid},
+                        success:function(data) {
+                            //alert(data);
+                        }
+                    });
                 }
+
             }).ipad();
         }
 
