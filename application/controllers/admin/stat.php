@@ -419,8 +419,11 @@ class stat extends Content
             $time_end = $year+(86400*$days);
         }
 
-        $query = $this->db->query("select title,playtimes from fm_program where status=1 AND addtime>=$time_start AND addtime<=$time_end ORDER BY playtimes desc limit 20");
+        /*$query = $this->db->query("select title,playtimes from fm_program where status=1 AND addtime>=$time_start AND addtime<=$time_end ORDER BY playtimes desc limit 20");*/
+        $query = $this->db->query("SELECT b.title , COUNT( a.program_id ) AS playtimes FROM fm_program_playtimes a JOIN fm_program b WHERE a.addtime>=$time_start AND a.addtime<=$time_end AND a.program_id=b.id GROUP BY a.program_id ORDER BY playtimes DESC");
         $list = $query->result_array();
+
+
         $data['categories'] = array();
         $data['num'] = array();
         $data['total'] = 0;
@@ -431,7 +434,8 @@ class stat extends Content
         }
         $data['subtitle'] = date('Y年m月d日',$day);
         $data['date'] = $day;
-        $this->load->view('stat/program_stat',$data);
+
+        $this->load->view('stat/program_stat2',$data);
     }
 
     //主持人/用户人气统计

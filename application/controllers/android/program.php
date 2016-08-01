@@ -1844,9 +1844,206 @@ class program extends Api {
 
         }
 
+    }
 
+    /**
+     *  接口说明：统计节目播放次数接口
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=save_program_playtimes
+     *   参数接收方式：post
+     *  接收参数：
+     *  value：[{"id":1,"time":1470016324},{"id":2,"time":1470016622}]
+     *  其中
+     *  id：节目ID
+     *  time：点击节目播放时的时间戳
+     * 	返回参数：
+     * 	code：返回码 0正确, 大于0 都是错误的
+     * 	message：描述信息
+     * 	time：时间戳
+     */
+    public function save_program_playtimes(){
+        $data_json = $this->input->post("value");
+        $data = json_decode($data_json,true);
+        if(empty($data)){
+            $result=array("code"=>1,"message"=>"参数传输错误","time"=>time());
+            echo json_encode($result);
+        }else{
+            foreach($data as $key=>$value){
+                $insert['program_id'] = $id =$value['id'];
+                if(empty($id)){
+                    $result=array("code"=>1,"message"=>"节目ID为空","time"=>time());
+                    echo json_encode($result);
+                    exit();
+                }else{
+                    $query = $this->db->query("select count(*) as num from fm_program WHERE id=$id");
+                    $num = $query->row_array();
+                    if($num['num']){
+                        //先获取此前听完的次数
+                        $query = $this->db->query("select playtimes from fm_program WHERE id=$id");
+                        $playtimes_before = $query->row_array();
+                        $playtimes_current = $playtimes_before['playtimes']+1;
+                        $this->db->query("update fm_program set playtimes=$playtimes_current WHERE id=$id");
+                        //统计播放该节目的时间
+                        $insert['addtime'] = $value['time'] ? $value['time'] : time();
+                        $this->db->insert("fm_program_playtimes",$insert);
+                        $insert_id = $this->db->insert_id();
+                        if($insert_id){
+                            $check[] = $insert_id;
+                        }
+                    }else{
+                        $result=array("code"=>1,"message"=>"节目ID不存在","time"=>time());
+                        echo json_encode($result);
+                        exit();
+                    }
+                }
+            }
+            if(count($check)==count($data)){
+                $result=array("code"=>0,"message"=>"success","time"=>time());
+                echo json_encode($result);
+            }else{
+                $result=array("code"=>1,"message"=>"数据库出错，保存失败","time"=>time());
+                echo json_encode($result);
+            }
+        }
 
     }
+
+    /**
+     *  接口说明：统计节目完整播放次数接口
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=save_program_playover
+     *   参数接收方式：post
+     *  接收参数：
+     *  value：[{"id":1,"time":1470016324},{"id":2,"time":1470016622}]
+     *  其中
+     *  id：节目ID
+     *  time：点击节目播放时的时间戳
+     * 	返回参数：
+     * 	code：返回码 0正确, 大于0 都是错误的
+     * 	message：描述信息
+     * 	time：时间戳
+     */
+    public function save_program_playover(){
+        $data_json = $this->input->post("value");
+        $data = json_decode($data_json,true);
+        if(empty($data)){
+            $result=array("code"=>1,"message"=>"参数传输错误","time"=>time());
+            echo json_encode($result);
+        }else{
+            foreach($data as $key=>$value){
+                $insert['program_id'] = $id =$value['id'];
+                if(empty($id)){
+                    $result=array("code"=>1,"message"=>"节目ID为空","time"=>time());
+                    echo json_encode($result);
+                    exit();
+                }else{
+                    $query = $this->db->query("select count(*) as num from fm_program WHERE id=$id");
+                    $num = $query->row_array();
+                    if($num['num']){
+                        //先获取此前听完的次数
+                        $query = $this->db->query("select play_over_times from fm_program WHERE id=$id");
+                        $playtimes_before = $query->row_array();
+                        $playtimes_current = $playtimes_before['play_over_times']+1;
+                        $this->db->query("update fm_program set play_over_times=$playtimes_current WHERE id=$id");
+                        //统计播放该节目的时间
+                        $insert['addtime'] = $value['time'] ? $value['time'] : time();
+                        $this->db->insert("fm_program_playover",$insert);
+                        $insert_id = $this->db->insert_id();
+                        if($insert_id){
+                            $check[] = $insert_id;
+                        }
+                    }else{
+                        $result=array("code"=>1,"message"=>"节目ID不存在","time"=>time());
+                        echo json_encode($result);
+                        exit();
+                    }
+                }
+            }
+            if(count($check)==count($data)){
+                $result=array("code"=>0,"message"=>"success","time"=>time());
+                echo json_encode($result);
+            }else{
+                $result=array("code"=>1,"message"=>"数据库出错，保存失败","time"=>time());
+                echo json_encode($result);
+                exit();
+            }
+        }
+
+    }
+
+    /**
+     *  接口说明：统计节目单播放次数接口
+     *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=save_programme_playtimes
+     *   参数接收方式：post
+     *  接收参数：
+     *  value：[{"id":1,"time":1470016324},{"id":2,"time":1470016622}]
+     *  其中
+     *  id：节目单ID
+     *  time：点击节目单播放时的时间戳
+     * 	返回参数：
+     * 	code：返回码 0正确, 大于0 都是错误的
+     * 	message：描述信息
+     * 	time：时间戳
+     */
+
+    public function save_programme_playtimes(){
+        $data_json = $this->input->post("value");
+        $data = json_decode($data_json,true);
+        if(empty($data)){
+            $result=array("code"=>1,"message"=>"参数传输错误","time"=>time());
+            echo json_encode($result);
+        }else{
+            foreach($data as $key=>$value){
+                $insert['programme_id'] = $id =$value['id'];
+                if(empty($id)){
+                    $result=array("code"=>1,"message"=>"节目单ID为空","time"=>time());
+                    echo json_encode($result);
+                    exit();
+                }else{
+                    $query = $this->db->query("select count(*) as num from fm_programme WHERE id=$id");
+                    $num = $query->row_array();
+                    if($num['num']){
+                        //先获取此前听完的次数
+                        $query = $this->db->query("select playtimes from fm_programme WHERE id=$id");
+                        $playtimes_before = $query->row_array();
+                        $playtimes_current = $playtimes_before['playtimes']+1;
+                        $this->db->query("update fm_programme set playtimes=$playtimes_current WHERE id=$id");
+                        //统计播放该节目的时间
+                        $insert['addtime'] = $value['time'] ? $value['time'] : time();
+                        $this->db->insert("fm_programme_playtimes",$insert);
+                        $insert_id = $this->db->insert_id();
+                        if($insert_id){
+                            $check[] = $insert_id;
+                        }
+                    }else{
+                        $result=array("code"=>1,"message"=>"节目单ID不存在","time"=>time());
+                        echo json_encode($result);
+                        exit();
+                    }
+                }
+            }
+            if(count($check)==count($data)){
+                $result=array("code"=>0,"message"=>"success","time"=>time());
+                echo json_encode($result);
+            }else{
+                $result=array("code"=>1,"message"=>"数据库出错，保存失败","time"=>time());
+                echo json_encode($result);
+            }
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

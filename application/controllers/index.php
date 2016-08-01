@@ -13,7 +13,6 @@ class Index extends Common
     // 首页
     public function index ()
     {
-
         //echo dirname(dirname(dirname(__FILE__)));exit;
 		 $code=$this->input->get('code');
 		 
@@ -23,10 +22,18 @@ class Index extends Common
 		   
         $data['id'] = '1213';
 		//随机获取几个节目
-		$sql="SELECT id,title,thumb,path FROM fm_program WHERE id >= ((SELECT MAX(id) FROM fm_program)-(SELECT MIN(id) FROM fm_program)) * RAND() + (SELECT MIN(id) FROM fm_program)  LIMIT 3;";
+		$sql="SELECT id,title,thumb,path,playtimes FROM fm_program WHERE id >= ((SELECT MAX(id) FROM fm_program)-(SELECT MIN(id) FROM fm_program)) * RAND() + (SELECT MIN(id) FROM fm_program)  LIMIT 3;";
 		$query=$this->db->query($sql);
 		$data['list']=$query->result_array();
-
+        if(!empty($data['list'])){
+            //直接播放随机取出的第一个节目，该节目播放数量+1
+            $playtimes_current = $data['list'][0]['playtimes']+1;
+            $insert['program_id'] = $id = $data['list'][0]['id'];
+            $this->db->query("update fm_program set playtimes=$playtimes_current WHERE id=$id");
+            //统计第一个节目详细的播放时间
+            $insert['addtime'] = time();
+            $this->db->insert("fm_program_playtimes",$insert);
+        }
         $this->load->view('index',$data);
     }    
     
@@ -178,10 +185,9 @@ class Index extends Common
 
 		foreach($data['radio_list'] as &$r){
 			$row = getMember($r['mid']);
-			$r['nickname'] = $row['nickname'];
-			$r['avatar'] = $row['avatar'];
+			$r['nickname'] = $row['nickname'] ? $row['nickname'] :$row['username'] ? $row['username'] : '佚名';
+			$r['avatar'] = $row['wechat_id'] ? '' : $row['avatar'];
 		}
-		
 
 		//新晋榜
 		$data['new_top_list'] = $this->newTopList();
@@ -468,5 +474,34 @@ class Index extends Common
             $arr[str_replace('"',"", $jValue[0])] = (str_replace('"', "", $jValue[1]));
         }
         return $arr;
-    }	
+    }
+
+    //统计节目播放次数
+    public function playtimes(){
+        $insert['program_id'] = $id = $this->input->post("pid");
+        if($id){
+            //先获取此前听完的次数
+            $query = $this->db->query("select playtimes from fm_program WHERE id=$id");
+            $playtimes_before = $query->row_array();
+            $playtimes_current = $playtimes_before['playtimes']+1;
+            $this->db->query("update fm_program set playtimes=$playtimes_current WHERE id=$id");
+            //统计播放该节目的时间
+            $insert['addtime'] = time();
+            $this->db->insert("fm_program_playtimes",$insert);
+            echo json_encode($playtimes_current);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
