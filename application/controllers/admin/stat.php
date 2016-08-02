@@ -420,21 +420,37 @@ class stat extends Content
         }
 
         /*$query = $this->db->query("select title,playtimes from fm_program where status=1 AND addtime>=$time_start AND addtime<=$time_end ORDER BY playtimes desc limit 20");*/
-        $query = $this->db->query("SELECT b.title , COUNT( a.program_id ) AS playtimes FROM fm_program_playtimes a JOIN fm_program b WHERE a.addtime>=$time_start AND a.addtime<=$time_end AND a.program_id=b.id GROUP BY a.program_id ORDER BY playtimes DESC");
+        //获取收听量前20的节目名称和收听量
+        $query = $this->db->query("SELECT b.id ,b.title , COUNT( a.program_id ) AS playtimes FROM fm_program_playtimes a JOIN fm_program b WHERE a.addtime>=$time_start AND a.addtime<=$time_end AND a.program_id=b.id GROUP BY a.program_id ORDER BY playtimes DESC");
         $list = $query->result_array();
+        //获取完整收听次数
+        $yAxis = '';
+        $series1 = '';
+        $series2 = '';
+        for($i=count($list)-1;$i>=0;$i--){
+            $yAxis .= "'".$list[$i]['title']."'".',';
+            $series1 .= "'".$list[$i]['playtimes']."'".',';
+            $program_id = $list[$i]['id'];
+            $query_playover = $this->db->query("select count(*) as playover_num from fm_program_playover WHERE program_id=$program_id");
+            $playover_num = $query_playover->row_array();
+            $series2 .= "'".$playover_num['playover_num']."'".',';
+        }
 
+        $data['yAxis']  = rtrim($yAxis, ",");
+        $data['series1'] = rtrim($series1, ",");
+        $data['series2'] = rtrim($series2, ",");
 
-        $data['categories'] = array();
+        /*$data['categories'] = array();
         $data['num'] = array();
         $data['total'] = 0;
         foreach ($list as $k => $v) {
             $data['categories'][] = $v['title'];
             $data['num'][0]['data'][] = intval($v['playtimes']);
             $data['total'] += 1;
-        }
+        }*/
         $data['subtitle'] = date('Y年m月d日',$day);
         $data['date'] = $day;
-
+        $data['total'] = count($list);
         $this->load->view('stat/program_stat2',$data);
     }
 

@@ -4,6 +4,17 @@
     <style type="text/css">
         #date{background: url(static/js/datepicker/skin/datePicker.gif) no-repeat right;}
     </style>
+
+    <script type="text/javascript">
+        $(function(){
+            $('#stat_select').change(function(){
+                var key = $(this).find('option:selected').val();
+                var date = $('#date').val();
+                location.href="index.php?d=admin&c=stat&m=program_stat&key="+key+"&date="+date;
+            });
+        });
+    </script>
+
     <div style="float:right;">
         <span>选择日期</span>
         <input type="text" id="date" value="<?=times($date)?>" onclick="WdatePicker({readOnly:true,onpicked:function(){var key = $('#stat_select').find('option:selected').val();var date = $('#date').val();location.href='index.php?d=admin&c=stat&m=program_stat&key='+key+'&date='+date;}})">
@@ -12,10 +23,10 @@
         </select>
     </div>
     <div style="clear:both;"></div>
-<?php if(!$categories) { ?>
+<?php if(!$yAxis) { ?>
     <div style="position:relative;left:550px;width:300px;color:red;">当前日期没有数据</div>
 <?php } ?>
-    <div id="container" style="min-width:700px;min-height:700px;"></div>
+    <div id="container" style="min-width:600px;min-height:600px;"></div>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
@@ -23,8 +34,8 @@
 
         var option = {
             title: {
-                text: '世界人口总量',
-                subtext: '数据来自网络'
+                text: '节目收听量排行榜',
+                subtext: '当前统计数：<?php echo $total?$total:0;?>'
             },
             tooltip: {
                 trigger: 'axis',
@@ -33,7 +44,7 @@
                 }
             },
             legend: {
-                data: ['2011年', '2012年']
+                data: ['收听次数', '完整收听次数']
             },
             grid: {
                 left: '3%',
@@ -47,18 +58,18 @@
             },
             yAxis: {
                 type: 'category',
-                data: ['巴西','印尼','美国','印度','中国','世界人口(万)']
+                data: [<?=$yAxis?>]
             },
             series: [
                 {
-                    name: '2011年',
+                    name: '收听次数',
                     type: 'bar',
-                    data: [18203, 23489, 29034, 104970, 131744, 630230]
+                    data: [<?=$series1?>]
                 },
                 {
-                    name: '2012年',
+                    name: '完整收听次数',
                     type: 'bar',
-                    data: [19325, 23438, 31000, 121594, 134141, 681807]
+                    data: [<?=$series2?>]
                 }
             ]
         };

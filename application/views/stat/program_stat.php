@@ -1,7 +1,6 @@
 <?php $this->load->view('admin/header');?>
 <script type="text/javascript" src="static/js/datepicker/WdatePicker.js"></script>
 <style type="text/css">
-    
     #date{background: url(static/js/datepicker/skin/datePicker.gif) no-repeat right;}
 </style>
 <script type="text/javascript">

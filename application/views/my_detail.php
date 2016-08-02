@@ -216,15 +216,15 @@
             </div>
         </div>
 
-        <div class="find_right" style="margin-top: -360px;">
+        <div class="find_right" style="position: absolute;top: 91px;left: 1020px;width: 280px;">
             <div class="down"><a href="./index.php?c=download&m=getApk"><img src="static/images/down.png" /></a></div>
             <div class="title">Ta的其他节目<a href="index.php?c=zhubo&mid=<?=$me_data['mid']?>">/更多</a></div>
-            <div class="radiolist">
+            <div class="radiolist" style="width: 280px;">
                 <?php foreach($other as $val) { ?>
-                    <dl>
+                    <dl style="width: 280px;">
                         <dt><a href="index.php?c=player&id=<?=$val['id']?>"><img src="<?php if(!empty($val['thumb'])){echo show_thumb( $val['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" /></a></dt>
-                        <dd>
-                            <h5><a href="index.php?c=player&id=<?=$val['id']?>" title="<?=$val['title']?>"><?=str_cut($val['title'],20)?></a></h5>
+                        <dd style="width: 190px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                            <h5><a href="index.php?c=player&id=<?=$val['id']?>"title="<?=$val['title']?>"><?=$val['title']?></a></h5>
                             <p>类别：<?=getProgramTypeName($val['type_id'])?></p>
                         </dd>
                     </dl>
@@ -235,10 +235,10 @@
             <div class="title">大家还在听<!--a href="#">/更多</a--></div>
             <div class="radiolist">
                 <?php foreach($listen as $val) { ?>
-                    <dl>
+                    <dl style="width: 280px;">
                         <dt><a href="index.php?c=player&id=<?=$val['id']?>"><img src="<?php if(!empty($val['thumb'])){echo show_thumb( $val['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" /></a></dt>
-                        <dd>
-                            <h5><a href="index.php?c=player&id=<?=$val['id']?>" title="<?=$val['title']?>"><?=str_cut($val['title'],25)?></a></h5>
+                        <dd style="width: 190px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                            <h5><a href="index.php?c=player&id=<?=$val['id']?>"title="<?=$val['title']?>"><?=$val['title']?></a></h5>
                             <p>类别：<?=getProgramTypeName($val['type_id'])?></p>
                         </dd>
                     </dl>

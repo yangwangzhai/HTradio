@@ -1439,17 +1439,19 @@ class program extends Api {
     //http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=get_news
     public function get_news(){
             $date=date("Ymd",time());
-            $url = "http://sports.qq.com/l/isocce/2016eurocup/list.htm";
+            //$url = "http://sports.qq.com/l/isocce/2016eurocup/list.htm";
+            $url = "http://sports.qq.com/l/others/aoyunhui/aoyunhui_news/list20151020102040.htm";
             $ch = curl_init();
             $timeout = 5;
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
             $contents = curl_exec($ch);
-
+            //echo $contents;
             //匹配新闻列表链接
             $patter='/<a .*?href="http:\/\/sports.qq.com\/a\/'.$date;
             $pat=$patter.'\/(.*?)".*?>/is';
+        //echo $pat;echo "<br>";
             /*$pat='/<a .*?href="http:\/\/sports.qq.com\/a\/20160625\/(.*?)".*?>/is';*/
             preg_match_all($pat, $contents, $arr);//匹配内容到arr数组
             curl_close($ch);
@@ -1485,12 +1487,16 @@ class program extends Api {
                     curl_setopt($ch3, CURLOPT_RETURNTRANSFER, 1);
                     curl_setopt($ch3, CURLOPT_CONNECTTIMEOUT, $timeout);
                     $contents_final = curl_exec($ch3);
+                    $f_title = '/<h1 class="title">.*?<\/h1>/ism';
+                    preg_match_all($f_title, $contents_final, $title_final);
+                    $title_temp=preg_replace('/<h1 class=\"title\">/si',"",$title_final[0][0]); //过滤html标签
+                    $title=preg_replace('/<\/h1>/si',"",$title_temp); //过滤html标签
 
                     $pat2='/<p class="split">.*?<\/p>/ism';
                     preg_match_all($pat2, $contents_final, $arr_final);//匹配内容到arr数组
-                    $title=trimall($arr_final[0][0]);
+                    /*$title=trimall($arr_final[0][0]);
                     $title=preg_replace('/<pclass=\"split\">/si',"",$title); //过滤html标签
-                    $title=preg_replace('/<\/p>/si',"",$title); //过滤html标签
+                    $title=preg_replace('/<\/p>/si',"",$title); //过滤html标签*/
                     $str='';
                     foreach($arr_final[0] as $value){
                         $str .=trimall($value); //删除空格和回车;
@@ -1501,8 +1507,9 @@ class program extends Api {
                     $insert['content']=$str;
                     $insert['url']=$con_link;
                     $insert['addtime']=time();
+                    $insert['status']=1;
                     if(!empty($insert['content'])&&!empty($insert['title'])){
-                        $insert_sql="INSERT INTO fm_eurocup (title, content,url, addtime) VALUES ('$insert[title]','$insert[content]','$insert[url]',$insert[addtime])";
+                        $insert_sql="INSERT INTO fm_eurocup (title, content,url, addtime,status) VALUES ('$insert[title]','$insert[content]','$insert[url]',$insert[addtime],$insert[status])";
                         $this->db->query($insert_sql);
                         echo "采集成功";
                     }
@@ -1847,14 +1854,16 @@ class program extends Api {
     }
 
     /**
-     *  接口说明：统计节目播放次数接口
+     *  接口说明：统计节目播放次数和完整播放次数接口
      *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=save_program_playtimes
      *   参数接收方式：post
      *  接收参数：
-     *  value：[{"id":1,"time":1470016324},{"id":2,"time":1470016622}]
+     *  value：[{"id":1158,"first_time":1470044046,"end_time":0,"is_finish":false},{"id":1159,"first_time":1470044048,"end_time":0,"is_finish":false}]
      *  其中
      *  id：节目ID
-     *  time：点击节目播放时的时间戳
+     *  first_time：用户点击节目时的时间
+     *  end_time：用户不再播放该节目时的时间
+     *  is_finish：用户完整播放该节目，true表示完整播放，false表示没有完整播放
      * 	返回参数：
      * 	code：返回码 0正确, 大于0 都是错误的
      * 	message：描述信息
@@ -1863,6 +1872,7 @@ class program extends Api {
     public function save_program_playtimes(){
         $data_json = $this->input->post("value");
         $data = json_decode($data_json,true);
+
         if(empty($data)){
             $result=array("code"=>1,"message"=>"参数传输错误","time"=>time());
             echo json_encode($result);
@@ -1877,15 +1887,25 @@ class program extends Api {
                     $query = $this->db->query("select count(*) as num from fm_program WHERE id=$id");
                     $num = $query->row_array();
                     if($num['num']){
-                        //先获取此前听完的次数
+                        //先获取此前收听的次数
                         $query = $this->db->query("select playtimes from fm_program WHERE id=$id");
                         $playtimes_before = $query->row_array();
                         $playtimes_current = $playtimes_before['playtimes']+1;
                         $this->db->query("update fm_program set playtimes=$playtimes_current WHERE id=$id");
                         //统计播放该节目的时间
-                        $insert['addtime'] = $value['time'] ? $value['time'] : time();
+                        $insert['addtime'] = $value['first_time'] ? $value['first_time'] : time();
                         $this->db->insert("fm_program_playtimes",$insert);
                         $insert_id = $this->db->insert_id();
+                        //统计节目是否完整播放
+                        if($value['is_finish']){
+                            //先获取此前听完的次数
+                            $query = $this->db->query("select play_over_times from fm_program WHERE id=$id");
+                            $play_over_times_before = $query->row_array();
+                            $play_over_times_current = $play_over_times_before['play_over_times']+1;
+                            $this->db->query("update fm_program set play_over_times=$play_over_times_current WHERE id=$id");
+                            //统计播放该节目的时间
+                            $this->db->insert("fm_program_playover",$insert);
+                        }
                         if($insert_id){
                             $check[] = $insert_id;
                         }
@@ -1944,7 +1964,7 @@ class program extends Api {
                         $playtimes_current = $playtimes_before['play_over_times']+1;
                         $this->db->query("update fm_program set play_over_times=$playtimes_current WHERE id=$id");
                         //统计播放该节目的时间
-                        $insert['addtime'] = $value['time'] ? $value['time'] : time();
+                        $insert['addtime'] = $value['first_time'] ? $value['first_time'] : time();
                         $this->db->insert("fm_program_playover",$insert);
                         $insert_id = $this->db->insert_id();
                         if($insert_id){
