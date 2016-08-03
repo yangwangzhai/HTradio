@@ -119,7 +119,7 @@
         });
     </script>
     <div class="main">
-        <div class="pro_details">
+        <div class="pro_details" style="height: 1000px;">
             <div class="details_top">
                 <div class="dleft"><img src="<?php if(!empty($me_data['thumb'])){echo show_thumb( $me_data['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" /></div>
                 <div class="dright">
@@ -202,21 +202,9 @@
             <?php } ?>
         </div>
 
-        <div class="pro_details" style="height: 500px;">
-            <!--header/begin-->
-            <div id="header" style="width: 800px;">
-                <h2 style="color: #6A6AFF;line-height: 46px; text-align: center;"><?=$list[0]['title']?></h2>
-            </div>
-            <!--header/end-->
-            <!--content/begin-->
-            <div id="content" style="width: 800px;">
-                <!--flowplayer代码开始-->
-                <a style="display: block; width: 800px; height: 500px;" id="flashls_vod"></a>
-                <!--flowplayer代码结束-->
-            </div>
-        </div>
 
-        <div class="find_right" style="position: absolute;top: 91px;left: 1020px;width: 280px;">
+
+        <div class="find_right" style="position: absolute;top: 91px;left: 70%;width: 280px;">
             <div class="down"><a href="./index.php?c=download&m=getApk"><img src="static/images/down.png" /></a></div>
             <div class="title">Ta的其他节目<a href="index.php?c=zhubo&mid=<?=$me_data['mid']?>">/更多</a></div>
             <div class="radiolist" style="width: 280px;">
@@ -248,90 +236,141 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        flowplayer("flashls_vod", "static/flowplayer/flowplayer.swf", {
+<div class="link">
+    <div class="link_title">友情链接</div>
+    <div class="link_con">
+        <?php
+        $this->db->order_by("id", "desc");
+        $query_top = $this->db->get_where('fm_link', array());
+        $list = $query_top->result_array();
+        foreach($list as $r){
+            ?>
+            <a href="<?=$r['url']?>"><?=$r['name']?></a>
+        <?php }?>
+    </div>
+</div>
+<div class="footer" style="height: 120px;">
+    <div class="fmain">
+        <div class="copyright">
+            <p>版权所有 2004-2014 未经广西人民广播电台 同意请勿转载</p>
+            <p> 信息网络传播视听节目许可证号:2005125　桂ICP备05004840</p>
+            <p> 广西网警备案号：45010302000046　互联网新闻信息服务备案许可证：4510020100001</p>
+            <p> Copyright © 2009-2014 GuangXi people's Broadcasting Station, All Rights Reserved </p>
+        </div>
+        <div class="about">
+            <div class="ftitle">&nbsp;&nbsp;关于我们</div>
+            <p><img src="static/images/about.png" usemap="#Map" border="0" />
+                <map name="Map" id="Map">
+                    <area shape="rect" coords="2,7,50,80" href="#" />
+                    <area shape="rect" coords="64,7,110,80" href="#" />
+                    <area shape="rect" coords="125,7,170,80" href="#" />
+                    <area shape="rect" coords="184,7,230,80" href="#" />
+                </map>
+            </p>
+        </div>
+        <!--<div class="service">
+             <div class="ftitle">客服中心</div>
+            <p>400-8888-910</p>
+          <div class="ftitle">客服邮箱</div>
+            <p>4008888910@nawaa.com</p>
+        </div>-->
+    </div>
+</div>
+<div id="play_box" style="display: none;width: 100%;height:50px;background-color: #aedaff;">
+    <!--<div style="width: 800px;">
+        <h6 style="color: #6A6AFF;line-height: 46px; text-align: center;">私家车上班路上<?/*=$list[0]['title']*/?></h6>
+    </div>-->
+    <!--flowplayer代码开始-->
+    <a style="display: block; margin: 0 auto; padding-top: 20px; width: 800px; height: 25px;" id="flashls_vod"></a>
+    <!--flowplayer代码结束-->
+</div>
+<script type="text/javascript">
+    flowplayer("flashls_vod", "static/flowplayer/flowplayer.swf", {
+        plugins: {
+            flashls: {
+                url: 'static/flowplayer/flashlsFlowPlayer.swf'
+            },
+            controls:{
+                autoHide: false,//功能条是否自动隐藏
+                backgroundColor: '#0a8ddf'
+            }
+        },
+        clip: {
+            url: "<?=$list[0]['path']?>",
+            live: true,
+            autoPlay: false,//关闭自动播放
+            urlResolvers: "flashls",
+            provider: "flashls"
+        },
+        onFinish: function() {
+            //统计播完率
+            var id = <?=$list[0]['id']?>;
+            $.ajax({
+                url: 'index.php?c=player&m=play_over',
+                type: 'post',
+                dataType:'json',
+                data: {id:id},
+                success:function(data) {
+                    //alert(data);
+                }
+            });
+        }
+
+    }).ipad();
+
+    $(".playmenu").click(function(){
+        $("#play_box").show();
+        var id="flashls_vod";
+        var url=$(this).attr("data-url");
+        var pid=$(this).attr("data-id");
+        $.ajax({
+            url: 'index.php?c=index&m=playtimes',
+            type: 'post',
+            dataType:'json',
+            data: {pid:pid},
+            success:function(data) {
+                //alert(data);
+            }
+        });
+        fplayer(id,url,pid);
+        var title=$(this).attr("data-title");
+        $("#header h2").text(title);
+    });
+
+    function fplayer(id,url,pid){
+        flowplayer(id, "static/flowplayer/flowplayer.swf", {
+            // configure the required plugins
             plugins: {
                 flashls: {
                     url: 'static/flowplayer/flashlsFlowPlayer.swf'
                 },
                 controls:{
-                    autoHide: false//功能条是否自动隐藏
+                    autoHide: false ,//功能条是否自动隐藏
+                    backgroundColor: '#0a8ddf'
                 }
             },
             clip: {
-                url: "<?=$list[0]['path']?>",
+                url: url,
                 live: true,
-                autoPlay: false,//关闭自动播放
                 urlResolvers: "flashls",
                 provider: "flashls"
             },
             onFinish: function() {
                 //统计播完率
-                var id = <?=$list[0]['id']?>;
                 $.ajax({
                     url: 'index.php?c=player&m=play_over',
                     type: 'post',
                     dataType:'json',
-                    data: {id:id},
+                    data: {id:pid},
                     success:function(data) {
-                        alert(data);
+                        //alert(data);
                     }
                 });
             }
 
         }).ipad();
+    }
 
-        $(".playmenu").click(function(){
-            var id="flashls_vod";
-            var url=$(this).attr("data-url");
-            var pid=$(this).attr("data-id");
-            $.ajax({
-                url: 'index.php?c=index&m=playtimes',
-                type: 'post',
-                dataType:'json',
-                data: {pid:pid},
-                success:function(data) {
-                    //alert(data);
-                }
-            });
-            fplayer(id,url,pid);
-            var title=$(this).attr("data-title");
-            $("#header h2").text(title);
-        });
-
-        function fplayer(id,url,pid){
-            flowplayer(id, "static/flowplayer/flowplayer.swf", {
-                // configure the required plugins
-                plugins: {
-                    flashls: {
-                        url: 'static/flowplayer/flashlsFlowPlayer.swf'
-                    },
-                    controls:{
-                        autoHide: false //功能条是否自动隐藏
-                    }
-                },
-                clip: {
-                    url: url,
-                    live: true,
-                    urlResolvers: "flashls",
-                    provider: "flashls"
-                },
-                onFinish: function() {
-                    //统计播完率
-                    $.ajax({
-                        url: 'index.php?c=player&m=play_over',
-                        type: 'post',
-                        dataType:'json',
-                        data: {id:pid},
-                        success:function(data) {
-                            //alert(data);
-                        }
-                    });
-                }
-
-            }).ipad();
-        }
-
-    </script>
-
-<?php $this->load->view('footer');?>
+</script>
+</body>
+</html>

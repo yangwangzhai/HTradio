@@ -458,14 +458,39 @@ class program extends Content
                 if (!empty($detail)) {
                     $insert['path'] = $detail['content_detail']['play_url']['stream'][0]['streamURL'];
                     $insert['download_path'] = $detail['content_detail']['play_url']['stream'][0]['downLoadUrl'];
-                }
-                //检查是否已经存在该条记录，防止重复插入
-                $num = $this->content_model->db_counts("fm_program","path='$insert[path]'");
-                if($num){
-                    continue;
-                }else{
-                    //插入数据库
-                    $res = $this->content_model->db_insert_table("fm_program", $insert);
+                    //检查是否已经存在该条记录，防止重复插入
+                    $num = $this->content_model->db_counts("fm_program","path='$insert[path]'");
+                    if($num){
+                        continue;
+                    }else{
+                        //插入数据库
+                        $res = $this->content_model->db_insert_table("fm_program", $insert);
+                        if($res){
+                            $title = substr($res_value['title'],0,strrpos($res_value['title'],'_'));//去掉后面的时间
+                            //查看fm_programme是否有以$title命名的节目单
+                            $p_id = $this->content_model->get_column2("id","fm_programme","title='$title'");
+                            if($p_id['id']){
+                                $p_insert['programme_id'] = $p_id['id'];
+                                $p_insert['type_id'] = 1;
+                                $p_insert['program_id'] = $res;
+                                $this->content_model->db_insert_table("fm_programme_list", $p_insert);
+                            }else{
+                                $me_insert['status'] = 0;
+                                $me_insert['vbd_type'] = 0;
+                                $me_insert['publish_flag'] = 1;
+                                $me_insert['title'] = $title;
+                                $me_insert['mid'] = 0;
+                                $me_insert['uid'] = $this->uid;
+                                $programme_id = $this->content_model->db_insert_table("fm_programme", $me_insert);
+                                if($programme_id){
+                                    $p_insert['programme_id'] = $programme_id;
+                                    $p_insert['type_id'] = 1;
+                                    $p_insert['program_id'] = $res;
+                                    $this->content_model->db_insert_table("fm_programme_list", $p_insert);
+                                }
+                            }
+                        }
+                    }
                 }
             }
             if($res){
@@ -474,6 +499,8 @@ class program extends Content
                 $insert_record['collect_num'] = $collect_num;
                 $insert_record['addtime'] = time();
                 $this->content_model->db_insert_table("fm_collect_record", $insert_record);
+                show_msg('采集成功！', 'index.php?d=admin&c=program&m=collect_program_view');
+            }else{
                 show_msg('采集成功！', 'index.php?d=admin&c=program&m=collect_program_view');
             }
 
