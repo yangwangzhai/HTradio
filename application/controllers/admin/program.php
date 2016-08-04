@@ -481,6 +481,7 @@ class program extends Content
                                 $me_insert['title'] = $title;
                                 $me_insert['mid'] = 0;
                                 $me_insert['uid'] = $this->uid;
+                                $me_insert['addtime'] = time();
                                 $programme_id = $this->content_model->db_insert_table("fm_programme", $me_insert);
                                 if($programme_id){
                                     $p_insert['programme_id'] = $programme_id;

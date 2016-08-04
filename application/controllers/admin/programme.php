@@ -56,8 +56,14 @@ class programme extends Content
         $config['per_page'] = 20;
         $this->pagination->initialize($config);
         $data['pages'] = $this->pagination->create_links();
+        echo "<pre>";
+        echo "00";
+        print_r($data);
+        echo "<pre/>";
+        exit;
         $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
         $per_page = $config['per_page'];
+
         $sql = "SELECT * FROM $this->table WHERE  $searchsql AND status=0 ORDER BY id DESC limit $offset,$per_page";
         $query = $this->db->query($sql);
         $data['list'] = $query->result_array();
@@ -305,11 +311,35 @@ class programme extends Content
         }
     }
 
-
+    //是否发布
     public function set_status(){
         $publish_flag = $this->input->post("publish_flag");
         $id = $this->input->post("id");
         $sql = "update fm_programme set publish_flag=$publish_flag WHERE id=$id";
+        $this->db->query($sql);
+        $result = $this->db->affected_rows();
+        if($result){
+            echo json_encode(1);
+        }
+    }
+
+    //是否置顶（作幻灯片）
+    public function show_homepage(){
+        $show_homepage = $this->input->post("show_homepage");
+        $id = $this->input->post("id");
+        $sql = "update fm_programme set show_homepage=$show_homepage WHERE id=$id";
+        $this->db->query($sql);
+        $result = $this->db->affected_rows();
+        if($result){
+            echo json_encode(1);
+        }
+    }
+
+    //是否推荐
+    public function hot(){
+        $hot = $this->input->post("hot");
+        $id = $this->input->post("id");
+        $sql = "update fm_programme set hot=$hot WHERE id=$id";
         $this->db->query($sql);
         $result = $this->db->affected_rows();
         if($result){

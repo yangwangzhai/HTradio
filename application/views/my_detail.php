@@ -181,7 +181,13 @@
                     </ul>
                 </div>
 
-                <div class="page-navigator" style="display:none;">
+                <div class="pagin">
+                    <div class="message">共<i class="blue"><?=$count?></i>条记录</div>
+                    <ul class="paginList">
+                        <li><?=$pages?></li>
+                    </ul>
+                </div>
+                <!--<div class="page-navigator">
                     <div class="page-cont">
                         <div class="page-inner">
                             <span class="page-item page-navigator-prev-disable">上一页</span>
@@ -198,7 +204,7 @@
                             <a href="#" class="page-item page-navigator-next">下一页</a>
                         </div>
                     </div>
-                </div>
+                </div>-->
             <?php } ?>
         </div>
 
@@ -206,13 +212,13 @@
 
         <div class="find_right" style="position: absolute;top: 91px;left: 70%;width: 280px;">
             <div class="down"><a href="./index.php?c=download&m=getApk"><img src="static/images/down.png" /></a></div>
-            <div class="title">Ta的其他节目<a href="index.php?c=zhubo&mid=<?=$me_data['mid']?>">/更多</a></div>
+            <div class="title">Ta的其他节目单<a href="index.php?c=zhubo&mid=<?=$me_data['mid']?>">/更多</a></div>
             <div class="radiolist" style="width: 280px;">
                 <?php foreach($other as $val) { ?>
                     <dl style="width: 280px;">
-                        <dt><a href="index.php?c=player&id=<?=$val['id']?>"><img src="<?php if(!empty($val['thumb'])){echo show_thumb( $val['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" /></a></dt>
+                        <dt><a href="index.php?c=player&meid=<?=$val['id']?>"><img src="<?php if(!empty($val['thumb'])){echo show_thumb( $val['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" /></a></dt>
                         <dd style="width: 190px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-                            <h5><a href="index.php?c=player&id=<?=$val['id']?>"title="<?=$val['title']?>"><?=$val['title']?></a></h5>
+                            <h5><a href="index.php?c=player&meid=<?=$val['id']?>"title="<?=$val['title']?>"><?=$val['title']?></a></h5>
                             <p>类别：<?=getProgramTypeName($val['type_id'])?></p>
                         </dd>
                     </dl>
@@ -220,7 +226,7 @@
 
             </div>
 
-            <div class="title">大家还在听<!--a href="#">/更多</a--></div>
+            <div class="title">大家还在听的节目<!--a href="#">/更多</a--></div>
             <div class="radiolist">
                 <?php foreach($listen as $val) { ?>
                     <dl style="width: 280px;">

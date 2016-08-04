@@ -7,7 +7,7 @@
     <div id="D1pic1" class="fPic">  
     <?php foreach($top_list as $r){?>
         <div class="fcon" style="display: none;">
-            <a target="_blank" href="index.php?c=player&id=<?=$r['id']?>"><img src="<?php if(!empty($r['thumb'])){echo show_thumb( $r['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" style="opacity: 1; "></a>
+            <a target="_blank" href="index.php?c=player&meid=<?=$r['id']?>"><img src="<?php if(!empty($r['thumb'])){echo show_thumb( $r['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" style="opacity: 1; "></a>
             <span class="shadow"><a target="_blank" href="#<?=$r['id']?>"><?=$r['title']?></a></span>
         </div>
     <?php }?>    
@@ -57,16 +57,16 @@
                 <?php foreach($hot_list as $r){?>
                     <dl>
                       <dt>
-                          <a href="index.php?c=player&id=<?=$r['id']?>">
+                          <a href="index.php?c=player&meid=<?=$r['id']?>">
                               <div class="shade">
                                   <div class="ear"><?=$r['playtimes']?></div>
                                   <div class="play1"><img src="static/images/play1.png" /></div>
                               </div>
-                              <img src="<?php if(!empty($r['thumb'])){echo show_thumb( $r['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" />
+                              <img src="<?php if(!empty($r['thumb'])){echo show_thumb( $r['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" />
                           </a>
                       </dt>
                       <dd>
-                        <h3><a href="index.php?c=player&id=<?=$r['id']?>" title="<?=$r['title']?>"><?=str_cut($r['title'],45)?></a></h3>
+                        <h3><a href="index.php?c=player&meid=<?=$r['id']?>" title="<?=$r['title']?>"><?=str_cut($r['title'],45)?></a></h3>
                         <p><a target="_blank"  href="./index.php?c=zhubo&mid=<?=$r['mid']?>"><?=getNickName($r['mid'])?></a></p>
                       </dd>
                     </dl>
@@ -89,14 +89,14 @@
                     <div class="find_pic">
                     <?php foreach($r['program_list'] as $p){?>
                         <dl>
-                          <dt><a href="index.php?c=player&id=<?=$p['id']?>">
+                          <dt><a href="index.php?c=player&meid=<?=$p['id']?>">
                           <div class="shade">
                           <div class="ear"><?=$p['playtimes']?></div>
                           <div class="play1"><img src="static/images/play1.png" /></div></div>
-                          <img src="<?php if(!empty($p['thumb'])){echo show_thumb( $p['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu.jpg";}?>" />
+                          <img src="<?php if(!empty($p['thumb'])){echo show_thumb( $p['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" />
                           </a></dt>
                           <dd>
-                            <h3><a href="index.php?c=player&id=<?=$p['id']?>" title="<?=$p['title']?>"><?=str_cut($p['title'],45)?></a></h3>
+                            <h3><a href="index.php?c=player&meid=<?=$p['id']?>" title="<?=$p['title']?>"><?=str_cut($p['title'],45)?></a></h3>
                             <p><a  target="_blank"  href="./index.php?c=zhubo&mid=<?=$p['mid']?>"><?=getNickName($p['mid'])?></a></p>
                           </dd>
                         </dl>

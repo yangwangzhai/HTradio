@@ -1,7 +1,8 @@
 <?php
 if (! defined('BASEPATH'))
     exit('No direct script access allowed');
-    
+
+
 class Player extends CI_Controller
 {
 	 function __construct ()
@@ -29,10 +30,24 @@ class Player extends CI_Controller
         }
         
         if($me_id) {
-            $sql = "SELECT title,mid,intro,thumb,program_ids,addtime,playtimes FROM fm_programme WHERE id=$me_id";
+            //分页
+            $query = $this->db->query("SELECT COUNT(*) AS num FROM fm_program a LEFT JOIN  fm_programme_list b ON a.id =b.program_id WHERE b.type_id=1 AND b.programme_id=$me_id;");
+            $count = $query->row_array();
+            $data['count'] = $count['num'];
+            $this->load->library('pagination');
+
+            $config['total_rows'] = $count['num'];
+            $config['per_page'] = 10;
+            $config['base_url'] = 'http://example.com/index.php/test/page/';
+            $this->pagination->initialize($config,true);
+            $data['pages'] = $this->pagination->create_links();
+            $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
+            $per_page = $config['per_page'];
+
+            $sql = "SELECT title,mid,uid,intro,thumb,program_ids,addtime,playtimes FROM fm_programme WHERE id=$me_id";
             $query = $this->db->query($sql);
             $data['me_data'] = $me_data = $query->row_array();
-            $sql = "SELECT a.id,title,path,download_path,playtimes,ADDTIME,program_time FROM fm_program a LEFT JOIN  fm_programme_list b ON a.id =b.program_id WHERE b.type_id=1 AND b.programme_id=$me_id;";
+            $sql = "SELECT a.id,title,path,download_path,playtimes,ADDTIME,program_time FROM fm_program a LEFT JOIN  fm_programme_list b ON a.id =b.program_id WHERE b.type_id=1 AND b.programme_id=$me_id limit $offset,$per_page";
             $query = $this->db->query($sql);
             $data['list'] = $query->result_array();
             //获取标签
@@ -41,8 +56,13 @@ class Player extends CI_Controller
         }
 
         //TA的其他节目
-        $mid = $data['me_data']['mid'];
-        $sql = "SELECT id,title,thumb,type_id FROM fm_program WHERE mid = $mid ORDER BY playtimes DESC limit 4";
+        if($data['me_data']['mid']){
+            $mid = $data['me_data']['mid'];
+            $sql = "SELECT id,title,thumb,type_id FROM fm_programme WHERE mid = $mid ORDER BY playtimes DESC limit 4";
+        }else{
+            $uid = $data['me_data']['uid'];
+            $sql = "SELECT id,title,thumb,type_id FROM fm_programme WHERE uid = $uid ORDER BY playtimes DESC limit 4";
+        }
         $query = $this->db->query($sql);
         $data['other'] = $query->result_array();
 
@@ -68,6 +88,7 @@ class Player extends CI_Controller
             $insert['programme_id'] = $me_id;
             $insert['addtime'] = time();
             $this->db->insert("fm_programme_playtimes",$insert);
+
             $this->load->view('my_detail',$data);
         }
 

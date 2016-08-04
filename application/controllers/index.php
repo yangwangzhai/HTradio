@@ -37,8 +37,69 @@ class Index extends Common
         $this->load->view('index',$data);
     }    
     
-	
 	public function find(){
+        $uid = $this->session->userdata('uid');
+
+        //幻灯图片
+        $data['top_list'] = $this->content_model->get_column("*","fm_programme","status=0 AND publish_flag=1 AND show_homepage=1 ORDER BY playtimes desc limit 0,3");
+
+        //推荐的节目单
+        $data['hot_list'] = $this->content_model->get_column("*","fm_programme","status=0 AND publish_flag=1 AND show_homepage!=1 AND hot=1 ORDER BY playtimes desc limit 0,3");
+
+        //类型排行
+        $this->db->order_by("sort", "desc");
+        $query_type = $this->db->get_where('fm_program_type', array('pid' => 0),10);
+        $data['type_list'] = $query_type->result_array();
+
+        foreach($data['type_list'] as &$row){
+            //类型子类
+            $this->db->order_by("sort", "desc");
+            $query_child = $this->db->get_where('fm_program_type', array('pid' => $row['id']),6);
+            $row['type_child'] =  $query_child->result_array();
+
+            //节目
+            $typeid = $row['id'];
+            $order_by = " order by playtimes desc,addtime desc limit 3";
+            $nothot = " show_homepage !=1 AND hot !=1 ";
+            $sql ="SELECT * FROM `fm_programme`  WHERE ( $nothot AND status=0 AND type_id = $typeid ) OR ( $nothot AND status=0 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )".$order_by;
+            $query = $this->db->query($sql);
+            $row['program_list'] = $query->result_array();
+
+        }
+
+        //热门电台
+        $query = $this->db->get_where('fm_member', array('status' => 1,'catid'=>3),4);
+        $data['radio_list'] = $query->result_array();
+        foreach($data['radio_list'] as &$row){
+            $row['is_attention'] = is_attention($uid,$row['id']);
+        }
+
+        //明星主播
+        $this->db->where('groupname !=', '');
+        $query = $this->db->get_where('fm_member', array('status' => 1,'catid'=>2),6);
+        $data['zhubo_list'] = $query->result_array();
+        foreach($data['zhubo_list'] as &$row){
+            $row['is_attention'] = is_attention($uid,$row['id']);
+            $row['avatar'] = new_thumbname($row['avatar'],100,100);
+        }
+
+        //新晋榜
+        $data['new_top_list'] = $this->newTopList();
+
+        //热播榜
+        $data['hot_top_list'] = $this->hotTopList();
+
+        //人气排行榜
+        $data['popularity_list'] = $this->popularityList();
+
+        $data['uname'] = $this->session->userdata('uname');
+        $data['uid'] = $this->session->userdata('uid');
+
+        $this->load->view('find',$data);
+    }
+
+
+	public function find_old(){
 
 		/*$id=2045;
 		$data['path']=$this->content_model->get_column2("path","fm_program","id=$id");

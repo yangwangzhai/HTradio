@@ -114,8 +114,91 @@
                         }
                     });
                 }
-            })
+            });
 
+            $(".show_homepage").click(function(){
+                $(".show_homepage").removeClass("activ_show_homepage");
+                $(this).addClass("activ_show_homepage");
+                var val = $(this).text();
+                var id = $(this).attr("data-id");
+                if(val=='已置顶'){
+                    var show_homepage = 0;
+                    $.ajax({
+                        url: "index.php?d=admin&c=programme&m=show_homepage",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{show_homepage:show_homepage,id:id},  //要传递的数据
+                        success:function(data){
+                            //alert(data)
+                            $(".activ_show_homepage").text('未置顶');
+                            $(".activ_show_homepage").css("color","red");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }else{
+                    var show_homepage = 1;
+                    $.ajax({
+                        url: "index.php?d=admin&c=programme&m=show_homepage",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{show_homepage:show_homepage,id:id},  //要传递的数据
+                        success:function(data){
+                            //alert(data)
+                            $(".activ_show_homepage").text('已置顶');
+                            $(".activ_show_homepage").css("color","");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }
+            });
+
+            $(".hot").click(function(){
+                $(".hot").removeClass("activ_hot");
+                $(this).addClass("activ_hot");
+                var val = $(this).text();
+                var id = $(this).attr("data-id");
+                if(val=='已推荐'){
+                    var hot = 0;
+                    $.ajax({
+                        url: "index.php?d=admin&c=programme&m=hot",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{hot:hot,id:id},  //要传递的数据
+                        success:function(data){
+                            //alert(data)
+                            $(".activ_hot").text('未推荐');
+                            $(".activ_hot").css("color","red");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }else{
+                    var hot = 1;
+                    $.ajax({
+                        url: "index.php?d=admin&c=programme&m=hot",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{hot:hot,id:id},  //要传递的数据
+                        success:function(data){
+                            //alert(data)
+                            $(".activ_hot").text('已推荐');
+                            $(".activ_hot").css("color","");
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }
+            })
 
 
         });
@@ -225,6 +308,10 @@
                 <td><?=times($r['addtime'],1)?></td>
                 <td>
                     <a href="javascript:void(0)" class="push" data-id="<?=$r['id']?>" style="text-decoration: none;<?php if($r['publish_flag']==0){echo 'color:red;';}?>"><?php if($r['publish_flag']==0){echo '未发布';}else{echo '已发布';}?></a>
+                    &nbsp;&nbsp;
+                    <a href="javascript:void(0)" class="show_homepage" data-id="<?=$r['id']?>" style="text-decoration: none;<?php if($r['show_homepage']==0){echo 'color:red;';}?>"><?php if($r['show_homepage']==0){echo '未置顶';}else{echo '已置顶';}?></a>
+                    &nbsp;&nbsp;
+                    <a href="javascript:void(0)" class="hot" data-id="<?=$r['id']?>" style="text-decoration: none;<?php if($r['hot']==0){echo 'color:red;';}?>"><?php if($r['hot']==0){echo '未推荐';}else{echo '已推荐';}?></a>
                     &nbsp;&nbsp;
                     <?php if(checkAccess('programme_edit')){?>
                         <a href="<?=$this->baseurl?>&m=edit&id=<?=$r['id']?>">修改</a>
