@@ -37,8 +37,8 @@ class Player extends CI_Controller
             $this->load->library('pagination');
 
             $config['total_rows'] = $count['num'];
-            $config['per_page'] = 10;
-            $config['base_url'] = 'http://example.com/index.php/test/page/';
+            $config['per_page'] = 15;
+            $config['base_url'] = "index.php?c=player&m=index&meid=$me_id";
             $this->pagination->initialize($config,true);
             $data['pages'] = $this->pagination->create_links();
             $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;

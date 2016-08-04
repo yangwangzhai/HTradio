@@ -181,30 +181,20 @@
                     </ul>
                 </div>
 
-                <div class="pagin">
-                    <div class="message">共<i class="blue"><?=$count?></i>条记录</div>
+                <!--<div class="pagin">
+                    <div class="message">共<i class="blue"><?/*=$count*/?></i>条记录</div>
                     <ul class="paginList">
-                        <li><?=$pages?></li>
+                        <li><?/*=$pages*/?></li>
                     </ul>
-                </div>
-                <!--<div class="page-navigator">
+                </div>-->
+                <div class="page-navigator">
                     <div class="page-cont">
                         <div class="page-inner">
-                            <span class="page-item page-navigator-prev-disable">上一页</span>
-                            <span class="page-item page-navigator-current">1</span><a href="#" class="page-item">2</a>
-                            <a href="#" class="page-item">3</a>
-                            <a href="#" class="page-item">4</a>
-                            <a href="#" class="page-item">5</a>
-                            <a href="#" class="page-item">6</a>
-                            <a href="#" class="page-item">7</a>
-                            <a href="#" class="page-item">8</a>
-                            <a href="#" class="page-item">9</a>
-                            <span class="page-navigator-dots">...</span>
-                            <a class="page-item page-navigator-number PNNW-D" href="#">550</a>
-                            <a href="#" class="page-item page-navigator-next">下一页</a>
+                            <span style="font-size: 14px;">共<?=$count?>条记录</span>
+                            <span style="display: inline-block;float: right;margin-right: 15px;font-size: 14px;"><?=$pages?></span>
                         </div>
                     </div>
-                </div>-->
+                </div>
             <?php } ?>
         </div>
 

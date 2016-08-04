@@ -56,11 +56,7 @@ class programme extends Content
         $config['per_page'] = 20;
         $this->pagination->initialize($config);
         $data['pages'] = $this->pagination->create_links();
-        echo "<pre>";
-        echo "00";
-        print_r($data);
-        echo "<pre/>";
-        exit;
+
         $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
         $per_page = $config['per_page'];
 
