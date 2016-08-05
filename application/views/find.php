@@ -7,7 +7,7 @@
     <div id="D1pic1" class="fPic">  
     <?php foreach($top_list as $r){?>
         <div class="fcon" style="display: none;">
-            <a target="_blank" href="index.php?c=player&meid=<?=$r['id']?>"><img src="<?php if(!empty($r['thumb'])){echo show_thumb( $r['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" style="opacity: 1; "></a>
+            <a target="_blank" href="index.php?c=player&meid=<?=$r['id']?>"><img src="<?php if(!empty($r['thumb'])){echo show_thumb( $r['thumb'] );}else{echo base_url()."uploads/default_images/default_lunbo.jpg";}?>" style="opacity: 1; "></a>
             <span class="shadow"><a target="_blank" href="#<?=$r['id']?>"><?=$r['title']?></a></span>
         </div>
     <?php }?>    
@@ -15,9 +15,7 @@
     <div class="fbg">  
     <div class="D1fBt" id="D1fBt">  
     <?php foreach($top_list as $k=>$r){ $k++;?>
-    	
-        <a href="javascript:void(0)" hidefocus="true" target="_self" class="<?php if ($k==1){echo "current";} ?>"><i><?=$k?></i></a>  
-     
+        <a href="javascript:void(0)" hidefocus="true" target="_self" class="<?php if ($k==1){echo "current";} ?>"><i><?=$k?></i></a>
     <?php }?>    
     </div>  
     </div>  

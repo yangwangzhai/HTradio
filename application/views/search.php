@@ -65,7 +65,7 @@ $(".details_list ul li").mouseout(function(){
             <div class="find_title">
         		<div class="name">节目</div>
         		<div class="coutit">
-	        		<a href="">总共找到<?=count($program_list)?>个有关 <em><?=$keyword?></em> 的节目单</a>
+	        		<a href="">总共找到<?=count($program_list)?>个有关 <em><?=$keyword?></em> 的节目</a>
 	        	</div>
         	</div>
 	       	<div class="details_list">
@@ -113,7 +113,7 @@ $(".details_list ul li").mouseout(function(){
                              <?php if (is_attention($uid,$r['id'])){ ?>
                 <a href="javascript:" onclick="attention_program(<?=$r['id']?>)" style="color:#ff6600;background-image:url(static/images/is_cross.png);" data-attention="1" id="programid<?=$r['id']?>" class="atten">已关注</a>
                 <?php }else{  ?>
-                <a href="javascript:" onclick="attention_program(<?=$r['id']?>)" data-attention="0" id="programid<?=$r['id']?>" class="atten">关注</a>
+                <a href="javascript:" onclick="attention(<?=$r['id']?>)" data-attention="0" id="programid<?=$r['id']?>" class="atten">关注</a>
                 <?php }?>
                             <a href="javascript:" onclick="message_dialog(<?=$r['id']?>,'<?=getNickName($r['id'])?>')" class="letter">私信</a>
                         </div>

@@ -1440,7 +1440,8 @@ class program extends Api {
     public function get_news(){
             $date=date("Ymd",time());
             //$url = "http://sports.qq.com/l/isocce/2016eurocup/list.htm";
-            $url = "http://sports.qq.com/l/others/aoyunhui/aoyunhui_news/list20151020102040.htm";
+            //$url = "http://sports.qq.com/l/others/aoyunhui/aoyunhui_news/list20151020102040.htm";
+            $url = "http://2016.qq.com/l/news.htm";
             $ch = curl_init();
             $timeout = 5;
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -1449,17 +1450,17 @@ class program extends Api {
             $contents = curl_exec($ch);
             //echo $contents;
             //匹配新闻列表链接
-            $patter='/<a .*?href="http:\/\/sports.qq.com\/a\/'.$date;
+            //$patter='/<a .*?href="http:\/\/sports.qq.com\/a\/'.$date;
+            $patter='/<a .*?href="http:\/\/2016.qq.com\/a\/'.$date;
             $pat=$patter.'\/(.*?)".*?>/is';
         //echo $pat;echo "<br>";
             /*$pat='/<a .*?href="http:\/\/sports.qq.com\/a\/20160625\/(.*?)".*?>/is';*/
             preg_match_all($pat, $contents, $arr);//匹配内容到arr数组
             curl_close($ch);
-
-            for($i=4;$i>=0;$i--){
+            for($i=9;$i>=0;$i--){
                 echo $i;echo "<br>";
                 //选择获取第几条链接。
-                $con_url="http://sports.qq.com/a/"."$date/".$arr[1][$i];
+                $con_url="http://2016.qq.com/a/"."$date/".$arr[1][$i];
                 //echo $con_url;
                 $ch2 = curl_init();
                 $timeout = 5;

@@ -13,7 +13,6 @@ class Player extends CI_Controller
     // 首页
     public function index ()
     {
-
     	$data['id'] = $id = intval($_GET['id']);
         $data['meid'] = $me_id = intval($_GET['meid']);
         if(!$id && !$me_id){
@@ -88,6 +87,16 @@ class Player extends CI_Controller
             $insert['programme_id'] = $me_id;
             $insert['addtime'] = time();
             $this->db->insert("fm_programme_playtimes",$insert);
+            //判断该用户是否是此节目单的作者
+            $uid = $this->session->userdata('uid'); //当前登陆的用户ID
+            //查找此节目单的作者
+            $mid_query = $this->db->query("select mid from fm_programme WHERE id=$me_id");
+            $mid = $mid_query->row_array();
+            if($uid==$mid['mid']){
+                $data['is_owner'] = 1;
+            }else{
+                $data['is_owner'] = 0;
+            }
 
             $this->load->view('my_detail',$data);
         }
@@ -98,7 +107,7 @@ class Player extends CI_Controller
     public function edit ()
     {
         $id = intval($_GET['id']);
-
+        
         // 这条信息
         $query = $this->db->get_where("fm_programme", 'id = ' . $id, 1);
         $value = $query->row_array();

@@ -115,6 +115,11 @@
                 var meid = $(this).attr("data-meid");
                 location.href="index.php?c=player&m=download&download_path="+download_path+"&title="+title+"&meid="+meid;
             })
+            //跳转到具体节目详情页
+            $(".program_detail").on("click",function(){
+                var id = $(this).attr("data-id");
+                location.href="index.php?c=player&m=index&id="+id;
+            })
 
         });
     </script>
@@ -123,7 +128,10 @@
             <div class="details_top">
                 <div class="dleft"><img src="<?php if(!empty($me_data['thumb'])){echo show_thumb( $me_data['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" /></div>
                 <div class="dright">
-                    <h1><a href="index.php?c=player&m=edit&id=<?=$meid?>" title="点击可进行编辑" target="_blank" ><?=$me_data['title']?></a></h1>
+                    <!--不是本人不可编辑，只能查看，播放-->
+                    <h1>
+                        <a href="<?php if($is_owner){echo 'index.php?c=player&m=edit&id='.$meid;}else{echo 'javascript:void(0);';} ?>" title="<?php if($is_owner){echo '点击可进行编辑';}else{echo '不是本人不可编辑';} ?>" target="_blank" ><?=$me_data['title']?></a>
+                    </h1>
                     <p>主播：<?=getNickName($me_data['mid'])?></p>
                     <p>最后更新: <?=date('Y-m-d',$me_data['addtime'])?></p>
                     <p style=" padding:10px 0;margin-bottom: 50px;"><a style="text-decoration: none;" href="javascript:void(0);" id="sss" class="dbtn">播放次数：<?=$me_data['playtimes']+1?></a><!--<span><?/*=$me_data['playtimes']+1*/?></span>次播放--></p>
@@ -162,7 +170,7 @@
                 <div id="jp-playlist" class="details_list">
                     <ul>
                     <?php foreach($list as $key=>$val) { ?>
-                        <li>
+                        <li style="padding-left: 0;">
                             <span>
                                 <!--<a data-meid="<?/*=$meid*/?>" data-id="<?/*=$val['id']*/?>" href="javascript:void(0);" class="c"></a>-->
                                 <!--<a data-meid="<?/*=$meid*/?>" data-id="<?/*=$val['id']*/?>" href="javascript:void(0);" class="d"></a>-->
@@ -175,7 +183,8 @@
                                 <strong><?=$val['playtimes']?>次播放</strong>
                                 <strong><?=date('Y-m-d',$val['addtime'])?></strong>
                             </em>
-                            <b class="playmenu" data-id="<?=$val['id']?>" data-title="<?=$val['title']?>" data-thumb="<?=$val['thumb']?>" data-url="<?=$val['path']?>"><?=$val['title']?></b>
+                            <img class="playmenu" data-id="<?=$val['id']?>" data-title="<?=$val['title']?>" data-thumb="<?=$val['thumb']?>" data-url="<?=$val['path']?>" data-flag="0" src="static/images/playbox.png" style="display: inline-block;padding-right: 5px; position: relative; top: 3px;">
+                            <b class="program_detail" data-id="<?=$val['id']?>"><?=$val['title']?></b>
                         </li>
                         <?php }?>
                     </ul>
@@ -281,7 +290,7 @@
     <!--flowplayer代码结束-->
 </div>
 <script type="text/javascript">
-    flowplayer("flashls_vod", "static/flowplayer/flowplayer.swf", {
+/*    flowplayer("flashls_vod", "static/flowplayer/flowplayer.swf", {
         plugins: {
             flashls: {
                 url: 'static/flowplayer/flashlsFlowPlayer.swf'
@@ -312,25 +321,63 @@
             });
         }
 
-    }).ipad();
+    }).ipad();*/
 
     $(".playmenu").click(function(){
         $("#play_box").show();
         var id="flashls_vod";
         var url=$(this).attr("data-url");
         var pid=$(this).attr("data-id");
-        $.ajax({
-            url: 'index.php?c=index&m=playtimes',
-            type: 'post',
-            dataType:'json',
-            data: {pid:pid},
-            success:function(data) {
-                //alert(data);
-            }
-        });
-        fplayer(id,url,pid);
-        var title=$(this).attr("data-title");
-        $("#header h2").text(title);
+        var flag=$(this).attr("data-flag");
+        if(flag==0){
+            $.ajax({
+                url: 'index.php?c=index&m=playtimes',
+                type: 'post',
+                dataType:'json',
+                data: {pid:pid},
+                success:function(data) {
+                    //alert(data);
+                }
+            });
+            fplayer(id,url,pid);
+            var title=$(this).attr("data-title");
+            $("#header h2").text(title);
+            $(".playmenu").attr("src","static/images/playbox.png");
+            $(this).attr("src","static/images/pause.png");
+            $(this).attr("data-flag","1");
+        }else{
+            flowplayer(id, "static/flowplayer/flowplayer.swf", {
+                // configure the required plugins
+                plugins: {
+                    flashls: {
+                        url: 'static/flowplayer/flashlsFlowPlayer.swf'
+                    },
+                    controls:{
+                        autoHide: false, //功能条是否自动隐藏
+                        tooltips: {
+                            buttons: true,//是否显示
+                            fullscreen: '全屏',//全屏按钮，鼠标指上时显示的文本
+                            stop:'停止',
+                            play:'开始',
+                            volume:'音量',
+                            mute: '静音',
+                            next:'下一个',
+                            previous:'上一个'
+                        }
+                    }
+                },
+                clip: {
+                    url: url,
+                    live: true,
+                    autoPlay: false,
+                    urlResolvers: "flashls",
+                    provider: "flashls"
+                }
+            }).stop();
+            $(this).attr("data-flag","0");
+            $(this).attr("src","static/images/playbox.png");
+        }
+
     });
 
     function fplayer(id,url,pid){
