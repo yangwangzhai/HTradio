@@ -1718,7 +1718,9 @@ filter:progid:DXImageTransform.Microsoft.gradient( GradientType = 0, startColors
 	display: inline-block;
 	height: 20px;
 	line-height: 20px;
+
 }
+
 #myform li {
 	margin: 15px 0;
 }

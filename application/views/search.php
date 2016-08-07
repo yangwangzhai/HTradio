@@ -111,9 +111,9 @@ $(".details_list ul li").mouseout(function(){
                         </div>
                       <div class="pbtn">
                              <?php if (is_attention($uid,$r['id'])){ ?>
-                <a href="javascript:" onclick="attention_program(<?=$r['id']?>)" style="color:#ff6600;background-image:url(static/images/is_cross.png);" data-attention="1" id="programid<?=$r['id']?>" class="atten">已关注</a>
+                                 <a href="javascript:" onclick="attention2(<?=$r['id']?>)" data-attention="1" style=" color:#ff6600;" id="zid<?=$r['id']?>" class="ison">已关注</a>
                 <?php }else{  ?>
-                <a href="javascript:" onclick="attention(<?=$r['id']?>)" data-attention="0" id="programid<?=$r['id']?>" class="atten">关注</a>
+                                 <a href="javascript:" onclick="attention2(<?=$r['id']?>)" data-attention="0" id="zid<?=$r['id']?>">关注</a>
                 <?php }?>
                             <a href="javascript:" onclick="message_dialog(<?=$r['id']?>,'<?=getNickName($r['id'])?>')" class="letter">私信</a>
                         </div>

@@ -28,7 +28,7 @@
     <div class="attener">
     <?php foreach($guanzhu_list as $val) { ?>
     <dl>
-        <dt><a href="index.php?c=zhubo&mid=<?=$val['id']?>"><img src="<?=show_thumb( $val['avatar'] )?>" /></a></dt>
+        <dt><a href="index.php?c=zhubo&mid=<?=$val['id']?>"><img src="<?php if($val['avatar']){echo show_thumb($val['avatar']);}else{echo 'uploads/default_images/default_avatar.jpg';}?>" /></a></dt>
     </dl>
     <?php } ?>
     
@@ -37,7 +37,7 @@
     <div class="attener">
     <?php foreach($fans_list as $val) { ?>
     <dl>
-        <dt><a href="index.php?c=zhubo&mid=<?=$val['id']?>"><img src="<?=show_thumb( $val['avatar'] )?>" /></a></dt>
+        <dt><a href="index.php?c=zhubo&mid=<?=$val['id']?>"><img src="<?php if($val['avatar']){echo show_thumb($val['avatar']);}else{echo 'uploads/default_images/default_avatar.jpg';}?>" /></a></dt>
     </dl>
     <?php } ?>
     

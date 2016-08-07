@@ -17,7 +17,7 @@ $(".details_list ul li").mouseout(function(){
         <div class="fans_list">
         	<?php foreach($list as $v) { ?>
         	<dl>
-            	<dt><a href="index.php?c=zhubo&mid=<?=$v['id']?>"><img src="<?=show_thumb($v['avatar'])?>" /></a></dt>
+            	<dt><a href="index.php?c=zhubo&mid=<?=$v['id']?>"><img src="<?php if($v['avatar']){echo show_thumb($v['avatar']);}else{echo 'uploads/default_images/default_avatar.jpg';}?>" /></a></dt>
               <dd>
                 	<h1><a href="index.php?c=zhubo&mid=<?=$v['id']?>"><?=$v['nickname']?></a></h1>
                     <p style="color:#999"><?=$v['sign']?></p>

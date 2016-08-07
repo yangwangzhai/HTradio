@@ -12,7 +12,6 @@ class Personal extends Common
     // 首页
     public function index ()
     {
-
     	$data['mid'] = $uid = $this->session->userdata('uid');
     	if(!$uid) {
     		header("location:index.php?c=member&m=login");

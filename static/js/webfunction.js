@@ -58,7 +58,6 @@ function attention(zid){
 		$.post("index.php?c=ajax&m=attention",{"zid":zid,"action":action},
 				function(data){	
 					if(data == 1){
-						
 						location.href ="index.php?c=member&m=login&returnUrl="+escape(referUrl);
 					}
 					if(data == 0){
@@ -80,6 +79,49 @@ function attention(zid){
 			
 			
 		})
+}
+
+function attention2(zid){
+
+    var referUrl = getReferUrl('index.php');
+    var is_attention = $('#zid'+zid).data('attention');
+    var new_attention = is_attention == '1' ? '0' : '1' ;
+    var action = 'add';
+    var new_text = '已关注';
+    var padding = '6px';
+    var color = '#ff6600';
+    //var bg_url = 'url(static/images/is_cross.png) ';
+    if(is_attention == '1'){
+        action = 'del';
+        new_text = '关注';
+        padding = '0px';
+        color = '#333';
+        //bg_url = 'url(static/images/cross.png)';
+    }
+    $.post("index.php?c=ajax&m=attention",{"zid":zid,"action":action},
+        function(data){
+            if(data == 1){
+                location.href ="index.php?c=member&m=login&returnUrl="+escape(referUrl);
+            }
+            if(data == 0){
+                $('#zid'+zid).data('attention',new_attention);
+                $('#zid'+zid).html(new_text);
+                $('#zid'+zid).css('color',color);
+                $('#zid'+zid).css('background-image',bg_url);
+                if($('#zid'+zid).hasClass('atten') && !$('#zid'+zid).hasClass('zhubo')){
+                    $('#zid'+zid).css('padding-left',padding);
+                }
+                if($('#zid'+zid).hasClass('zhubo')){
+                    width = is_attention == '1' ? '30px':'45px';
+                    $('#zid'+zid).css('width',width);
+                }
+            }
+            if(data == 3){
+                $.dialog.alert('不能关注自己');
+            }
+
+
+        })
 }
 
 function attention_program(id){
