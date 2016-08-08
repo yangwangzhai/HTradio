@@ -246,7 +246,7 @@ $(".details_list ul li").mouseout(function(){
         <input id="talk_avatar" type="hidden" value="<?php echo$zb['avatar']?$zb['avatar']:'uploads/default_images/default_avatar.jpg'?>">
         <input id="talk_to_uid" type="hidden" value="<?=$uid?>">
         <input id="talk_from_uid" type="hidden" value="<?=$list[0]['id']?>">
-        <?php if(!empty($message)){?>
+
             <div class="fans_list" style="padding: 0px;">
                 <!--讨论区滚动条begin-->
                 <link rel="stylesheet" type="text/css" href="static/talk/css/jscrollpane1.css" />
@@ -260,31 +260,32 @@ $(".details_list ul li").mouseout(function(){
                 <!--讨论区滚动条end-->
                 <br>
                 <div class="talk">
-                    <div class="talk_title"><span>与富士山私信</span></div>
+                    <div class="talk_title"><span>与<?= getNickName($list[0]['id'])?>的私信</span></div>
                     <div class="talk_record">
                         <div id="jp-container" class="jp-container">
-                            <?php foreach($message as $mess_value):?>
-                            <?php if($mess_value['to_uid']==$uid){?>
-                                    <div class="talk_recordbox">
-                                        <div class="user"><img width="45" height="45" src="<?=getUserAvatar($mess_value['from_uid'])?>"/><?= getNickName($mess_value['from_uid'])?></div>
-                                        <div class="talk_recordtextbg">&nbsp;</div>
-                                        <div class="talk_recordtext">
-                                            <h3><?= $mess_value['title']?></h3>
-                                            <span class="talk_time"><?php date_default_timezone_set("Asia/Shanghai");echo date("Y-m-d H:i:s", $mess_value['addtime'])?></span>
+                            <?php if(!empty($message)){?>
+                                <?php foreach($message as $mess_value):?>
+                                <?php if($mess_value['to_uid']==$uid){?>
+                                        <div class="talk_recordbox">
+                                            <div class="user"><img width="45" height="45" src="<?=getUserAvatar($mess_value['from_uid'])?>"/><?= getNickName($mess_value['from_uid'])?></div>
+                                            <div class="talk_recordtextbg">&nbsp;</div>
+                                            <div class="talk_recordtext">
+                                                <h3><?= $mess_value['title']?></h3>
+                                                <span class="talk_time"><?php date_default_timezone_set("Asia/Shanghai");echo date("Y-m-d H:i:s", $mess_value['addtime'])?></span>
+                                            </div>
                                         </div>
-                                    </div>
-                            <?php }else{?>
-                                    <div class="talk_recordboxme">
-                                        <div class="user"><img width="45" height="45" src="<?=getUserAvatar($mess_value['from_uid'])?>"/>我</div>
-                                        <div class="talk_recordtextbg">&nbsp;</div>
-                                        <div class="talk_recordtext">
-                                            <h3><?= $mess_value['title']?></h3>
-                                            <span class="talk_time"><?php date_default_timezone_set("Asia/Shanghai");echo date("Y-m-d H:i:s", $mess_value['addtime'])?></span>
+                                <?php }else{?>
+                                        <div class="talk_recordboxme">
+                                            <div class="user"><img width="45" height="45" src="<?=getUserAvatar($mess_value['from_uid'])?>"/>我</div>
+                                            <div class="talk_recordtextbg">&nbsp;</div>
+                                            <div class="talk_recordtext">
+                                                <h3><?= $mess_value['title']?></h3>
+                                                <span class="talk_time"><?php date_default_timezone_set("Asia/Shanghai");echo date("Y-m-d H:i:s", $mess_value['addtime'])?></span>
+                                            </div>
                                         </div>
-                                    </div>
+                                <?php }?>
+                                <?php endforeach?>
                             <?php }?>
-
-                            <?php endforeach?>
                         </div>
 
                     </div>
@@ -448,7 +449,7 @@ $(".details_list ul li").mouseout(function(){
 
             </div>
 
-        <?php }?>
+
 
 
     </div>

@@ -245,8 +245,15 @@ class Personal extends Common
 
         $sql = "SELECT id,avatar,nickname,sign FROM fm_member WHERE id in (SELECT mid FROM fm_attention WHERE zid = $uid ORDER BY addtime DESC) limit $offset,$per_page";
         $query = $this->db->query($sql);
-        $data['list'] = $query->result_array();
+        $data['list'] = $list = $query->result_array();
         $data['title'] = "我的粉丝";
+        
+        //获取私信内容列表
+        foreach($list as $value){
+            $sql_message = "select from_uid,to_uid,title,addtime from fm_message WHERE (from_uid=$value[id] AND to_uid=$uid) OR (from_uid=$uid AND to_uid=$value[id]) ORDER BY addtime ASC";
+            $query_message = $this->db->query($sql_message);
+            $data['message'] = $query_message->result_array();
+        }
 
         $this->load->view("personal_more",$data);
     }
