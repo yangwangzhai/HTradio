@@ -10,6 +10,7 @@
 <script type="text/javascript" src="static/js/jquery.SuperSlide.2.1.1.js"></script>
 <script type="text/javascript" src="static/js/lhgdialog/lhgdialog.min.js?self=true&skin=discuz"></script>
 <script type="text/javascript" src="static/js/webfunction.js"></script>
+
 <script type="text/javascript">
 $(function(){
   

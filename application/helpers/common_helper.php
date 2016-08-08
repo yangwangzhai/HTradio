@@ -795,14 +795,22 @@ function getLiveChannelName($channel_id) {
     return $result;
 }
 
+// 获取会员信息 昵称 单条
+function getUserAvatar($uid) {
+    if(empty($uid)) return "";
+    $CI = &get_instance();
+    $query = $CI->db->query("select avatar from fm_member where id=$uid limit 1");
+    $avatar = $query->row_array();
+    return $avatar['avatar'] ? $avatar['avatar'] : 'uploads/default_images/default_avatar.jpg';
+}
 
 // 获取会员信息 昵称 单条
 function getNickName($uid) { 
     if(empty($uid)) return "";
     $CI = &get_instance();
-    $query = $CI->db->query("select nickname from fm_member where id=$uid limit 1");
+    $query = $CI->db->query("select username,nickname from fm_member where id=$uid limit 1");
     $user = $query->row_array();
-    return $user['nickname'];
+    return $user['nickname'] ? $user['nickname'] : '';
 }
 
 // 获取会员信息 昵称 单条
