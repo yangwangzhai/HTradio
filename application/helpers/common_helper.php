@@ -1191,6 +1191,26 @@ function show_thumb($url){
 		return $returnurl;
 }
 
+//判断图片是否存在
+function show_thumb2($url){
+
+    $returnurl = 'uploads/default_images/default_avatar.jpg';
+    if(empty($url))  return $returnurl;
+    if(file_exists('..'.$url)){
+        $returnurl = $url;
+    }
+    $length = strlen($url);
+    if($length > 0 && $str1 = substr($url,0,1) == '/'){
+        $url = substr($url,1,($length-1));
+    }
+
+    if(file_exists($url)){
+        $returnurl = $url;
+    }
+    return $returnurl;
+}
+
+
 //是否关注主播
 function is_attention($uid , $zid){
 	$CI = &get_instance();

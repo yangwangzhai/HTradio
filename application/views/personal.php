@@ -4,7 +4,41 @@
 <script type="text/javascript" src="static/flowplayer/flowplayer.ipad-3.2.12.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-  mouseover_event();
+    mouseover_event();
+    //异步删除节目
+    $(".g").live("click", function () {
+        //var meid = $(this).attr("data-meid");
+        var id = $(this).attr("data-id");
+        var com = confirm("确定要删除该节目？");
+        if(com){
+            $(this).parent().parent().addClass("active");
+            $.ajax({
+                url:"index.php?c=personal&m=delete_personal_progarm",
+                type: "post",         //数据发送方式
+                dataType:"json",    //接受数据格式
+                data:{id:id},  //要传递的数据
+                success:function(data){
+                    if(data){
+                        $(".active").remove();
+                    }else{
+                        alert("删除失败");
+                    }
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown)
+                {
+                    //alert(errorThrown);
+                }
+            });
+        }
+    });
+
+    //下载
+    $(".f").live("click",function(){
+        var download_path = $(this).attr("data-download-path");
+        var title = $(this).attr("data-title");
+        location.href="index.php?c=personal&m=download&download_path="+download_path+"&title="+title;
+    });
+
 });
 function mouseover_event(){
     $(".details_list ul li").mouseover(function(){
@@ -13,7 +47,8 @@ function mouseover_event(){
   $(".details_list ul li").mouseout(function(){
       $(this).removeClass("current");
 
-  }); 
+  });
+
 }
 </script>
 <style>
@@ -29,8 +64,8 @@ function mouseover_event(){
             	<dl>
                   <dt><a href="./index.php?c=player&meid=<?=$v['id']?>"><img src="<?php if(!empty($v['thumb'])){echo show_thumb( $v['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" /></a></dt>
                   <dd>
-                    <h3><a href="./index.php?c=player&meid=<?=$v['id']?>"><?=$v['title']?></a></h3>
-                    <p><a><?=getNickName($v['mid'])?></a></p>
+                    <h3 style="text-align: center;"><a href="./index.php?c=player&meid=<?=$v['id']?>"><?=$v['title']?></a></h3>
+                    <p style="text-align: center;"><a href="javascript:void(0)"><?=getNickName($v['mid'])?></a></p>
                   </dd>
                 </dl>
                 <?php } ?>
@@ -39,20 +74,6 @@ function mouseover_event(){
                     <div class="page-cont">
                         <div class="page-inner">
                             <?=$mpages?>
-                            <div style="display:none;">
-                                <span class="page-item page-navigator-prev-disable">上一页</span>               
-                                <span class="page-item page-navigator-current">1</span><a href="#" class="page-item">2</a>
-                                <a href="#" class="page-item">3</a>
-                                <a href="#" class="page-item">4</a>
-                                <a href="#" class="page-item">5</a>
-                                <a href="#" class="page-item">6</a>
-                                <a href="#" class="page-item">7</a>
-                                <a href="#" class="page-item">8</a>
-                                <a href="#" class="page-item">9</a>
-                                <span class="page-navigator-dots">...</span>
-                                <a class="page-item page-navigator-number PNNW-D" href="#">550</a>
-                                <a href="#" class="page-item page-navigator-next">下一页</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,33 +83,21 @@ function mouseover_event(){
        <div class="details_list" id="jp-playlist">
         <ul>
             <?php foreach($program_list as $k=>$v) { ?>
-                <li data-id="<?=$v['id']?>">
-                    <span>
-                        <a href="" class="c"></a>
-                        <a href="" class="d"></a>
-                        <a href="" class="e"></a>
-                        <a href="" class="f"></a>
-                        <a href="index.php?c=upload&m=edit_audio&id=<?=$v['id']?>" title="编辑" class="edit"></a>
-                    </span>
-                    <em><strong><?=$v['program_time']?$v['program_time']:'--:--'?></strong><strong><?=$v['playtimes']?>次播放</strong><strong><?=date('Y-m-d',$v['addtime'])?></strong></em>
-                    <b><?=$v['title']?></b>
-                    <a style="display: block; width: 300px; height: 25px;float: left;margin-top: 10px;" id="flashls_vod<?=$k?>"></a>
-                    <script type="text/javascript">
-                        flowplayer("flashls_vod<?=$k?>", "static/flowplayer/flowplayer.swf", {
-                            plugins: {
-                                flashls: {
-                                    url: 'static/flowplayer/flashlsFlowPlayer.swf',
-                                }
-                            },
-                            clip: {
-                                url: "<?=$v['path']?>",
-                                //live: true,
-                                autoPlay:false,
-                                urlResolvers: "flashls",
-                                provider: "flashls"
-                            }
-                        }).ipad();
-                    </script>
+                <li style="padding-left: 0;">
+                            <span>
+                                <!--<a data-meid="<?/*=$meid*/?>" data-id="<?/*=$val['id']*/?>" href="javascript:void(0);" class="c"></a>-->
+                                <!--<a data-meid="<?/*=$meid*/?>" data-id="<?/*=$val['id']*/?>" href="javascript:void(0);" class="d"></a>-->
+                                <!--<a data-meid="<?/*=$meid*/?>" data-id="<?/*=$val['id']*/?>" href="javascript:void(0);" class="e"></a>-->
+                                <a data-mid="<?=$mid?>" data-title="<?=$v['title']?>" data-download-path="<?=$v['download_path']?>" href="javascript:void(0);" class="f"></a>
+                                <a  data-id="<?=$v['id']?>" href="javascript:void(0);" class="g"></a>
+                            </span>
+                    <em>
+                        <strong><?=$v['program_time']?$v['program_time']:'--:--'?></strong>
+                        <strong><?=$v['playtimes']?>次播放</strong>
+                        <strong><?=date('Y-m-d',$v['addtime'])?></strong>
+                    </em>
+                    <img class="playmenu" data-id="<?=$v['id']?>" data-title="<?=$v['title']?>" data-thumb="<?=$v['thumb']?>" data-url="<?=$v['path']?>" data-flag="0" src="static/images/playbox.png" style="display: inline-block;padding-right: 5px; position: relative; top: 3px;">
+                    <b class="program_detail" data-id="<?=$v['id']?>"><?=$v['title']?></b>
                 </li>
             <?php } ?>
         </ul>
@@ -96,20 +105,6 @@ function mouseover_event(){
             <div class="page-cont">
                 <div class="page-inner">
                    <?=$pages?>
-                    <div style="display:none;">
-                        <span class="page-item page-navigator-prev-disable">上一页</span>               
-                        <span class="page-item page-navigator-current">1</span><a href="#" class="page-item">2</a>
-                        <a href="#" class="page-item">3</a>
-                        <a href="#" class="page-item">4</a>
-                        <a href="#" class="page-item">5</a>
-                        <a href="#" class="page-item">6</a>
-                        <a href="#" class="page-item">7</a>
-                        <a href="#" class="page-item">8</a>
-                        <a href="#" class="page-item">9</a>
-                        <span class="page-navigator-dots">...</span>
-                        <a class="page-item page-navigator-number PNNW-D" href="#">550</a>
-                        <a href="#" class="page-item page-navigator-next">下一页</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -118,70 +113,27 @@ function mouseover_event(){
     
     </div>
 </div>
-<!--播放音频的flash隐藏窗口-->
-<div class="music-wrap" id="jp_container_1">
-    <div class="music-play">
-        <div class="u-cover">
-            <img src="<?=show_thumb($me_data['thumb'])?>" width="60px" height="60px">
-        </div>
-        <div class="u-infor">
-            <div class="music-title jp-title"></div>
-            <div class="u-control jp-progress">
-                <div class="jp-seek-bar">
-                    <div class="jp-play-bar"></div>
-                </div>
-            </div> 
-            <div class="control jp-controls">
-                <div class="rewind jp-previous"></div>
-                <div class="play jp-play"></div>
-                <div class="back jp-pause"></div>
-                <div class="fastforward jp-next"></div>
-            </div>
-            <div class="u-time">
-                <span class="jp-current-time"></span>/<span class="jp-duration"></span>
-            </div>  
-        </div>
-    </div>
-</div>
+
 <script>
     //ready begin
     $(document).ready(function(){
-        $('#jp-playlist li span').bind('click',function(){
-		 		$.dialog({
-					id: 'LHG76D',
-					title: '请扫描下载APP，在APP上面操作！',		
-					content: '<img src="./static/images/android_ewm.png"  />',			
-					min: false,
-					max: false,
-					padding:0,	
-					margin:0		
-				});
-				  return false;
-		   })
-
-        $('#jp-playlist .edit').bind('click',function(){
-		  		var href = $(this).attr('href');
-				 location.href = href;
-				 return false;
-		   })
-
+        var curr = '';
         $('.ajax_fpage').live('click', function(eve){
-            eve.preventDefault();       
-                 
-            var mid=<?=$mid?>;      
-            var href=$(this).attr("href");   
-            var arr=href.split('per_page=');  
-            if(arr[1]==''){arr[1]=1;}     
+            eve.preventDefault();
+            var mid=<?=$mid?>;
+            var href=$(this).attr("href");
+            var arr=href.split('per_page=');
+            if(arr[1]==''){arr[1]=1;}
             var per_page=arr[1];
-            
-            var offset=arr[1];              
+
+            var offset=arr[1];
             $.ajax({
               url:"index.php?c=zhubo&m=program_page",
               type:"get",
               dataType:"text",
               data: {
-                  
-                      'mid':mid, 
+
+                      'mid':mid,
                       'per_page':per_page //当前第几页，用于生成分页
               },
                success: function(html) {
@@ -189,122 +141,179 @@ function mouseover_event(){
                         $('li[data-id='+curr+']').addClass('curr').css({background:'url("static/images/pause.png") no-repeat scroll 1% center'}).siblings().css({background:''});
                         mouseover_event();
                }
-            });        
-         });   
+            });
+         });
 
         $('.ajax_mpage').live('click', function(eve){
-            eve.preventDefault();       
-                 
-            var mid=<?=$mid?>;     
-            var href=$(this).attr("href");    
-            var arr=href.split('per_page=');  
-            if(arr[1]==''){arr[1]=1;}     
+            eve.preventDefault();
+
+            var mid=<?=$mid?>;
+            var href=$(this).attr("href");
+            var arr=href.split('per_page=');
+            if(arr[1]==''){arr[1]=1;}
             var per_page=arr[1];
-            
-            var offset=arr[1];  
+
+            var offset=arr[1];
             $.ajax({
-              url:"index.php?c=zhubo&m=programme_page",
-              type:"get",
-              dataType:"text",
-              data: {
-                  //    offset:offset,  
-                      'mid':mid,
-                      'mper_page':per_page //当前第几页，用于生成分页
-              },
-               success: function(html) {
-                        $('.find_pic').html(html);
-               }
-            });        
-         });   
-    
-        $('#jp-playlist li').live('click',function(){
-          var id = $(this).attr('data-id');
-          geturl(id);
-          curr = id;
-          $(this).addClass('curr').siblings().removeClass('curr');
-          $(this).css({backgroundImage:'url("static/images/pause.png")'});
-          $(this).siblings().css({backgroundImage:''});
-          addPtimes(id);
-        });
-
-        $('.jp-next').click(function(){
-            next();
-        });
-
-        $('.jp-previous').click(function(){
-            previous();
-        }) 
-    }); /*end ready*/
-
-    var curr = null;
-
-    function geturl(id){
-        $.ajax({
-            url:'index.php?c=player&m=getUrl&id='+id,
-            type:'get',
-            dataType:'json',
-            success:function(res){
-                player.jPlayer("setMedia",res).jPlayer('play');
-            }
-        });
-    }
-
-    function next() {
-        $.ajax({
-          url: 'index.php?c=player&m=next_one&curr='+curr+'&mid=<?=$mid?>',
-          type: 'get',
-          dataType: 'json',
-          success: function(res){
-            if(res) {
-              curr = res.id;
-              player.jPlayer("setMedia",res.list).jPlayer('play');
-              $('li[data-id='+res.id+']').addClass('curr').css({backgroundImage:'url("static/images/pause.png")'});
-              $('li[data-id!='+res.id+']').removeClass('curr').css({backgroundImage:''});
-              addPtimes(curr);
-            }
-          }
-        });
-        return true;
-    }
-
-    function previous() {
-        $.ajax({
-          url: 'index.php?c=player&m=prev_one&curr='+curr+'&mid=<?=$mid?>',
-          type: 'get',
-          dataType: 'json',
-          success: function(res){
-            if(res) {
-              curr = res.id;
-              player.jPlayer("setMedia",res.list).jPlayer('play');
-              $('li[data-id='+res.id+']').addClass('curr').css({backgroundImage:'url("static/images/pause.png")'});
-              $('li[data-id!='+res.id+']').removeClass('curr').css({backgroundImage:''});
-              addPtimes(curr);
-            }
-          }
-        });
-        return true;
-    }
-
-    function addPtimes(id) {
-        if(id){
-            var times = parseInt($('.dbtn').eq(0).next('span').text());
-            $.ajax({
-                url: 'index.php?c=ajax&m=addPlayTimes',
-                type: 'post',
-                data: 'id='+id,
-                success:function(res) {
-                    if(res == '0'){
-                        if($('.curr').attr('data-id') == undefined) {
-                            $('.dbtn').eq(0).next('span').text(times+1);
-                        }
-                    }
+                url:"index.php?c=zhubo&m=programme_page",
+                type:"get",
+                dataType:"text",
+                data: {
+                    //    offset:offset,
+                    'mid':mid,
+                    'mper_page':per_page //当前第几页，用于生成分页
+                },
+                success: function(html) {
+                    $('.find_pic').html(html);
                 }
             });
+        });
+
+
+    }); /*end ready*/
+
+</script>
+<div class="link">
+    <div class="link_title">友情链接</div>
+    <div class="link_con">
+        <?php
+        $this->db->order_by("id", "desc");
+        $query_top = $this->db->get_where('fm_link', array());
+        $list = $query_top->result_array();
+        foreach($list as $r){
+            ?>
+            <a href="<?=$r['url']?>"><?=$r['name']?></a>
+        <?php }?>
+    </div>
+</div>
+<div class="footer" style="height: 120px;">
+    <div class="fmain">
+        <div class="copyright">
+            <p>版权所有 2004-2014 未经广西人民广播电台 同意请勿转载</p>
+            <p> 信息网络传播视听节目许可证号:2005125　桂ICP备05004840</p>
+            <p> 广西网警备案号：45010302000046　互联网新闻信息服务备案许可证：4510020100001</p>
+            <p> Copyright © 2009-2014 GuangXi people's Broadcasting Station, All Rights Reserved </p>
+        </div>
+        <div class="about">
+            <div class="ftitle">&nbsp;&nbsp;关于我们</div>
+            <p><img src="static/images/about.png" usemap="#Map" border="0" />
+                <map name="Map" id="Map">
+                    <area shape="rect" coords="2,7,50,80" href="#" />
+                    <area shape="rect" coords="64,7,110,80" href="#" />
+                    <area shape="rect" coords="125,7,170,80" href="#" />
+                    <area shape="rect" coords="184,7,230,80" href="#" />
+                </map>
+            </p>
+        </div>
+        <!--<div class="service">
+             <div class="ftitle">客服中心</div>
+            <p>400-8888-910</p>
+          <div class="ftitle">客服邮箱</div>
+            <p>4008888910@nawaa.com</p>
+        </div>-->
+    </div>
+</div>
+<div id="play_box" style="display: none;width: 100%;height:50px;background-color: #aedaff;">
+    <!--<div style="width: 800px;">
+        <h6 style="color: #6A6AFF;line-height: 46px; text-align: center;">私家车上班路上<?/*=$list[0]['title']*/?></h6>
+    </div>-->
+    <!--flowplayer代码开始-->
+    <a style="display: block; margin: 0 auto; padding-top: 20px; width: 800px; height: 25px;" id="flashls_vod"></a>
+    <!--flowplayer代码结束-->
+</div>
+<script type="text/javascript">
+
+    $(".playmenu").live("click",function(){
+        $("#play_box").show();
+        var id="flashls_vod";
+        var url=$(this).attr("data-url");
+        var pid=$(this).attr("data-id");
+        var flag=$(this).attr("data-flag");
+        if(flag==0){
+            $.ajax({
+                url: 'index.php?c=index&m=playtimes',
+                type: 'post',
+                dataType:'json',
+                data: {pid:pid},
+                success:function(data) {
+                    //alert(data);
+                }
+            });
+            fplayer(id,url,pid);
+            var title=$(this).attr("data-title");
+            $("#header h2").text(title);
+            $(".playmenu").attr("src","static/images/playbox.png");
+            $(this).attr("src","static/images/pause.png");
+            $(this).attr("data-flag","1");
+        }else{
+            flowplayer(id, "static/flowplayer/flowplayer.swf", {
+                // configure the required plugins
+                plugins: {
+                    flashls: {
+                        url: 'static/flowplayer/flashlsFlowPlayer.swf'
+                    },
+                    controls:{
+                        autoHide: false, //功能条是否自动隐藏
+                        tooltips: {
+                            buttons: true,//是否显示
+                            fullscreen: '全屏',//全屏按钮，鼠标指上时显示的文本
+                            stop:'停止',
+                            play:'开始',
+                            volume:'音量',
+                            mute: '静音',
+                            next:'下一个',
+                            previous:'上一个'
+                        }
+                    }
+                },
+                clip: {
+                    url: url,
+                    live: true,
+                    autoPlay: false,
+                    urlResolvers: "flashls",
+                    provider: "flashls"
+                }
+            }).stop();
+            $(this).attr("data-flag","0");
+            $(this).attr("src","static/images/playbox.png");
         }
+
+    });
+
+    function fplayer(id,url,pid){
+        flowplayer(id, "static/flowplayer/flowplayer.swf", {
+            // configure the required plugins
+            plugins: {
+                flashls: {
+                    url: 'static/flowplayer/flashlsFlowPlayer.swf'
+                },
+                controls:{
+                    autoHide: false ,//功能条是否自动隐藏
+                    backgroundColor: '#0a8ddf'
+                }
+            },
+            clip: {
+                url: url,
+                live: true,
+                urlResolvers: "flashls",
+                provider: "flashls"
+            },
+            onFinish: function() {
+                //统计播完率
+                $.ajax({
+                    url: 'index.php?c=player&m=play_over',
+                    type: 'post',
+                    dataType:'json',
+                    data: {id:pid},
+                    success:function(data) {
+                        //alert(data);
+                    }
+                });
+            }
+
+        }).ipad();
     }
 
 </script>
-
-
-
-<?php $this->load->view('footer');?>
+</body>
+</html>

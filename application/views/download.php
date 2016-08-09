@@ -27,9 +27,9 @@ $(".details_list ul li").mouseout(function(){
     <div class="left">
     <h2>扫描二维码下载</h2>
     <p>使用手机上的二维码扫描以下二维码即可立即下载</p>
-    <p><img src="static/images/ewm.jpg" /></p>
+    <p><img src="static/images/er.png" width="244" height="244"/></p>
     <p>或者</p>
-    <p><a href="#">点击下载到本地</a></p>
+    <p><a href="http://school.wojia99.com/public/app_download/haitun/">点击下载到本地</a></p>
     </div>
     <div class="right"><img src="static/images/apple1.jpg" /></div>
 </div>

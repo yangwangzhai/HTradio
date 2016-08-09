@@ -290,7 +290,12 @@ class Player extends CI_Controller
             readfile("$link");
             exit();
         }else{
-            show_msg('文件不存在！', "index.php?c=player&meid=$meid");
+            if($meid){
+                show_msg('文件不存在！', "index.php?c=player&meid=$meid");
+            }else{
+                show_msg('文件不存在！', "index.php?c=player&meid=$meid");
+            }
+
         }
 
     }

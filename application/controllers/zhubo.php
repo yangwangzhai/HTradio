@@ -141,9 +141,9 @@ class Zhubo extends Common
         $data['pages'] =$this->ajax_pagination->create_links($cur_page);
         $per_page = $config['per_page'];
         $offset = ($cur_page - 1) * $per_page;
-        
 
-        $sql = "SELECT id,title,program_time,playtimes,addtime FROM fm_program WHERE mid = $mid ORDER BY addtime DESC limit $offset,$per_page";
+
+        $sql = "SELECT id,title,path,download_path,program_time,playtimes,addtime FROM fm_program WHERE mid = $mid ORDER BY addtime DESC limit $offset,$per_page";
         $query = $this->db->query($sql);
         $data['program_list'] = $query->result_array();
         $comment_html = $this->load->view('ajax_page/zhubo_program_list',$data,true);

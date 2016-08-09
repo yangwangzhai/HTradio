@@ -1006,20 +1006,23 @@ class program extends Api {
 		$title=$this->input->post("title");
 		$type_id=$this->input->post("type_id");
 		$path=uploadAudio('filename', $dir_name = 'audio');
-		if($mid&&$title&&$type_id&&$path){
+		if($mid&&$type_id&&$path){
             //根据mid获取用户昵称
-            $sql = "SELECT nickname FROM fm_member WHERE id=$mid";
+            $sql = "SELECT username,nickname FROM fm_member WHERE id=$mid";
             $query = $this->db->query($sql);
-            $nickname=$query->row_array();
+            $name=$query->row_array();
+            //转换成m3u8格式
+            $m3u8_path=$this->change_m3u8($path);
 			$data = array(
 					'mid' => $mid,
-					'title' => $nickname['nickname'].'-'.date("Y-m-d H:i:s",time()),
+					'title' => $name['nickname'] ? $name['nickname'].'-'.date("Y-m-d H:i:s",time()): $name['username'].'-'.date("Y-m-d H:i:s",time()),
 					'type_id' => $type_id,
 					'audio_flag' => 1,
 					'addtime' => time(),
-					'path' => $path,
+					'path' => $m3u8_path,
 					'download_path' => $path
 			);
+
 			$this->db->insert ( 'fm_program', $data );
 			$result=array("status"=>1,"msg"=>"success","time"=>time());
 			echo json_encode($result);
@@ -1028,6 +1031,25 @@ class program extends Api {
 			echo json_encode($result);
 		}
 	}
+
+    public function change_m3u8($path){
+        $ffmepg = "D:/wamp/www/HTradio/ffmpeg.exe"; // 指定转码器
+        //$ffmepg = "E:/www/cmradio/ffmpeg.exe"; // 指定转码器
+        date_default_timezone_set('PRC');
+        $rand=rand(100000,999999);
+        $date=date('ymdhis',time());
+        $file=$date."_".$rand;
+        //创建文件夹
+        if(!is_dir("uploads/$file")){
+            mkdir("uploads/$file");
+        }
+        $cmd1="$ffmepg -i $path -codec copy -bsf h264_mp4toannexb uploads/$file/$file.ts";
+        exec($cmd1);
+        $cmd2="$ffmepg -i uploads/$file/$file.ts -c copy -map 0 -f segment -segment_list $file.m3u8 -segment_time 10 uploads/$file/output%03d.ts";
+        exec($cmd2);
+        //返回 m3u8的路径
+        return "$file.m3u8";
+    }
 
     /**
      *  接口说明：点赞

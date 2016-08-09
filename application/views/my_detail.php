@@ -43,7 +43,7 @@
                 $(this).removeClass("current");
             });
             //异步删除节目
-            $(".g").on("click", function () {
+            $(".g").live("click", function () {
                 var meid = $(this).attr("data-meid");
                 var id = $(this).attr("data-id");
                 var com = confirm("确定要删除该节目？");
@@ -70,7 +70,7 @@
                     });
                 }
             });
-            $("#tag").on("click",function(){
+            $("#tag").live("click",function(){
                 if($(this).next().css("display")=="none"){
                     $(this).next().show();
                     $(this).text("-");
@@ -80,7 +80,7 @@
                 }
             });
 
-            $("#tag_submit").on("click",function(){
+            $("#tag_submit").live("click",function(){
                 var tag_name = $("#tag_name").val();
                 var id = $("#tag_name").attr("data-id");
                 if(tag_name){
@@ -109,14 +109,14 @@
                 }
             });
             //下载
-            $(".f").on("click",function(){
+            $(".f").live("click",function(){
                 var download_path = $(this).attr("data-download-path");
                 var title = $(this).attr("data-title");
                 var meid = $(this).attr("data-meid");
                 location.href="index.php?c=player&m=download&download_path="+download_path+"&title="+title+"&meid="+meid;
-            })
+            });
             //跳转到具体节目详情页
-            $(".program_detail").on("click",function(){
+            $(".program_detail").live("click",function(){
                 var id = $(this).attr("data-id");
                 location.href="index.php?c=player&m=index&id="+id;
             })

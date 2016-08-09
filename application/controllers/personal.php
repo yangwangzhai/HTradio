@@ -101,7 +101,7 @@ class Personal extends Common
         $offset = ($cur_page - 1) * $per_page;
         
 
-        $sql = "SELECT id,title,path,program_time,playtimes,addtime FROM fm_program WHERE mid = $uid AND audio_flag=0 ORDER BY addtime DESC limit $offset,$per_page";
+        $sql = "SELECT id,title,path,download_path,program_time,playtimes,addtime FROM fm_program WHERE mid = $uid  ORDER BY addtime DESC limit $offset,$per_page";
 
         $query = $this->db->query($sql);
         $data['program_list'] = $query->result_array();
@@ -275,8 +275,37 @@ class Personal extends Common
 
     }
 
+    //异步删除自己上传的节目
+    public function delete_personal_progarm(){
+        $id = $this->input->post("id");
+        $affect = $this->db->delete('fm_program', array('id' => $id));
+        echo json_encode($affect);
+    }
 
+    //下载
+    public function download(){
+        $link = $this->input->get("download_path");
+        if($link){
+            //判断图片路径是否为http或者https开头
+            $preg="/(http:\/\/)|(https:\/\/)(.*)/iUs";
+            if(preg_match($preg,$link)){
+                //不需要操作
+            }else{
+                $link = base_url(). $link;
+            }
+            $filename = $this->input->get("title") ? $this->input->get("title") : "我下载的音频";
+            $ext=strrchr($link,".");
+            //文件的类型
+            header('Content-type: application/video');
+            //下载显示的名字
+            header('Content-Disposition: attachment; filename='."$filename"."$ext");
+            readfile("$link");
+            exit();
+        }else{
+            show_msg('文件不存在！', "index.php?c=personal");
+        }
 
+    }
 
 
 }
