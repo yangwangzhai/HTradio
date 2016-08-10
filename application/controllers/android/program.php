@@ -1006,6 +1006,7 @@ class program extends Api {
 		$title=$this->input->post("title");
 		$type_id=$this->input->post("type_id");
 		$path=uploadAudio('filename', $dir_name = 'audio');
+
 		if($mid&&$type_id&&$path){
             //根据mid获取用户昵称
             $sql = "SELECT username,nickname FROM fm_member WHERE id=$mid";
@@ -1033,8 +1034,9 @@ class program extends Api {
 	}
 
     public function change_m3u8($path){
-        $ffmepg = "D:/wamp/www/HTradio/ffmpeg.exe"; // 指定转码器
-        //$ffmepg = "E:/www/cmradio/ffmpeg.exe"; // 指定转码器
+        //$ffmepg = "D:/wamp/www/HTradio/ffmpeg.exe"; // 指定转码器
+        $ffmepg = "E:/www/cmradio/ffmpeg.exe"; // 指定转码器
+
         date_default_timezone_set('PRC');
         $rand=rand(100000,999999);
         $date=date('ymdhis',time());
@@ -1043,6 +1045,7 @@ class program extends Api {
         if(!is_dir("uploads/$file")){
             mkdir("uploads/$file");
         }
+
         $cmd1="$ffmepg -i $path -codec copy -bsf h264_mp4toannexb uploads/$file/$file.ts";
         exec($cmd1);
         $cmd2="$ffmepg -i uploads/$file/$file.ts -c copy -map 0 -f segment -segment_list $file.m3u8 -segment_time 10 uploads/$file/output%03d.ts";

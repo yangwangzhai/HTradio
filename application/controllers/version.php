@@ -44,6 +44,11 @@ class version extends Api {
 		echo json_encode ( $version );
 		
 	}
+
+
+
+
+
 	
 } // 类结束
 

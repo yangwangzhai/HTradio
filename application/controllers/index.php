@@ -553,7 +553,16 @@ class Index extends Common
         }
     }
 
-
+    function tts(){
+        $data['appid'] = $appid = "57aad094";                              //应用APPID，在open.voicecloud.cn上申请即可获得
+        $data['timestamp'] = $timestamp = time();                      //当前时间戳，例new Date().toLocaleTimeString()
+        $data['expires'] = $expires = 600000;                          //签名失效时间，单位:ms，例60000
+        //!!!为避免secretkey泄露，签名函数调用代码建议在服务器上完成
+        $secret_key = "21d0c84612483a0e";
+        $data['signature'] = MD5($appid.'&'.$timestamp.'&'.$expires.'&'.$secret_key);
+        $data['content'] = "腾讯体育8月10日北京（文/李旭）经过30多个小时的长途飞行，出现在首都机场航站楼的张梦雪看上去有些疲惫，但脸上荡漾着的笑容依旧灿烂。手捧着鲜花，她说回到祖国的感觉真好，现在最想做的事情是好好休息大睡一觉。";
+        $this->load->view("tts.php",$data);
+    }
 
 
 

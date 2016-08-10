@@ -15,11 +15,11 @@ class Search extends CI_Controller
         $data['uid'] = $this->session->userdata('uid');
         $data['keyword'] = $keyword = trim($_GET['keyword']);
 
-        $sql = "SELECT id,title,thumb,mid FROM fm_programme WHERE title like '%$keyword%'";
+        $sql = "SELECT id,title,thumb,mid FROM fm_programme WHERE title like '%$keyword%' AND publish_flag=1";
         $query = $this->db->query($sql);
         $data['me_list'] = $query->result_array();
 
-        $sql = "SELECT id,title,mid,playtimes,program_time,addtime FROM fm_program WHERE title like '%$keyword%'";
+        $sql = "SELECT id,title,mid,playtimes,program_time,addtime FROM fm_program WHERE title like '%$keyword%' AND status=1";
         $query = $this->db->query($sql);
         $data['program_list'] = $query->result_array();
 

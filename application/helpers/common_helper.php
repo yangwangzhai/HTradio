@@ -314,7 +314,7 @@ function uploadAudio ($filename, $dir_name = 'audio')
 
     $save_path = 'uploads/' .$dir_name . '/';
     $max_size = 50000 * 1024; // 最大文件大小50M
-    $AllowedExtensions = array('mp3','wav','wma','mid','mka','ogg','flac','aac','amr','awb'); // 允许格式
+    $AllowedExtensions = array('mp3','wav','wma','mid','mka','ogg','flac','aac','amr','awb','m4a'); // 允许格式
 
     $file_size = $_FILES[$filename]['size'];
     if ($file_size > $max_size) {
@@ -336,8 +336,28 @@ function uploadAudio ($filename, $dir_name = 'audio')
     if (move_uploaded_file($_FILES[$filename]['tmp_name'], $upload_file)===false) {
         return '';
     }
+    //如果文件格式是amr则转换成MP3格式
+    $fileext = fileext($upload_file);
+    if($fileext!='mp3'&&$fileext!='MP3'){
+        //$ffmepg = "D:/wamp/www/HTradio/ffmpeg.exe"; // 指定转码器
+        $ffmepg = "E:/www/cmradio/ffmpeg.exe"; // 指定转码器
+        date_default_timezone_set('PRC');
+        $rand=rand(100000,999999);
+        $date=date('ymdhis',time());
+        $file=$date."_".$rand;
+        //创建文件夹
+        if(!is_dir($file)){
+            mkdir($file);
+        }
+        //.amr转MP3
+        $new_upload_file = $save_path.$file.'.mp3';
+        $cmd0 = "ffmpeg -i $upload_file $new_upload_file";
+        exec($cmd0);
+        return $new_upload_file;
+    }else{
+        return $upload_file;
+    }
 
-    return $upload_file;
 }
 
 /**
