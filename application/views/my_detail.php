@@ -3,36 +3,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,minimal-ui" />
     <meta charset="utf-8">
     <title>节目播放</title>
+    <link href="static/css/comment_style.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="static/flowplayer/flowplayer-3.2.12.min.js"></script>
     <script type="text/javascript" src="static/flowplayer/flowplayer.ipad-3.2.12.min.js"></script>
-
-    <style>
-        div.mt25 {
-            margin-top: 5px;
-            margin-bottom: 4px;
-        }
-        div.mt25 a {
-            padding: 0 14px;
-            line-height: 18px;
-            border-radius: 9px;
-            margin-left: 12px;
-            color: #666;
-            background-color: #fff;
-            margin-bottom: 6px;
-        }
-        .bd_d1 {
-            border: 1px solid #d1d1d1;
-        }
-        a.bd_d1{
-            display: inline-block;
-            color: #333;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        a.bd_d1:hover{
-            border: 2px solid #d1d1d1;
-        }
-    </style>
 
     <script>
         $(document).ready(function(){
@@ -119,7 +92,24 @@
             $(".program_detail").live("click",function(){
                 var id = $(this).attr("data-id");
                 location.href="index.php?c=player&m=index&id="+id;
-            })
+            });
+            //节目列表和评论切换
+            $(".f18").live("click",function(){
+                if(!$(this).hasClass("cur")){
+                    var data = $(this).attr("data");
+                    var qh_class = 'qh_'+data;
+                    $(".f18").removeClass("cur");
+                    $(this).addClass("cur");
+                    if(qh_class=='qh_comment'){
+                        $("."+qh_class).css("display","block");
+                        $(".qh_program").css("display","none");
+                    }else{
+                        $("."+qh_class).css("display","block");
+                        $(".qh_comment").css("display","none");
+                    }
+
+                }
+            });
 
         });
     </script>
@@ -166,8 +156,14 @@
             </div>
 
             <div class="details_infro" style="padding: 0;">简介：<?=$me_data['intro']?></div>
+
+
+            <h2 class="k_til_02 mt20 alg_c bdb_f1565e">
+                <a class="fl clear-line f18 cur" data="program" href="javascript:void(0)">节目列表<var>(<?=$count?>)</var></a>
+                <a class="fl clear-line f18" data="comment" href="javascript:void(0)">评论<var>(591)</var></a>
+            </h2>
             <?php if($list){ ?>
-                <div id="jp-playlist" class="details_list">
+                <div id="jp-playlist" class="details_list qh_program">
                     <ul>
                     <?php foreach($list as $key=>$val) { ?>
                         <li style="padding-left: 0;">
@@ -196,15 +192,54 @@
                         <li><?/*=$pages*/?></li>
                     </ul>
                 </div>-->
-                <div class="page-navigator">
+                <div class="page-navigator qh_program">
                     <div class="page-cont">
                         <div class="page-inner">
-                            <span style="font-size: 14px;">共<?=$count?>条记录</span>
                             <span style="display: inline-block;float: right;margin-right: 15px;font-size: 14px;"><?=$pages?></span>
                         </div>
                     </div>
                 </div>
             <?php } ?>
+
+            <div id="jp-playlist" class="qh qh_comment" style="display: none;padding: 20px">
+                <div class="hidden bg_1 pt14 pb10">
+                    <img id="user-pic" class="fl" src="/images/no_img.png" onerror="noSrc(event)">
+                    <div class="fr c-sub">
+                        <div id="ta-comment" myplaceholder="不如聊聊你的想法？" contenteditable="true" class="curEmojiIpt emojiIpt clear-line c1 ipt-overflow">不如聊聊你的想法？</div>
+                        <div class="face-div hidden">
+                            <a class="fl face"></a>
+                            <a class="fr c-submit dis" commenttype="0">评论</a>
+                            <span class="fr iptLen">140</span>
+                        </div>
+                    </div>
+                </div>
+                <?php if($result_comment){ ?>
+                <ul class="cmt-list">
+                    <?php foreach($result_comment as $comment_value) :?>
+                    <li cid="476820" class="bdb_e5">
+                        <a href="/u/2951814.html"><img class="fl user-pic" src="/images/uimg_100.png" onerror="headSrc(event)"></a>
+                        <div class="fr c-sub">
+                            <p class="comment-t">
+                                <a href="/u/2951814.html">夏日风</a>
+                                <span class="fr">2016-08-10 22:54:49</span>
+                            </p>
+                            <p class="clear-line word-break ">叶文，支持你</p>
+                            <div class="c-operation">
+                                <a class="bd report">举报</a>
+                                <a class="bd zan" content="叶文，支持你" uid="2951814"><span>(0)</span></a>
+                                <a class="reply">回复</a>
+                            </div>
+                        </div>
+                    </li>
+                    <?php endforeach ?>
+                </ul>
+                <?php } ?>
+            </div>
+
+
+
+
+
         </div>
 
 
@@ -241,7 +276,7 @@
         </div>
     </div>
 
-<div class="link">
+<div class="link" style="padding-top: 50px">
     <div class="link_title">友情链接</div>
     <div class="link_con">
         <?php

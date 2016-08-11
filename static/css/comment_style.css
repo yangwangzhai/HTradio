@@ -1,0 +1,213 @@
+
+div.mt25 {
+    margin-top: 5px;
+    margin-bottom: 4px;
+}
+div.mt25 a {
+    padding: 0 14px;
+    line-height: 18px;
+    border-radius: 9px;
+    margin-left: 12px;
+    color: #666;
+    background-color: #fff;
+    margin-bottom: 6px;
+}
+.bd_d1 {
+    border: 1px solid #d1d1d1;
+}
+a.bd_d1{
+    display: inline-block;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+a.bd_d1:hover{
+    border: 2px solid #d1d1d1;
+}
+.k_til_02 {
+    font-size: 20px;
+    line-height: 40px;
+    /*margin-bottom: 15px;*/
+    zoom: 1;
+    overflow: hidden;
+    color: #333;
+    font-weight: 400;
+}
+.bdb_f1565e {
+    border-bottom: 2px solid #F1565E;
+}
+.alg_c{
+    text-align: center;
+}
+.mt20 {
+    margin-top: 20px;
+}
+.k_til_02 a.cur, .k_til_02 a.fl:hover {
+    background-color: #B9B9B9;
+}
+.k_til_02 a.fl {
+    width: 148px;
+}
+.fl {
+    float: left;
+}
+.f18 {
+    font-size: 18px;
+}
+.bg_1 {
+    background: #f8f8f8;
+}
+.pb10 {
+    padding-bottom: 10px;
+}
+.pt14 {
+    padding-top: 14px;
+}
+#user-pic, .user-pic {
+    width: 46px;
+    height: 46px;
+    margin-left: 12px;
+    border-radius: 50%;
+    margin-right: 14px;
+}
+.fl{
+    float: left;
+}
+.c-sub {
+    width: 643px;
+    padding-left: 7px;
+    background: url(http://www.kaolafm.com/images/comment.png) -64px 0 no-repeat;
+}
+.fr{
+    float: right;
+}
+.c-sub #ta-comment {
+    background-color: #fff;
+    border: 1px solid #d1d1d1;
+    border-left: 0;
+    border-radius: 2px;
+    padding: 10px 10px 10px 12px;
+    width: 610px;
+    height: 58px;
+    margin-left: 0;
+    margin-bottom: 4px;
+}
+.c1 {
+    color: #999;
+}
+.ipt-overflow {
+    overflow-y: auto;
+}
+.face {
+    width: 22px;
+    height: 22px;
+    margin-top: 6px;
+    background: url(http://www.kaolafm.com/images/comment.png) no-repeat;
+}
+a.c-submit.dis {
+    background-color: #ddd;
+    color: #999;
+}
+.fr {
+    float: right;
+}
+.face-div span.fr {
+    margin-top: 8px;
+}
+.hidden {
+    overflow: hidden;
+}
+a.c-submit {
+    margin-right: 10px;
+    margin-top: 6px;
+    margin-left: 14px;
+    width: 42px;
+    line-height: 22px;
+    border-radius: 2px;
+    background-color: #5191e9;
+    color: #fff;
+    text-align: center;
+}
+.cmt-list li {
+    overflow: hidden;
+    padding: 17px 0 14px;
+}
+.bdb_e5 {
+    border-bottom: 1px solid #e5e5e5;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+.cmt-list li .user-pic {
+    margin: 3px 16px 0 10px;
+}
+.cmt-list li .c-sub {
+    padding-left: 0;
+    width: 650px;
+    background: 0 0;
+}
+.cmt-list li p.comment-t {
+    margin-bottom: 3px;
+}
+.cmt-list li p {
+    padding-right: 10px;
+    color: #333;
+}
+list li p.comment-t a {
+    color: #5191e9;
+}
+.cmt-list li p.comment-t span {
+    display: block;
+    color: #d1d1d1;
+}
+.cmt-list li p {
+    padding-right: 10px;
+    color: #333;
+}
+.cmt-list li .c-operation {
+    margin-top: 13px;
+    text-align: right;
+    min-width: 600px;
+}
+.cmt-list li .c-operation a.bd {
+    border-right: solid 1px #e5e5e5;
+}
+.cmt-list li .c-operation a {
+    margin-left: 10px;
+    padding-right: 10px;
+    color: #999;
+    line-height: 12px;
+}
+.report {
+    display: none;
+}
+.cmt-list li .c-operation a.zan {
+    background: url(http://www.kaolafm.com/images/comment.png) 0 -45px no-repeat;
+    padding-left: 15px;
+    min-width: 1px;
+    height: 14px;
+}
+.cmt-list li .c-operation a.bd {
+    border-right: solid 1px #e5e5e5;
+}
+.cmt-list li .c-operation a {
+    margin-left: 10px;
+    padding-right: 10px;
+    color: #999;
+    line-height: 12px;
+}
+.cmt-list li .c-operation span {
+    vertical-align: initial;
+    text-decoration: none;
+    padding-left: 5px;
+}
+.cmt-list li .c-operation a {
+    margin-left: 10px;
+    padding-right: 10px;
+    color: #999;
+    line-height: 12px;
+}
+
+
+

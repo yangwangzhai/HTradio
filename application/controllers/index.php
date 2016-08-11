@@ -564,7 +564,14 @@ class Index extends Common
         $this->load->view("tts.php",$data);
     }
 
+    public function tts_baidu(){
+        $this->load->view("tts_baidu.php");
 
+        /* 写入文件 */
+        //$fh = fopen("out.html", 'w') ;
+        //fwrite($fh, $output) ;
+        //fclose($fh);
+    }
 
 
 

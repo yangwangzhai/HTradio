@@ -110,7 +110,7 @@ class program extends Content
 	//	print_r( $data['pages']);exit;
         $offset = $_GET['per_page'] ? intval($_GET['per_page']) : 0;
         $per_page = $config['per_page'];
-        $sql = "SELECT id,thumb,title,mid,playtimes,path,download_path,addtime,status FROM $this->table WHERE  $searchsql ORDER BY id DESC limit $offset,$per_page";
+        $sql = "SELECT id,thumb,title,mid,playtimes,path,download_path,addtime,status FROM $this->table WHERE  $searchsql ORDER BY addtime DESC limit $offset,$per_page";
         $query = $this->db->query($sql);
         $data['list'] = $query->result_array();
         $data['catid'] = $catid;

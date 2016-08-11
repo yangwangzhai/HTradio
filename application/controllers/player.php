@@ -52,6 +52,9 @@ class Player extends CI_Controller
             //获取标签
             $query_tag = $this->db->query("SELECT tag_name FROM fm_programme_tag WHERE programme_id=$me_id");
             $data['result_tag'] = $query_tag->result_array();
+            //获取评论
+            $query_comment = $this->db->query("SELECT a.content,a.addtime,b.username,b.nickname,b.avatar FROM fm_comment a  JOIN fm_member b WHERE a.mid=b.id AND a.programme_id=$me_id");
+            $data['result_comment'] = $query_comment->result_array();
         }
 
         //TA的其他节目
