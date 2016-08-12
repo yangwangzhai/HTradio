@@ -23,7 +23,7 @@ class Common extends CI_Controller
     {
         $uid = $this->session->userdata('id');
         if (! $uid) {
-            redirect('admin.php');
+            redirect('index.php?d=admin&c=common&m=login');
         }
         
         $list = get_cache('category');
@@ -52,7 +52,7 @@ class Common extends CI_Controller
     {
         $uid = $this->session->userdata('id');
         if (! $uid) {
-            redirect('admin.php');
+            redirect('index.php?d=admin&c=common&m=login');
         }
         $this->load->view('admin/main');
     }
@@ -70,7 +70,7 @@ class Common extends CI_Controller
     {
 		$data['website'] = get_cache('website');
         $uid = $this->session->userdata('id');
-        if ($uid) {
+        if ($uid > 0) {
             redirect('d=admin&c=common');
         }
         

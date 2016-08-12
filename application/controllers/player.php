@@ -13,7 +13,8 @@ class Player extends CI_Controller
     // 首页
     public function index ()
     {
-    	$data['id'] = $id = intval($_GET['id']);
+        date_default_timezone_set('PRC');
+        $data['id'] = $id = intval($_GET['id']);
         $data['meid'] = $me_id = intval($_GET['meid']);
         if(!$id && !$me_id){
             show(1,'请求参数不正确');
@@ -53,8 +54,35 @@ class Player extends CI_Controller
             $query_tag = $this->db->query("SELECT tag_name FROM fm_programme_tag WHERE programme_id=$me_id");
             $data['result_tag'] = $query_tag->result_array();
             //获取评论
-            $query_comment = $this->db->query("SELECT a.content,a.addtime,b.username,b.nickname,b.avatar FROM fm_comment a  JOIN fm_member b WHERE a.mid=b.id AND a.programme_id=$me_id ORDER BY a.addtime DESC");
+            $query_comment = $this->db->query("SELECT a.content,a.addtime,b.username,b.nickname,b.avatar FROM fm_comment a  JOIN fm_member b WHERE a.mid=b.id AND a.programme_id=$me_id ORDER BY a.addtime DESC LIMIT 0,3");
             $data['result_comment'] = $query_comment->result_array();
+            //获取评论总条数
+            $query_comment_num = $this->db->query("SELECT count(*) as num from fm_comment WHERE programme_id=$me_id");
+            $result_comment_num = $query_comment_num->row_array();
+            $data['result_comment_num'] = $result_comment_num['num'];
+            //获取用户id,若为空，则说明用户没有登陆，评论时候先提示用户登录
+            $data['mid'] = $this->session->userdata('uid');
+
+            //评论分页
+            $cur_page = $this->input->get('mper_page')?$this->input->get('mper_page'):1;//通过ajax获取当前第几页
+            $config['base_url'] = 'index.php?c=player&m=comment_page&me_id='.$me_id;
+            $query = $this->db->query("SELECT count(*) as num FROM fm_comment WHERE programme_id = $me_id");
+            $count = $query->row_array();
+            $config['total_rows'] = $count['num'];
+            $config['per_page'] = 3;
+            $config['cur_tag_open'] = '<span class="page-item page-navigator-current">';
+            $config['cur_tag_close'] = '</span>';
+            $config['prev_link'] = '上一页';
+            $config['next_link'] = '下一页';
+            $config['first_link'] = '第一页';
+            $config['last_link'] = '最后一页';
+            $config['use_page_numbers']= true;
+            $config['anchor_class']="class='ajax_mpage page-item'";
+            $config['cur_page']=$cur_page;
+            $this->load->library('pagination');
+            $this->pagination->initialize($config);//默认的对象名是类名的小写
+            $data['mpages'] =$this->pagination->create_links($cur_page);
+
         }
 
         //TA的其他节目
@@ -388,9 +416,62 @@ class Player extends CI_Controller
         }
     }
 
+    public function save_comment(){
+        date_default_timezone_set('PRC');
+        $insert['programme_id'] = $me_id = trim($this->input->post("me_id"));
+        $insert['mid'] = trim($this->input->post("mid"));
+        $insert['content'] = trim($this->input->post("comment"));
+        $insert['addtime'] = time();
+        $affected = $this->db->insert("fm_comment",$insert);
+        if($affected){
+            //获取评论
+            $query_comment = $this->db->query("SELECT a.content,a.addtime,b.username,b.nickname,b.avatar FROM fm_comment a  JOIN fm_member b WHERE a.mid=b.id AND a.programme_id=$me_id ORDER BY a.addtime DESC LIMIT 0,3");
+            $data['result_comment'] = $query_comment->result_array();
+            $arr[0] = $this->load->view('ajax_page/new_comment',$data,true);
+            //获取评论总条数
+            $query_comment_num = $this->db->query("SELECT count(*) as num from fm_comment WHERE programme_id=$me_id");
+            $result_comment_num = $query_comment_num->row_array();
+            $arr[1] = $result_comment_num['num'];
+            echo json_encode($arr);
+        }else{
+            echo json_encode(0);
+        }
+    }
 
+    //异步获取评论分页
+    public function comment_page(){
+        date_default_timezone_set('PRC');
+        $data['mid'] = $this->session->userdata('uid');
+        $me_id = $_GET['me_id'];
+        $cur_page = $this->input->get('mper_page')?$this->input->get('mper_page'):1;//通过ajax获取当前第几页
 
+        $config['base_url'] = 'index.php?c=player&m=comment_page&me_id='.$me_id;
+        $query = $this->db->query("SELECT count(*) as num FROM fm_comment WHERE programme_id = $me_id");
+        $count = $query->row_array();
+        $data['count'] = $count['num'];
+        $config['total_rows'] = $count['num'];
+        $config['per_page'] = 3;
+        $config['cur_tag_open'] = '<span class="page-item page-navigator-current">';
+        $config['cur_tag_close'] = '</span>';
+        $config['prev_link'] = '上一页';
+        $config['next_link'] = '下一页';
+        $config['first_link'] = '第一页';
+        $config['last_link'] = '最后一页';
+        $config['use_page_numbers']= true;
+        $config['anchor_class']="class='ajax_mpage page-item'";
+        $config['cur_page']=$cur_page;
+        $this->load->library('ajax_pagination');
+        $this->ajax_pagination->initialize($config);//默认的对象名是类名的小写
+        $data['mpages'] =$this->ajax_pagination->create_links($cur_page);
+        $per_page = $config['per_page'];
+        $offset = ($cur_page - 1) * $per_page;
 
+        $query_comment = $this->db->query("SELECT a.content,a.addtime,b.username,b.nickname,b.avatar FROM fm_comment a  JOIN fm_member b WHERE a.mid=b.id AND a.programme_id=$me_id ORDER BY a.addtime DESC LIMIT $offset,$per_page");
+        $data['result_comment'] = $query_comment->result_array();
+
+        $comment_html = $this->load->view('ajax_page/comment_page',$data,true);
+        echo $comment_html;
+    }
 
 	
 	

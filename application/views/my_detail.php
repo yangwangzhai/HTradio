@@ -110,7 +110,78 @@
 
                 }
             });
+            $("#ta-comment").live("focus",function(){
+                var mid = $("#ta-comment").attr("data-mid");
+                if(mid){
 
+                }else{
+                    alert("请先登录");
+                }
+            });
+            //异步保存评论
+            $(".c-submit").live("click",function(){
+                var comment = $("#ta-comment").text();
+                var mid = $("#ta-comment").attr("data-mid");
+                if(comment){
+                    var me_id = <?=$meid?>;
+                    $.ajax({
+                        url:"index.php?c=player&m=save_comment",
+                        type:"post",
+                        dataType:"json",
+                        data:{me_id:me_id,mid:mid,comment:comment},
+                        success:function(data){
+                            if(data){
+                                $(".cmt-list").empty();
+                                $(".cmt-list").append(data[0]);
+                                $("#ta-comment").text('');
+                                $(".cur").children("var").text('('+data[1]+')');
+                            }else{
+
+                            }
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }else{
+                    alert("评论不能为空！")
+                }
+            });
+            //异步获取评论分页
+            $('.ajax_mpage').live('click', function(eve){
+                //阻止默认动作，此处阻止<a>连接直接跳转
+                eve.preventDefault();
+                var me_id=<?=$meid?>;
+                var href=$(this).attr("href");
+                //alert(href);
+                var arr=href.split('per_page=');
+                if(arr[1]==''){arr[1]=1;}
+                var per_page=arr[1];
+                $.ajax({
+                    url:"index.php?c=player&m=comment_page",
+                    type:"get",
+                    dataType:"text",
+                    data: {
+                        'me_id':me_id,
+                        'mper_page':per_page //当前第几页，用于生成分页
+                    },
+                    success: function(html) {
+                        //alert(html);
+                        $(".qh_comment").detach();
+                        $(".k_til_02").after(html);
+                    }
+                });
+            });
+            //展开回复对话框
+            $(".reply").live("click",function(){
+                
+                if(!$(this).parent().next().hasClass("active_reply")){
+                    $(this).parent().next().css("display","block");
+                    $(this).parent().next().addClass("active_reply");
+                }
+
+            })
         });
     </script>
     <div class="main">
@@ -160,7 +231,7 @@
 
             <h2 class="k_til_02 mt20 alg_c bdb_f1565e">
                 <a class="fl clear-line f18 cur" data="program" href="javascript:void(0)">节目列表<var>(<?=$count?>)</var></a>
-                <a class="fl clear-line f18" data="comment" href="javascript:void(0)">评论<var>(591)</var></a>
+                <a class="fl clear-line f18" data="comment" href="javascript:void(0)">评论<var>(<?=$result_comment_num?>)</var></a>
             </h2>
             <?php if($list){ ?>
                 <div id="jp-playlist" class="details_list qh_program">
@@ -186,12 +257,6 @@
                     </ul>
                 </div>
 
-                <!--<div class="pagin">
-                    <div class="message">共<i class="blue"><?/*=$count*/?></i>条记录</div>
-                    <ul class="paginList">
-                        <li><?/*=$pages*/?></li>
-                    </ul>
-                </div>-->
                 <div class="page-navigator qh_program">
                     <div class="page-cont">
                         <div class="page-inner">
@@ -201,14 +266,16 @@
                 </div>
             <?php } ?>
 
+
+            <!--评论开始部分-->
             <div id="jp-playlist" class="qh qh_comment" style="display: none;padding: 20px">
                 <div class="hidden bg_1 pt14 pb10">
-                    <img id="user-pic" class="fl" src="/images/no_img.png" onerror="noSrc(event)">
+                    <img id="user-pic" class="fl" src="static/admin_img/audio.png" onerror="noSrc(event)">
                     <div class="fr c-sub">
-                        <div id="ta-comment" myplaceholder="不如聊聊你的想法？" contenteditable="true" class="curEmojiIpt emojiIpt clear-line c1 ipt-overflow">不如聊聊你的想法？</div>
+                        <div id="ta-comment" myplaceholder="聊聊你的想法？" data-mid="<?=$mid?>" contenteditable="true" class="curEmojiIpt emojiIpt clear-line c1 ipt-overflow" ></div>
                         <div class="face-div hidden">
                             <a class="fl face"></a>
-                            <a class="fr c-submit dis" commenttype="0">评论</a>
+                            <a class="fr c-submit dis" commenttype="0" style="cursor: pointer;">评论</a>
                             <span class="fr iptLen">140</span>
                         </div>
                     </div>
@@ -221,13 +288,19 @@
                         <div class="fr c-sub">
                             <p class="comment-t">
                                 <a href="/u/2951814.html"><?php echo $comment_value['nickname']?$comment_value['nickname']:$comment_value['username']?></a>
-                                <span class="fr"><?=date('Y-m-d',$comment_value['addtime'])?></span>
+                                <span class="fr"><?= date('Y-m-d H:i:s',$comment_value['addtime'])?></span>
                             </p>
                             <p class="clear-line word-break "><?=$comment_value['content']?></p>
                             <div class="c-operation">
                                 <a class="bd report">举报</a>
                                 <a class="bd zan" content="叶文，支持你" uid="2951814"><span>(0)</span></a>
-                                <a class="reply">回复</a>
+                                <a class="reply" style="cursor: pointer;">回复</a>
+                            </div>
+                            <div class="c-sub reply-div hide" style="display: none;">
+                                <div class="bg_1 pl10 pb10 pt15">
+                                    <div contenteditable="true" class="emojiIpt clear-line ipt-overflow" myplaceholder="回复嘉怡" style="color: rgb(153, 153, 153);">回复嘉怡</div>
+                                    <div class="face-div hidden"><a class="fl face"></a><a class="fr c-submit dis" commenttype="1">回复</a><span class="fr iptLen">140</span></div>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -236,7 +309,14 @@
                 <?php } ?>
             </div>
 
-
+            <div id="comment-page" class="page-navigator qh_comment" style="display: none;float: right;">
+                <div class="page-cont">
+                    <div class="page-inner">
+                        <?=$mpages?>
+                    </div>
+                </div>
+            </div>
+            <!--评论结束部分-->
 
 
 

@@ -164,7 +164,8 @@ function mouseover_event(){
                     'mper_page':per_page //当前第几页，用于生成分页
                 },
                 success: function(html) {
-                    $('.find_pic').html(html);
+                    alert(html);
+                    //$('.find_pic').html(html);
                 }
             });
         });
