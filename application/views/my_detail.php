@@ -119,7 +119,7 @@
                 }
             });
             //异步保存评论
-            $(".c-submit").live("click",function(){
+            $(".comment-submit").live("click",function(){
                 var comment = $("#ta-comment").text();
                 var mid = $("#ta-comment").attr("data-mid");
                 if(comment){
@@ -175,13 +175,48 @@
             });
             //展开回复对话框
             $(".reply").live("click",function(){
-                
-                if(!$(this).parent().next().hasClass("active_reply")){
+                if($(this).hasClass("active_reply")){
+                    $(this).parent().next().css("display","none");
+                    $(this).removeClass("active_reply");
+                }else{
+                    $(this).addClass("active_reply");
+                    $(".reply-div").css("display","none");
                     $(this).parent().next().css("display","block");
-                    $(this).parent().next().addClass("active_reply");
                 }
+            });
+            //保存回复内容
+            $(".reply-submit").live("click",function(){
+                var reply_content = $(this).parent().prev().text();
+                var replyed_name = $(this).attr("data-name");
+                var mid = $("#ta-comment").attr("data-mid");
+                if(reply_content){
+                    var me_id = <?=$meid?>;
+                    $.ajax({
+                        url:"index.php?c=player&m=save_comment",
+                        type:"post",
+                        dataType:"json",
+                        data:{me_id:me_id,mid:mid,reply_content:reply_content,replyed_name:replyed_name},
+                        success:function(data){
+                            if(data){
+                                $(".cmt-list").empty();
+                                $(".cmt-list").append(data[0]);
+                                $("#ta-comment").text('');
+                                $(".cur").children("var").text('('+data[1]+')');
+                            }else{
 
-            })
+                            }
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }else{
+                    alert("回复不能为空！")
+                }
+            });
+
+
         });
     </script>
     <div class="main">
@@ -275,7 +310,7 @@
                         <div id="ta-comment" myplaceholder="聊聊你的想法？" data-mid="<?=$mid?>" contenteditable="true" class="curEmojiIpt emojiIpt clear-line c1 ipt-overflow" ></div>
                         <div class="face-div hidden">
                             <a class="fl face"></a>
-                            <a class="fr c-submit dis" commenttype="0" style="cursor: pointer;">评论</a>
+                            <a class="fr c-submit dis comment-submit" commenttype="0" style="cursor: pointer;">评论</a>
                             <span class="fr iptLen">140</span>
                         </div>
                     </div>
@@ -287,10 +322,10 @@
                         <a href="/u/2951814.html"><img class="fl user-pic" src="<?php if($comment_value['avatar']){echo show_thumb($comment_value['avatar']);}else{echo 'uploads/default_images/default_avatar.jpg';}?>" onerror="headSrc(event)"></a>
                         <div class="fr c-sub">
                             <p class="comment-t">
-                                <a href="/u/2951814.html"><?php echo $comment_value['nickname']?$comment_value['nickname']:$comment_value['username']?></a>
+                                <a href="/u/2951814.html"><?php echo $comment_value['nickname']?$comment_value['nickname']:$comment_value['username']?>：</a>
                                 <span class="fr"><?= date('Y-m-d H:i:s',$comment_value['addtime'])?></span>
                             </p>
-                            <p class="clear-line word-break "><?=$comment_value['content']?></p>
+                            <p class="clear-line word-break "><?php if(!empty($comment_value['replyed_name'])){echo "回复<a style='color: #0000FF;'>".$comment_value['replyed_name']."</a>"."：".$comment_value['content'];}else{echo $comment_value['content'];}?></p>
                             <div class="c-operation">
                                 <a class="bd report">举报</a>
                                 <a class="bd zan" content="叶文，支持你" uid="2951814"><span>(0)</span></a>
@@ -298,8 +333,8 @@
                             </div>
                             <div class="c-sub reply-div hide" style="display: none;">
                                 <div class="bg_1 pl10 pb10 pt15">
-                                    <div contenteditable="true" class="emojiIpt clear-line ipt-overflow" myplaceholder="回复嘉怡" style="color: rgb(153, 153, 153);">回复嘉怡</div>
-                                    <div class="face-div hidden"><a class="fl face"></a><a class="fr c-submit dis" commenttype="1">回复</a><span class="fr iptLen">140</span></div>
+                                    <div contenteditable="true" class="emojiIpt clear-line ipt-overflow"  style="color: rgb(153, 153, 153);"></div>
+                                    <div class="face-div hidden"><a class="fl face"></a><a style="cursor: pointer;" class="fr c-submit dis reply-submit" data-name="<?php echo $comment_value['nickname']?$comment_value['nickname']:$comment_value['username']?>" commenttype="1">回复</a><span class="fr iptLen">140</span></div>
                                 </div>
                             </div>
                         </div>

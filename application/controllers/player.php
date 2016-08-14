@@ -54,7 +54,7 @@ class Player extends CI_Controller
             $query_tag = $this->db->query("SELECT tag_name FROM fm_programme_tag WHERE programme_id=$me_id");
             $data['result_tag'] = $query_tag->result_array();
             //获取评论
-            $query_comment = $this->db->query("SELECT a.content,a.addtime,b.username,b.nickname,b.avatar FROM fm_comment a  JOIN fm_member b WHERE a.mid=b.id AND a.programme_id=$me_id ORDER BY a.addtime DESC LIMIT 0,3");
+            $query_comment = $this->db->query("SELECT a.content,a.addtime,a.replyed_name,b.username,b.nickname,b.avatar FROM fm_comment a  JOIN fm_member b WHERE a.mid=b.id AND a.programme_id=$me_id ORDER BY a.addtime DESC LIMIT 0,3");
             $data['result_comment'] = $query_comment->result_array();
             //获取评论总条数
             $query_comment_num = $this->db->query("SELECT count(*) as num from fm_comment WHERE programme_id=$me_id");
@@ -420,12 +420,13 @@ class Player extends CI_Controller
         date_default_timezone_set('PRC');
         $insert['programme_id'] = $me_id = trim($this->input->post("me_id"));
         $insert['mid'] = trim($this->input->post("mid"));
-        $insert['content'] = trim($this->input->post("comment"));
+        $insert['content'] = trim($this->input->post("reply_content"));
+        $insert['replyed_name'] = trim($this->input->post("replyed_name"))?trim($this->input->post("replyed_name")):'';
         $insert['addtime'] = time();
         $affected = $this->db->insert("fm_comment",$insert);
         if($affected){
             //获取评论
-            $query_comment = $this->db->query("SELECT a.content,a.addtime,b.username,b.nickname,b.avatar FROM fm_comment a  JOIN fm_member b WHERE a.mid=b.id AND a.programme_id=$me_id ORDER BY a.addtime DESC LIMIT 0,3");
+            $query_comment = $this->db->query("SELECT a.content,a.addtime,a.replyed_name,b.username,b.nickname,b.avatar FROM fm_comment a  JOIN fm_member b WHERE a.mid=b.id AND a.programme_id=$me_id ORDER BY a.addtime DESC LIMIT 0,3");
             $data['result_comment'] = $query_comment->result_array();
             $arr[0] = $this->load->view('ajax_page/new_comment',$data,true);
             //获取评论总条数
@@ -466,7 +467,7 @@ class Player extends CI_Controller
         $per_page = $config['per_page'];
         $offset = ($cur_page - 1) * $per_page;
 
-        $query_comment = $this->db->query("SELECT a.content,a.addtime,b.username,b.nickname,b.avatar FROM fm_comment a  JOIN fm_member b WHERE a.mid=b.id AND a.programme_id=$me_id ORDER BY a.addtime DESC LIMIT $offset,$per_page");
+        $query_comment = $this->db->query("SELECT a.content,a.addtime,a.replyed_name,b.username,b.nickname,b.avatar FROM fm_comment a  JOIN fm_member b WHERE a.mid=b.id AND a.programme_id=$me_id ORDER BY a.addtime DESC LIMIT $offset,$per_page");
         $data['result_comment'] = $query_comment->result_array();
 
         $comment_html = $this->load->view('ajax_page/comment_page',$data,true);
