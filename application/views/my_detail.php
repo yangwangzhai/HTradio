@@ -110,6 +110,7 @@
 
                 }
             });
+            //判断评论时是否已经登陆
             $("#ta-comment").live("focus",function(){
                 var mid = $("#ta-comment").attr("data-mid");
                 if(mid){
@@ -118,6 +119,7 @@
                     alert("请先登录");
                 }
             });
+
             //异步保存评论
             $(".comment-submit").live("click",function(){
                 var comment = $("#ta-comment").text();
@@ -175,27 +177,32 @@
             });
             //展开回复对话框
             $(".reply").live("click",function(){
-                if($(this).hasClass("active_reply")){
-                    $(this).parent().next().css("display","none");
-                    $(this).removeClass("active_reply");
+                var mid = $(this).attr("data-mid");
+                if(mid){
+                    if($(this).hasClass("active_reply")){
+                        $(this).parent().next().css("display","none");
+                        $(this).removeClass("active_reply");
+                    }else{
+                        $(this).addClass("active_reply");
+                        $(".reply-div").css("display","none");
+                        $(this).parent().next().css("display","block");
+                    }
                 }else{
-                    $(this).addClass("active_reply");
-                    $(".reply-div").css("display","none");
-                    $(this).parent().next().css("display","block");
+                    alert("请先登录");
                 }
             });
             //保存回复内容
             $(".reply-submit").live("click",function(){
-                var reply_content = $(this).parent().prev().text();
+                var comment = $(this).parent().prev().text();
                 var replyed_name = $(this).attr("data-name");
                 var mid = $("#ta-comment").attr("data-mid");
-                if(reply_content){
+                if(comment){
                     var me_id = <?=$meid?>;
                     $.ajax({
                         url:"index.php?c=player&m=save_comment",
                         type:"post",
                         dataType:"json",
-                        data:{me_id:me_id,mid:mid,reply_content:reply_content,replyed_name:replyed_name},
+                        data:{me_id:me_id,mid:mid,comment:comment,replyed_name:replyed_name},
                         success:function(data){
                             if(data){
                                 $(".cmt-list").empty();
@@ -215,7 +222,33 @@
                     alert("回复不能为空！")
                 }
             });
+            //异步删除评论
+            $(".delete_comment").live("click",function(){
+                var id = $(this).attr('data-id');
+                var me_id = <?=$meid?>;
+                if(confirm("确定要删除该条评论？")){
+                    $.ajax({
+                        url:"index.php?c=player&m=delete_comment",
+                        type:"post",
+                        dataType:"json",
+                        data:{id:id,me_id:me_id},
+                        success:function(data){
+                            if(data){
+                                $(".cmt-list").empty();
+                                $(".cmt-list").append(data[0]);
+                                $("#ta-comment").text('');
+                                $(".cur").children("var").text('('+data[1]+')');
+                            }else{
 
+                            }
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }
+            })
 
         });
     </script>
@@ -309,7 +342,7 @@
                     <div class="fr c-sub">
                         <div id="ta-comment" myplaceholder="聊聊你的想法？" data-mid="<?=$mid?>" contenteditable="true" class="curEmojiIpt emojiIpt clear-line c1 ipt-overflow" ></div>
                         <div class="face-div hidden">
-                            <a class="fl face"></a>
+                            <!--<a class="fl face"></a>-->
                             <a class="fr c-submit dis comment-submit" commenttype="0" style="cursor: pointer;">评论</a>
                             <span class="fr iptLen">140</span>
                         </div>
@@ -329,12 +362,20 @@
                             <div class="c-operation">
                                 <a class="bd report">举报</a>
                                 <a class="bd zan" content="叶文，支持你" uid="2951814"><span>(0)</span></a>
-                                <a class="reply" style="cursor: pointer;">回复</a>
+                                <?php if($mid!=$comment_value['mid']){?>
+                                <a class="reply" style="cursor: pointer;" data-mid="<?=$mid?>">回复</a>
+                                <?php }else{?>
+                                <a class="delete_comment" style="cursor: pointer;" data-id="<?=$comment_value['id']?>" data-mid="<?=$mid?>">删除</a>
+                                <?php }?>
                             </div>
                             <div class="c-sub reply-div hide" style="display: none;">
                                 <div class="bg_1 pl10 pb10 pt15">
                                     <div contenteditable="true" class="emojiIpt clear-line ipt-overflow"  style="color: rgb(153, 153, 153);"></div>
-                                    <div class="face-div hidden"><a class="fl face"></a><a style="cursor: pointer;" class="fr c-submit dis reply-submit" data-name="<?php echo $comment_value['nickname']?$comment_value['nickname']:$comment_value['username']?>" commenttype="1">回复</a><span class="fr iptLen">140</span></div>
+                                    <div class="face-div hidden">
+                                        <!--<a class="fl face"></a>-->
+                                        <a style="cursor: pointer;" class="fr c-submit dis reply-submit" data-name="<?php echo $comment_value['nickname']?$comment_value['nickname']:$comment_value['username']?>" commenttype="1">回复</a>
+                                        <span class="fr iptLen">140</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

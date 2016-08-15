@@ -20,7 +20,7 @@
                 <div class="bg_1 pl10 pb10 pt15">
                     <div contenteditable="true" class="emojiIpt clear-line ipt-overflow"  style="color: rgb(153, 153, 153);"></div>
                     <div class="face-div hidden">
-                       <!-- <a class="fl face"></a>-->
+                        <!-- <a class="fl face"></a>-->
                         <a style="cursor: pointer;" class="fr c-submit dis reply-submit" data-name="<?php echo $comment_value['nickname']?$comment_value['nickname']:$comment_value['username']?>" commenttype="1">回复</a>
                         <span class="fr iptLen">140</span>
                     </div>
