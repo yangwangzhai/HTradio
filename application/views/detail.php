@@ -10,10 +10,6 @@
 <script>
     $(document).ready(function(){
         mouseover_event();
-        //点击开始播放
-        $("#b_play").live("click",function(){
-            $("#play_box").show();
-        });
 
         $("#tag").on("click",function(){
             if($(this).next().css("display")=="none"){
@@ -214,8 +210,10 @@
                 <h1><?=$me_data['title']?></h1>
                 <p>上传者：<?=getNickName($me_data['mid'])?></p>
                 <p>最后更新: <?=date('Y-m-d',$me_data['addtime'])?></p>
-                <p style=" padding:10px 0;margin-bottom: 50px;"><a id="b_play" style="text-decoration: none;" href="javascript:void(0);" id="sss" class="dbtn">播放</a><span><?=$me_data['playtimes']+1?></span>次播放</p>
-                <!-- JiaThis Button BEGIN -->
+                <p style="padding:10px 0;">
+                    <img id="b_play" src="static/images/splay.png" style="position: relative; top: 7px;cursor: pointer;" data-id="<?=$me_data['id']?>" data-title="<?=$me_data['title']?>" data-thumb="<?=$me_data['thumb']?>" data-url="<?=$me_data['path']?>" data-flag="0" data-jilu="0">
+                    <span id="playtimes"><?=$me_data['playtimes']?></span>次播放
+                </p>
                 <!-- JiaThis Button BEGIN -->
                 <div class="jiathis_style_24x24">
                     <a class="jiathis_button_qzone"></a>
@@ -263,41 +261,43 @@
                     </div>
                 </div>
             </div>
-            <?php if($result_comment){ ?>
-                <ul class="cmt-list">
-                    <?php foreach($result_comment as $comment_value) :?>
-                        <li cid="476820" class="bdb_e5">
-                            <a href="/u/2951814.html"><img class="fl user-pic" src="<?php if($comment_value['avatar']){echo show_thumb($comment_value['avatar']);}else{echo 'uploads/default_images/default_avatar.jpg';}?>" onerror="headSrc(event)"></a>
-                            <div class="fr c-sub">
-                                <p class="comment-t">
-                                    <a href="/u/2951814.html"><?php echo $comment_value['nickname']?$comment_value['nickname']:$comment_value['username']?>：</a>
-                                    <span class="fr"><?= date('Y-m-d H:i:s',$comment_value['addtime'])?></span>
-                                </p>
-                                <p class="clear-line word-break "><?php if(!empty($comment_value['replyed_name'])){echo "回复<a style='color: #0000FF;'>".$comment_value['replyed_name']."</a>"."：".$comment_value['content'];}else{echo $comment_value['content'];}?></p>
-                                <div class="c-operation">
-                                    <a class="bd report">举报</a>
-                                    <a class="bd zan" content="叶文，支持你" uid="2951814"><span>(0)</span></a>
-                                    <?php if($mid!=$comment_value['mid']){?>
-                                        <a class="reply" style="cursor: pointer;" data-mid="<?=$mid?>">回复</a>
-                                    <?php }else{?>
-                                        <a class="delete_comment" style="cursor: pointer;" data-id="<?=$comment_value['id']?>" data-mid="<?=$mid?>">删除</a>
-                                    <?php }?>
-                                </div>
-                                <div class="c-sub reply-div hide" style="display: none;">
-                                    <div class="bg_1 pl10 pb10 pt15">
-                                        <div contenteditable="true" class="emojiIpt clear-line ipt-overflow"  style="color: rgb(153, 153, 153);"></div>
-                                        <div class="face-div hidden">
-                                            <!--<a class="fl face"></a>-->
-                                            <a style="cursor: pointer;" class="fr c-submit dis reply-submit" data-name="<?php echo $comment_value['nickname']?$comment_value['nickname']:$comment_value['username']?>" commenttype="1">回复</a>
-                                            <span class="fr iptLen">140</span>
-                                        </div>
+
+            <ul class="cmt-list">
+                <?php if($result_comment){ ?>
+                <?php foreach($result_comment as $comment_value) :?>
+                    <li cid="476820" class="bdb_e5">
+                        <a href="/u/2951814.html"><img class="fl user-pic" src="<?php if($comment_value['avatar']){echo show_thumb($comment_value['avatar']);}else{echo 'uploads/default_images/default_avatar.jpg';}?>" onerror="headSrc(event)"></a>
+                        <div class="fr c-sub">
+                            <p class="comment-t">
+                                <a href="/u/2951814.html"><?php echo $comment_value['nickname']?$comment_value['nickname']:$comment_value['username']?>：</a>
+                                <span class="fr"><?= date('Y-m-d H:i:s',$comment_value['addtime'])?></span>
+                            </p>
+                            <p class="clear-line word-break "><?php if(!empty($comment_value['replyed_name'])){echo "回复<a style='color: #0000FF;'>".$comment_value['replyed_name']."</a>"."：".$comment_value['content'];}else{echo $comment_value['content'];}?></p>
+                            <div class="c-operation">
+                                <a class="bd report">举报</a>
+                                <a class="bd zan" content="叶文，支持你" uid="2951814"><span>(0)</span></a>
+                                <?php if($mid!=$comment_value['mid']){?>
+                                    <a class="reply" style="cursor: pointer;" data-mid="<?=$mid?>">回复</a>
+                                <?php }else{?>
+                                    <a class="delete_comment" style="cursor: pointer;" data-id="<?=$comment_value['id']?>" data-mid="<?=$mid?>">删除</a>
+                                <?php }?>
+                            </div>
+                            <div class="c-sub reply-div hide" style="display: none;">
+                                <div class="bg_1 pl10 pb10 pt15">
+                                    <div contenteditable="true" class="emojiIpt clear-line ipt-overflow"  style="color: rgb(153, 153, 153);"></div>
+                                    <div class="face-div hidden">
+                                        <!--<a class="fl face"></a>-->
+                                        <a style="cursor: pointer;" class="fr c-submit dis reply-submit" data-name="<?php echo $comment_value['nickname']?$comment_value['nickname']:$comment_value['username']?>" commenttype="1">回复</a>
+                                        <span class="fr iptLen">140</span>
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                    <?php endforeach ?>
-                </ul>
-            <?php } ?>
+                        </div>
+                    </li>
+                <?php endforeach ?>
+                <?php } ?>
+            </ul>
+
         </div>
 
         <div id="comment-page" class="page-navigator qh_comment" style="float: right;">
@@ -392,36 +392,102 @@
 </div>
 
 <script type="text/javascript">
-    flowplayer("flashls_vod", "static/flowplayer/flowplayer.swf", {
-        plugins: {
-            flashls: {
-                url: 'static/flowplayer/flashlsFlowPlayer.swf'
-            },
-            controls:{
-                autoHide: false//功能条是否自动隐藏
-            }
-        },
-        clip: {
-            url: "<?=$me_data['path']?>",
-            live: true,
-            autoPlay: true,
-            urlResolvers: "flashls",
-            provider: "flashls"
-        },
-        onFinish: function() {
-            //统计播完率
-            var id = <?=$id?>;
+    $("#b_play").click(function(){
+        $("#play_box").show();
+        var id="flashls_vod";
+        var url=$(this).attr("data-url");
+        var pid=$(this).attr("data-id");
+        var flag=$(this).attr("data-flag");
+        var jilu=$(this).attr("data-jilu");
+        if(flag==0&&jilu==0){
             $.ajax({
-                url: 'index.php?c=player&m=play_over',
+                url: 'index.php?c=index&m=playtimes',
                 type: 'post',
                 dataType:'json',
-                data: {id:id},
+                data: {pid:pid},
                 success:function(data) {
                     //alert(data);
                 }
             });
+            //动态改变播放次数
+            var playtimes = $("#playtimes").text();
+            var cur_playtimes = parseInt(playtimes)+1;
+            $("#playtimes").text(cur_playtimes);
         }
-    }).ipad();
+        if(flag==0){
+            fplayer(id,url,pid);
+            $(this).attr("src","static/images/pplay.png");
+            $(this).attr("data-flag","1");
+            $(this).attr("data-jilu","1");
+        }else{
+            flowplayer(id, "static/flowplayer/flowplayer.swf", {
+                // configure the required plugins
+                plugins: {
+                    flashls: {
+                        url: 'static/flowplayer/flashlsFlowPlayer.swf'
+                    },
+                    controls:{
+                        autoHide: false, //功能条是否自动隐藏
+                        tooltips: {
+                            buttons: true,//是否显示
+                            fullscreen: '全屏',//全屏按钮，鼠标指上时显示的文本
+                            stop:'停止',
+                            play:'开始',
+                            volume:'音量',
+                            mute: '静音',
+                            next:'下一个',
+                            previous:'上一个'
+                        }
+                    }
+                },
+                clip: {
+                    url: url,
+                    live: true,
+                    autoPlay: false,
+                    urlResolvers: "flashls",
+                    provider: "flashls"
+                }
+            }).stop();
+            $(this).attr("data-flag","0");
+            $(this).attr("src","static/images/splay.png");
+        }
+
+    });
+
+    function fplayer(id,url,pid){
+        flowplayer(id, "static/flowplayer/flowplayer.swf", {
+            // configure the required plugins
+            plugins: {
+                flashls: {
+                    url: 'static/flowplayer/flashlsFlowPlayer.swf'
+                },
+                controls:{
+                    autoHide: false ,//功能条是否自动隐藏
+                    backgroundColor: '#0a8ddf'
+                }
+            },
+            clip: {
+                url: url,
+                live: true,
+                urlResolvers: "flashls",
+                provider: "flashls"
+            },
+            onFinish: function() {
+                //统计播完率
+                $.ajax({
+                    url: 'index.php?c=player&m=play_over',
+                    type: 'post',
+                    dataType:'json',
+                    data: {id:pid},
+                    success:function(data) {
+                        //alert(data);
+                    }
+                });
+            }
+
+        }).ipad();
+    }
+
 </script>
 
 </body>

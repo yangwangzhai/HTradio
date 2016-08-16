@@ -141,7 +141,6 @@ class Zhubo extends Common
         $data['pages'] =$this->ajax_pagination->create_links($cur_page);
         $per_page = $config['per_page'];
         $offset = ($cur_page - 1) * $per_page;
-        echo $data['pages'];exit;
 
         $sql = "SELECT id,title,path,download_path,program_time,playtimes,addtime FROM fm_program WHERE mid = $mid ORDER BY addtime DESC limit $offset,$per_page";
         $query = $this->db->query($sql);
@@ -174,7 +173,6 @@ class Zhubo extends Common
         $data['mpages'] =$this->ajax_pagination->create_links($cur_page);
         $per_page = $config['per_page'];
         $offset = ($cur_page - 1) * $per_page;
-        echo $data['mpages'];exit;
 
         $sql = "SELECT id,title,mid,thumb FROM fm_programme where mid = $mid ORDER BY id DESC limit $offset,$per_page";
         $query = $this->db->query($sql);

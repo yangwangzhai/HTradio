@@ -14,7 +14,7 @@
                 <strong><?=date('Y-m-d',$v['addtime'])?></strong>
             </em>
             <img class="playmenu" data-id="<?=$v['id']?>" data-title="<?=$v['title']?>" data-thumb="<?=$v['thumb']?>" data-url="<?=$v['path']?>" data-flag="0" src="static/images/playbox.png" style="display: inline-block;padding-right: 5px; position: relative; top: 3px;">
-            <b class="program_detail" data-id="<?=$v['id']?>"><?=$v['title']?></b>
+            <b class="program_detail" data-id="<?=$v['id']?>"><a href="index.php?c=player&m=index&id=<?=$v['id']?>" target="-_blank"><?=$v['title']?></a></b>
         </li>
     <?php } ?>
 </ul>

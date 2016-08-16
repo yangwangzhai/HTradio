@@ -22,9 +22,10 @@ class Index extends Common
 		   
         $data['id'] = '1213';
 		//随机获取几个节目
-		$sql="SELECT id,title,thumb,path,playtimes FROM fm_program WHERE id >= ((SELECT MAX(id) FROM fm_program)-(SELECT MIN(id) FROM fm_program)) * RAND() + (SELECT MIN(id) FROM fm_program)  LIMIT 3;";
+		$sql="SELECT id,title,thumb,path,playtimes FROM fm_program WHERE id >= (((SELECT MAX(id) FROM fm_program)-(SELECT MIN(id) FROM fm_program)) * RAND() + (SELECT MIN(id) FROM fm_program))  LIMIT 3;";
 		$query=$this->db->query($sql);
 		$data['list']=$query->result_array();
+
         if(!empty($data['list'])){
             //直接播放随机取出的第一个节目，该节目播放数量+1
             $playtimes_current = $data['list'][0]['playtimes']+1;
@@ -546,7 +547,7 @@ class Index extends Common
             $playtimes_before = $query->row_array();
             $playtimes_current = $playtimes_before['playtimes']+1;
             $this->db->query("update fm_program set playtimes=$playtimes_current WHERE id=$id");
-            //统计播放该节目的时间
+            //记录播放该节目的时间
             $insert['addtime'] = time();
             $this->db->insert("fm_program_playtimes",$insert);
             echo json_encode($playtimes_current);

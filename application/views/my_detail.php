@@ -348,8 +348,9 @@
                         </div>
                     </div>
                 </div>
-                <?php if($result_comment){ ?>
+
                 <ul class="cmt-list">
+                    <?php if($result_comment){ ?>
                     <?php foreach($result_comment as $comment_value) :?>
                     <li cid="476820" class="bdb_e5">
                         <a href="/u/2951814.html"><img class="fl user-pic" src="<?php if($comment_value['avatar']){echo show_thumb($comment_value['avatar']);}else{echo 'uploads/default_images/default_avatar.jpg';}?>" onerror="headSrc(event)"></a>
@@ -381,8 +382,9 @@
                         </div>
                     </li>
                     <?php endforeach ?>
+                    <?php } ?>
                 </ul>
-                <?php } ?>
+
             </div>
 
             <div id="comment-page" class="page-navigator qh_comment" style="display: none;float: right;">
@@ -481,39 +483,6 @@
     <!--flowplayer代码结束-->
 </div>
 <script type="text/javascript">
-/*    flowplayer("flashls_vod", "static/flowplayer/flowplayer.swf", {
-        plugins: {
-            flashls: {
-                url: 'static/flowplayer/flashlsFlowPlayer.swf'
-            },
-            controls:{
-                autoHide: false,//功能条是否自动隐藏
-                backgroundColor: '#0a8ddf'
-            }
-        },
-        clip: {
-            url: "<?=$list[0]['path']?>",
-            live: true,
-            autoPlay: false,//关闭自动播放
-            urlResolvers: "flashls",
-            provider: "flashls"
-        },
-        onFinish: function() {
-            //统计播完率
-            var id = <?=$list[0]['id']?>;
-            $.ajax({
-                url: 'index.php?c=player&m=play_over',
-                type: 'post',
-                dataType:'json',
-                data: {id:id},
-                success:function(data) {
-                    //alert(data);
-                }
-            });
-        }
-
-    }).ipad();*/
-
     $(".playmenu").click(function(){
         $("#play_box").show();
         var id="flashls_vod";

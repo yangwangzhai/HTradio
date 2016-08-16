@@ -1,5 +1,4 @@
 <?php $this->load->view('header');?>
-<script type="text/javascript" src="static/js/jplayer/jquery.jplayer.min.js"></script>
 <script type="text/javascript" src="static/flowplayer/flowplayer-3.2.12.min.js"></script>
 <script type="text/javascript" src="static/flowplayer/flowplayer.ipad-3.2.12.min.js"></script>
 <script type="text/javascript">
@@ -62,10 +61,18 @@ function mouseover_event(){
             <div class="find_pic">
                 <?php foreach($me_list as $v) { ?>
             	<dl>
-                  <dt><a href="./index.php?c=player&meid=<?=$v['id']?>"><img src="<?php if(!empty($v['thumb'])){echo show_thumb( $v['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" /></a></dt>
+                  <dt>
+                      <a href="./index.php?c=player&meid=<?=$v['id']?>">
+                          <img src="<?php if(!empty($v['thumb'])){echo show_thumb( $v['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" />
+                      </a>
+                  </dt>
                   <dd>
-                    <h3 style="text-align: center;"><a href="./index.php?c=player&meid=<?=$v['id']?>"><?=$v['title']?></a></h3>
-                    <p style="text-align: center;"><a href="javascript:void(0)"><?=getNickName($v['mid'])?></a></p>
+                    <h3 style="text-align: center;">
+                        <a href="./index.php?c=player&meid=<?=$v['id']?>"><?=$v['title']?></a>
+                    </h3>
+                    <p style="text-align: center;">
+                        <a href="javascript:void(0)"><?=getNickName($v['mid'])?></a>
+                    </p>
                   </dd>
                 </dl>
                 <?php } ?>
@@ -97,7 +104,7 @@ function mouseover_event(){
                         <strong><?=date('Y-m-d',$v['addtime'])?></strong>
                     </em>
                     <img class="playmenu" data-id="<?=$v['id']?>" data-title="<?=$v['title']?>" data-thumb="<?=$v['thumb']?>" data-url="<?=$v['path']?>" data-flag="0" src="static/images/playbox.png" style="display: inline-block;padding-right: 5px; position: relative; top: 3px;">
-                    <b class="program_detail" data-id="<?=$v['id']?>"><?=$v['title']?></b>
+                    <b class="program_detail" data-id="<?=$v['id']?>"><a href="index.php?c=player&m=index&id=<?=$v['id']?>" target="-_blank"><?=$v['title']?></a></b>
                 </li>
             <?php } ?>
         </ul>
@@ -164,8 +171,8 @@ function mouseover_event(){
                     'mper_page':per_page //当前第几页，用于生成分页
                 },
                 success: function(html) {
-                    alert(html);
-                    //$('.find_pic').html(html);
+                    //alert(html);
+                    $('.find_pic').html(html);
                 }
             });
         });

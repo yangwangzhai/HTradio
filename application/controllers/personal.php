@@ -50,7 +50,6 @@ class Personal extends Common
         //我最新的节目单
         $cur_page = $this->input->get('mper_page')?$this->input->get('mper_page'):1;//通过ajax获取当前第几页
 
-
         $config['base_url'] = 'index.php?c=zhubo&mid='.$uid;
         $query = $this->db->query("SELECT count(*) as num FROM fm_programme WHERE mid = $uid");
         $count = $query->row_array();

@@ -1,7 +1,42 @@
 <?php $this->load->view('header');?>
-<script type="text/javascript" src="static/js/jplayer/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="static/flowplayer/flowplayer-3.2.12.min.js"></script>
+<script type="text/javascript" src="static/flowplayer/flowplayer.ipad-3.2.12.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+    //异步删除节目
+    $(".g").live("click", function () {
+        //var meid = $(this).attr("data-meid");
+        var id = $(this).attr("data-id");
+        var com = confirm("确定要删除该节目？");
+        if(com){
+            $(this).parent().parent().addClass("active");
+            $.ajax({
+                url:"index.php?c=personal&m=delete_personal_progarm",
+                type: "post",         //数据发送方式
+                dataType:"json",    //接受数据格式
+                data:{id:id},  //要传递的数据
+                success:function(data){
+                    if(data){
+                        $(".active").remove();
+                    }else{
+                        alert("删除失败");
+                    }
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown)
+                {
+                    //alert(errorThrown);
+                }
+            });
+        }
+    });
+
+    //下载
+    $(".f").live("click",function(){
+        var download_path = $(this).attr("data-download-path");
+        var title = $(this).attr("data-title");
+        location.href="index.php?c=personal&m=download&download_path="+download_path+"&title="+title;
+    });
+
   $(".details_list ul li").mouseover(function(){
     $(this).addClass("current");
   });
@@ -44,10 +79,18 @@ $(".details_list ul li").mouseout(function(){
             <div class="find_pic">
                 <?php foreach($me_list as $v) { ?>
             	<dl>
-                  	<dt><a href="./index.php?c=player&meid=<?=$v['id']?>"><img src="<?php if(!empty($v['thumb'])){echo show_thumb( $v['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" /></a></dt>
+                  	<dt>
+                        <a href="./index.php?c=player&meid=<?=$v['id']?>">
+                            <img src="<?php if(!empty($v['thumb'])){echo show_thumb( $v['thumb'] );}else{echo base_url()."uploads/default_images/default_programme.jpg";}?>" />
+                        </a>
+                    </dt>
                   	<dd>
-                    	<h3><a href="./index.php?c=player&meid=<?=$v['id']?>"><?=$v['title']?></a></h3>
-                    	<p><a href="./index.php?c=zhubo&mid=<?=$v['mid']?>"><?=getNickName($v['mid'])?></a></p>
+                    	<h3 style="text-align: center;">
+                            <a href="./index.php?c=player&meid=<?=$v['id']?>"><?=$v['title']?></a>
+                        </h3>
+                    	<p style="text-align: center;">
+                            <a href="./index.php?c=zhubo&mid=<?=$v['mid']?>"><?=getNickName($v['mid'])?></a>
+                        </p>
                   	</dd>
                 </dl>
                 <?php } ?>
@@ -127,30 +170,62 @@ $(".details_list ul li").mouseout(function(){
 	        
 	</div>
 
-<div id="cmplayer"></div><!--播放音频的flash隐藏窗口-->
-<div class="music-wrap" id="jp_container_1">
-    <div class="music-play">
-        <div class="u-cover">
-            <img src="<?=show_thumb($me_data['thumb'])?>" width="60px" height="60px">
-        </div>
-        <div class="u-infor">
-            <div class="music-title jp-title"></div>
-            <div class="u-control jp-progress">
-                <div class="jp-seek-bar">
-                    <div class="jp-play-bar"></div>
-                </div>
-            </div> 
-            <div class="control jp-controls">
-                <div class="rewind jp-previous"></div>
-                <div class="play jp-play"></div>
-                <div class="back jp-pause"></div>
-                <div class="fastforward jp-next"></div>
-            </div>
-            <div class="u-time">
-                <span class="jp-current-time"></span>/<span class="jp-duration"></span>
-            </div>  
-        </div>
-    </div>
-</div>
+    <script>
+        //ready begin
+        $(document).ready(function(){
+            var curr = '';
+            $('.ajax_fpage').live('click', function(eve){
+                eve.preventDefault();
+                var keyword = '<?=$keyword?>';
+                var href=$(this).attr("href");
+                var arr=href.split('per_page=');
+                if(arr[1]==''){arr[1]=1;}
+                var per_page=arr[1];
+                var offset=arr[1];
+                $.ajax({
+                    url:"index.php?c=search&m=program_page",
+                    type:"get",
+                    dataType:"text",
+                    data: {
+                        'keyword':keyword,
+                        'per_page':per_page //当前第几页，用于生成分页
+                    },
+                    success: function(html) {
+                        $('.details_list').html(html);
+                        $('li[data-id='+curr+']').addClass('curr').css({background:'url("static/images/pause.png") no-repeat scroll 1% center'}).siblings().css({background:''});
+                        mouseover_event();
+                    }
+                });
+            });
+
+            $('.ajax_mpage').live('click', function(eve){
+                eve.preventDefault();
+                var keyword = '<?=$keyword?>';
+                var href=$(this).attr("href");
+                var arr=href.split('per_page=');
+                if(arr[1]==''){arr[1]=1;}
+                var per_page=arr[1];
+                var offset=arr[1];
+                $.ajax({
+                    url:"index.php?c=search&m=programme_page",
+                    type:"get",
+                    dataType:"text",
+                    data: {
+                        //    offset:offset,
+                        'keyword':keyword,
+                        'mper_page':per_page //当前第几页，用于生成分页
+                    },
+                    success: function(html) {
+                        //alert(html);
+                        $('.find_pic').html(html);
+                    }
+                });
+
+            });
+
+
+        }); /*end ready*/
+
+    </script>
 
 <?php $this->load->view('footer');?>

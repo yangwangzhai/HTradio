@@ -21,7 +21,7 @@ class Player extends CI_Controller
         }
 
         if($id) {
-            $sql = "SELECT path,title,mid,description intro,thumb,addtime,playtimes FROM fm_program WHERE id=$id";
+            $sql = "SELECT id,path,title,mid,description intro,thumb,addtime,playtimes FROM fm_program WHERE id=$id";
             $query = $this->db->query($sql);
             $data['me_data'] = $query->row_array();
             //获取标签
@@ -141,14 +141,6 @@ class Player extends CI_Controller
         $data['listen'] = $query->result_array();
 
         if($id){
-            //直接播放的是节目，该节目播放数量+1
-            $playtimes_current = $data['me_data']['playtimes']+1;
-            $this->db->query("update fm_program set playtimes=$playtimes_current WHERE id=$id");
-            //统计播放该节目的时间
-            $insert['program_id'] = $id;
-            $insert['addtime'] = time();
-            $this->db->insert("fm_program_playtimes",$insert);
-
             $this->load->view('detail',$data);
         }elseif($me_id){
             //直接播放的是节目，该节目播放数量+1
@@ -551,6 +543,7 @@ class Player extends CI_Controller
             $query_comment = $this->db->query("SELECT a.id,a.mid,a.content,a.addtime,a.replyed_name,b.username,b.nickname,b.avatar FROM fm_comment_program a  JOIN fm_member b WHERE a.mid=b.id AND a.program_id=$id ORDER BY a.addtime DESC LIMIT 0,3");
             $data['result_comment'] = $query_comment->result_array();
             $arr[0] = $this->load->view('ajax_page/new_comment_program',$data,true);
+
             //获取评论总条数
             $query_comment_num = $this->db->query("SELECT count(*) as num from fm_comment_program WHERE program_id=$id");
             $result_comment_num = $query_comment_num->row_array();
