@@ -21,7 +21,7 @@ class Search extends CI_Controller
         $count = $query->row_array();
         $data['count'] = $count['num'];
         $config['total_rows'] = $count['num'];
-        $config['per_page'] = 8;
+        $config['per_page'] = 10;
         $config['cur_tag_open'] = '<span class="page-item page-navigator-current">';
         $config['cur_tag_close'] = '</span>';
         $config['prev_link'] = '上一页';
@@ -83,7 +83,7 @@ class Search extends CI_Controller
         $count = $query->row_array();
         $data['count'] = $count['num'];
         $config['total_rows'] = $count['num'];
-        $config['per_page'] = 8;
+        $config['per_page'] = 10;
         $config['cur_tag_open'] = '<span class="page-item page-navigator-current">';
         $config['cur_tag_close'] = '</span>';
         $config['prev_link'] = '上一页';
@@ -102,7 +102,7 @@ class Search extends CI_Controller
         $sql = "SELECT id,title,mid,thumb FROM fm_programme WHERE title like '%$keyword%' AND publish_flag=1 ORDER BY id DESC limit $offset,$per_page";
         $query = $this->db->query($sql);
         $data['me_list'] = $query->result_array();
-        $comment_html = $this->load->view('ajax_page/zhubo_me_list',$data,true);
+        $comment_html = $this->load->view('ajax_page/search_me_list',$data,true);
         echo $comment_html;
     }
 
