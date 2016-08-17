@@ -25,10 +25,11 @@ class Zhubo extends Common
 		}
 		
         //主播资料
-        $sql = "SELECT nickname,avatar FROM fm_member WHERE id = $mid";
+        $sql = "SELECT wechat_id,username,nickname,avatar FROM fm_member WHERE id = $mid";
         $query = $this->db->query($sql);
-        $data['zb'] = $query->row_array();
-
+        $zb = $query->row_array();
+        $data['zb']['nickname'] = $zb['nickname'] ? $zb['nickname'] :$zb['username'] ? $zb['username'] : '佚名';
+        $data['zb']['avatar'] = $zb['wechat_id'] ? '' : $zb['avatar'];
         $data['is_attention'] = is_attention($uid,$mid);//判断是否收藏
 
         //TA的节目数

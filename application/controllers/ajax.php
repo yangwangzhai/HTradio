@@ -119,17 +119,21 @@ class Ajax extends CI_Controller
             echo json_encode($data);
 		}
 	
-	    //关注节目
+    //发送私信
     public function send_message(){
 		$uid = $this->session->userdata('uid');
-    		
 		$toid = $_POST['zid']; 
 		$content = $_POST['content'];
 		if( !$uid ){
 			echo 1;
 			return ;
 		}
-		
+        //保存关注信息
+        if($uid&&$toid){
+            $insert = array('mid'=>$uid,'zid'=>$toid,'addtime'=>time());
+            $this->db->insert('fm_attention', $insert);
+        }
+        //保存私信内容
 		$data = array( 'from_uid' => $uid,'to_uid'=>$toid,'addtime' => time(), 'status'=>1, 'title' => $content );
 		$this->db->insert('fm_message', $data); 
 		if($this->db->insert_id()){
@@ -137,11 +141,28 @@ class Ajax extends CI_Controller
 		}else{
 			echo 2;
 		}
-		
-		
     }	
-	
-		//设置头像
+
+    //判断是否已经关注
+    public function is_attention(){
+        $mid = $this->session->userdata('uid');
+        $zid = $this->input->post("zid");
+        //判断是否为同一个人
+        if($zid==$mid){
+           echo 2;
+        }else{
+            $query = $this->db->query("select count(*) as num from fm_attention WHERE mid=$mid AND zid=$zid");
+            $num = $query->row_array();
+            if($num['num']){
+                echo 1;
+            }else{
+                echo 0;
+            }
+        }
+    }
+
+
+    //设置头像
 	public function sphoto() {
 		$data = array();
 		$data['src'] = trim($_POST['src']);

@@ -53,7 +53,7 @@ function mouseover_event(){
     <div class="radio_left">
       <div class="userwrap">
       	<div class="userface">
-          <img width="200" height="200" src="<?=show_thumb($zb['avatar'])?>" />
+          <img width="200" height="200" src="<?php if(!empty($zb['avatar'])){echo show_thumb( $zb['avatar'] );}else{echo base_url()."uploads/default_images/default_avatar.jpg";}?>" />
         </div>
         <div class="usertitle">
           <h1><?=$zb['nickname']?></h1>

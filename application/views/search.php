@@ -168,7 +168,7 @@ $(document).ready(function(){
                 <?php }else{  ?>
                                  <a href="javascript:" onclick="attention2(<?=$r['id']?>)" data-attention="0" id="zid<?=$r['id']?>">关注</a>
                 <?php }?>
-                            <a href="javascript:" onclick="message_dialog(<?=$r['id']?>,'<?=getNickName($r['id'])?>')" class="letter">私信</a>
+                            <a href="javascript:" onclick="message_dialog(<?php if($uid){echo 1;}else{echo 0;}?>,<?=$r['id']?>,'<?=getNickName($r['id'])?>')" class="letter">私信</a>
                         </div>
                     </dd>
                 </dl>

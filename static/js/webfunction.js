@@ -163,39 +163,84 @@ function attention_program(id){
 		})
 }
 
-function message_dialog(zid,name){
-	
-	var content  = '<table id="login-form"> ';
-		content += '<tr><td>发给：</td><td><input readonly type="text" value="'+name+'" name="username" id="login-form-username"></td></tr>';
-		content += '<tr><td>内容：</td><td><textarea name="" id="msg_conetent" cols="" rows=""></textarea></td></tr>';
-		content += '<tr><td colspan="2"  align="right"><a href="javascript:;" onclick="send_message('+zid+')" class="submitBtn"><span>发送</span></a></td></tr>';
-		content += '</table>';
-	
-	$.dialog({
-		id:'msg_dialog',
-		content:content,
-		title:'@'+name,
-		lock: true,
-		background: '#000', /* 背景色 */
-		opacity: 0.5,       /* 透明度 */
-		max:false,
-		min:false,
-		close:function(){
-		var duration = 400 , /*动画时长*/
-			api = this,
-			opt = api.config,
-			wrap = api.DOM.wrap,
-			top = $(window).scrollTop() - wrap[0].offsetHeight;
-			
-		wrap.animate({top:top + 'px', opacity:0}, duration, function(){
-			opt.close = function(){};
-			api.close();
-   		 });
-        
-    		return false;
-		} 
-	
-	});
+function message_dialog(uid,zid,name){
+    if(name){
+        if(!uid){
+            alert("请先登录！");
+        }else{
+            //判断是否已经关注
+            $.post("index.php?c=ajax&m=is_attention",{"zid":zid},
+                function(data){
+                    if(data == 1){
+                        var content  = '<table id="login-form"> ';
+                        content += '<tr><td>发给：</td><td><input readonly type="text" value="'+name+'" name="username" id="login-form-username"></td></tr>';
+                        content += '<tr><td>内容：</td><td><textarea name="" id="msg_conetent" cols="" rows=""></textarea></td></tr>';
+                        content += '<tr><td colspan="2"  align="right"><a href="javascript:;" onclick="send_message('+zid+')" class="submitBtn"><span>发送</span></a></td></tr>';
+                        content += '</table>';
+                        $.dialog({
+                            id:'msg_dialog',
+                            content:content,
+                            title:'@'+name,
+                            lock: true,
+                            background: '#000', /* 背景色 */
+                            opacity: 0.5,       /* 透明度 */
+                            max:false,
+                            min:false,
+                            close:function(){
+                                var duration = 400 , /*动画时长*/
+                                    api = this,
+                                    opt = api.config,
+                                    wrap = api.DOM.wrap,
+                                    top = $(window).scrollTop() - wrap[0].offsetHeight;
+                                wrap.animate({top:top + 'px', opacity:0}, duration, function(){
+                                    opt.close = function(){};
+                                    api.close();
+                                });
+                                return false;
+                            }
+                        });
+                    }
+                    if(data == 0){
+                        if(confirm("您还未关注TA，是否要关注？")){
+                            var content  = '<table id="login-form"> ';
+                            content += '<tr><td>发给：</td><td><input readonly type="text" value="'+name+'" name="username" id="login-form-username"></td></tr>';
+                            content += '<tr><td>内容：</td><td><textarea name="" id="msg_conetent" cols="" rows=""></textarea></td></tr>';
+                            content += '<tr><td colspan="2"  align="right"><a href="javascript:;" onclick="send_message('+zid+')" class="submitBtn"><span>发送</span></a></td></tr>';
+                            content += '</table>';
+                            $.dialog({
+                                id:'msg_dialog',
+                                content:content,
+                                title:'@'+name+'(已关注)',
+                                lock: true,
+                                background: '#000', /* 背景色 */
+                                opacity: 0.5,       /* 透明度 */
+                                max:false,
+                                min:false,
+                                close:function(){
+                                    var duration = 400 , /*动画时长*/
+                                        api = this,
+                                        opt = api.config,
+                                        wrap = api.DOM.wrap,
+                                        top = $(window).scrollTop() - wrap[0].offsetHeight;
+                                    wrap.animate({top:top + 'px', opacity:0}, duration, function(){
+                                        opt.close = function(){};
+                                        api.close();
+                                    });
+                                    return false;
+                                }
+                            });
+                        }
+                    }
+                    if(data == 2){
+                        alert("不能给自己发私信！");
+                    }
+                });
+        }
+    }else{
+        alert("上传者不存在！");
+    }
+
+
 }
 
 function send_message(zid){	
@@ -216,12 +261,7 @@ function send_message(zid){
 								$.dialog({id: 'msg_dialog'}).time(1);
 						});
 					}
-			
-			
-		})
-	
-	
-	
+    })
 }
 
 /********

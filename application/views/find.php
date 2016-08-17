@@ -158,14 +158,14 @@
           <div class="tab"> <span><img src="static/images/tea<?=$k+1?>.jpg" /></span> <strong><a href="index.php?c=player&id=<?=$val['id']?>" target="_blank" title="<?=$val['title']?>"><?=str_cut($val['title'],35)?></a></strong> </div>
         <?php } ?>
        </div>
-      <div class="title">热播排行榜<!--a href="#">/更多</a--></div>
+      <div class="title">节目单热播榜<!--a href="#">/更多</a--></div>
       <div class="ranklist">
           <?php foreach ($hot_top_list as $k => $val) { ?>
           <div class="tab"> <span><img src="static/images/tea<?=$k+1?>.jpg" /></span> <strong><a href="index.php?c=player&meid=<?=$val['id']?>" target="_blank" title="<?=$val['title']?>"><?=str_cut($val['title'],35)?></a></strong> </div>
         <?php } ?>
           
        </div>
-       <div class="title">人气排行榜<!--a href="#">/更多</a--></div>
+       <div class="title">节目人气榜<!--a href="#">/更多</a--></div>
       <div class="ranklist">
         <?php foreach ($popularity_list as $k => $val) { ?>
           <div class="tab"> <span><img src="static/images/tea<?=$k+1?>.jpg" /></span> <strong><a href="index.php?c=player&id=<?=$val['id']?>" target="_blank" title="<?=$val['title']?>"><?=str_cut($val['title'],35)?></a></strong> </div>

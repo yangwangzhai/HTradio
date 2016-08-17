@@ -265,7 +265,7 @@ class Index extends Common
 	
    
    public function program(){
-	   $uid = $this->session->userdata('uid');	
+	   $data['uid'] = $uid = $this->session->userdata('uid');
 	 
 	   $this->db->order_by("sort", "asc");
 	   $query = $this->db->get_where('fm_program_type', array('pid' => 0));
@@ -288,10 +288,34 @@ class Index extends Common
 			 $order_by = " order by addtime desc";
 			 $data['new_color'] = "";
 		}
-		
-		$sql ="SELECT * FROM `fm_program`  WHERE ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )".$order_by;
+		//获取节目列表
+       $cur_page = $this->input->get('per_page')?$this->input->get('per_page'):1;//通过ajax获取当前第几页
+       $config['base_url'] = 'index.php?c=index&m=program_page&mid='.$uid."&type_id=".$typeid;
+       $query = $this->db->query("SELECT count(*) as num FROM fm_program WHERE ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )");
+       $count = $query->row_array();
+       $data['count'] = $count['num'];
+       $config['total_rows'] = $count['num'];
+       $config['per_page'] = 10;
+       $config['cur_tag_open'] = '<span class="page-item page-navigator-current">';
+       $config['cur_tag_close'] = '</span>';
+       $config['prev_link'] = '上一页';
+       $config['next_link'] = '下一页';
+       $config['first_link'] = '第一页';
+       $config['last_link'] = '最后一页';
+       $config['use_page_numbers']= true;
+       $config['anchor_class']="class='ajax_fpage page-item' data-id=2 ";
+       $config['cur_page']=$cur_page;
+       $this->load->library('pagination');
+       $this->pagination->initialize($config);//默认的对象名是类名的小写
+       $data['pages'] =$this->pagination->create_links($cur_page);
+       $per_page = $config['per_page'];
+       $offset = ($cur_page - 1) * $per_page;
+
+		$sql ="SELECT * FROM `fm_program`  WHERE ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )".$order_by." limit ".$offset.",".$per_page;
 		$query = $this->db->query($sql);
-		$data['program_list'] = $query->result_array(); 
+		$data['program_list'] = $query->result_array();
+
+
 		foreach($data['program_list'] as &$r){
 			$r['is_program_data'] = is_program_data($uid,$r['id'],1);//判断是否收藏
 			//收藏数
@@ -326,11 +350,93 @@ class Index extends Common
 			$data['sub_link'] = "<a href='./index.php?c=index&m=program&type_id=$row_child[id]'>$row_child[title]</a> > ";
 			$data['sub_link'] .= "<a href='./index.php?c=index&m=program&type_id=$typeid'>$row[title]</a>";
 		}
-		
+
 	    $this->load->view('program',$data);
    }
    
-   
+   //分页
+    public function program_page(){
+        $data['uid'] = $uid = $this->session->userdata('uid');
+        //节目
+        $typeid = 0;
+        if(isset($_GET['type_id']) && $_GET['type_id'] != ''){
+            $typeid =  $_GET['type_id'];
+        }
+        $data['new_color'] = "#000";
+        $data['hot_color'] = "#000";
+        if(isset($_GET['order']) && $_GET['order'] == 'hot'){
+            $order_by = " order by playtimes desc";
+            $data['hot_color'] = "";
+        }else{
+            $order_by = " order by addtime desc";
+            $data['new_color'] = "";
+        }
+        //获取节目列表
+        $cur_page = $this->input->get('per_page')?$this->input->get('per_page'):1;//通过ajax获取当前第几页
+        $config['base_url'] = 'index.php?c=index&m=program_page&mid='.$uid."&type_id=".$typeid;
+        $query = $this->db->query("SELECT count(*) as num FROM fm_program WHERE ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )");
+        $count = $query->row_array();
+        $data['count'] = $count['num'];
+        $config['total_rows'] = $count['num'];
+        $config['per_page'] = 10;
+        $config['cur_tag_open'] = '<span class="page-item page-navigator-current">';
+        $config['cur_tag_close'] = '</span>';
+        $config['prev_link'] = '上一页';
+        $config['next_link'] = '下一页';
+        $config['first_link'] = '第一页';
+        $config['last_link'] = '最后一页';
+        $config['use_page_numbers']= true;
+        $config['anchor_class']="class='ajax_fpage page-item' data-id=2 ";
+        $config['cur_page']=$cur_page;
+        $this->load->library('pagination');
+        $this->pagination->initialize($config);//默认的对象名是类名的小写
+        $data['pages'] =$this->pagination->create_links($cur_page);
+        $per_page = $config['per_page'];
+        $offset = ($cur_page - 1) * $per_page;
+
+        $sql ="SELECT * FROM `fm_program`  WHERE ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )".$order_by." limit ".$offset.",".$per_page;
+        $query = $this->db->query($sql);
+        $data['program_list'] = $query->result_array();
+
+
+        foreach($data['program_list'] as &$r){
+            $r['is_program_data'] = is_program_data($uid,$r['id'],1);//判断是否收藏
+            //收藏数
+            $this->db->where( array( 'type'=>1 , 'program_id'=>$r['id']) );
+            $this->db->from('fm_program_data');
+            $r['fav_count'] = $this->db->count_all_results();
+
+        }
+
+
+        //节目总数
+        $sql ="SELECT count(*) as num FROM `fm_program`  WHERE ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )";
+        $query = $this->db->query($sql);
+        $row_count = $query->row_array();
+        $data['program_count'] = $row_count['num'];
+
+        //当前节目类型名称
+        $query = $this->db->get_where('fm_program_type', array('id' => $typeid),1);
+        $row = $query->row_array();
+        $data['type_name'] = $row['title'];
+        $data['type_id'] = $row['id'];
+
+        $data['sub_link'] = '';
+        if($row['pid'] == 0){
+            $data['cur_id'] = $row['id']; //判断当前的父类型用来选中左边的菜单
+            $data['sub_link'] = "<a href='./index.php?c=index&m=program&type_id=$typeid'>$row[title]</a>";
+        }else{
+            $query = $this->db->get_where('fm_program_type', array('id' => $row['pid']),1);
+            $row_child = $query->row_array();
+
+            $data['cur_id'] = $row_child['id']; //判断当前的父类型用来选中左边的菜单
+            $data['sub_link'] = "<a href='./index.php?c=index&m=program&type_id=$row_child[id]'>$row_child[title]</a> > ";
+            $data['sub_link'] .= "<a href='./index.php?c=index&m=program&type_id=$typeid'>$row[title]</a>";
+        }
+
+        $program_html = $this->load->view('ajax_page/program_page',$data,true);
+        echo $program_html;
+    }
     
     //新晋榜
     private function newTopList() {
