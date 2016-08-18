@@ -182,6 +182,39 @@ class Zhubo extends Common
         echo $comment_html;
     }
 
+    //收藏的节目单分页
+    public function sc_programme_page(){
+        $data['mid'] = $mid = $_GET['mid'];
+        $cur_page = $this->input->get('mper_page')?$this->input->get('mper_page'):1;//通过ajax获取当前第几页
+        // var_dump(expression)
+        $config['base_url'] = 'index.php?c=zhubo&m=sc_programme_page&mid='.$mid;
+        $query = $this->db->query("SELECT count(DISTINCT(a.programme_id)) as num FROM fm_programme_data a WHERE a.type=1 AND a.mid=$mid");
+        $count = $query->row_array();
+        $data['count'] = $count['num'];
+        $config['total_rows'] = $count['num'];
+        $config['per_page'] = 8;
+        $config['cur_tag_open'] = '<span class="page-item page-navigator-current">';
+        $config['cur_tag_close'] = '</span>';
+        $config['prev_link'] = '上一页';
+        $config['next_link'] = '下一页';
+        $config['first_link'] = '第一页';
+        $config['last_link'] = '最后一页';
+        $config['use_page_numbers']= true;
+        $config['anchor_class']="class='ajax_mpage page-item'";
+        $config['cur_page']=$cur_page;
+        $this->load->library('ajax_pagination');
+        $this->ajax_pagination->initialize($config);//默认的对象名是类名的小写
+        $data['mpages'] =$this->ajax_pagination->create_links($cur_page);
+        $per_page = $config['per_page'];
+        $offset = ($cur_page - 1) * $per_page;
+
+        $sql = "SELECT DISTINCT(a.programme_id),b.title,b.id FROM fm_programme_data a JOIN fm_programme b  WHERE a.programme_id=b.id AND a.type=1 AND a.mid=$mid ORDER by a.addtime DESC limit $offset,$per_page";
+        $query = $this->db->query($sql);
+        $data['me_list'] = $query->result_array();
+        $comment_html = $this->load->view('ajax_page/zhubo_me_list',$data,true);
+        echo $comment_html;
+    }
+
     //全部关注
     public function allAttention() {
         $data['uid'] = $uid = $this->session->userdata('uid'); 

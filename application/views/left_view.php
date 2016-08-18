@@ -40,7 +40,21 @@
         <dt><a href="index.php?c=zhubo&mid=<?=$val['id']?>"><img src="<?php if($val['avatar']){echo show_thumb2($val['avatar']);}else{echo 'uploads/default_images/default_avatar.jpg';}?>" /></a></dt>
     </dl>
     <?php } ?>
-    
     </div>
+
+    <div class="title">我收藏的节目单(<?=$sc_num['num']?>)<a href="index.php?c=personal&m=allsc">/更多</a></div>
+    <div class="ranklist">
+        <?php foreach($sc_list as $k=>$val) { ?>
+        <div class="tab" style="padding-left: 10px;border-bottom: 1px dotted #ddd;height: 30px;line-height: 30px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+            <span>
+                <img style="position: relative; top: 3px;" src="static/images/tea<?=$k+1?>.jpg">
+            </span>
+            <strong>
+                <a href="index.php?c=player&meid=<?=$val['programme_id']?>"target="_blank"title="<?=$val['title']?>"><?=$val['title']?></a>
+            </strong>
+        </div>
+        <?php } ?>
+    </div>
+
     </div>
  

@@ -97,7 +97,7 @@ function formsubmit(){
             	<li><a href="./">首页</a></li>
                 <li><a href="./index.php?c=index&m=find">发现</a></li>
                 <li><a href="./index.php?c=index&m=ranklist">排行榜</a></li>
-                <li><a href="./index.php?c=index&m=program">节目</a></li>
+                <li><a href="./index.php?c=index&m=program">分类</a></li>
                 <li><a href="./index.php?c=personal">我的电台</a></li>
                 <li><a href="./index.php?c=download">APP下载</a></li>
             </ul>

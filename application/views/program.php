@@ -22,34 +22,34 @@
     <div class="pro_right">
         <div class="site">您当前的位置：<a href="#">全部分类</a> > <?=$sub_link?></div>
         <div class="sum">
-            <div class="files">共<?=$program_count?>档节目</div>
+            <div class="files">共<?=$programme_count?>档节目单</div>
             <div class="best">
                 <a style="color:<?=$new_color?>"href="./index.php?c=index&m=program&type_id=<?=$type_id?>&order=new">最新</a>|
                 <a style="color:<?=$hot_color?>" href="./index.php?c=index&m=program&type_id=<?=$type_id?>&order=hot">最热</a>
             </div>
         </div>
         <div class="prolist">
-             <?php foreach($program_list as $r){?>
+             <?php foreach($programme_list as $r){?>
             	<dl>
                 	<dt>
-                        <a href="./index.php?c=player&id=<?=$r['id']?>"><img src="<?php if(!empty($r['thumb'])){echo show_thumb( $r['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu2.jpg";}?>" />
+                        <a href="./index.php?c=player&meid=<?=$r['id']?>" target="_blank"><img src="<?php if(!empty($r['thumb'])){echo show_thumb( $r['thumb'] );}else{echo base_url()."uploads/default_images/default_jiemu2.jpg";}?>" />
                         </a>
                     </dt>
                     <dd>
                     	<h1>
-                            <a href="./index.php?c=player&id=<?=$r['id']?>" title="<?=$r['title']?>"><?=str_cut($r['title'],30)?></a>
+                            <a target="_blank" href="./index.php?c=player&meid=<?=$r['id']?>" title="<?=$r['title']?>"><?=str_cut($r['title'],30)?></a>
                         </h1>
-                        <p style="color:#999;"><?=$r['description']?str_cut($r['description'],50,'...'):'&nbsp;'?></p>
+                        <p style="color:#999;"><?=$r['intro']?str_cut($r['intro'],50,'...'):'暂无描述'?></p>
                         <p>上传者：<a target="_blank"  href="./index.php?c=zhubo&mid=<?=$r['mid']?>"><?=getNickName($r['mid'])?></a></p>
                         <div class="num">
-                            <a href="./index.php?c=player&id=<?=$r['id']?>" class="icon"><?=$r['playtimes']?></a>
+                            <a href="./index.php?c=player&meid=<?=$r['id']?>" class="icon" target="_blank"><?=$r['playtimes']?></a>
                             <a id="icon1_<?=$r['id']?>" class="icon1"><?=$r['fav_count']?></a>
                         </div>
                     	<div class="pbtn">
-                            <?php if ($r['is_program_data']){ ?>
-                            <a href="javascript:" onclick="attention_program(<?=$r['id']?>)" style="color:#ff6600;background-image:url(static/images/is_cross.png);" data-attention="1" id="programid<?=$r['id']?>" class="atten">已关注</a>
+                            <?php if ($r['is_programme_data']){ ?>
+                            <a href="javascript:" onclick="attention_programme(<?=$r['id']?>)" style="color:#ff6600;background-image:url(static/images/is_cross.png);" data-attention="1" id="programid<?=$r['id']?>" class="atten">已收藏</a>
                             <?php }else{  ?>
-                            <a href="javascript:" onclick="attention_program(<?=$r['id']?>)" data-attention="0" id="programid<?=$r['id']?>" class="atten">关注</a>
+                            <a href="javascript:" onclick="attention_programme(<?=$r['id']?>)" data-attention="0" id="programid<?=$r['id']?>" class="atten">收藏</a>
                             <?php }?>
                             <a href="javascript:" onclick="message_dialog(<?php if($uid){echo 1;}else{echo 0;}?>,<?=$r['mid']?>,'<?=getNickName($r['mid'])?>')" class="letter">私信</a>
                         </div>
@@ -79,7 +79,7 @@
             if(arr[1]==''){arr[1]=1;}
             var per_page=arr[1];
             $.ajax({
-                url:"index.php?c=index&m=program_page",
+                url:"index.php?c=index&m=programme_page",
                 type:"get",
                 dataType:"text",
                 data: {

@@ -1257,6 +1257,19 @@ function is_program_data($uid , $id , $type){
 	
 }
 
+//是否收藏节目
+function is_programme_data($uid , $id , $type){
+    $CI = &get_instance();
+    $str = false;
+    if( empty($uid) || $uid ==NULL){
+        return $str;
+    }
+    $query = $CI->db->get_where('fm_programme_data', array( 'mid' => $uid,'programme_id'=>$id , 'type'=>$type));
+    if($query->num_rows() > 0) return true;
+    return $str;
+
+}
+
 //获取用户的节目数
 function getProgramNum($mid) {
     $CI = &get_instance();

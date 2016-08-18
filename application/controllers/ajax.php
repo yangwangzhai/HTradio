@@ -41,7 +41,7 @@ class Ajax extends CI_Controller
 
     
 	
-	    //关注节目
+    //关注节目
     public function attention_program(){
 		$uid = $this->session->userdata('uid');
     	$id = $_POST['id'];		
@@ -63,6 +63,30 @@ class Ajax extends CI_Controller
 			$this->db->delete('fm_program_data', array('program_id' => $id,'mid'=>$uid, 'type'=>1)); 
 			echo 0;
 		}
+    }
+
+    //关注节目单
+    public function attention_programme(){
+        $uid = $this->session->userdata('uid');
+        $id = $_POST['id'];
+        $action = $_POST['action'];
+        if( !$uid ){
+            echo 1;
+            return ;
+        }
+        if($action == 'add'){
+            $data = array( 'programme_id' => $id,'mid'=>$uid,'addtime' => time(), 'type'=>1 );
+            $this->db->insert('fm_programme_data', $data);
+            if($this->db->insert_id()){
+                echo 0;
+            }else{
+                echo 2;
+            }
+        }
+        if($action == 'del'){
+            $this->db->delete('fm_programme_data', array('programme_id' => $id,'mid'=>$uid, 'type'=>1));
+            echo 0;
+        }
     }
 
     //增加播放次数

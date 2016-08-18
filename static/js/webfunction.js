@@ -124,6 +124,7 @@ function attention2(zid){
         })
 }
 
+//关注节目
 function attention_program(id){
 	    var referUrl = getReferUrl('index.php');
 		
@@ -158,9 +159,46 @@ function attention_program(id){
 						 }
 						 $('#icon1_'+id).html(count);
 					}
-			
-			
 		})
+}
+
+//关注节目单
+function attention_programme(id){
+    var referUrl = getReferUrl('index.php');
+
+    var is_attention = $('#programid'+id).data('attention');
+    var new_attention = is_attention == '1' ? '0' : '1' ;
+    var action = 'add';
+    var new_text = '已收藏';
+    var color = '#ff6600';
+    var bg_url = 'url(static/images/is_cross.png) ';
+    if(is_attention == '1'){
+        action = 'del';
+        new_text = '收藏';
+        color = '#333';
+        bg_url = 'url(static/images/cross.png)';
+    }
+    $.post("index.php?c=ajax&m=attention_programme",{"id":id,"action":action},
+        function(data){
+            if(data == 1){
+                alert("请先登录");
+                location.href ="index.php?c=member&m=login&returnUrl="+escape(referUrl);
+            }
+            if(data == 0){
+                $('#programid'+id).data('attention',new_attention);
+                $('#programid'+id).html(new_text);
+                $('#programid'+id).css('color',color);
+                $('#programid'+id).css('background-image',bg_url);
+                var count = $('#icon1_'+id).html();
+                if(action == 'add'){
+                    count = (parseInt(count) + 1 );
+                }
+                if(action == 'del'){
+                    count = (parseInt(count) - 1 );
+                }
+                $('#icon1_'+id).html(count);
+            }
+        })
 }
 
 function message_dialog(uid,zid,name){

@@ -143,7 +143,8 @@ class program extends Api {
 		
 		$data = array(
     			'mid' => intval($_POST['mid']),    			
-    			'title' => replaceBad(trim($_POST['title'])),				
+    			'type_id' => 86,    //86是其他类型，由fm_program_type表决定，若fm_program_type改变，此值也跟着变
+    			'title' => replaceBad(trim($_POST['title'])),
     			'addtime' => time()
     	);
     	if (empty($data['mid'])) {
@@ -373,7 +374,7 @@ class program extends Api {
 	
 	
 	
-		// 收藏节目单
+     // 收藏节目单
 	public function programme_fav_add() {		
 		$data = array(
     			'mid' => intval($_POST['mid']),  
@@ -595,15 +596,15 @@ class program extends Api {
         }else{
             $query = $this->db->get_where('fm_programme', array('id'=>$programme_id ),1);
             $row = $query->row_array();
-            if(empty($row['mid'])){
+            if(empty($row['mid'])&&empty($row['uid'])){
                 $result1=array("code"=>1,"message"=>"找不到对应的数据","time"=>time(),"data"=>array());
                 echo json_encode($result1);
             }else{
                 $row_member = getMember($row['mid']);
                 $row_data['programme_name'] = $row['title'];
                 $row_data['programme_thumb'] = base_url().$row['thumb'];
-                $row_data['member_name'] = $row_member['nickname'];
-                $row_data['member_thumb'] = base_url().$row_member['avatar'];
+                $row_data['member_name'] = $row_member['nickname']?$row_member['nickname']:$row_member['username']?$row_member['username']:'佚名';
+                $row_data['member_thumb'] = $row_member['avatar']?base_url().$row_member['avatar']:'';
                 $row_data['member_id'] = $row['mid'];
 
                 $data_list = array();

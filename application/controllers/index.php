@@ -90,8 +90,8 @@ class Index extends Common
         //热播榜
         $data['hot_top_list'] = $this->hotTopList();
 
-        //人气排行榜
-        $data['popularity_list'] = $this->popularityList();
+        //节目单收藏排行榜
+        $data['sc_programme_list'] = $this->scProgrammeList();
 
         $data['uname'] = $this->session->userdata('uname');
         $data['uid'] = $this->session->userdata('uid');
@@ -99,77 +99,6 @@ class Index extends Common
         $this->load->view('find',$data);
     }
 
-
-	public function find_old(){
-
-		/*$id=2045;
-		$data['path']=$this->content_model->get_column2("path","fm_program","id=$id");
-
-		$this->load->view('hls_play',$data);*/
-
-		$uid = $this->session->userdata('uid');
-		//幻灯图片
-		$this->db->order_by("playtimes", "desc");
-		$query_top = $this->db->get_where('fm_program', array('show_homepage' => 1 , 'status' => 1));
-		$data['top_list'] = $query_top->result_array();
-		
-		//推荐的节目
-		$this->db->order_by("playtimes", "desc");
-		$this->db->where('show_homepage !=', 1);
-		$query_hot = $this->db->get_where('fm_program', array('hot' => 1, 'status' => 1),3);
-		$data['hot_list'] = $query_hot->result_array();
-		
-		//类型排行
-		$this->db->order_by("sort", "desc");
-		$query_type = $this->db->get_where('fm_program_type', array('pid' => 0),10);
-		$data['type_list'] = $query_type->result_array();
-		foreach($data['type_list'] as &$row){
-			//类型子类
-			$this->db->order_by("sort", "desc");			
-			$query_child = $this->db->get_where('fm_program_type', array('pid' => $row['id']),6);
-			$row['type_child'] =  $query_child->result_array();	
-			
-			//节目
-			$typeid = $row['id'];
-			$order_by = " order by playtimes desc,addtime desc limit 3";			
-			$nothot = " show_homepage !=1 AND hot !=1 ";			
-			$sql ="SELECT * FROM `fm_program`  WHERE ( $nothot AND status=1 AND type_id = $typeid ) OR ( $nothot AND status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )".$order_by;
-		   $query = $this->db->query($sql);
-			$row['program_list'] = $query->result_array();
-					
-		}
-		
-		//热门电台				
-		$query = $this->db->get_where('fm_member', array('status' => 1,'catid'=>3),4);
-		$data['radio_list'] = $query->result_array();
-		foreach($data['radio_list'] as &$row){
-			$row['is_attention'] = is_attention($uid,$row['id']);
-		}
-		
-		//明星主播
-		$this->db->where('groupname !=', '');
-		$query = $this->db->get_where('fm_member', array('status' => 1,'catid'=>2),6);
-		$data['zhubo_list'] = $query->result_array();
-		foreach($data['zhubo_list'] as &$row){
-			$row['is_attention'] = is_attention($uid,$row['id']);
-			$row['avatar'] = new_thumbname($row['avatar'],100,100);
-		}
-
-		//新晋榜
-		$data['new_top_list'] = $this->newTopList();
-
-		//热播榜
-		$data['hot_top_list'] = $this->hotTopList();
-
-		//人气排行榜
-		$data['popularity_list'] = $this->popularityList();
-		
-		$data['uname'] = $this->session->userdata('uname');
-		$data['uid'] = $this->session->userdata('uid');
-
-		$this->load->view('find',$data);
-	}
-	
 	public function ranklist(){
 		//节目收听榜
 		//$this->db->order_by("playtimes", "desc");
@@ -257,8 +186,8 @@ class Index extends Common
 		//热播榜
 		$data['hot_top_list'] = $this->hotTopList();
 
-		//人气排行榜
-		$data['popularity_list'] = $this->popularityList();
+        //节目单收藏排行榜
+        $data['sc_programme_list'] = $this->scProgrammeList();
 
 		$this->load->view('ranklist',$data);
 	}
@@ -271,7 +200,7 @@ class Index extends Common
 	   $query = $this->db->get_where('fm_program_type', array('pid' => 0));
 	   $data['program_type_list'] = $query->result_array();
 	   
-	   //节目
+	   //默认显示节目类型
 	   $typeid = 0;
 	   if(isset($_GET['type_id']) && $_GET['type_id'] != ''){
 		   $typeid =  $_GET['type_id'];
@@ -290,8 +219,8 @@ class Index extends Common
 		}
 		//获取节目列表
        $cur_page = $this->input->get('per_page')?$this->input->get('per_page'):1;//通过ajax获取当前第几页
-       $config['base_url'] = 'index.php?c=index&m=program_page&mid='.$uid."&type_id=".$typeid;
-       $query = $this->db->query("SELECT count(*) as num FROM fm_program WHERE ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )");
+       $config['base_url'] = 'index.php?c=index&m=programme_page&mid='.$uid."&type_id=".$typeid;
+       $query = $this->db->query("SELECT count(*) as num FROM fm_programme WHERE ( status=0 AND vbd_type=0 AND publish_flag=1 AND type_id = $typeid ) OR ( status=0 AND vbd_type=0 AND publish_flag=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )");
        $count = $query->row_array();
        $data['count'] = $count['num'];
        $config['total_rows'] = $count['num'];
@@ -311,26 +240,22 @@ class Index extends Common
        $per_page = $config['per_page'];
        $offset = ($cur_page - 1) * $per_page;
 
-		$sql ="SELECT * FROM `fm_program`  WHERE ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )".$order_by." limit ".$offset.",".$per_page;
+		$sql ="SELECT * FROM `fm_programme`  WHERE ( status=0 AND vbd_type=0 AND publish_flag=1 AND type_id = $typeid ) OR ( status=0 AND vbd_type=0 AND publish_flag=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )".$order_by." limit ".$offset.",".$per_page;
 		$query = $this->db->query($sql);
-		$data['program_list'] = $query->result_array();
+		$data['programme_list'] = $query->result_array();
 
-
-		foreach($data['program_list'] as &$r){
-			$r['is_program_data'] = is_program_data($uid,$r['id'],1);//判断是否收藏
+		foreach($data['programme_list'] as &$r){
+			$r['is_programme_data'] = is_programme_data($uid,$r['id'],1);//判断是否收藏
 			//收藏数
-			$this->db->where( array( 'type'=>1 , 'program_id'=>$r['id']) );
-			$this->db->from('fm_program_data');
+			$this->db->where( array( 'type'=>1 , 'programme_id'=>$r['id']) );
+			$this->db->from('fm_programme_data');
 			$r['fav_count'] = $this->db->count_all_results();
-	
 		}
-		
-		
 		//节目总数
-		$sql ="SELECT count(*) as num FROM `fm_program`  WHERE ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )";
+		$sql ="SELECT count(*) as num FROM `fm_programme`  WHERE ( status=0 AND vbd_type=0 AND publish_flag=1 AND type_id = $typeid ) OR ( status=0 AND vbd_type=0 AND publish_flag=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )";
 		$query = $this->db->query($sql);
 		$row_count = $query->row_array(); 
-	    $data['program_count'] = $row_count['num'];
+	    $data['programme_count'] = $row_count['num'];
 	    
 		//当前节目类型名称
 		$query = $this->db->get_where('fm_program_type', array('id' => $typeid),1);
@@ -355,7 +280,7 @@ class Index extends Common
    }
    
    //分页
-    public function program_page(){
+    public function programme_page(){
         $data['uid'] = $uid = $this->session->userdata('uid');
         //节目
         $typeid = 0;
@@ -371,10 +296,10 @@ class Index extends Common
             $order_by = " order by addtime desc";
             $data['new_color'] = "";
         }
-        //获取节目列表
+        //获取节目单列表
         $cur_page = $this->input->get('per_page')?$this->input->get('per_page'):1;//通过ajax获取当前第几页
-        $config['base_url'] = 'index.php?c=index&m=program_page&mid='.$uid."&type_id=".$typeid;
-        $query = $this->db->query("SELECT count(*) as num FROM fm_program WHERE ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )");
+        $config['base_url'] = 'index.php?c=index&m=programme_page&mid='.$uid."&type_id=".$typeid;
+        $query = $this->db->query("SELECT count(*) as num FROM fm_programme WHERE ( status=0 AND vbd_type=0 AND publish_flag=1 AND type_id = $typeid ) OR ( status=0 AND vbd_type=0 AND publish_flag=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )");
         $count = $query->row_array();
         $data['count'] = $count['num'];
         $config['total_rows'] = $count['num'];
@@ -394,26 +319,22 @@ class Index extends Common
         $per_page = $config['per_page'];
         $offset = ($cur_page - 1) * $per_page;
 
-        $sql ="SELECT * FROM `fm_program`  WHERE ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )".$order_by." limit ".$offset.",".$per_page;
+        $sql ="SELECT * FROM `fm_programme`  WHERE ( status=0 AND vbd_type=0 AND publish_flag=1 AND type_id = $typeid ) OR ( status=0 AND vbd_type=0 AND publish_flag=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )".$order_by." limit ".$offset.",".$per_page;
         $query = $this->db->query($sql);
-        $data['program_list'] = $query->result_array();
+        $data['programme_list'] = $query->result_array();
 
-
-        foreach($data['program_list'] as &$r){
-            $r['is_program_data'] = is_program_data($uid,$r['id'],1);//判断是否收藏
+        foreach($data['programme_list'] as &$r){
+            $r['is_programme_data'] = is_programme_data($uid,$r['id'],1);//判断是否收藏
             //收藏数
-            $this->db->where( array( 'type'=>1 , 'program_id'=>$r['id']) );
-            $this->db->from('fm_program_data');
+            $this->db->where( array( 'type'=>1 , 'programme_id'=>$r['id']) );
+            $this->db->from('fm_programme_data');
             $r['fav_count'] = $this->db->count_all_results();
-
         }
-
-
         //节目总数
-        $sql ="SELECT count(*) as num FROM `fm_program`  WHERE ( status=1 AND type_id = $typeid ) OR ( status=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )";
+        $sql ="SELECT count(*) as num FROM `fm_programme`  WHERE ( status=0 AND vbd_type=0 AND publish_flag=1 AND type_id = $typeid ) OR ( status=0 AND vbd_type=0 AND publish_flag=1 AND type_id IN(SELECT id FROM fm_program_type WHERE pid = $typeid ) )";
         $query = $this->db->query($sql);
         $row_count = $query->row_array();
-        $data['program_count'] = $row_count['num'];
+        $data['programme_count'] = $row_count['num'];
 
         //当前节目类型名称
         $query = $this->db->get_where('fm_program_type', array('id' => $typeid),1);
@@ -434,7 +355,7 @@ class Index extends Common
             $data['sub_link'] .= "<a href='./index.php?c=index&m=program&type_id=$typeid'>$row[title]</a>";
         }
 
-        $program_html = $this->load->view('ajax_page/program_page',$data,true);
+        $program_html = $this->load->view('ajax_page/programme_page',$data,true);
         echo $program_html;
     }
     
@@ -459,7 +380,13 @@ class Index extends Common
 		return $query->result_array();
 		
     }
-	
+	//节目单收藏排行榜
+    public function scProgrammeList(){
+        $sql = "SELECT a.programme_id,b.title,COUNT(a.programme_id) AS num FROM fm_programme_data a JOIN fm_programme b WHERE a.programme_id=b.id  AND a.type=1 GROUP BY a.programme_id ORDER BY num DESC LIMIT 0,10;";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
 	 public function ranklist_jm() {
     	 $cur_page = $this->input->get('per_page')?$this->input->get('per_page'):1;//通过ajax获取当前第几页
 		 
