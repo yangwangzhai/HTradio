@@ -516,7 +516,13 @@ class program extends Content
     }
 
 
-
+    //异步删除推送
+    public function delete_push(){
+        $programme_id = $this->input->post("programme_id");
+        $program_id = $this->input->post("program_id");
+        $affacted = $this->db->delete("fm_programme_list", array('programme_id' => $programme_id,'program_id'=>$program_id));
+        echo json_encode($affacted);
+    }
 
 
 

@@ -1332,6 +1332,14 @@ function left_view(){
         $query = $CI->db->query($sql);
         $data['fans_num'] = $query->row_array();
 
+        //我收藏的节目单
+        $sql = "SELECT count(DISTINCT(a.programme_id)) as num FROM fm_programme_data a WHERE a.type=1 AND a.mid=$uid";
+        $query = $CI->db->query($sql);
+        $data['sc_num'] = $query->row_array();
+        $sql = "SELECT DISTINCT(a.programme_id),b.title FROM fm_programme_data a JOIN fm_programme b  WHERE a.programme_id=b.id AND a.type=1 AND a.mid=$uid ORDER by a.addtime DESC limit 0,3";
+        $query = $CI->db->query($sql);
+        $data['sc_list'] = $query->result_array();
+
         $sql = "SELECT id,avatar FROM fm_member WHERE id in (SELECT mid FROM fm_attention WHERE zid = $uid ORDER BY addtime DESC) limit 6";
         $query = $CI->db->query($sql);
         $data['fans_list'] = $query->result_array();	
@@ -1422,4 +1430,14 @@ function delfile($url){
 	}else {
 		return false; 
 	}
+}
+
+//根据公共频道id,获取公共频道名称
+function getPublicProgrammeName($id){
+    $CI = &get_instance();
+    $query = $CI->db->query("select title from fm_programme WHERE id=$id AND status=1 AND publish_flag=1");
+    $title = $query->row_array();
+    if(!empty($title)){
+        return $title['title'];
+    }
 }

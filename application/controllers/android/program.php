@@ -602,10 +602,10 @@ class program extends Api {
             }else{
                 $row_member = getMember($row['mid']);
                 $row_data['programme_name'] = $row['title'];
-                $row_data['programme_thumb'] = base_url().$row['thumb'];
+                $row_data['programme_thumb'] = $row['thumb']?base_url().$row['thumb']:'';
                 $row_data['member_name'] = $row_member['nickname']?$row_member['nickname']:$row_member['username']?$row_member['username']:'佚名';
-                $row_data['member_thumb'] = $row_member['avatar']?base_url().$row_member['avatar']:'';
-                $row_data['member_id'] = $row['mid'];
+                $row_data['member_thumb'] = $row_member['avatar']?base_url().$row_member['avatar']:base_url().'uploads/default_images/default_avatar.jpg';
+                $row_data['member_id'] = $row['mid']?$row['mid']:$row['uid'];
 
                 $data_list = array();
                 $this->db->order_by('sort');
@@ -613,6 +613,7 @@ class program extends Api {
                 $result = $query->result_array();
                 //类型id,1节目id，2是类型id
                 foreach($result as &$row){
+                    $row['timespan'] = $row['timespan']?$row['timespan']:3;
                     if($row['type_id'] == 1){
                         $this->db->select('id, title, addtime , program_time , mid , path ,download_path ,thumb');
                         $query = $this->db->get_where('fm_program', array('id'=>$row['program_id'] ),1);
@@ -646,7 +647,7 @@ class program extends Api {
 
                         if($program['thumb']) $row['thumb'] = base_url().$program['thumb'];
                         $row['addtime'] = date('Y/m/d',$program['addtime']);
-                        $row['nickname'] = getNickName($program['mid']);
+                        $row['nickname'] = getNickName($program['mid'])?getNickName($program['mid']):'佚名';
                         $row['title'] = $program['title'];
                     }else{
                         $this->db->select('id, title');
@@ -901,20 +902,27 @@ class program extends Api {
             $result=array("code"=>1,"message"=>"个人频道参数没有传进来","time"=>time(),"data"=>array());
             echo json_encode($result);
         }else{
-            $sql_program = "select id,title,path from fm_program WHERE id IN (SELECT program_id FROM fm_programme_list WHERE programme_id=$id ORDER BY addtime DESC)";
+            $sql_program = "select id,title,path,download_path from fm_program WHERE id IN (SELECT program_id FROM fm_programme_list WHERE programme_id=$id ORDER BY addtime DESC)";
             $query_program = $this->db->query($sql_program);
             $program=$query_program->result_array();
             if(!empty($program)){
                 foreach($program as &$value){
                     if ($value ['path']) {
-                        //判断图片路径是否为http或者https开头
+                        //判断路径是否为http或者https开头
                         $preg="/(http:\/\/)|(https:\/\/)(.*)/iUs";
                         if(preg_match($preg,$value ['path'])){
                             //不需要操作
                         }else{
-                            $value ['path'] = base_url(). $value ['path'];
-                        }
+                            if($value ['download_path']){
+                                $preg="/(http:\/\/)|(https:\/\/)(.*)/iUs";
+                                if(preg_match($preg,$value ['download_path'])){
+                                    $value ['path'] = $value ['download_path'];
+                                }else{
+                                    $value ['path'] = base_url().$value ['download_path'];
+                                }
+                            }
 
+                        }
                     }
                 }
             }

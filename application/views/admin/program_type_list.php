@@ -115,7 +115,6 @@
                 </td>
                 <td><?=$r['title']?></td>
                 <td><?=$r['sort']?></td>
-
                 <td>
                     <?php foreach($list_sub as $k=>$v) {
                         if($r['id']==$v['pid']){ ?>

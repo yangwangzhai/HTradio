@@ -83,7 +83,24 @@
                     alert("请先审核，再推送");
                 }
             })
-
+            //异步删除所推送频道
+            $(".del_pp").on("click",function(){
+                var programme_id = $(this).attr("data-programme-id");
+                var program_id = $(this).attr("data-program-id");
+                $.ajax({
+                    url:"index.php?d=admin&c=program&m=delete_push",
+                    type: "post",         //数据发送方式
+                    dataType:"json",    //接受数据格式
+                    data:{programme_id:programme_id,program_id:program_id},  //要传递的数据
+                    success:function(data){
+                        alert(data);
+                    },
+                    error:function(XMLHttpRequest, textStatus, errorThrown)
+                    {
+                        //alert(errorThrown);
+                    }
+                });
+            });
 
 		});
 
@@ -190,7 +207,18 @@
 				<td><?=$key+1?></td>
 				<!--<td style="text-indent: 0;"><a onclick="vPics('<?/*=$r['title']*/?>','<?/*=$r['thumb']*/?>');" href="javascript:;"><img width="100%" src="<?/*=$r['thumb']*/?>"/></a></td>-->
 				<td><a href="javascript:;" class="info" data-id="<?=$r['id']?>" data-title="<?=$r['title']?>"><?=$r['title']?></a></td>
-				<td><?=$r['channel_name']?></td>
+				<td>
+                    <?php if(!empty($r['channel_id'])){?>
+                        <?php foreach($r['channel_id'] as $c_val) :?>
+                            <span style="display: inline;height:20px;border: 1px solid #ccc;padding: 2px; line-height: 20px; margin-right: 3px;">
+                            <a href="javascript:void(0);" title="点击修改"><?=getPublicProgrammeName($c_val)?></a>
+                            <a href="javascript:void(0);" class="del_pp" data-programme-id="<?=$c_val?>" data-program-id="<?=$r['id']?>">
+                                <font style="color:#F00">&nbsp;x</font>
+                            </a>
+                        </span>
+                        <?php endforeach?>
+                    <?php }?>
+                </td>
 				<td><?=getNickName($r['mid'])?></td>
 				<td><?=$r['playtimes']?></td>
 				<td>

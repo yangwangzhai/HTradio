@@ -72,7 +72,7 @@ class program_type extends Content
 		foreach($roles as $role){
 			$data['group'][$role['id']] =$role['role_name'];
 		}**/
-    
+
         $_SESSION['url_forward'] =  $config['base_url']. "&per_page=$offset";
         $this->load->view('admin/' . $this->list_view, $data);
     }

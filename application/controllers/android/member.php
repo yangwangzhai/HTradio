@@ -667,9 +667,7 @@ class member extends Api {
 		if (empty ( $type )) {
 			show ( 2, 'type is null' );
 		}
-		
-	
-		
+
 		$query = $this->db->query ( "select program_id from fm_program_data where type=$type and mid=$uid order by addtime desc limit $offset,$this->pagesize" );
 		$list = $query->result_array ();
 		foreach ($list as &$row) {
@@ -678,7 +676,10 @@ class member extends Api {
 			if( $program_row ){
 				if($program_row['thumb']) $program_row['thumb'] = base_url().$program_row['thumb'];
 				if($program_row['path']) $program_row['path'] = base_url().$program_row['path'];
-				if($program_row['mid'])  $program_row['owner'] = getNickName($program_row['mid']);
+				if($program_row['mid']){
+                    $owner = getMember($program_row['mid']);
+                    $program_row['owner'] = $owner['nickname']?$owner['nickname']:$owner['username']?$owner['username']:'佚名';
+                }
 				if($type == 1) $program_row['list_type'] = 1 ;
 				$data[] = $program_row;
 			}			
@@ -693,7 +694,12 @@ class member extends Api {
 					$programme_row = $query->row_array ();
 					if( $programme_row ){
 						if($programme_row['thumb']) $programme_row['thumb'] = base_url().$programme_row['thumb'];						
-						if($programme_row['mid'])  $programme_row['owner'] = getNickName($programme_row['mid']);
+						if($programme_row['mid']){
+                            $owner = getMember($programme_row['mid']);
+                            $programme_row['owner'] =$owner['nickname']?$owner['nickname']:$owner['username']?$owner['username']:'佚名';
+                        }else{
+                            $programme_row['owner']='佚名';
+                        }
 						$programme_row['list_type'] = 2 ;
 						$data[] = $programme_row;
 					}

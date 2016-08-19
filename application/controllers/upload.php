@@ -40,7 +40,7 @@ class Upload extends CI_Controller
         $query = $this->db->query("SELECT * FROM fm_program_type");   
         $program_types = $query->result_array();
         $data['program_types'] =$program_types;
-		
+
 		$this->load->view('upload',$data);
     } 
 	
@@ -82,7 +82,7 @@ class Upload extends CI_Controller
 		
 		//上传插件配置
 		$data['file_size_limit'] = '2000 MB';
-		$data['file_types'] = '*.mp4;*.swf;*.flv;*.mp3;*.wav;*.wma;*.wmv;*.mid;*.avi;*.mpg;*.asf;*.rm;*.rmvb;*.m4a';		
+		$data['file_types'] = '*.mp4;*.swf;*.flv;*.mp3;*.wav;*.wma;*.wmv;*.mid;*.avi;*.mpg;*.asf;*.rm;*.rmvb;*.m4a;*.amr';
 		$data['file_types_description'] = '音视频文件';
 		$data['file_upload_limit'] = 3;
 		
@@ -213,7 +213,7 @@ class Upload extends CI_Controller
         $data['program_types'] =$program_types;
 
 		$data['file_size_limit'] = '2000 MB';
-		$data['file_types'] = '*.mp4;*.swf;*.flv;*.mp3;*.wav;*.wma;*.wmv;*.mid;*.avi;*.mpg;*.asf;*.rm;*.rmvb;*.m4a';
+		$data['file_types'] = '*.mp4;*.swf;*.flv;*.mp3;*.wav;*.wma;*.wmv;*.mid;*.avi;*.mpg;*.asf;*.rm;*.rmvb;*.m4a;*.amr';
 		$data['file_types_description'] = '音视频文件';
 		$data['file_upload_limit'] = 3;
 
