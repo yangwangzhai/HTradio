@@ -87,19 +87,26 @@
             $(".del_pp").on("click",function(){
                 var programme_id = $(this).attr("data-programme-id");
                 var program_id = $(this).attr("data-program-id");
-                $.ajax({
-                    url:"index.php?d=admin&c=program&m=delete_push",
-                    type: "post",         //数据发送方式
-                    dataType:"json",    //接受数据格式
-                    data:{programme_id:programme_id,program_id:program_id},  //要传递的数据
-                    success:function(data){
-                        alert(data);
-                    },
-                    error:function(XMLHttpRequest, textStatus, errorThrown)
-                    {
-                        //alert(errorThrown);
-                    }
-                });
+                $(this).addClass("active_pp");
+                if(confirm("是否删除所选频道？")){
+                    $.ajax({
+                        url:"index.php?d=admin&c=program&m=delete_push",
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{programme_id:programme_id,program_id:program_id},  //要传递的数据
+                        success:function(data){
+                            if(data){
+                                $(".active_pp").parent().detach();
+                            }else{
+                                alert("删除失败！");
+                            }
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }
             });
 
 		});

@@ -142,7 +142,7 @@ class program extends Content
         $_SESSION['url_forward'] =  $config['base_url']. "&per_page=$offset";
         //获取所有的公共频道
         $data['public_channel_list'] = $this->content_model->get_column("id,title","fm_programme","status=1 AND publish_flag=1");
-
+        
         $this->load->view('admin/' . $this->list_view, $data);
     }
 	
@@ -521,7 +521,12 @@ class program extends Content
         $programme_id = $this->input->post("programme_id");
         $program_id = $this->input->post("program_id");
         $affacted = $this->db->delete("fm_programme_list", array('programme_id' => $programme_id,'program_id'=>$program_id));
-        echo json_encode($affacted);
+        if($affacted){
+            echo json_encode($affacted);
+        }else{
+            echo json_encode(0);
+        }
+
     }
 
 
