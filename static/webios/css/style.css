@@ -20,7 +20,7 @@ cite{font-style:normal;}
 .pull-left-icon:active{ background:#041a63 url(../img/ic_person.png) no-repeat center center; background-size:60%}
 .pull-right-icon { width:2.4rem; height:2.4rem; margin: .3rem; background:url(../img/radio_icon.png) no-repeat center center;background-size:75%; border-radius: 50%;}
 .pull-right-icon:active{ background:#041a63 url(../img/radio_icon.png) no-repeat center center; background-size:75%}
-.group { height:4.8rem; line-height:4.8rem; width:12.8rem; margin:.5rem auto 0 auto; text-align:center}
+.group { position:relative;height:4.8rem; line-height:4.8rem; width:12.8rem; margin:.5rem auto 0 auto; text-align:center}
 
 .pull-right{margin:.4rem 0 0 0;}
 .button1 { height:4rem; width:4rem; background:url(../images/radio_pre.png) no-repeat; background-size:100%; float:left; margin-top:.4rem}
@@ -37,7 +37,17 @@ cite{font-style:normal;}
 .button3:active{background:url(../images/radio_next_hover.png) no-repeat;background-size:100%;}
 
 
-.list-icon {width:1rem; height:1rem; position:absolute; bottom:1rem; right:1rem;}
+.list-icons { display:none;position:absolute; right:-3rem; top:1rem;width:2rem; height:2rem; position:absolute;  }
+.list-icons img{width:100%;}
+.list-popup { position: fixed; width: 100%; height:70%; display: none; background: #333; z-index: 1000; border-top: #000 1px solid; opacity: .97;color:#fff; overflow:auto}
+.list-popup  h3{text-align:center; line-height:40px; font-size:20px; font-weight:normal; color:#ccc;  border-bottom:#444 1px solid;}
+.list-popup ul { margin: 0; padding: 0; }
+.list-popup ul li { height:50px; line-height:30px; list-style: none; text-align: center; border-bottom: #444 1px solid; font-size: 20px; color:#fff; background: #333; padding:10px 15px; }
+.list-popup ul li  span{ display:inline-block; float:left;}
+.list-popup ul li img{ border:#ccc 2px solid; border-radius:50%; margin:0 8px 0 0}
+.list-popup ul li:active{ background:#555;}
+
+.list-icon {width:1rem; height:1rem; position:absolute; bottom:1rem; right:1rem; }
 .list-icon img{ display:block; width:1rem; height:1rem;}
 .panel { background:#384043;}
 .panel dl { width:100%; height:8rem; margin:2rem auto; text-align:center;}

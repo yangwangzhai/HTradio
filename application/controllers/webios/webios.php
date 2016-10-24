@@ -84,6 +84,16 @@ class webios extends  CI_Controller
         $sql_channel = "select * from fm_live_channel";
         $query_channel = $this->db->query($sql_channel);
         $data['channel_list'] = $query_channel->result_array();
+        //获取一条公共频道
+        $sql_programme = "select id,title,support_num,negative_num,intro,thumb from fm_programme WHERE type_id=0 AND status=1 AND vbd_type=0 AND publish_flag=1 ORDER BY addtime DESC limit 1";
+        $query_programme = $this->db->query($sql_programme);
+        $data['programme'] = $res_programme= $query_programme->row_array();
+        //根据公共频道id,获取相应的节目
+        if(!empty($res_programme)){
+            $sql_program = "select b.id,b.title,b.path from fm_programme_list a JOIN fm_program b WHERE a.programme_id= $res_programme[id] AND b.id=a.program_id";
+            $query_program = $this->db->query($sql_program);
+            $data['program'] = $query_program->result_array();
+        }
 
         $this->load->view("webios/main_view",$data);
     }
@@ -610,10 +620,10 @@ class webios extends  CI_Controller
     public function support_negative(){
         $insert['mid'] = $mid = $this->session->userdata('mid') ;
         $id = $this->input->post("id");
-        $insert['channel_type'] = 1;//直播频道为 1
+        $insert['channel_type'] = $channel_type = $this->input->post("channel_type");//直播频道为 1，2为公共频道
         $type = $this->input->post("type");
         if($type=='support'){
-            $res_num=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND support_target_id=$id AND channel_type=1");
+            $res_num=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND support_target_id=$id");
             $num=$res_num->row_array();
             if($num['num']){
                 //已经点过赞
@@ -623,31 +633,55 @@ class webios extends  CI_Controller
                 //同时防止同一个用户对同一个频道点赞或者差评多次
                 $insert['support_target_id'] = $id;
                 $this->db->insert ( 'fm_support_negative', $insert);
-                //先获取点赞数
-                $sql = "SELECT support_num FROM fm_live_channel WHERE id=$id";
-                $query = $this->db->query($sql);
-                $res=$query->row_array();
-                $support_num_new=$res['support_num']+1;
-                //更新数据库
-                $this->db->query("UPDATE fm_live_channel SET support_num=$support_num_new WHERE id=$id");
+                //先判断是直播频道还是公共频道
+                if($channel_type==1){
+                    //先获取点赞数
+                    $sql = "SELECT support_num FROM fm_live_channel WHERE id=$id";
+                    $query = $this->db->query($sql);
+                    $res=$query->row_array();
+                    $support_num_new=$res['support_num']+1;
+                    //更新数据库
+                    $this->db->query("UPDATE fm_live_channel SET support_num=$support_num_new WHERE id=$id");
+                }else if($channel_type==2){
+                    //先获取点赞数
+                    $sql = "SELECT support_num FROM fm_programme WHERE id=$id";
+                    $query = $this->db->query($sql);
+                    $res=$query->row_array();
+                    $support_num_new=$res['support_num']+1;
+                    //更新数据库
+                    $this->db->query("UPDATE fm_programme SET support_num=$support_num_new WHERE id=$id");
+                }
+
                 echo json_encode(1);
             }
         }else{
-            $res_num=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND negative_target_id=$id AND channel_type=1");
+            $res_num=$this->db->query("SELECT COUNT(*) AS num FROM fm_support_negative WHERE mid=$mid AND negative_target_id=$id");
             $num=$res_num->row_array();
-            if($num[num]){
+            if($num['num']){
                 //已经差评过
                 echo json_encode("0");
             }else{
                 $insert['negative_target_id'] = $id;
                 $this->db->insert ( 'fm_support_negative', $insert);
-                //先获取差评数
-                $sql = "SELECT negative_num FROM fm_live_channel WHERE id=$id";
-                $query = $this->db->query($sql);
-                $res=$query->row_array();
-                $negative_num_new=$res['negative_num']+1;
-                //更新数据库
-                $this->db->query("UPDATE fm_live_channel SET negative_num=$negative_num_new WHERE id=$id");
+                //先判断是直播频道还是公共频道
+                if($channel_type==1){
+                    //先获取差评数
+                    $sql = "SELECT negative_num FROM fm_live_channel WHERE id=$id";
+                    $query = $this->db->query($sql);
+                    $res=$query->row_array();
+                    $negative_num_new=$res['negative_num']+1;
+                    //更新数据库
+                    $this->db->query("UPDATE fm_live_channel SET negative_num=$negative_num_new WHERE id=$id");
+                }else if($channel_type==2){
+                    //先获取差评数
+                    $sql = "SELECT negative_num FROM fm_programme WHERE id=$id";
+                    $query = $this->db->query($sql);
+                    $res=$query->row_array();
+                    $negative_num_new=$res['negative_num']+1;
+                    //更新数据库
+                    $this->db->query("UPDATE fm_programme SET negative_num=$negative_num_new WHERE id=$id");
+                }
+
                 echo json_encode(1);
             }
         }
@@ -878,7 +912,22 @@ class webios extends  CI_Controller
         $this->collect_view();
     }
 
+    //主页播放公共频道的节目
+    public function public_program_play(){
+        $programme_id = trim($this->input->get('programme_id'));
+        $data['program_id'] = $program_id = trim($this->input->get('program_id'));
+        //根据公共频道id,获取相应的节目
+        if(!empty($programme_id)){
+            $sql_program = "select b.id,b.title,b.path from fm_programme_list a JOIN fm_program b WHERE a.programme_id= $programme_id AND b.id=a.program_id AND b.id!=$program_id";
+            $query_program = $this->db->query($sql_program);
+            $data['program'] = $query_program->result_array();
+        }
+        $sql = "select id,title,path from fm_program  WHERE id=$program_id";
+        $query = $this->db->query($sql);
+        $data['program_now'] = $query->row_array();
 
+        $this->load->view("webios/public_program_play",$data);
+    }
 
 
 

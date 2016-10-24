@@ -1538,6 +1538,7 @@ class program extends Api {
                         foreach($arr_final[0] as $value){
                             $str .=trimall($value); //删除空格和回车;
                         }
+                        //preg_replace("/(\s|\&nbsp\;|　|\xc2\xa0)/", "", strip_tags($str)); 过滤所有html标签以及空格、换行符
                         $str=preg_replace('/<pclass=\"split\">/si',"",$str); //过滤html标签
                         $str=preg_replace('/<\/p>/si',"",$str); //过滤html标签
                         $insert['title']=$title;

@@ -13,6 +13,7 @@ class Index extends Common
     // 首页
     public function index ()
     {
+
         //echo dirname(dirname(dirname(__FILE__)));exit;
 		 $code=$this->input->get('code');
 		 

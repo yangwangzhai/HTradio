@@ -422,8 +422,8 @@
     <div class="page">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
-            <a class="icon pull-left <?php if(!empty($mid)){echo 'open-panel';}?>  pull-left-icon
- external" <?php if(empty($mid)){echo 'href="index.php?d=webios&c=webios&m=login_view"';}?>>
+            <a style="margin-top: 0.5rem;" class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=main_view" >
+                返回
             </a>
             <a class="icon pull-right pull-right-icon"></a>
         </header>
@@ -432,42 +432,48 @@
             <div class="infox_main">
                 <div class="info_box">
                     <ul>
-                        <?php foreach($channel_list as $key=>$value) :?>
 
-                            <li id="r_<?=$key?>" class="<?php if($key==0){echo "on";}else{ echo "info_body";} ?>">
-                                <div class="info_body">
-                                    <div class="info_btn">直播</div>
-                                    <div class="info_l"><img src="<?=$value['logo'];?>"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$value['title'];?></h2><p><?=$value['description'];?></p></div>
-                                    <div class="zan">
-                                        <p>
-                                            <a data-id="<?=$value['id'];?>" data-type="support" channel-type="1" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>                                        <i class="fa fa-thumbs-up"></i>
-                                                <span class="zan_num"><?=$value['support_num'];?></span>
-                                            </a>
-                                        </p>
-                                        <p><a data-id="<?=$value['id'];?>" data-type="negative" channel-type="1" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>   <i class="fa fa-thumbs-down"></i><span class="zan_num"><?=$value['negative_num'];?></span></a></p>
-                                    </div>
-                                </div>
-                            </li>
-
-                        <?php endforeach?>
-                        <li id="r_8"><div class="info_body">
+                        <li id="r_0" class="on"><div class="info_body">
                                 <div class="info_btn">录播</div>
-                                <div class="info_l"><img src="static/webios/images/music_default.png"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$programme['title']?></h2><p><?=$programme['intro']?></p></div>
+                                <div class="info_l"><img src="static/webios/images/music_default.png"  class="music_img" alt="left"/></div><div class="info_r"><h4><?=$program_now['title']?></h4><p><?=$program_now['intro']?></p></div>
                                 <div class="zan">
                                     <p>
-                                        <a data-id="<?=$programme['id'];?>" data-type="support" channel-type="2" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>
+                                        <a href="#">
                                             <i class="fa fa-thumbs-up"></i>
-                                            <span class="zan_num"><?=$programme['support_num']?></span>
+                                            <span class="zan_num"><?=$program_now['support_num']?></span>
                                         </a>
                                     </p>
-                                    <p><a data-id="<?=$programme['id'];?>" data-type="negative" channel-type="2" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>
+                                    <p><a href="#">
                                             <i class="fa fa-thumbs-down"></i>
-                                            <span class="zan_num"><?=$programme['negative_num']?></span>
+                                            <span class="zan_num"><?=$program_now['negative_num']?></span>
                                         </a>
                                     </p>
                                 </div>
                             </div>
                         </li>
+
+                        <?php foreach($program as $key=>$value) :?>
+                            <li id="r_<?=$key+1?>" class="info_body">
+                                <div class="info_body">
+                                    <div class="info_btn">录播</div>
+                                    <div class="info_l"><img src="static/webios/images/music_default.png"  class="music_img" alt="left"/></div><div class="info_r"><h4><?=$value['title'];?></h4><p><?=$value['description'];?></p></div>
+                                    <div class="zan">
+                                        <p>
+                                            <a href="#">
+                                                <i class="fa fa-thumbs-up"></i>
+                                                <span class="zan_num"><?=$value['support_num'];?></span>
+                                            </a>
+                                        </p>
+                                        <p>
+                                            <a href="#">
+                                                <i class="fa fa-thumbs-down"></i>
+                                                <span class="zan_num"><?=$value['negative_num'];?></span>
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        <?php endforeach?>
 
                     </ul>
 
@@ -475,11 +481,11 @@
             </div>
 
             <select   id="numbers1" class="drum">
-
-                <?php foreach($channel_list as $key=>$value) :?>
-                    <option value="<?=$key?>"><?=$value['title'];?></option>
+                <option value="0"><?=$program_now['title']?></option>
+                <?php foreach($program as $key=>$value) :?>
+                    <option value="<?=$key+1?>"><?=$value['title'];?></option>
                 <?php endforeach?>
-                <option value="8"><?=$programme['title']?></option>
+
             </select>
             <audio id="audio" controls style="width:0; height:0; position:absolute; left:-9999px;" autoplay="autoplay" preload="preload"></audio>
             <script>
@@ -510,22 +516,22 @@
 
                             // 数据一般来自服务器端,通过ajax 加载数据,这里是模拟
                             Player.data = [
-                                <?php foreach($channel_list as $key=>$value) :?>
-                                    <?php if($key==count($channel_list)-1){?>
-                                        '<?=$value['add_channel'];?>',
-                                    <?php }else{?>
-                                        '<?=$value['add_channel'];?>',
-                                    <?php }?>
+                                "<?=$program_now['path']?>",
+                                <?php foreach($program as $key=>$value) :?>
+                                <?php if($key==count($channel_list)-1){?>
+                                '<?=$value['path'];?>'
+                                <?php }else{?>
+                                '<?=$value['path'];?>',
+                                <?php }?>
                                 <?php endforeach?>
-                                "<?=$program[0]['path']?>"
                                 /*'http://media.bbrtv.com:1935/live/_definst_/910/playlist.m3u8',
-                                'http://media.bbrtv.com:1935/live/_definst_/930/playlist.m3u8',
-                                'http://media.bbrtv.com:1935/live/_definst_/950/playlist.m3u8',
-                                'http://media.bbrtv.com:1935/live/_definst_/970/playlist.m3u8',
-                                'http://media.bbrtv.com:1935/live/_definst_/1003/playlist.m3u8',
-                                'http://media.bbrtv.com:1935/live/_definst_/bbr/playlist.m3u8',
-                                'http://media.bbrtv.com:1935/live/_definst_/fashion/playlist.m3u8',
-                                'http://media.bbrtv.com:1935/live/_definst_/lypl/playlist.m3u8'*/
+                                 'http://media.bbrtv.com:1935/live/_definst_/930/playlist.m3u8',
+                                 'http://media.bbrtv.com:1935/live/_definst_/950/playlist.m3u8',
+                                 'http://media.bbrtv.com:1935/live/_definst_/970/playlist.m3u8',
+                                 'http://media.bbrtv.com:1935/live/_definst_/1003/playlist.m3u8',
+                                 'http://media.bbrtv.com:1935/live/_definst_/bbr/playlist.m3u8',
+                                 'http://media.bbrtv.com:1935/live/_definst_/fashion/playlist.m3u8',
+                                 'http://media.bbrtv.com:1935/live/_definst_/lypl/playlist.m3u8'*/
                             ];
 
                             // 一般用模板引擎,把数据 与 模板 转换为 视图,来显示,这里是模拟
@@ -706,41 +712,43 @@
 
 
                 });
-                $(".zan").find("p a").click(function() {
-                        var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
-                        if( mid > 0 || mid != undefined){
-                            var id = $(this).attr("data-id");
-                            var type = $(this).attr("data-type");
-                            var channel_type = $(this).attr("channel-type");
-                            $(".zan").find(".fa").removeClass("zanicon");
-                            $(this).children(".fa").addClass("zanicon");
-                            $(".zan").find("p a").removeClass("active");
-                            $(this).addClass("active");
-                            var j=$(this).children("span.zan_num").text();
-                            var i= parseInt(j);
-                            i=i+1;
-                            $.ajax({
-                                url: "index.php?d=webios&c=webios&m=support_negative",   //后台处理程序
-                                type: "post",         //数据发送方式
-                                dataType:"json",    //接受数据格式
-                                data:{id:id,type:type,channel_type:channel_type},  //要传递的数据
-                                success:function(data){
-                                    if(parseInt(data)==1){
-                                        //加 1
-                                        $(".active").children("span.zan_num").text(i);
-                                        niceIn($(this));
-                                    }else{
-                                        //已经点过赞或者差评过
-                                        niceIn($(this));
-                                    }
-                                },
-                                error:function(XMLHttpRequest, textStatus, errorThrown)
-                                {
-                                    //alert(errorThrown);
+
+                /*$(".zan").find("p a").click(function() {
+                    var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
+                    if( mid > 0 || mid != undefined){
+                        var id = $(this).attr("data-id");
+                        var type = $(this).attr("data-type");
+                        var channel_type = $(this).attr("channel-type");
+                        $(".zan").find(".fa").removeClass("zanicon");
+                        $(this).children(".fa").addClass("zanicon");
+                        $(".zan").find("p a").removeClass("active");
+                        $(this).addClass("active");
+                        var j=$(this).children("span.zan_num").text();
+                        var i= parseInt(j);
+                        i=i+1;
+                        $.ajax({
+                            url: "index.php?d=webios&c=webios&m=support_negative",   //后台处理程序
+                            type: "post",         //数据发送方式
+                            dataType:"json",    //接受数据格式
+                            data:{id:id,type:type,channel_type:channel_type},  //要传递的数据
+                            success:function(data){
+                                if(parseInt(data)==1){
+                                    //加 1
+                                    $(".active").children("span.zan_num").text(i);
+                                    niceIn($(this));
+                                }else{
+                                    //已经点过赞或者差评过
+                                    niceIn($(this));
                                 }
-                            });
-                        }
-                });
+                            },
+                            error:function(XMLHttpRequest, textStatus, errorThrown)
+                            {
+                                //alert(errorThrown);
+                            }
+                        });
+                    }
+                });*/
+
                 function niceIn(prop){
                     $('.active i').addClass('zanicon');
                     setTimeout(function(){
@@ -759,14 +767,14 @@
                 <h3>播放列表</h3>
                 <ul>
                     <?php foreach($program as $program_key=>$program_value) :?>
-                    <li>
+                        <li>
                         <span>
                             <img src="static/webios/images/music_default.png" width="30">
                         </span>
                         <span>
-                            <a href="index.php?d=webios&c=webios&m=public_program_play&program_id=<?=$program_value['id']."&programme_id=".$programme['id']?>"><?=$program_value['title']?></a>
+                            <a href="index.php?d=webios&c=webios&m=public_program_play&program_id="<?= $program_value['id']."&programme_id=".$programme['id']?>><?=$program_value['title']?></a>
                         </span>
-                    </li>
+                        </li>
                     <?php endforeach ?>
                 </ul>
             </div>
