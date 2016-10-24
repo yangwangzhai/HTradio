@@ -929,7 +929,24 @@ class webios extends  CI_Controller
         $this->load->view("webios/public_program_play",$data);
     }
 
+    public function tongbu(){
+        $data['channel_id'] = $channel_id = trim($this->input->post('playing_id'));
+        $data['channel_type'] = $channel_type = trim($this->input->post('playing_channel_type'));
 
+        //查询是否有这条记录
+        $sql = "select * from fm_tongbu";
+        $query = $this->db->query($sql);
+        $result = $query->row_array();
+
+        if($result['channel_id']==$channel_id&&$result['channel_type']==$channel_type){
+            echo json_encode("相同");
+        }else{
+            //更新数据库
+            $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,channel_type=$channel_type WHERE id=$result[id]");
+            echo json_encode("不相同");
+        }
+
+    }
 
 
 

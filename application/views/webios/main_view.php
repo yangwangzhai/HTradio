@@ -437,7 +437,7 @@
                             <li id="r_<?=$key?>" class="<?php if($key==0){echo "on";}else{ echo "info_body";} ?>">
                                 <div class="info_body">
                                     <div class="info_btn">直播</div>
-                                    <div class="info_l"><img src="<?=$value['logo'];?>"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$value['title'];?></h2><p><?=$value['description'];?></p></div>
+                                    <div class="info_l" data-id="<?=$value['id'];?>" channel-type="1"><img src="<?=$value['logo'];?>"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$value['title'];?></h2><p><?=$value['description'];?></p></div>
                                     <div class="zan">
                                         <p>
                                             <a data-id="<?=$value['id'];?>" data-type="support" channel-type="1" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>                                        <i class="fa fa-thumbs-up"></i>
@@ -452,7 +452,7 @@
                         <?php endforeach?>
                         <li id="r_8"><div class="info_body">
                                 <div class="info_btn">录播</div>
-                                <div class="info_l"><img src="static/webios/images/music_default.png"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$programme['title']?></h2><p><?=$programme['intro']?></p></div>
+                                <div class="info_l" data-id="<?=$programme['id'];?>" channel-type="2"><img src="static/webios/images/music_default.png"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$programme['title']?></h2><p><?=$programme['intro']?></p></div>
                                 <div class="zan">
                                     <p>
                                         <a data-id="<?=$programme['id'];?>" data-type="support" channel-type="2" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>
@@ -741,6 +741,7 @@
                             });
                         }
                 });
+
                 function niceIn(prop){
                     $('.active i').addClass('zanicon');
                     setTimeout(function(){
@@ -748,7 +749,35 @@
                     },1000);
                 }
 
+                function sync_play(){
+                    var playing_id = $(".play").attr("data-id");
+                    var playing_channel_type = $(".play").attr("channel-type");
 
+                    if(playing_id!='undefined'&&playing_id!=null){
+                        alert("id为："+playing_id+"频道类型为："+playing_channel_type);
+                        $.ajax({
+                            url: "index.php?d=webios&c=webios&m=tongbu",   //后台处理程序
+                            type: "post",         //数据发送方式
+                            dataType:"json",    //接受数据格式
+                            data:{playing_id:playing_id,playing_channel_type:playing_channel_type},  //要传递的数据
+                            success:function(data){
+                                /*if(parseInt(data)==1){
+                                    alert("相同");
+                                }else{
+                                    alert("不相同");
+                                }*/
+                                alert(data);
+                            },
+                            error:function(XMLHttpRequest, textStatus, errorThrown)
+                            {
+                                //alert(errorThrown);
+                            }
+                        });
+                    }
+
+                }
+
+                setInterval(sync_play,3000);
 
             </script>
 
