@@ -1,0 +1,36 @@
+@charset "utf-8";
+/* CSS Document */
+
+body { background: url(../images/bg.jpg) no-repeat; background-size: 100% auto; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; font-size: 14px; color: #000; margin: 0; padding: 0; }
+.swiper-container { width: 100%; padding-top: 4rem; padding-bottom: 80px; }
+.swiper-slide { background-position: center; background-size: cover; width: 300px; height: 300px; border-radius: 10px; background-color: #fff; }
+.list-icons { display: none; }
+
+.bottom{position:absolute; bottom:2rem;height: 8rem;  width:100%;}
+.group { position: relative; height: 8rem; line-height: 8rem; width: 20rem; margin: .5rem auto 0 auto; bottom: 0px; text-align: center }
+.button1 { height: 6rem; width: 6rem; background: url(../images/radio_pre.png) no-repeat; background-size: 100%; float: left; margin-top: 1rem }
+.button1:active { background: url(../images/radio_pre_hover.png) no-repeat; background-size: 100%; }
+.button2 { height: 8rem; width: 8rem; background: url(../images/radio_play.png) no-repeat; background-size: 100%; float: left; }
+.button2:active { background: url(../images/radio_play_hover.png) no-repeat; background-size: 100%; }
+#btn-pause { display: none; height: 8rem; width: 8rem; background: url(../images/radio_pause.png) no-repeat; background-size: 100%; float: left; }
+#btn-pause:active { background: url(../images/radio_pause_hover.png) no-repeat; background-size: 100%; }
+.button3 { height: 6rem; width: 6rem; background: url(../images/radio_next.png) no-repeat; background-size: 100%; float: left; margin-top: 1rem }
+.button3:active { background: url(../images/radio_next_hover.png) no-repeat; background-size: 100%; }
+
+.swiper-slide-active{font-size:1.5rem; font-weight:bold;}
+
+.reflection { width: 100%; height: 15px; text-align: center; color: #fff; border-radius: 10px 10px 0 0; position: absolute; left: 0; bottom: -17px; background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.3)), to(rgba(0,0,0,0))); /* Safari 4+, Chrome */ background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.3), rgba(0,0,0,0)); /* Chrome 10+, Safari 5.1+, iOS 5+ */ background-image: -moz-linear-gradient(top, rgba(0,0,0,0.3), rgba(0,0,0,0)); /* Firefox 3.6-15 */ background-image: -o-linear-gradient(top, rgba(0,0,0,0.3), rgba(0,0,0,0)); /* Opera 11.10-12.00 */ background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0)); /* Firefox 16+, IE10, Opera 12.50+ */ }
+
+
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction { bottom:0px; }
+
+@media only screen and (max-width:480px) {
+.swiper-slide { width: 150px; height: 150px;  }
+.swiper-slide-active{font-size:1rem; font-weight:bold;}
+.group { height:4.8rem; line-height:4.8rem; width:12.8rem; margin:.5rem auto 0 auto;}
+.button1 { height:4rem; width:4rem; margin-top:.4rem}
+.button2{ height:4.8rem; width:4.8rem; }
+#btn-pause{ display:none;height:4.8rem; width:4.8rem; }
+.button3 { height:4rem; width:4rem;  margin-top:.4rem}
+
+}

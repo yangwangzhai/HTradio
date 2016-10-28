@@ -437,7 +437,7 @@
                             <li id="r_<?=$key?>" class="<?php if($key==0){echo "on";}else{ echo "info_body";} ?>">
                                 <div class="info_body">
                                     <div class="info_btn">直播</div>
-                                    <div class="info_l" data-id="<?=$value['id'];?>" channel-type="1"><img src="<?=$value['logo'];?>"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$value['title'];?></h2><p><?=$value['description'];?></p></div>
+                                    <div class="info_l" data-id="<?=$key;?>" channel-type="1" mid="<?=$mid?>" ><img src="<?=$value['logo'];?>"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$value['title'];?></h2><p><?=$value['description'];?></p></div>
                                     <div class="zan">
                                         <p>
                                             <a data-id="<?=$value['id'];?>" data-type="support" channel-type="1" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>                                        <i class="fa fa-thumbs-up"></i>
@@ -452,7 +452,7 @@
                         <?php endforeach?>
                         <li id="r_8"><div class="info_body">
                                 <div class="info_btn">录播</div>
-                                <div class="info_l" data-id="<?=$programme['id'];?>" channel-type="2"><img src="static/webios/images/music_default.png"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$programme['title']?></h2><p><?=$programme['intro']?></p></div>
+                                <div class="info_l" data-id="<?=count($channel_list);?>" channel-type="2" mid="<?=$mid?>"><img src="static/webios/images/music_default.png"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$programme['title']?></h2><p><?=$programme['intro']?></p></div>
                                 <div class="zan">
                                     <p>
                                         <a data-id="<?=$programme['id'];?>" data-type="support" channel-type="2" href="<?php if(empty($mid)){echo 'index.php?d=webios&c=webios&m=login_view';}else{echo '#';}?>" <?php if(empty($mid)){echo 'class="external"';}?>>
@@ -475,22 +475,16 @@
             </div>
 
             <select   id="numbers1" class="drum">
-                <option value="0">新闻910</option>
-                <option value="1">970女主播</option>
-                <option value="2">私家车930</option>
-                <option value="3">950MusicRadio</option>
-                <option value="4">交通1003</option>
-                <option value="5">北部湾之声</option>
-                <option value="6">风尚调频</option>
-                <option value="7">广西旅游广播</option>
-                <option value="8">中国之声（标签测试）</option>
 
+                <?php foreach($channel_list as $key=>$value) :?>
+                    <option value="<?=$key?>"><?=$value['title'];?></option>
+                <?php endforeach?>
+                <option value="8"><?=$programme['title']?></option>
             </select>
             <audio id="audio" controls style="width:0; height:0; position:absolute; left:-9999px;" autoplay="autoplay" preload="preload"></audio>
-
-            <!--播放器开始-->
             <script>
                 $(function() {
+
                     // 播放器
                     var Player = {
                         // 歌曲路径
@@ -546,10 +540,12 @@
                         // 就绪
                         ready : function() {
                             // 控制
+
                             Player.audio = Player.$audio.get(0);
                             $('#ctrl-area').on('click', 'button', function() {
                                 Player.$rmusic.html(Player.data[Player.currentIndex]);
                             });
+
                             // 播放
                             $('#btn-play').click(function() {
                                 $(this).hide();
@@ -569,6 +565,7 @@
                                     Player.audio.play();
                                 }
                             });
+
                             // 暂停
                             $('#btn-pause').click(function() {
                                 Player.audio.pause();
@@ -576,6 +573,7 @@
                                 $("#btn-play").show();
                                 $(".info_box").find(".info_l").removeClass("play");
                             });
+
                             // 下一曲
                             $('#btn-next').click(function() {
                                 $("#btn-pause").show();
@@ -590,7 +588,9 @@
                                 console.log("Player.currentIndex : " + Player.currentIndex);
                                 Player.audio.src = Player.path + Player.data[Player.currentIndex];
                                 Player.audio.play();
+
                             });
+
                             // 上一曲
                             $('#btn-pre').click(function() {
                                 $("#btn-pause").show();
@@ -606,6 +606,7 @@
                                 Player.audio.play();
 
                             });
+
                             // 单曲循环
                             $('#btn-loop').click(function() {
                                 console.log("Player.currentIndex :", Player.currentIndex);
@@ -655,13 +656,15 @@
                         Player.audio.play();
                     } );
 
+
+
                     Player.init();
                     Player.ready();
 
                 });
-            </script>
-            <!--播放器结束-->
 
+
+            </script>
 
             <script>
 
@@ -746,27 +749,31 @@
                     },1000);
                 }
 
-                function test(){
-                    $(".button3").trigger("click");
-                    $(".button3").trigger("click");
-                }
-
                 function sync_play(){
                     var playing_id = $(".play").attr("data-id");
-                    var playing_channel_type = $(".play").attr("channel-type");
-                    var mid = <?php echo $mid?$mid:0?>;
+                    //var playing_channel_type = $(".play").attr("channel-type");
+                    //var mid = $(".play").attr("mid");
+                    var mid = 607;
                     if(mid){
                         if(playing_id!='undefined'&&playing_id!=null){
-                            alert("id为："+playing_id+"频道类型为："+playing_channel_type);
+                            //alert("id为："+playing_id+"频道类型为："+playing_channel_type);
                             $.ajax({
-                                url: "index.php?d=webios&c=webios&m=tongbu",   //后台处理程序
+                                url: "index.php?d=webios&c=webios&m=tong_bu",   //后台处理程序
                                 type: "post",         //数据发送方式
                                 dataType:"json",    //接受数据格式
-                                data:{playing_id:playing_id,playing_channel_type:playing_channel_type,mid:mid},  //要传递的数据
+                                data:{playing_id:playing_id,mid:mid},  //要传递的数据
                                 success:function(data){
                                     if(data['code']==1){
-                                        alert("要同步的频道id为："+data['channel_id']+"||要同步的频道类型为："+data['channel_type']);
-                                        
+                                        var i=0;
+                                        for(i;i<data['step'];i++){
+                                            $(".button3").trigger('click');
+                                        }
+
+                                    }else if(data['code']==2){
+                                        var i=0;
+                                        for(i;i<data['step'];i++){
+                                            $(".button1").trigger('click');
+                                        }
                                     }
                                 },
                                 error:function(XMLHttpRequest, textStatus, errorThrown)
@@ -776,13 +783,11 @@
                             });
                         }
                     }
+
+
                 }
 
-                setInterval(test,5000);
-
-
-
-
+                setInterval(sync_play,100);
 
             </script>
 

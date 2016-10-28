@@ -929,41 +929,46 @@ class webios extends  CI_Controller
         $this->load->view("webios/public_program_play",$data);
     }
 
-    public function tongbu(){
+    public function tong_bu(){
         $data['mid'] = $mid = trim($this->input->post('mid'));
         $data['channel_id'] = $channel_id = trim($this->input->post('playing_id'));
-        $data['channel_type'] = $channel_type = trim($this->input->post('playing_channel_type'));
-        $data['Update_time'] = $Update_time= time();
+        //$data['channel_type'] = $channel_type = trim($this->input->post('playing_channel_type'));
+        $data['Update_time'] = $Update_time =time();
+        $step = 0;
         //查询是否有这条记录
         $sql = "select * from fm_tongbu WHERE mid=$mid";
         $query = $this->db->query($sql);
         $res = $query->row_array();
         if(empty($res)){
-            $insert_id = $this->db->insert ( 'fm_tongbu', $data );
+            //如果为空，先添加
+            $this->db->insert ( 'fm_tongbu', $data);
+            $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step);
+            echo json_encode($result);
         }else{
-            if($res['channel_id']==$channel_id&&$res['channel_type']==$channel_type){//没有切换频道
-                //查看对方是否和自己当前的频道相同
-                $sql = "select * from fm_tongbu WHERE mid!=$mid AND Update_time>$res[Update_time]";
-                $query_other = $this->db->query($sql);
+            if($res['channel_id']==$channel_id){//没有切换频道
+                //查找频道跟自己不一样且时间比自己近的
+                $sql_other = "select * from fm_tongbu WHERE mid!=$mid AND channel_id!=$channel_id AND Update_time>$res[Update_time]";
+                $query_other = $this->db->query($sql_other);
                 $res_other = $query_other->row_array();
                 if(!empty($res_other)){
-                    if($res_other['channel_id']==$channel_id&&$res_other['channel_type']==$channel_type){
-                        $result = array("code"=>0);
-                        echo json_encode($result);
+                    //不为空，说明另一个要切换频道，并且更新数据库
+                    $this->db->query("UPDATE fm_tongbu SET channel_id=$res_other[channel_id],Update_time=$res_other[Update_time] WHERE mid=$mid");
+                    $step = $res_other['channel_id']-$res['channel_id'];
+                    if($step>0){
+                        $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'channel_id'=>$res_other['channel_id'],'step'=>$step);
                     }else{
-                        $result = array("code"=>1,"channel_id"=>$res_other['channel_id'],"channel_type"=>$res_other['channel_type']);
-                        echo json_encode($result);
+                        $result = array('code'=>2,'mes'=>"切换频道，更新数据库",'channel_id'=>$res_other['channel_id'],'step'=>abs($step));
                     }
+                    echo json_encode($result);
+
                 }else{
-                    $result = array("code"=>0);
+                    $result = array('code'=>0,'mes'=>"两个频道相同",'channel_id'=>$channel_id,'step'=>$step);
                     echo json_encode($result);
                 }
-
-
             }else{
-                //更新数据库
-                $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,channel_type=$channel_type,Update_time=$Update_time WHERE mid=$mid");
-                $result = array("code"=>0);
+                //已经切换频道
+                $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time WHERE mid=$mid");
+                $result = array('code'=>0,'mes'=>"刚刚切换频道",'channel_id'=>$channel_id,'step'=>$step);
                 echo json_encode($result);
             }
         }
@@ -971,9 +976,74 @@ class webios extends  CI_Controller
 
     }
 
+    public function ipad_main_view(){
+        $data['mid'] = $mid = $this->session->userdata('mid');
+        if(!empty($mid)){
+            //获取用户名称
+            $sql="select username,avatar from fm_member WHERE id=$mid";
+            $query = $this->db->query($sql);
+            $data['user'] = $query->row_array();
+        }
+        //获取所有直播频道信息
+        $sql_channel = "select * from fm_live_channel";
+        $query_channel = $this->db->query($sql_channel);
+        $data['channel_list'] = $query_channel->result_array();
+        //获取一条公共频道
+        $sql_programme = "select id,title,support_num,negative_num,intro,thumb from fm_programme WHERE type_id=0 AND status=1 AND vbd_type=0 AND publish_flag=1 ORDER BY addtime DESC limit 1";
+        $query_programme = $this->db->query($sql_programme);
+        $data['programme'] = $res_programme= $query_programme->row_array();
+        //根据公共频道id,获取相应的节目
+        if(!empty($res_programme)){
+            $sql_program = "select b.id,b.title,b.path from fm_programme_list a JOIN fm_program b WHERE a.programme_id= $res_programme[id] AND b.id=a.program_id";
+            $query_program = $this->db->query($sql_program);
+            $data['program'] = $query_program->result_array();
+        }
+
+        $this->load->view("webios/ipad_main_view",$data);
+    }
+
+    public function ipad_tong_bu(){
+        $data['mid'] = $mid = trim($this->input->post('mid'));
+        $data['channel_id'] = $channel_id = trim($this->input->post('playing_id'));
+        //$data['channel_type'] = $channel_type = trim($this->input->post('playing_channel_type'));
+        $data['Update_time'] = $Update_time =time();
+        $step = 0;
+        //查询是否有这条记录
+        $sql = "select * from fm_tongbu WHERE mid=$mid";
+        $query = $this->db->query($sql);
+        $res = $query->row_array();
+        if(empty($res)){
+            //如果为空，先添加
+            $this->db->insert ( 'fm_tongbu', $data);
+            $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step);
+            echo json_encode($result);
+        }else{
+            if($res['channel_id']==$channel_id){//没有切换频道
+                //查找频道跟自己不一样且时间比自己近的
+                $sql_other = "select * from fm_tongbu WHERE mid!=$mid AND channel_id!=$channel_id AND Update_time>$res[Update_time]";
+                $query_other = $this->db->query($sql_other);
+                $res_other = $query_other->row_array();
+                if(!empty($res_other)){
+                    //不为空，说明另一个要切换频道，并且更新数据库
+                    $this->db->query("UPDATE fm_tongbu SET channel_id=$res_other[channel_id],Update_time=$res_other[Update_time] WHERE mid=$mid");
+                    $step = $res_other['channel_id'];
+                    $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'channel_id'=>$res_other['channel_id'],'step'=>$step);
+                    echo json_encode($result);
+
+                }else{
+                    $result = array('code'=>0,'mes'=>"两个频道相同",'channel_id'=>$channel_id,'step'=>$step);
+                    echo json_encode($result);
+                }
+            }else{
+                //已经切换频道
+                $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time WHERE mid=$mid");
+                $result = array('code'=>0,'mes'=>"刚刚切换频道",'channel_id'=>$channel_id,'step'=>$step);
+                echo json_encode($result);
+            }
+        }
 
 
-
+    }
 
 
 
