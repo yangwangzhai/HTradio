@@ -28,7 +28,7 @@
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
 </div>
-<input type="text" class="values" id="numbers1_value"  value="0">
+<input type="text" class="values" id="numbers1_value"  value="4">
 <div class="bottom"><div class="group"> <a  class="button1" id="btn-next"></a><a  class="button2" id="btn-play"></a><a  id="btn-pause"></a><a  class="button3" id="btn-pre"></a>
         <div class="list-icons"><img src="static/webios/images/playlist_icon.png"/></div>
     </div>
@@ -48,7 +48,7 @@
             data : null,
 
             // 当前播放歌曲的 索引
-            currentIndex : -1,
+            currentIndex : 4,
 
             //  播放器元素jquery对象
             $audio : $('audio'),
@@ -99,18 +99,32 @@
                     Player.audio.play();
                     $(".info_box").find(".info_l").removeClass("play");
                     $(".on").find(".info_l").addClass("play");
-                    if (Player.currentIndex == -1) {
+                    if (Player.currentIndex == 4) {
                         if (Player.currentIndex == -1) {
                             Player.currentIndex = 0;
                         } else if (Player.currentIndex == 0) {
                             Player.currentIndex = (Player.data.length - 1);
                         } else {
-                            Player.currentIndex--;
+                            //Player.currentIndex--;
                         }
                         Player.audio.src = Player.path + Player.data[Player.currentIndex];
                         console.log("Player.currentIndex :", Player.currentIndex);
                         Player.audio.play();
                     }
+                    //异步存储当前播放状态
+                    $.ajax({
+                        url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{mid:636,play_status:1,pos:1},  //要传递的数据
+                        success:function(data){
+                            //alert(data);
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
                 });
 
                 // 暂停
@@ -119,12 +133,27 @@
                     $(this).hide();
                     $("#btn-play").show();
                     $(".info_box").find(".info_l").removeClass("play");
+                    //异步存储当前播放状态
+                    $.ajax({
+                        url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{mid:636,play_status:0,pos:2},  //要传递的数据
+                        success:function(data){
+                            //alert(data);
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
                 });
 
                 // 下一曲
                 $('#btn-next').click(function() {
                     $("#btn-pause").show();
                     $("#btn-play").hide();
+                    Player.currentIndex = $("#numbers1_value").val();
                     if (Player.currentIndex == -1) {
                         Player.currentIndex = 0;
                     } else if (Player.currentIndex == 0) {
@@ -136,13 +165,27 @@
                     console.log("Player.currentIndex : " + Player.currentIndex);
                     Player.audio.src = Player.path + Player.data[Player.currentIndex];
                     Player.audio.play();
-
+                    //异步存储当前播放状态
+                    $.ajax({
+                        url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{mid:636,play_status:1,pos:3},  //要传递的数据
+                        success:function(data){
+                            //alert(data);
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
                 });
 
                 // 上一曲
                 $('#btn-pre').click(function() {
                     $("#btn-pause").show();
                     $("#btn-play").hide();
+                    Player.currentIndex = $("#numbers1_value").val();
                     if (Player.currentIndex == -1) {
                         Player.currentIndex = 0;
                     } else if (Player.currentIndex == (Player.data.length - 1)) {
@@ -150,11 +193,25 @@
                     } else {
                         Player.currentIndex++;
                     }
+                    alert("点击上一曲："+Player.currentIndex);
                     $("#numbers1_value").val(Player.currentIndex);
                     Player.audio.src = Player.path + Player.data[Player.currentIndex];
                     console.log("Player.currentIndex :", Player.currentIndex);
                     Player.audio.play();
-
+                    //异步存储当前播放状态
+                    $.ajax({
+                        url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{mid:636,play_status:1,pos:3},  //要传递的数据
+                        success:function(data){
+                            //alert(data);
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
                 });
 
                 // 单曲循环
@@ -207,7 +264,7 @@
             //loopAdditionalSlides : 0,
             centeredSlides: true,
             slidesPerView: 'auto',
-            //initialSlide :0,//默认频道
+            initialSlide :4,//默认频道
             prevButton:'#btn-next',
             nextButton:'#btn-pre',
             coverflow: {
@@ -228,6 +285,20 @@
                 Player.currentIndex = i;
                 Player.audio.src = Player.path + Player.data[i];
                 Player.audio.play();
+                //异步存储当前播放状态
+                $.ajax({
+                    url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                    type: "post",         //数据发送方式
+                    dataType:"json",    //接受数据格式
+                    data:{mid:636,play_status:1,pos:3},  //要传递的数据
+                    success:function(data){
+                        //alert(data);
+                    },
+                    error:function(XMLHttpRequest, textStatus, errorThrown)
+                    {
+                        //alert(errorThrown);
+                    }
+                });
             }
 
         });
@@ -265,6 +336,18 @@
                                 console.log("Player.currentIndex :", Player.currentIndex);
                                 Player.audio.play();
                             }
+                            //控制播放状态
+                            if(data['play_status']==1){
+                                if($('#btn-play').css("display")!='none'){
+                                    //alert("播放");
+                                    $('#btn-play').trigger('click');
+                                }
+                            }else{
+                                if($('#btn-pause').css("display")!='none'){
+                                    //alert("暂停");
+                                    $('#btn-pause').trigger('click');
+                                }
+                            }
                         },
                         error:function(XMLHttpRequest, textStatus, errorThrown)
                         {
@@ -277,7 +360,7 @@
 
         }
 
-        setInterval(sync_play,100);
+        setInterval(sync_play,800);
 
 
     });

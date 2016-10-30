@@ -12,7 +12,7 @@ if (! defined('BASEPATH'))
  * |
  */
 //$config['base_url'] = 'http://cmradio.a.com/';//http://vroad.bbrtv.com/vroad/
-$config['base_url'] = '';
+$config['base_url'] = 'http://192.168.1.103/HTradio';
 /*
  * |-------------------------------------------------------------------------- |
  * Index File

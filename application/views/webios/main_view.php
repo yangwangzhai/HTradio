@@ -434,7 +434,7 @@
                     <ul>
                         <?php foreach($channel_list as $key=>$value) :?>
 
-                            <li id="r_<?=$key?>" class="<?php if($key==0){echo "on";}else{ echo "info_body";} ?>">
+                            <li id="r_<?=$key?>" class="<?php if($key==4){echo "on";}else{ echo "info_body";} ?>">
                                 <div class="info_body">
                                     <div class="info_btn">直播</div>
                                     <div class="info_l" data-id="<?=$key;?>" channel-type="1" mid="<?=$mid?>" ><img src="<?=$value['logo'];?>"  class="music_img" alt="left"/></div><div class="info_r"><h2><?=$value['title'];?></h2><p><?=$value['description'];?></p></div>
@@ -477,7 +477,7 @@
             <select   id="numbers1" class="drum">
 
                 <?php foreach($channel_list as $key=>$value) :?>
-                    <option value="<?=$key?>"><?=$value['title'];?></option>
+                    <option value="<?=$key?>" <?php echo $key==4?"selected='selected'":''?>><?=$value['title'];?></option>
                 <?php endforeach?>
                 <option value="8"><?=$programme['title']?></option>
             </select>
@@ -494,7 +494,7 @@
                         data : null,
 
                         // 当前播放歌曲的 索引
-                        currentIndex : -1,
+                        currentIndex : 4,
 
                         //  播放器元素jquery对象
                         $audio : $('audio'),
@@ -553,17 +553,31 @@
                                 Player.audio.play();
                                 $(".info_box").find(".info_l").removeClass("play");
                                 $(".on").find(".info_l").addClass("play");
-                                if (Player.currentIndex == -1) {
+                                if (Player.currentIndex == 4) {
                                     if (Player.currentIndex == -1) {
                                         Player.currentIndex = 0;
                                     } else if (Player.currentIndex == 0) {
                                         Player.currentIndex = (Player.data.length - 1);
                                     } else {
-                                        Player.currentIndex--;
+                                        //Player.currentIndex--;
                                     }
                                     Player.audio.src = Player.path + Player.data[Player.currentIndex];
                                     Player.audio.play();
                                 }
+                                //异步存储当前播放状态
+                                $.ajax({
+                                    url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                                    type: "post",         //数据发送方式
+                                    dataType:"json",    //接受数据格式
+                                    data:{mid:607,play_status:1,pos:1},  //要传递的数据
+                                    success:function(data){
+                                        //alert(data);
+                                    },
+                                    error:function(XMLHttpRequest, textStatus, errorThrown)
+                                    {
+                                        //alert(errorThrown);
+                                    }
+                                });
                             });
 
                             // 暂停
@@ -572,12 +586,27 @@
                                 $(this).hide();
                                 $("#btn-play").show();
                                 $(".info_box").find(".info_l").removeClass("play");
+                                //异步存储当前播放状态
+                                $.ajax({
+                                    url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                                    type: "post",         //数据发送方式
+                                    dataType:"json",    //接受数据格式
+                                    data:{mid:607,play_status:0,pos:2},  //要传递的数据
+                                    success:function(data){
+                                        //alert(data);
+                                    },
+                                    error:function(XMLHttpRequest, textStatus, errorThrown)
+                                    {
+                                        //alert(errorThrown);
+                                    }
+                                });
                             });
 
                             // 下一曲
                             $('#btn-next').click(function() {
                                 $("#btn-pause").show();
                                 $("#btn-play").hide();
+                                Player.currentIndex = $("#numbers1_value").val();
                                 if (Player.currentIndex == -1) {
                                     Player.currentIndex = Player.data.length-1;
                                 } else if (Player.currentIndex == 0) {
@@ -585,16 +614,31 @@
                                 } else {
                                     Player.currentIndex--;
                                 }
+                                $("#numbers1_value").val(Player.currentIndex);
                                 console.log("Player.currentIndex : " + Player.currentIndex);
                                 Player.audio.src = Player.path + Player.data[Player.currentIndex];
                                 Player.audio.play();
-
+                                //异步存储当前播放状态
+                                $.ajax({
+                                    url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                                    type: "post",         //数据发送方式
+                                    dataType:"json",    //接受数据格式
+                                    data:{mid:607,play_status:1,pos:3},  //要传递的数据
+                                    success:function(data){
+                                        //alert(data);
+                                    },
+                                    error:function(XMLHttpRequest, textStatus, errorThrown)
+                                    {
+                                        //alert(errorThrown);
+                                    }
+                                });
                             });
 
                             // 上一曲
                             $('#btn-pre').click(function() {
                                 $("#btn-pause").show();
                                 $("#btn-play").hide();
+                                Player.currentIndex = $("#numbers1_value").val();
                                 if (Player.currentIndex == -1) {
                                     Player.currentIndex = 1;
                                 } else if (Player.currentIndex == (Player.data.length - 1)) {
@@ -602,9 +646,23 @@
                                 } else {
                                     Player.currentIndex++;
                                 }
+                                $("#numbers1_value").val(Player.currentIndex);
                                 Player.audio.src = Player.path + Player.data[Player.currentIndex];
                                 Player.audio.play();
-
+                                //异步存储当前播放状态
+                                $.ajax({
+                                    url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                                    type: "post",         //数据发送方式
+                                    dataType:"json",    //接受数据格式
+                                    data:{mid:607,play_status:1,pos:3},  //要传递的数据
+                                    success:function(data){
+                                        //alert(data);
+                                    },
+                                    error:function(XMLHttpRequest, textStatus, errorThrown)
+                                    {
+                                        //alert(errorThrown);
+                                    }
+                                });
                             });
 
                             // 单曲循环
@@ -648,15 +706,27 @@
                         }
                     };
                     document.addEventListener('dragend', function(){
-                        $("#btn-pause").show();
-                        $("#btn-play").hide();
+                        //$("#btn-pause").show();
+                        //$("#btn-play").hide();
                         var i=$("#numbers1_value").val();
                         Player.currentIndex = i;
                         Player.audio.src = Player.path + Player.data[i];
                         Player.audio.play();
+                        //异步存储当前播放状态
+                        $.ajax({
+                            url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                            type: "post",         //数据发送方式
+                            dataType:"json",    //接受数据格式
+                            data:{mid:607,play_status:1,pos:3},  //要传递的数据
+                            success:function(data){
+                                //alert(data);
+                            },
+                            error:function(XMLHttpRequest, textStatus, errorThrown)
+                            {
+                                //alert(errorThrown);
+                            }
+                        });
                     } );
-
-
 
                     Player.init();
                     Player.ready();
@@ -750,48 +820,57 @@
                 }
 
                 function sync_play(){
-                    var playing_id = $(".play").attr("data-id");
+                    var playing_id = $("#numbers1_value").val();
                     //var playing_channel_type = $(".play").attr("channel-type");
                     //var mid = $(".play").attr("mid");
                     var mid = 607;
                     if(mid){
-                        if(playing_id!='undefined'&&playing_id!=null){
-                            //alert("id为："+playing_id+"频道类型为："+playing_channel_type);
-                            $.ajax({
-                                url: "index.php?d=webios&c=webios&m=tong_bu",   //后台处理程序
-                                type: "post",         //数据发送方式
-                                dataType:"json",    //接受数据格式
-                                data:{playing_id:playing_id,mid:mid},  //要传递的数据
-                                success:function(data){
-                                    if(data['code']==1){
-                                        var i=0;
-                                        for(i;i<data['step'];i++){
-                                            $(".button3").trigger('click');
-                                        }
-
-                                    }else if(data['code']==2){
-                                        var i=0;
-                                        for(i;i<data['step'];i++){
-                                            $(".button1").trigger('click');
-                                        }
+                        //alert("id为："+playing_id);
+                        $.ajax({
+                            url: "index.php?d=webios&c=webios&m=tong_bu",   //后台处理程序
+                            type: "post",         //数据发送方式
+                            dataType:"json",    //接受数据格式
+                            data:{playing_id:playing_id,mid:mid},  //要传递的数据
+                            success:function(data){
+                                $("#numbers1_value").val(data['channel_id']);
+                                if(data['code']==1){
+                                    var i=0;
+                                    for(i;i<data['step'];i++){
+                                        $(".button3").trigger('click');
                                     }
-                                },
-                                error:function(XMLHttpRequest, textStatus, errorThrown)
-                                {
-                                    //alert(errorThrown);
+
+                                }else if(data['code']==2){
+                                    var i=0;
+                                    for(i;i<data['step'];i++){
+                                        $(".button1").trigger('click');
+                                    }
                                 }
-                            });
-                        }
+                                //控制播放状态
+                                if(data['play_status']==1){
+                                    if($('#btn-play').css("display")!='none'){
+                                        //alert("播放");
+                                        $('#btn-play').trigger('click');
+                                    }
+                                }else{
+                                    if($('#btn-pause').css("display")!='none'){
+                                        //alert("暂停");
+                                        $('#btn-pause').trigger('click');
+                                    }
+                                }
+                            },
+                            error:function(XMLHttpRequest, textStatus, errorThrown)
+                            {
+                                //alert(errorThrown);
+                            }
+                        });
                     }
-
-
                 }
 
-                setInterval(sync_play,100);
+                setInterval(sync_play,800);
 
             </script>
 
-            <input type="text" class="values" id="numbers1_value" style=" width:0; height:0; position:absolute; left:-9999px;" value="0">
+            <input type="text" value="4" class="values" id="numbers1_value" style=" width:0; height:0; position:absolute; left:-9999px;">
             <div class="group"> <a  class="button1" id="btn-next"></a><a  class="button2" id="btn-play"></a><a  id="btn-pause"></a><a  class="button3" id="btn-pre"></a><div class="list-icons"><img src="static/webios/images/playlist_icon.png"/></div></div>
 
             <div class="list-popup">
