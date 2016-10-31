@@ -952,7 +952,7 @@ class webios extends  CI_Controller
                 $res_other = $query_other->row_array();
                 if(!empty($res_other)){
                     //不为空，说明另一个要切换频道，并且更新数据库
-                    $this->db->query("UPDATE fm_tongbu SET channel_id=$res_other[channel_id],Update_time=$res_other[Update_time] WHERE mid=$mid");
+                    $this->db->query("UPDATE fm_tongbu SET channel_id=$res_other[channel_id] WHERE mid=$mid");
                     $step = $res_other['channel_id']-$res['channel_id'];
                     if($step>0){
                         $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'channel_id'=>$res_other['channel_id'],'step'=>$step,'play_status'=>$res['play_status']);
@@ -1026,7 +1026,7 @@ class webios extends  CI_Controller
                 $res_other = $query_other->row_array();
                 if(!empty($res_other)){
                     //不为空，说明另一个要切换频道，并且更新数据库
-                    $this->db->query("UPDATE fm_tongbu SET channel_id=$res_other[channel_id],Update_time=$res_other[Update_time] WHERE mid=$mid");
+                    $this->db->query("UPDATE fm_tongbu SET channel_id=$res_other[channel_id] WHERE mid=$mid");
                     $step = $res_other['channel_id'];
                     $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'channel_id'=>$res_other['channel_id'],'step'=>$step,'play_status'=>$res['play_status']);
                     echo json_encode($result);
@@ -1046,10 +1046,16 @@ class webios extends  CI_Controller
     }
 
     public  function save_play_status(){
+        $channel_id = trim($this->input->post('channel_id'));
         $mid = trim($this->input->post('mid'));
         $play_status = trim($this->input->post('play_status'));
         $pos = trim($this->input->post('pos'));
-        $this->db->query("UPDATE fm_tongbu SET play_status=$play_status WHERE mid=$mid");
+        $Update_time = time();
+        if($pos==1||$pos==2||$pos==3){
+            $this->db->query("UPDATE fm_tongbu SET play_status=$play_status WHERE mid=$mid");
+        }else{
+            $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,play_status=$play_status,Update_time=$Update_time WHERE mid=$mid");
+        }
         $this->db->query("UPDATE fm_tongbu SET play_status=$play_status WHERE mid!=$mid");
         echo json_encode($pos);
     }

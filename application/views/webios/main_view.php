@@ -540,8 +540,15 @@
                         // 就绪
                         ready : function() {
                             // 控制
-
+                            //Player.currentIndex=4;
                             Player.audio = Player.$audio.get(0);
+
+                            $("#btn-pause").show();
+                            $("#btn-play").hide();
+                            $(".on").find(".info_l").addClass("play");
+                            Player.audio.src = Player.path + Player.data[4];
+                            Player.audio.play();
+
                             $('#ctrl-area').on('click', 'button', function() {
                                 Player.$rmusic.html(Player.data[Player.currentIndex]);
                             });
@@ -606,7 +613,6 @@
                             $('#btn-next').click(function() {
                                 $("#btn-pause").show();
                                 $("#btn-play").hide();
-                                Player.currentIndex = $("#numbers1_value").val();
                                 if (Player.currentIndex == -1) {
                                     Player.currentIndex = Player.data.length-1;
                                 } else if (Player.currentIndex == 0) {
@@ -638,7 +644,6 @@
                             $('#btn-pre').click(function() {
                                 $("#btn-pause").show();
                                 $("#btn-play").hide();
-                                Player.currentIndex = $("#numbers1_value").val();
                                 if (Player.currentIndex == -1) {
                                     Player.currentIndex = 1;
                                 } else if (Player.currentIndex == (Player.data.length - 1)) {
@@ -706,8 +711,8 @@
                         }
                     };
                     document.addEventListener('dragend', function(){
-                        //$("#btn-pause").show();
-                        //$("#btn-play").hide();
+                        $("#btn-pause").show();
+                        $("#btn-play").hide();
                         var i=$("#numbers1_value").val();
                         Player.currentIndex = i;
                         Player.audio.src = Player.path + Player.data[i];
@@ -717,7 +722,7 @@
                             url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
                             type: "post",         //数据发送方式
                             dataType:"json",    //接受数据格式
-                            data:{mid:607,play_status:1,pos:3},  //要传递的数据
+                            data:{mid:607,play_status:1,pos:4},  //要传递的数据
                             success:function(data){
                                 //alert(data);
                             },
@@ -732,7 +737,6 @@
                     Player.ready();
 
                 });
-
 
             </script>
 
@@ -832,7 +836,6 @@
                             dataType:"json",    //接受数据格式
                             data:{playing_id:playing_id,mid:mid},  //要传递的数据
                             success:function(data){
-                                $("#numbers1_value").val(data['channel_id']);
                                 if(data['code']==1){
                                     var i=0;
                                     for(i;i<data['step'];i++){
@@ -866,7 +869,7 @@
                     }
                 }
 
-                setInterval(sync_play,800);
+                setInterval(sync_play,700);
 
             </script>
 
