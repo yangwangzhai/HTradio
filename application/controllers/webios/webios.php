@@ -10,7 +10,7 @@ class webios extends  CI_Controller
         $this->load->model('content_model');
     }
 
-    /**
+    /** 注释说明
      *  接口说明：获取直播频道的列表信息
      *  接口地址：http://vroad.bbrtv.com/cmradio/index.php?d=android&c=program&m=live_channel_list
      *  参数接收方式：get
