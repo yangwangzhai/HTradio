@@ -373,8 +373,8 @@ function uploadFile ($filename, $dir_name = 'image')
     if (empty($_FILES)) return ''; 
    
     $save_path = 'uploads/' .$dir_name . '/';
-    $max_size = 5000 * 1024; // 最大文件大小5M
-    $AllowedExtensions = array('jpg','jpeg','png','bmp','gif','3gp','amr','aac'); // 允许格式
+    $max_size = 50000 * 1024; // 最大文件大小5M
+    $AllowedExtensions = array('jpg','jpeg','png','bmp','gif','3gp','amr','aac','mp3','wma','wav'); // 允许格式
     
     $file_size = $_FILES[$filename]['size'];
     if ($file_size > $max_size) {

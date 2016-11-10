@@ -425,7 +425,7 @@
             <a class="icon pull-left <?php if(!empty($mid)){echo 'open-panel';}?>  pull-left-icon
  external" <?php if(empty($mid)){echo 'href="index.php?d=webios&c=webios&m=login_view"';}?>>
             </a>
-            <a class="icon pull-right pull-right-icon"></a>
+            <a href="index.php?d=webios&c=webios&m=upload_audio_view" class="external icon pull-right pull-right-icon"></a>
         </header>
         <!-- 这里是页面内容区 -->
         <div class="content">

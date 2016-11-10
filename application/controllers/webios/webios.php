@@ -127,6 +127,51 @@ class webios extends  CI_Controller
         }
     }
 
+    //上传音频文件
+    public function upload_audio_view(){
+        $this->load->view("webios/upload_audio_view");
+    }
+
+    public function save_upload_audio(){
+        $mid = $this->session->userdata('mid') ;
+        if($mid){
+            //根据mid获取用户昵称
+            $sql = "SELECT username,nickname FROM fm_member WHERE id=$mid";
+            $query = $this->db->query($sql);
+            $name=$query->row_array();
+            $path = uploadFile("file","audio");
+            if(empty($path)){
+                $data['mess'] = "上传失败！";
+                $data['url'] = "";
+                $this->load->view("webios/show_message2",$data);
+            }else{
+                $data['mid'] = $mid ;
+                $data['audio_flag'] = 1 ;
+                $data['type_id'] = 86 ;
+                $data['status'] = 0 ;
+                $data['addtime'] = time() ;
+                $data['title'] =  $name['nickname'] ? $name['nickname'].'-'.date("Y-m-d H:i:s",time()): $name['username'].'-'.date("Y-m-d H:i:s",time());
+                $data['path'] = $path ;
+                $data['download_path'] = $path ;
+                $this->db->insert ( 'fm_program', $data);
+                $affect_result = $this->db->affected_rows();
+                if($affect_result){
+                    $data['mess'] = "上传成功！";
+                    $data['url'] = "main_view";
+                    $this->load->view("webios/show_message",$data);
+                }else{
+                    $data['mess'] = "上传失败！";
+                    $data['url'] = "";
+                    $this->load->view("webios/show_message2",$data);
+                }
+            }
+        }else{
+            $data['mess'] = "请先登录！";
+            $data['url'] = "";
+            $this->load->view("webios/show_message2",$data);
+        }
+    }
+
     public function regist_view(){
         $this->load->view("webios/regist_view");
     }
