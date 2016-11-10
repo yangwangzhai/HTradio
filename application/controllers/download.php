@@ -15,8 +15,20 @@ class Download extends CI_Controller
     	$this->load->view("download");
     }
 
+    public function tbApk(){
+        $this->load->view("tongbuApk");
+    }
+
     public function getApk() {
         header("location: cmradio.apk");
+    }
+
+    public function getTbApk(){
+        header("location: haitun.apk");
+    }
+
+    public function getTbApk2(){
+        header("location: haitun-pad.apk");
     }
 
 }

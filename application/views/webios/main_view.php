@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="static/webios/css/sm.min.css">
     <link rel="stylesheet" href="static/webios/css/sm-extend.min.css">
-    <link rel="stylesheet" href="static/webios/css/style.css">
+    <link rel="stylesheet" href="static/webios/css/style.css?">
     <script src="static/webios/js/jquery-1.9.1.js"></script>
     <script src="static/webios/js/hammer.min.js"></script>
     <script src="static/webios/js/hammer.fakemultitouch.js"></script>
@@ -475,18 +475,19 @@
             </div>
 
             <select   id="numbers1" class="drum">
-
                 <?php foreach($channel_list as $key=>$value) :?>
                     <option value="<?=$key?>" <?php echo $key==4?"selected='selected'":''?>><?=$value['title'];?></option>
                 <?php endforeach?>
                 <option value="8"><?=$programme['title']?></option>
             </select>
-            <audio id="audio" controls style="width:0; height:0; position:absolute; left:-9999px;" autoplay="autoplay" preload="preload"></audio>
+            <audio id="audio" controls style="width:0; height:0; position:absolute; left:-9999px;" preload="preload"></audio>
+            <input type="text" value="4" class="values" id="numbers1_value" style=" width:0; height:0; position:absolute; left:-9999px;">
             <script>
+                var Player ;
                 $(function() {
 
                     // 播放器
-                    var Player = {
+                     Player = {
                         // 歌曲路径
                         path : '',
 
@@ -546,8 +547,8 @@
                             $("#btn-pause").show();
                             $("#btn-play").hide();
                             $(".on").find(".info_l").addClass("play");
-                            Player.audio.src = Player.path + Player.data[4];
-                            Player.audio.play();
+                            //Player.audio.src = Player.path + Player.data[4];
+                            //Player.audio.play();
 
                             $('#ctrl-area').on('click', 'button', function() {
                                 Player.$rmusic.html(Player.data[Player.currentIndex]);
@@ -722,7 +723,7 @@
                             url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
                             type: "post",         //数据发送方式
                             dataType:"json",    //接受数据格式
-                            data:{mid:607,play_status:1,pos:4},  //要传递的数据
+                            data:{channel_id:i,mid:607,play_status:1,pos:4},  //要传递的数据
                             success:function(data){
                                 //alert(data);
                             },
@@ -736,7 +737,19 @@
                     Player.init();
                     Player.ready();
 
+
                 });
+
+                function android_play(){
+                    $("#btn-pause").show();
+                    $("#btn-play").hide();
+                    var i=$("#numbers1_value").val();
+                    Player.currentIndex = i;
+                    Player.audio.src = Player.path + Player.data[i];
+                    //alert(i);
+                    //alert(Player.audio.src);
+                    Player.audio.play();
+                }
 
             </script>
 
@@ -823,18 +836,17 @@
                     },1000);
                 }
 
-                function sync_play(){
+                function sync_play(flag){
                     var playing_id = $("#numbers1_value").val();
-                    //var playing_channel_type = $(".play").attr("channel-type");
-                    //var mid = $(".play").attr("mid");
-                    var mid = 607;
+                    var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
+                    //alert(mid);
                     if(mid){
                         //alert("id为："+playing_id);
                         $.ajax({
                             url: "index.php?d=webios&c=webios&m=tong_bu",   //后台处理程序
                             type: "post",         //数据发送方式
                             dataType:"json",    //接受数据格式
-                            data:{playing_id:playing_id,mid:mid},  //要传递的数据
+                            data:{playing_id:playing_id,mid:mid,flag:flag},  //要传递的数据
                             success:function(data){
                                 if(data['code']==1){
                                     var i=0;
@@ -860,21 +872,24 @@
                                         $('#btn-pause').trigger('click');
                                     }
                                 }
+
+                                setTimeout("sync_play(1)",700);
+
                             },
                             error:function(XMLHttpRequest, textStatus, errorThrown)
                             {
-                                //alert(errorThrown);
+                                setTimeout("sync_play(1)",700);
                             }
                         });
                     }
                 }
+                sync_play(0);
+                //setInterval(sync_play,700);
 
-                setInterval(sync_play,700);
 
             </script>
 
-            <input type="text" value="4" class="values" id="numbers1_value" style=" width:0; height:0; position:absolute; left:-9999px;">
-            <div class="group"> <a  class="button1" id="btn-next"></a><a  class="button2" id="btn-play"></a><a  id="btn-pause"></a><a  class="button3" id="btn-pre"></a><div class="list-icons"><img src="static/webios/images/playlist_icon.png"/></div></div>
+            <div class="group"> <a  class="button1" id="btn-next"></a><a  class="button2" id="btn-play"></a><a  id="btn-pause"></a><a  class="button3" id="btn-pre"></a><div class="list-icons"><!--<img src="static/webios/images/playlist_icon.png"/>--></div></div>
 
             <div class="list-popup">
                 <h3>播放列表</h3>

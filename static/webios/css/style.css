@@ -28,8 +28,8 @@ cite{font-style:normal;}
 
 .button2{ height:4.8rem; width:4.8rem; background:url(../img/radio_play.png) no-repeat; background-size:100%; float:left;}
 .button2:active{background:url(../imagesradio_play_hover.png) no-repeat;background-size:100%;}
-
-#btn-pause{ display:none;height:4.8rem; width:4.8rem; background:url(../images/radio_pause.png) no-repeat; background-size:100%; float:left;}
+#btn-play{display:none;}
+#btn-pause{ height:4.8rem; width:4.8rem; background:url(../images/radio_pause.png) no-repeat; background-size:100%; float:left;}
 #btn-pause:active{background:url(../imagesradio_pause_hover.png) no-repeat;background-size:100%;}
 
 

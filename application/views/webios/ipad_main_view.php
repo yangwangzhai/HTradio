@@ -5,7 +5,7 @@
     <title>ipad端</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="static/webios/pad/css/swiper.min.css">
-    <link rel="stylesheet" href="static/webios/pad/css/style.css">
+    <link rel="stylesheet" href="static/webios/pad/css/style.css?">
     <script src="static/webios/pad/js/jquery-1.9.1.js"></script>
 </head>
 <body>
@@ -35,12 +35,15 @@
 </div>
 <div id="btn">
 </div>
-<audio id="audio" controls style="width:0; height:0; position:absolute; left:-9999px;" autoplay preload="preload"></audio>
+<audio id="audio" controls style="width:0; height:0; position:absolute; left:-9999px;" preload="preload"></audio>
 <script>
+
+    var swiper;
+    var Player;
     $(function() {
 
         // 播放器
-        var Player = {
+         Player = {
             // 歌曲路径
             path : '',
 
@@ -87,6 +90,8 @@
             ready : function() {
                 // 控制
                 //Player.currentIndex=4;
+                $("#btn-pause").show();
+                $("#btn-play").hide();
                 Player.audio = Player.$audio.get(0);
                 $('#ctrl-area').on('click', 'button', function() {
                     Player.$rmusic.html(Player.data[Player.currentIndex]);
@@ -255,7 +260,7 @@
         };
 
 
-        var swiper = new Swiper('.swiper-container', {
+        swiper = new Swiper('.swiper-container', {
             pagination: '.swiper-pagination',
             effect: 'coverflow',
             grabCursor: true,
@@ -274,7 +279,6 @@
                 slideShadows : true
             },
             onTouchEnd: function(swiper){
-                //alert(swiper.activeIndex);
                 $("#numbers1_value").val(swiper.activeIndex);
                 //alert(swiper.activeIndex);
                 $("#btn-pause").show();
@@ -310,60 +314,73 @@
             $("#btn").trigger('click');
         };*/
 
-        function sync_play(){
-            //var playing_channel_type = $(".play").attr("channel-type");
-            //var mid = $(".play").attr("mid");
-            var playing_id = $("#numbers1_value").val();
-            var mid = 636;
-            if(mid){
-                if(playing_id!='undefined'&&playing_id!=null){
-                    //alert("id为："+playing_id);
-                    $.ajax({
-                        url: "index.php?d=webios&c=webios&m=ipad_tong_bu",   //后台处理程序
-                        type: "post",         //数据发送方式
-                        dataType:"json",    //接受数据格式
-                        data:{playing_id:playing_id,mid:mid},  //要传递的数据
-                        success:function(data){
-                            if(data['code']==1){
-                                $("#numbers1_value").val(data['step']);
-                                $('#btn').click(function(){
-                                    swiper.slideTo(data['step'], 1000, false);//切换到第一个slide，速度为1秒
-                                });
-                                $("#btn").trigger('click');
-                                Player.audio.src = Player.path + Player.data[data['step']];
-                                console.log("Player.currentIndex :", Player.currentIndex);
-                                Player.audio.play();
-                            }
-                            //控制播放状态
-                            if(data['play_status']==1){
-                                if($('#btn-play').css("display")!='none'){
-                                    //alert("播放");
-                                    $('#btn-play').trigger('click');
-                                }
-                            }else{
-                                if($('#btn-pause').css("display")!='none'){
-                                    //alert("暂停");
-                                    $('#btn-pause').trigger('click');
-                                }
-                            }
-                        },
-                        error:function(XMLHttpRequest, textStatus, errorThrown)
-                        {
-                            //alert(errorThrown);
-                        }
-                    });
-                }
-            }
-
-
-        }
-
-        setInterval(sync_play,700);
-
+        sync_play(0);
 
     });
 
+     function sync_play (flag){
+        //var playing_channel_type = $(".play").attr("channel-type");
+        //var mid = $(".play").attr("mid");
+        var playing_id = $("#numbers1_value").val();
+        var mid = 636;
+        if(mid){
+            if(playing_id!='undefined'&&playing_id!=null){
+                //alert("id为："+playing_id);
+                $.ajax({
+                    url: "index.php?d=webios&c=webios&m=ipad_tong_bu",   //后台处理程序
+                    type: "post",         //数据发送方式
+                    dataType:"json",    //接受数据格式
+                    data:{playing_id:playing_id,mid:mid,flag:flag},  //要传递的数据
+                    success:function(data){
+                        if(data['code']==1){
+                            $("#numbers1_value").val(data['step']);
+                            $('#btn').click(function(){
+                                swiper.slideTo(data['step'], 1000, false);//切换到第一个slide，速度为1秒
+                            });
+                            $("#btn").trigger('click');
+                            Player.audio.src = Player.path + Player.data[data['step']];
+                            console.log("Player.currentIndex :", Player.currentIndex);
+                            Player.audio.play();
+                        }
+                        //控制播放状态
+                        if(data['play_status']==1){
+                            if($('#btn-play').css("display")!='none'){
+                                //alert("播放");
+                                $('#btn-play').trigger('click');
+                            }
+                        }else{
+                            if($('#btn-pause').css("display")!='none'){
+                                //alert("暂停");
+                                $('#btn-pause').trigger('click');
+                            }
+                        }
 
+                        setTimeout("sync_play(1)",700);
+
+                    },
+                    error:function(XMLHttpRequest, textStatus, errorThrown)
+                    {
+                        setTimeout("sync_play(1)",700);
+                        //alert(errorThrown);
+                    }
+                });
+            }
+        }
+
+
+    }
+
+    function android_play(){
+        var i=$("#numbers1_value").val();
+        Player.currentIndex = i;
+        Player.audio.src = Player.path + Player.data[i];
+        //alert(i);
+        //alert(Player.audio.src);
+        Player.audio.play();
+
+    }
+
+    //setInterval(sync_play,700);
 
 
 </script>
