@@ -10,12 +10,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
     <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="static/webios/css/style.css">
+    <script type="text/javascript" src="static/js/jquery-1.7.1.min.js"></script>
 </head>
 <body>
 <div class="page-group">
     <div class="page page-current" style="margin-top: 0.5rem;">
         <!-- 你的html代码 -->
         <header class="bar bar-nav">
+        	       <a class="button button-link2 button-nav pull-left external" href="index.php?d=webios&c=webios&m=main_view" >
+                返回
+            </a>
             <h1 class='title'>上传头像</h1>
         </header>
         <div class="content">
@@ -28,8 +33,40 @@
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
                                 <div class="item-inner">
                                     <div class="item-input">
-                                        <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
-                                        <input type="file" name="file" id="file"  value="">
+                                     <div class="upload_avatar_box"><img class="upload_avatar_img" style=" display: none;"/><input type="file" name="file" id="file"  value="" class="upload_avatar"></div>
+            <script>
+ $(document).ready(function () {
+	  $(".upload_avatar").change(function(){
+      $(".upload_avatar_box").addClass("add_avatar_img");
+      var imgname=$(".upload_avatar").val();
+     $(".upload_avatar_img").show();
+     var objUrl = getObjectURL(this.files[0]) ;
+	 console.log("objUrl = "+objUrl) ;
+	if (objUrl) {
+		$(".upload_avatar_img").attr("src", objUrl) ;
+	}
+	
+	
+	  console.log(imgname);
+	   
+	  
+  });
+  
+function getObjectURL(file) {
+	var url = null ; 
+	if (window.createObjectURL!=undefined) { // basic
+		url = window.createObjectURL(file) ;
+	} else if (window.URL!=undefined) { // mozilla(firefox)
+		url = window.URL.createObjectURL(file) ;
+	} else if (window.webkitURL!=undefined) { // webkit or chrome
+		url = window.webkitURL.createObjectURL(file) ;
+	}
+	return url ;
+}
+ });
+	 
+
+</script> 
                                     </div>
                                 </div>
                             </div>
