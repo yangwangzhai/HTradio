@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
     <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
-      <link rel="stylesheet" href="static/webios/css/style.css">
+      <link rel="stylesheet" href="static/webios/css/style.css?">
       <script type="text/javascript" src="static/js/jquery-1.7.1.min.js"></script>
 </head>
 <body>

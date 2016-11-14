@@ -514,6 +514,10 @@ class webios extends  CI_Controller
 
     }
 
+    public function update_version_view(){
+        $this->load->view("webios/update_version_view");
+    }
+
     public function edit_passsword_view(){
         $data['mid']=$this->session->userdata('mid') ;
         $this->load->view("webios/edit_passsword_view",$data);

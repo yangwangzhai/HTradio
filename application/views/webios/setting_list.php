@@ -63,13 +63,13 @@
                             </div>
                         </a>
                     </li>-->
-                    <!--<li>
-                        <a href="#" class="item-link item-content">
+                    <li>
+                        <a href="index.php?d=webios&c=webios&m=update_version_view" class="item-link item-content">
                             <div class="item-inner">
-                                <div class="item-title">检查更新（当前版本<?/*=$web['version']*/?>）</div>
+                                <div class="item-title">检查更新（当前版本<?=$web['version']?>）</div>
                             </div>
                         </a>
-                    </li>-->
+                    </li>
                 </ul>
             </div>
             <div>

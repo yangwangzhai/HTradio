@@ -105,3 +105,13 @@ cite{font-style:normal;}
 .upload_avatar_img{ width:150px; height:150px; border-radius:50%;}
 .upload_audio_title{text-align:center;}
 
+.update{ background:#39F; color:#fff; padding:30px 20px;}
+.icon-update{ width:80px; height:80px; background:#3CF url(../img/update.svg) no-repeat center center; background-size:60%;  border-radius:50%; margin:0 auto; display:block;}
+.update_content{ padding:20px;}
+.update_txt{text-align:center;}
+.update_text{color:#333; background:#fff; border:#ddd 1px solid; border-radius:6px; margin:15px 0;}
+.update_text p{padding:10px; margin:0; color:#666; font-size:14px;}
+.update_ver{border-bottom:#ddd 1px solid; font-weight:bold; color:#000; font-size:22px;}
+.update_text em{font-style:normal; display:inline-block; background:#F90; color:#fff; padding:2px; border-radius:4px; font-size:14px;}
+.button.button-update{background:#39F;}
+

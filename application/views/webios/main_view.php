@@ -889,7 +889,7 @@
 
             </script>
 
-            <div class="group"> <a  class="button1" id="btn-next"></a><a  class="button2" id="btn-play"></a><a  id="btn-pause"></a><a  class="button3" id="btn-pre"></a><div class="list-icons"><!--<img src="static/webios/images/playlist_icon.png"/>--></div></div>
+            <div class="group"> <a  class="button1" id="btn-next"></a><a  class="button2" id="btn-play"></a><a  id="btn-pause"></a><a  class="button3" id="btn-pre"></a><div class="list-icons"><img src="static/webios/images/playlist_icon.png"/></div></div>
 
             <div class="list-popup">
                 <h3>播放列表</h3>
