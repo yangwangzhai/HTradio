@@ -112,6 +112,19 @@ cite{font-style:normal;}
 .update_text{color:#333; background:#fff; border:#ddd 1px solid; border-radius:6px; margin:15px 0;}
 .update_text p{padding:10px; margin:0; color:#666; font-size:14px;}
 .update_ver{border-bottom:#ddd 1px solid; font-weight:bold; color:#000; font-size:22px;}
-.update_text em{font-style:normal; display:inline-block; background:#F90; color:#fff; padding:2px; border-radius:4px; font-size:14px;}
+.update_text em{font-style:normal; display:inline-block; background:#F90; color:#fff; padding:2px 5px; border-radius:4px; font-size:12px;}
 .button.button-update{background:#39F;}
+
+ .circle{ -webkit-animation: Circles 1s linear infinite 0s forwards; animation: Circles 1s linear infinite 0s forwards; }
+@-webkit-keyframes Circles {  from {
+ -webkit-transform: rotate(0deg);
+}
+to { -webkit-transform: rotate(360deg); }
+}
+@keyframes Circles {  from {
+ transform: rotate(0deg);
+}
+to { transform: rotate(360deg); }
+}
+
 

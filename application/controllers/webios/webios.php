@@ -509,13 +509,14 @@ class webios extends  CI_Controller
 
     public function setting_list(){
         $data['mid'] = $mid = $this->session->userdata('mid') ;
-        $data[web] = get_cache('android_version');
+        $data['web'] = get_cache('android_version');
         $this->load->view("webios/setting_list",$data);
 
     }
 
     public function update_version_view(){
-        $this->load->view("webios/update_version_view");
+        $data['web'] = get_cache('android_version');
+        $this->load->view("webios/update_version_view",$data);
     }
 
     public function edit_passsword_view(){
@@ -579,7 +580,7 @@ class webios extends  CI_Controller
     public function creat_programme_view(){
         $data['mid']= $mid = $this->session->userdata('mid') ;
 
-        $query = $this->db->query ( "select id,title,thumb from fm_program_type where pid='0' limit 0,10" );
+        $query = $this->db->query ( "select id,title,thumb from fm_program_type where pid='0'" );
         $list = $query->result_array ();
         foreach ($list as $list_key=>&$row) {
             if ($row['thumb']) $row['thumb'] = base_url() . $row['thumb'];
@@ -595,11 +596,13 @@ class webios extends  CI_Controller
     public function creat_programme_detail(){
         $id = $this->input->get("id");
         $ids = $this->input->get("ids");
+        $mid = $this->input->get("mid");
         $title = $this->input->get("title");
-        $query = $this->db->query ( "select id,title,thumb from fm_program where type_id=$id limit 0,20" );
+        $query = $this->db->query ( "select id,title,thumb from fm_program where type_id=$id ORDER BY id DESC limit 0,20 " );
         $data['list'] = $query->result_array ();
         $data['ids'] = $ids;
         $data['title'] = $title;
+        $data['mid'] = $mid;
 
         $this->load->view("webios/creat_programme_detail",$data);
     }
@@ -607,15 +610,17 @@ class webios extends  CI_Controller
     public function creat_programme_process(){
         $len = $this->input->get("len");
         $ids = $this->input->get("ids");
+        $mid = $this->input->get("mid");
         $title = $this->input->get("title");
         echo $len."||".$ids;
-        $query = $this->db->query ( "select id,title,thumb from fm_program_type where pid='0' limit 0,10" );
+        $query = $this->db->query ( "select id,title,thumb from fm_program_type where pid='0'" );
         $list = $query->result_array ();
         foreach ($list as $list_key=>&$row) {
             if ($row['thumb']) $row['thumb'] = base_url() . $row['thumb'];
         }
         $data['list'] = $list;
         $data['ids']=$ids;
+        $data['mid']=$mid;
         if(empty($ids)){
             $data['num'] = 0;
         }else{
@@ -628,7 +633,7 @@ class webios extends  CI_Controller
 
 
     public function save_creat_programme(){
-        $mid = $this->session->userdata('mid');
+        $mid = $this->session->userdata('mid')?$this->session->userdata('mid'):$this->input->post("mid");
         $sql_user = "select username,nickname from fm_member WHERE id=$mid";
         $query_user = $this->db->query($sql_user);
         $result_user = $query_user->row_array();

@@ -33,7 +33,7 @@
                                 <div class="item-media"><i class="icon icon-form-name"></i></div>
                                 <div class="item-inner">
                                     <div class="item-input">
-                                     <div class="upload_avatar_box"><img class="upload_avatar_img" style=" display: none;"/><input type="file" name="file" id="file"  value="" class="upload_avatar"></div>
+                                     <div class="upload_avatar_box"><img class="upload_avatar_img" style=" display: none;"/><input type="file" name="file" id="file" accept="image/*"  value="" class="upload_avatar"></div>
             <script>
  $(document).ready(function () {
 	  $(".upload_avatar").change(function(){

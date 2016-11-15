@@ -10,7 +10,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
     <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
-      <link rel="stylesheet" href="static/webios/css/style.css?23">
+     <link rel="stylesheet" href="static/webios/css/style.css?23">
+      <script type="text/javascript" src="static/js/jquery-1.7.1.min.js"></script>
 </head>
 <body>
 <div class="page-group">
@@ -28,20 +29,34 @@
          <a href="#" class="icon icon-update"></a>
          <p class="update_txt">检测更新 </p>
        
-  
+  <script>
+  $(document).ready(function () {
+  $(".icon-update").click(function(){
+  niceIn($(this));
+
+});
+  function niceIn(prop){
+	  
+	$(".icon-update").addClass('circle');
+	setTimeout(function(){
+    $(".icon-update").removeClass('circle');	
+	},3000);		
+}
+    });
+  </script>
                  
                 </div> 
                 
                 <div class="update_content">
                     <div class="row">
                      
-                        <div class="col-100"><input type="submit" class="button button-big button-fill button-success button-update" value="更新下载"></div>
+                        <div class="col-100"><input type="submit" class="button button-big button-fill button-success button-update" value="下载更新包"></div>
                         
                     
                     </div>
                     <div class="update_text">
-                        <p class="update_ver">海豚FM <em>v2.4.6</em></p>
-                        <p>新版上线！</p>
+                        <p class="update_ver">海豚FM <em><?=$web['version']?></em></p>
+                        <p>当前已是最新版本！</p>
                     </div>
                     </div>
         </div>

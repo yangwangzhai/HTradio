@@ -33,8 +33,8 @@
                     <div class="facebook-date"><?=$username;?></div>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="link">收藏 <?=$col_num;?></a>
-                    <a href="index.php?d=webios&c=webios&m=my_comment_view&programme_id=<?=$programme_id?>" class="link">评论 <?=$con_num;?></a>
+                    <a href="#" class="link">收藏次数<?=$col_num;?></a>
+                    <a href="index.php?d=webios&c=webios&m=my_comment_view&programme_id=<?=$programme_id?>" class="link">评论次数<?=$con_num;?></a>
                     <a href="#" class="link" style="visibility:hidden;">分享 7</a>
                     <a href="#" class="link" style="visibility:hidden;">下载 5</a>
                     <!--<div class="bdsharebuttonbox">

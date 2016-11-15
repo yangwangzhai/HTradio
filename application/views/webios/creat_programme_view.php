@@ -30,6 +30,7 @@
                     <div class="search-input">
                         <input type="text" name="title" id='search' placeholder='输入节目单名称' value="<?=$title?>"/>
                         <input type="hidden" name="ids" id="ids" value="<?=$ids?>">
+                        <input type="hidden" name="mid" id="mid" value="<?=$mid?>">
                     </div>
                 </div>
             </div>

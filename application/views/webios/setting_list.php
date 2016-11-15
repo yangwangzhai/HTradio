@@ -14,10 +14,10 @@
 
     <!-- Google Web Fonts -->
 
-    <link rel="stylesheet" href="http://m.sui.taobao.org/dist/css/sm.css">
-    <link rel="stylesheet" href="http://m.sui.taobao.org/dist/css/sm-extend.css">
-    <link rel="stylesheet" href="http://m.sui.taobao.org/assets/css/demos.css">
-
+    <link rel="stylesheet" href="http://m.sui.taobao.org/dist/css/sm.css?">
+    <link rel="stylesheet" href="http://m.sui.taobao.org/dist/css/sm-extend.css?">
+    <link rel="stylesheet" href="http://m.sui.taobao.org/assets/css/demos.css?">
+    <link rel="stylesheet" href="static/webios/css/style.css?23">
     <link rel="apple-touch-icon-precomposed" href="http://m.sui.taobao.org/assets/img/apple-touch-icon-114x114.png">
     <script src="http://m.sui.taobao.org/assets/js/zepto.js"></script>
     <script src="http://m.sui.taobao.org/assets/js/config.js"></script>
@@ -39,7 +39,7 @@
 <div class="page-group">
     <div id="page-tabs" class="page" style="margin-top: 0.5rem;">
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=main_view" class="external">
+            <a class="button button-nav pull-left" href="index.php?d=webios&c=webios&m=main_view" class="external">
                 <span class="icon icon-left"></span>
                 返回
             </a>

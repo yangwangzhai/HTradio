@@ -28,6 +28,7 @@
         <!-- 这里是页面内容区 -->
         <div class="content">
             <input type="hidden" name="ids" id="ids" value="<?=$ids?>">
+            <input type="hidden" name="mid" id="ids" value="<?=$mid?>">
             <input type="hidden" name="title" id="search" value="<?=$title?>">
             <?php if(!empty($list)) {?>
                 <?php foreach($list as $value) : ?>

@@ -34,7 +34,7 @@
                                 <div class="item-inner">
                                     <div class="item-input">
                                         <input type="hidden" name="MAX_FILE_SIZE" value="5000000">
-                                        <div class="upload_audio_box"><input type="file" name="file" id="file"  value="" class="upload_audio"></div>
+                                        <div class="upload_audio_box"><input type="file" name="file" id="file" accept="audio/mp3,audio/amr,audio/aac"  value="" class="upload_audio"></div>
              <p class="upload_audio_title"></p>
              <script>
  $(document).ready(function () {
