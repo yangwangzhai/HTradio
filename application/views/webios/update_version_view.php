@@ -18,7 +18,7 @@
     <div class="page page-current" style="margin-top: 0.5rem;">
         <!-- 你的html代码 -->
         <header class="bar bar-nav" style="background:#39F; color:#fff">
-           	       <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=main_view" >
+           	       <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=setting_list&mid=<?=$mid?>" >
                 返回
             </a>
             <h1 class='title' style="color:#fff">软件更新</h1>

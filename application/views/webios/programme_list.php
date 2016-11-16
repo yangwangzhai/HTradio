@@ -17,10 +17,13 @@
     <link rel="stylesheet" href="http://m.sui.taobao.org/dist/css/sm.css">
     <link rel="stylesheet" href="http://m.sui.taobao.org/dist/css/sm-extend.css">
     <link rel="stylesheet" href="http://m.sui.taobao.org/assets/css/demos.css">
+    <link rel="stylesheet" href="static/webios/css/style_play.css">
 
     <link rel="apple-touch-icon-precomposed" href="http://m.sui.taobao.org/assets/img/apple-touch-icon-114x114.png">
     <script src="http://m.sui.taobao.org/assets/js/zepto.js"></script>
     <script src="http://m.sui.taobao.org/assets/js/config.js"></script>
+    <script type="text/javascript" src="static/js/jquery-1.7.1.min.js"></script>
+
     <script>
         //ga
     </script>
@@ -39,7 +42,7 @@
 <div class="page-group">
     <div id="page-tabs" class="page" style="margin-top: 0.5rem;">
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=main_view">
+            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=main_view&mid=<?=$mid?>">
                 <span class="icon icon-left"></span>
                 返回
             </a>
@@ -67,9 +70,11 @@
     </div>
 
 </div>
+
 <script src="http://m.sui.taobao.org/dist/js/sm.js"></script>
 <script src="http://m.sui.taobao.org/dist/js/sm-extend.js"></script>
-<script src="http://m.sui.taobao.org/dist/js/sm-city-picker.js"></script>
-<script src="http://m.sui.taobao.org/assets/js/demos.js"></script>
+<!--<script src="http://m.sui.taobao.org/dist/js/sm-city-picker.js"></script>
+<script src="http://m.sui.taobao.org/assets/js/demos.js"></script>-->
+
 </body>
 </html>

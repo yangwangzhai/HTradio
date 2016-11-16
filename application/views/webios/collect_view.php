@@ -39,18 +39,18 @@
 <div class="page-group">
     <div id="page-tabs" class="page" style="margin-top: 0.5rem;">
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=main_view" class="external">
+            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=main_view&mid=<?=$mid?>" class="external">
                 <span class="icon icon-left"></span>
                 返回
             </a>
             <h1 class="title">我收藏的节目单</h1>
-            <a class="pull-right external" href="index.php?d=webios&c=webios&m=add_col_programme_view" style="margin-top: 10px;margin-right: 10px;"><i class="fa fa-plus"></i></a>
+            <a class="pull-right external" href="index.php?d=webios&c=webios&m=add_col_programme_view&mid=<?=$mid?>" style="margin-top: 10px;margin-right: 10px;"><i class="fa fa-plus"></i></a>
         </header>
         <div class="content">
             <?php if(!empty($list)){?>
                 <?php foreach($list as $value) :?>
                     <div class="card facebook-card">
-                        <a href="index.php?d=webios&c=webios&m=col_programme_detail&programme_id=<?=$value['programme_id']?>&programme_title=<?=$value['title']?>&col_num=<?=$value['col_num']?>&con_num=<?=$value['con_num']?>">
+                        <a href="index.php?d=webios&c=webios&m=col_programme_detail&programme_id=<?=$value['programme_id']?>&programme_title=<?=$value['title']?>&col_num=<?=$value['col_num']?>&con_num=<?=$value['con_num']?>&mid=<?=$mid?>">
                             <div class="card-header">
                                 <div class="facebook-avatar"><img src="<?=$value['avatar']?>" style='width: 2rem; height:2rem'></div>
                                 <div class="facebook-name"><?=$value['title']?></div>
@@ -59,7 +59,7 @@
                         </a>
                         <div class="card-footer">
                             <a href="#" class="link">收藏 <?=$value['col_num']?></a>
-                            <a href="index.php?d=webios&c=webios&m=comment_view&programme_id=<?=$value['programme_id']?>" class="link">评论 <?=$value['con_num']?></a>
+                            <a href="index.php?d=webios&c=webios&m=comment_view&programme_id=<?=$value['programme_id']?>&mid=<?=$mid?>" class="link">评论 <?=$value['con_num']?></a>
                             <a href="#" class="link" style="visibility:hidden;">分享 7</a>
                             <a href="#" class="link" style="visibility:hidden;">下载 5</a>
                         </div>

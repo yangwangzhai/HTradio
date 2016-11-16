@@ -19,7 +19,7 @@
     <div class="page" id="creat_programme" style="margin-top: 0.5rem;">
         <!-- 标题栏 -->
         <header class="bar bar-nav  regtitle">
-            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=main_view" class="external" >
+            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=main_view&mid=<?=$mid?>" class="external" >
                 返回
             </a>
             <h1 class="title" >选择节目类型</h1>

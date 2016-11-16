@@ -19,12 +19,12 @@
     <div class="page" id="col_programme" style="margin-top: 0.5rem;">
         <!-- 标题栏 -->
         <header class="bar bar-nav  regtitle">
-            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=collect_view">
+            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=collect_view&mid=<?=$mid?>">
                 返回
             </a>
             <h1 class="title" >添加节目单</h1>
         </header>
-
+        <input type="hidden" name="mid" id="mid" value="<?=$mid?>">
         <!-- 这里是页面内容区 -->
         <div class="content">
             <?php if(!empty($list)) {?>

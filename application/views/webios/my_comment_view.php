@@ -39,7 +39,7 @@
 <div class="page-group">
     <div id="page-tabs" class="page" style="margin-top: 0.5rem;">
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=programme_detail&programme_id=<?=$programme_id?>">
+            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=programme_detail&programme_id=<?=$programme_id?>&mid=<?=$mid?>">
                 <span class="icon icon-left"></span>
                 返回
             </a>

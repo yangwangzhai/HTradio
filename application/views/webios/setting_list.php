@@ -39,7 +39,7 @@
 <div class="page-group">
     <div id="page-tabs" class="page" style="margin-top: 0.5rem;">
         <header class="bar bar-nav">
-            <a class="button button-nav pull-left" href="index.php?d=webios&c=webios&m=main_view" class="external">
+            <a class="button button-nav pull-left" href="index.php?d=webios&c=webios&m=main_view&mid=<?=$mid?>" class="external">
                 <span class="icon icon-left"></span>
                 返回
             </a>
@@ -50,7 +50,7 @@
             <div class="list-block" style="margin-bottom: 0;">
                 <ul>
                     <li>
-                        <a href="index.php?d=webios&c=webios&m=edit_passsword_view" class="item-link item-content">
+                        <a href="index.php?d=webios&c=webios&m=edit_passsword_view&mid=<?=$mid?>" class="item-link item-content">
                             <div class="item-inner">
                                 <div class="item-title">安全与账户</div>
                             </div>
@@ -64,7 +64,7 @@
                         </a>
                     </li>-->
                     <li>
-                        <a href="index.php?d=webios&c=webios&m=update_version_view" class="item-link item-content">
+                        <a href="index.php?d=webios&c=webios&m=update_version_view&mid=<?=$mid?>" class="item-link item-content">
                             <div class="item-inner">
                                 <div class="item-title">检查更新（当前版本<?=$web['version']?>）</div>
                             </div>

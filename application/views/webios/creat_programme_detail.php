@@ -19,7 +19,7 @@
     <div class="page" id="check_box" style="margin-top: 0.5rem;">
         <!-- 标题栏 -->
         <header class="bar bar-nav  regtitle">
-            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=creat_programme_view" class="external" >
+            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=creat_programme_view&mid=<?=$mid?>" class="external" >
                 返回
             </a>
             <h1 class="title" >添加节目</h1>
@@ -28,7 +28,7 @@
         <!-- 这里是页面内容区 -->
         <div class="content">
             <input type="hidden" name="ids" id="ids" value="<?=$ids?>">
-            <input type="hidden" name="mid" id="ids" value="<?=$mid?>">
+            <input type="hidden" name="mid" id="mid" value="<?=$mid?>">
             <input type="hidden" name="title" id="search" value="<?=$title?>">
             <?php if(!empty($list)) {?>
                 <?php foreach($list as $value) : ?>

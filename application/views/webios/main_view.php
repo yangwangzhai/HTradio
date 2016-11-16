@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="static/webios/css/sm.min.css">
     <link rel="stylesheet" href="static/webios/css/sm-extend.min.css">
-    <link rel="stylesheet" href="static/webios/css/style.css?">
+    <link rel="stylesheet" href="static/webios/css/style.css?12">
     <script src="static/webios/js/jquery-1.9.1.js"></script>
     <script src="static/webios/js/hammer.min.js"></script>
     <script src="static/webios/js/hammer.fakemultitouch.js"></script>
@@ -425,7 +425,7 @@
             <a class="icon pull-left <?php if(!empty($mid)){echo 'open-panel';}?>  pull-left-icon
  external" <?php if(empty($mid)){echo 'href="index.php?d=webios&c=webios&m=login_view"';}?>>
             </a>
-            <a href="index.php?d=webios&c=webios&m=upload_audio_view" class="external icon pull-right pull-right-icon"></a>
+            <a href="index.php?d=webios&c=webios&m=upload_audio_view&mid=<?=$mid?>" class="external icon pull-right pull-right-icon"></a>
         </header>
         <!-- 这里是页面内容区 -->
         <div class="content">
@@ -810,7 +810,7 @@
                                 url: "index.php?d=webios&c=webios&m=support_negative",   //后台处理程序
                                 type: "post",         //数据发送方式
                                 dataType:"json",    //接受数据格式
-                                data:{id:id,type:type,channel_type:channel_type},  //要传递的数据
+                                data:{id:id,type:type,channel_type:channel_type,mid:mid},  //要传递的数据
                                 success:function(data){
                                     if(parseInt(data)==1){
                                         //加 1
@@ -919,17 +919,17 @@
 <div class="panel panel-left panel-reveal">
     <div class="content-block">
         <dl>
-            <dt><a href="index.php?d=webios&c=webios&m=upload_avatar_view" class="external"><img src="<?php if(!empty($user['avatar'])){echo $user['avatar'];}else{echo 'static/webios/img/play_bg.jpg';}?>"></a></dt>
+            <dt><a href="index.php?d=webios&c=webios&m=upload_avatar_view&mid=<?=$mid?>" class="external"><img src="<?php if(!empty($user['avatar'])){echo $user['avatar'];}else{echo 'static/webios/img/play_bg.jpg';}?>"></a></dt>
             <dd><a href="#"><?=$user['username']?></a></dd>
         </dl>
         <ul>
-            <li><i class="fa fa-file-text-o"></i><a href="index.php?d=webios&c=webios&m=my_programme" class="external">我的节目单</a></li>
-            <li><i class="fa fa-heart-o"></i><a href="index.php?d=webios&c=webios&m=collect_view" class="external">我收藏的节目单</a></li>
-            <li><i class="fa fa-pencil-square-o"></i><a href="index.php?d=webios&c=webios&m=feedback_view" class="external">意见反馈</a</li>
-            <li><i class="fa fa-cog"></i><a href="index.php?d=webios&c=webios&m=setting_list" class="external">软件设置</a></li>
+            <li><i class="fa fa-file-text-o"></i><a href="index.php?d=webios&c=webios&m=my_programme&mid=<?=$mid?>" class="external">我的节目单</a></li>
+            <li><i class="fa fa-heart-o"></i><a href="index.php?d=webios&c=webios&m=collect_view&mid=<?=$mid?>" class="external">我收藏的节目单</a></li>
+            <li><i class="fa fa-pencil-square-o"></i><a href="index.php?d=webios&c=webios&m=feedback_view&mid=<?=$mid?>" class="external">意见反馈</a</li>
+            <li><i class="fa fa-cog"></i><a href="index.php?d=webios&c=webios&m=setting_list&mid=<?=$mid?>" class="external">软件设置</a></li>
         </ul>
         <!--<p><input name="" type="button" value="+创建我的节目" class="pbtn"></p>-->
-        <p><a href="index.php?d=webios&c=webios&m=creat_programme_view" class="pbtn external">+创建我的节目</a></p>
+        <p><a href="index.php?d=webios&c=webios&m=creat_programme_view&mid=<?=$mid?>" class="pbtn external">+创建我的节目</a></p>
         <!-- Click on link with "close-panel" class will close panel -->
     </div>
 </div>

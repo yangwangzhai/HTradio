@@ -422,7 +422,7 @@
     <div class="page" style="margin-top: 0.5rem;">
         <!-- 标题栏 -->
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=col_programme_detail&programme_id=<?=$programme_id?>&programme_title=<?=$programme_title;?>&col_num=<?=$col_num?>" style="color:#fff">
+            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=col_programme_detail&programme_id=<?=$programme_id?>&programme_title=<?=$programme_title;?>&col_num=<?=$col_num?>&mid=<?=$mid?>" style="color:#fff">
                 <span class="icon icon-left"></span>
                 返回
             </a>

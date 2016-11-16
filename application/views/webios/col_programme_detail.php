@@ -18,7 +18,7 @@
     <!-- 单个page ,第一个.page默认被展示-->
     <div class="page" id="programme_detail" style="margin-top: 0.5rem;">
         <header class="bar bar-nav">
-            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=collect_view">
+            <a class="button button-link button-nav pull-left external" href="index.php?d=webios&c=webios&m=collect_view&mid=<?=$mid?>">
                 <span class="icon icon-left"></span>
                 返回
             </a>
@@ -43,7 +43,7 @@
                 <div class="list-block media-list">
                     <ul>
                         <li>
-                            <a href="index.php?d=webios&c=webios&m=col_program_play&programme_id=<?=$programme_id?>&program_id=<?=$value['program_id']?>&programme_title=<?=$programme_title;?>&col_num=<?=$col_num?>">
+                            <a href="index.php?d=webios&c=webios&m=col_program_play&programme_id=<?=$programme_id?>&program_id=<?=$value['program_id']?>&programme_title=<?=$programme_title;?>&col_num=<?=$col_num?>&mid=<?=$mid?>">
                                 <label class="label-checkbox item-content">
                                     <div class="item-media"><img src="static/webios/img/program_default.jpg" style='width: 2.8rem; height:2.6rem'></div>
                                     <div class="item-inner">

@@ -32,11 +32,12 @@ $(function () {
         $(page).on('click','#btn_col', function () {
             //选择的个数
             var ids= '';
+            var mid = $("#mid").val() ;
             $('input[name="my-radio"]:checked').each(function(){
                 ids +=$(this).val()+",";
             });
             //alert(ids);
-            window.location.href="index.php?d=webios&c=webios&m=save_col_programme&ids="+ids;
+            window.location.href="index.php?d=webios&c=webios&m=save_col_programme&mid="+mid+"&ids="+ids;
         });
 
     });
