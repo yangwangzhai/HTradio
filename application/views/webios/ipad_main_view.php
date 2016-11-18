@@ -29,8 +29,16 @@
     <div class="swiper-pagination"></div>
 </div>
 <input type="text" class="values" id="numbers1_value"  value="4" style="width:0; height:0; position:absolute; left:-9999px;">
-<div class="bottom"><div class="group"> <a  class="button1" id="btn-next"></a><a  class="button2" id="btn-play"></a><a  id="btn-pause"></a><a  class="button3" id="btn-pre"></a>
-        <div class="list-icons"><img src="static/webios/images/playlist_icon.png"/></div>
+<div class="bottom">
+    <div class="group">
+        <a  class="button1" id="btn-next"></a>
+        <a  class="button2" id="btn-play"></a>
+        <a  id="btn-pause"></a>
+        <a  class="button3" id="btn-pre"></a>
+        <div class="list-icons">
+            <img src="static/webios/images/playlist_icon.png"/>
+        </div>
+  <div class="sound-icon"></div>
     </div>
 </div>
 <div id="btn">
@@ -316,56 +324,124 @@
 
         sync_play(0);
 
+        //点击语音按钮，开始录音
+        $(".sound-icon").click(function(){
+            //先暂停播放
+            if($('#btn-pause').css("display")!='none'){
+                $('#btn-pause').trigger('click');
+                var mid = 636;
+                //异步存储当前播放状态
+                if(mid){
+                    $.ajax({
+                        url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{mid:mid,play_status:0,pos:2},  //要传递的数据
+                        success:function(data){
+                            //alert(data);
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }
+            }
+            //确认已经暂停播放
+            if($('#btn-play').css("display")!='none'){
+                window.AndroidJS.startSpeak();
+            }
+
+        });
+
+
     });
 
-     function sync_play (flag){
-        //var playing_channel_type = $(".play").attr("channel-type");
-        //var mid = $(".play").attr("mid");
+    //接收识别的文字
+    function receiveSpeak(str){
         var playing_id = $("#numbers1_value").val();
         var mid = 636;
-        if(mid){
-            if(playing_id!='undefined'&&playing_id!=null){
-                //alert("id为："+playing_id);
-                $.ajax({
-                    url: "index.php?d=webios&c=webios&m=ipad_tong_bu",   //后台处理程序
-                    type: "post",         //数据发送方式
-                    dataType:"json",    //接受数据格式
-                    data:{playing_id:playing_id,mid:mid,flag:flag},  //要传递的数据
-                    success:function(data){
-                        if(data['code']==1){
-                            $("#numbers1_value").val(data['step']);
-                            $('#btn').click(function(){
-                                swiper.slideTo(data['step'], 1000, false);//切换到第一个slide，速度为1秒
-                            });
-                            $("#btn").trigger('click');
-                            Player.audio.src = Player.path + Player.data[data['step']];
-                            console.log("Player.currentIndex :", Player.currentIndex);
-                            Player.audio.play();
-                        }
-                        //控制播放状态
-                        if(data['play_status']==1){
-                            if($('#btn-play').css("display")!='none'){
-                                //alert("播放");
-                                $('#btn-play').trigger('click');
-                            }
-                        }else{
-                            if($('#btn-pause').css("display")!='none'){
-                                //alert("暂停");
-                                $('#btn-pause').trigger('click');
-                            }
-                        }
-
-                        setTimeout("sync_play(1)",700);
-
-                    },
-                    error:function(XMLHttpRequest, textStatus, errorThrown)
-                    {
-                        setTimeout("sync_play(1)",700);
-                        //alert(errorThrown);
+        //alert(str) ;
+        $.ajax({
+            url: "index.php?d=webios&c=webios&m=ipad_voice_distinguish",   //后台处理程序
+            type: "post",         //数据发送方式
+            dataType:"json",    //接受数据格式
+            data:{mid:mid,str:str,playing_id:playing_id},  //要传递的数据
+            success:function(data){
+                if(data['code']==1){
+                    $("#numbers1_value").val(data['step']);
+                    $('#btn').click(function(){
+                        swiper.slideTo(data['step'], 1000, false);//切换到第一个slide，速度为1秒
+                    });
+                    $("#btn").trigger('click');
+                    Player.audio.src = Player.path + Player.data[data['step']];
+                    console.log("Player.currentIndex :", Player.currentIndex);
+                    Player.audio.play();
+                }
+                //控制播放状态
+                if(data['play_status']==1){
+                    if($('#btn-play').css("display")!='none'){
+                        //alert("播放");
+                        $('#btn-play').trigger('click');
                     }
-                });
+                }
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown)
+            {
+                //alert(errorThrown);
             }
+        });
+    }
+
+
+    function sync_play (flag){
+    //var playing_channel_type = $(".play").attr("channel-type");
+    //var mid = $(".play").attr("mid");
+    var playing_id = $("#numbers1_value").val();
+    var mid = 636;
+    if(mid){
+        if(playing_id!='undefined'&&playing_id!=null){
+            //alert("id为："+playing_id);
+            $.ajax({
+                url: "index.php?d=webios&c=webios&m=ipad_tong_bu",   //后台处理程序
+                type: "post",         //数据发送方式
+                dataType:"json",    //接受数据格式
+                data:{playing_id:playing_id,mid:mid,flag:flag},  //要传递的数据
+                success:function(data){
+                    if(data['code']==1){
+                        $("#numbers1_value").val(data['step']);
+                        $('#btn').click(function(){
+                            swiper.slideTo(data['step'], 1000, false);//切换到第一个slide，速度为1秒
+                        });
+                        $("#btn").trigger('click');
+                        Player.audio.src = Player.path + Player.data[data['step']];
+                        console.log("Player.currentIndex :", Player.currentIndex);
+                        Player.audio.play();
+                    }
+                    //控制播放状态
+                    if(data['play_status']==1){
+                        if($('#btn-play').css("display")!='none'){
+                            //alert("播放");
+                            $('#btn-play').trigger('click');
+                        }
+                    }else{
+                        if($('#btn-pause').css("display")!='none'){
+                            //alert("暂停");
+                            $('#btn-pause').trigger('click');
+                        }
+                    }
+
+                    setTimeout("sync_play(1)",700);
+
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown)
+                {
+                    setTimeout("sync_play(1)",700);
+                    //alert(errorThrown);
+                }
+            });
         }
+    }
 
 
     }

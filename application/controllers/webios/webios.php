@@ -399,7 +399,7 @@ class webios extends  CI_Controller
 
         if (empty($programme_id)) {
             $data['mess'] = "节目单不存在！";
-            $data['url'] = "my_programme";
+            $data['url'] = "my_programme&mid=".$mid;
             $this->load->view("webios/show_message",$data);
         }
         if (empty($mid)) {
@@ -489,7 +489,7 @@ class webios extends  CI_Controller
 
         if (empty($programme_id)) {
             $data['mess'] = "节目单不存在！";
-            $data['url'] = "my_programme";
+            $data['url'] = "my_programme&mid=".$mid;
             $this->load->view("webios/show_message",$data);
         }
 
@@ -687,12 +687,12 @@ class webios extends  CI_Controller
 
         if (empty ( $uid ) || empty ( $old_password ) || empty ( $new_password )) {
             $data['mess'] = "原密码和新密码不能为空！";
-            $data['url'] = "edit_passsword_view";
+            $data['url'] = "edit_passsword_view&mid=".$uid;
             $this->load->view("webios/show_message",$data);
         }else{
             if ($old_password == $new_password) {
                 $data['mess'] = "原密码和新密码不能相同！！";
-                $data['url'] = "edit_passsword_view";
+                $data['url'] = "edit_passsword_view&mid=".$uid;
                 $this->load->view("webios/show_message",$data);
             }else{
                 $query = $this->db->get_where ( 'fm_member', 'id = '.$uid, 1 );
@@ -702,7 +702,7 @@ class webios extends  CI_Controller
                 $new_password = get_password($new_password);
                 if( $row['password'] != $old_password) {
                     $data['mess'] = "原密码不正确！！";
-                    $data['url'] = "edit_passsword_view";
+                    $data['url'] = "edit_passsword_view&mid=".$uid;
                     $this->load->view("webios/show_message",$data);
                 }else{
                     $this->db->update ( 'fm_member', array (
@@ -711,7 +711,7 @@ class webios extends  CI_Controller
                     $affected = $this->db->affected_rows ();
                     if ($affected == 0) {
                         $data['mess'] = "对不起，出错了，请稍后再试！";
-                        $data['url'] = "edit_passsword_view";
+                        $data['url'] = "edit_passsword_view&mid=".$uid;
                         $this->load->view("webios/show_message",$data);
                     }else{
                         $data['mess'] = "修改成功！";
@@ -733,6 +733,7 @@ class webios extends  CI_Controller
 
     public function creat_programme_view(){
         $data['mid']= $mid = $this->input->get('mid') ;
+        $data['programme_id']= $programme_id = $this->input->get('programme_id') ?  $this->input->get('programme_id') : '';
         $query = $this->db->query ( "select id,title,thumb from fm_program_type where pid='0'" );
         $list = $query->result_array ();
         foreach ($list as $list_key=>&$row) {
@@ -751,6 +752,7 @@ class webios extends  CI_Controller
         $ids = $this->input->get("ids");
         $mid = $this->input->get("mid");
         $title = $this->input->get("title");
+        $data['programme_id']= $programme_id = $this->input->get('programme_id') ?  $this->input->get('programme_id') : '';
         $query = $this->db->query ( "select id,title,thumb from fm_program where type_id=$id ORDER BY id DESC limit 0,20 " );
         $data['list'] = $query->result_array ();
         $data['ids'] = $ids;
@@ -765,7 +767,8 @@ class webios extends  CI_Controller
         $ids = $this->input->get("ids");
         $mid = $this->input->get("mid");
         $title = $this->input->get("title");
-        echo $len."||".$ids;
+        $data['programme_id']= $programme_id = $this->input->get('programme_id') ?  $this->input->get('programme_id') : '';
+        //echo $len."||".$ids;
         $query = $this->db->query ( "select id,title,thumb from fm_program_type where pid='0'" );
         $list = $query->result_array ();
         foreach ($list as $list_key=>&$row) {
@@ -796,24 +799,83 @@ class webios extends  CI_Controller
             'mid' => $mid,
             'addtime' => time()
         );
-        $this->db->insert ( 'fm_programme', $data );
-        $insert_id = $this->db->insert_id();
-        $ids = $this->input->post("ids");
-        $ids_arr = explode(",",substr($ids, 0, -1));
-        if($insert_id){
+        //判断是添加还是编辑
+        $programme_id = $this->input->post("programme_id") ;
+        if($programme_id){      //编辑
+            //更新 fm_programme 表
+            $this->db->where('id', $programme_id);
+            $this->db->update('fm_programme', $data);
+            //更新 fm_programme_list 表
+            $ids = $this->input->post("ids");
+            $ids_arr = explode(",",substr($ids, 0, -1));
+            //先删除原来的记录
+            $this->db->delete('fm_programme_list', array('programme_id' => $programme_id));
+            //添加新的记录
             foreach($ids_arr as $val){
                 $value = array(
-                    'programme_id' => $insert_id,
+                    'programme_id' => $programme_id,
                     'program_id' => $val,
                     'type_id' => 1,
                 );
                 $this->db->insert ( 'fm_programme_list', $value );
             }
+        }else{
+            //添加
+            $this->db->insert ( 'fm_programme', $data );
+            $insert_id = $this->db->insert_id();
+            $ids = $this->input->post("ids");
+            $ids_arr = explode(",",substr($ids, 0, -1));
+            if($insert_id){
+                foreach($ids_arr as $val){
+                    $value = array(
+                        'programme_id' => $insert_id,
+                        'program_id' => $val,
+                        'type_id' => 1,
+                    );
+                    $this->db->insert ( 'fm_programme_list', $value );
+                }
+            }
         }
+
 
         $this->my_programme2($mid);
     }
 
+    //编辑模式下向节目单添加节目
+    public function add_programme_view(){
+        $data['mid'] = $mid = $this->input->get('mid');
+        $data['programme_id'] = $programme_id = $this->input->get('programme_id');
+        //获取当前节目单的名称
+        $this->db->select('title');
+        $query = $this->db->get_where('fm_programme',array('id'=>$programme_id));
+        $programme_title = $query->row_array();
+        //获取当前节目单包含的节目
+        $this->db->select('program_id');
+        $query = $this->db->get_where('fm_programme_list',array('programme_id'=>$programme_id));
+        $data['program_ids'] = $program_ids = $query->result_array();
+
+        //获取节目类型列表
+        $query = $this->db->query ( "select id,title,thumb from fm_program_type where pid='0'" );
+        $list = $query->result_array ();
+        foreach ($list as $list_key=>&$row) {
+            if ($row['thumb']) $row['thumb'] = base_url() . $row['thumb'];
+        }
+        $data['list'] = $list;
+        //组装现有的节目，以“ , ”隔开
+        $ids = '' ;
+        $num = 0 ;
+        if(!empty($program_ids)){
+            foreach($program_ids as $key=>$value){
+                $ids = $value['program_id'].',' ;
+            }
+            $num = count($program_ids) ;
+        }
+        $data['ids'] = $ids ;
+        $data['num'] = $num ;
+        $data['title'] = $programme_title['title'] ;
+        $this->load->view("webios/creat_programme_view",$data);
+
+    }
 
     public function version(){
         $data = array(
@@ -1062,7 +1124,7 @@ class webios extends  CI_Controller
         $data_list['avatar'] = $username['avatar'] ? $username['avatar'] : base_url()."static/webios/img/play_bg.jpg";
         if (empty($programme_id)) {
             $data['mess'] = "节目单不存在！";
-            $data['url'] = "collect_view";
+            $data['url'] = "collect_view&mid=".$data_list['mid'];
             $this->load->view("webios/show_message",$data);
         }else{
             //取出具体的节目
@@ -1348,9 +1410,94 @@ class webios extends  CI_Controller
         echo json_encode($pos);
     }
 
+    function voice_distinguish(){
+        $arr_mate = array(6=>0,7=>1,8=>2,9=>3,10=>4,11=>5,12=>6,13=>7) ;
+        $voice_txt = trim($this->input->post('str'));
+        $data['mid'] = $mid = trim($this->input->post('mid'));
+        $playing_id = trim($this->input->post('playing_id'));
+        $query = $this->db->query("select id from fm_live_channel WHERE title LIKE '%$voice_txt%'") ;
+        $id = $query->row_array('id') ;
+        $data['Update_time'] = $Update_time = time() ;
+        if(!empty($id)){    //语音识别成功
+            $data['channel_id'] = $channel_id = $arr_mate[$id['id']] ;
+            $step = $channel_id-$playing_id;
+            if($mid){
+                //用户登陆(需要考虑同步)
+                //查询是否有这条记录
+                $sql = "select * from fm_tongbu WHERE mid=$mid";
+                $query = $this->db->query($sql);
+                $res = $query->row_array();
+                if(empty($res)){
+                    //如果为空，先添加
+                    $this->db->insert ( 'fm_tongbu', $data);
+                }else{
+                    $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time WHERE mid=$mid");
+                }
+
+                if($step>0){
+                    $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'step'=>$step,'play_status'=>1,'str'=>$voice_txt);
+                }else{
+                    $result = array('code'=>2,'mes'=>"切换频道，更新数据库",'step'=>abs($step),'play_status'=>1,'str'=>$voice_txt);
+                }
+                echo json_encode($result);
 
 
+            }else{
+                //用户没有登陆(不需要考虑同步)
+                if($step>0){
+                    $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'step'=>$step,'play_status'=>1,'str'=>$voice_txt);
+                }else{
+                    $result = array('code'=>2,'mes'=>"切换频道，更新数据库",'step'=>abs($step),'play_status'=>1,'str'=>$voice_txt);
+                }
+                echo json_encode($result);
+            }
 
+        }else{
+            $result = array('code'=>0,'mes'=>"未能分辨",'str'=>$voice_txt);
+            echo json_encode($result) ;
+        }
+
+    }
+
+    public function ipad_voice_distinguish(){
+        $arr_mate = array(6=>0,7=>1,8=>2,9=>3,10=>4,11=>5,12=>6,13=>7) ;
+        $voice_txt = trim($this->input->post('str'));
+        $data['mid'] = $mid = trim($this->input->post('mid'));
+        $playing_id = trim($this->input->post('playing_id'));
+        $query = $this->db->query("select id from fm_live_channel WHERE title LIKE '%$voice_txt%'") ;
+        $id = $query->row_array('id') ;
+        $data['Update_time'] = $Update_time = time() ;
+        if(!empty($id)){    //语音识别成功
+            $data['channel_id'] = $channel_id = $arr_mate[$id['id']] ;
+            $step = $channel_id;
+            if($mid){
+                //用户登陆(需要考虑同步)
+                //查询是否有这条记录
+                $sql = "select * from fm_tongbu WHERE mid=$mid";
+                $query = $this->db->query($sql);
+                $res = $query->row_array();
+                if(empty($res)){
+                    //如果为空，先添加
+                    $this->db->insert ( 'fm_tongbu', $data);
+                }else{
+                    $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time WHERE mid=$mid");
+                }
+
+                $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
+                echo json_encode($result);
+
+
+            }else{
+                //用户没有登陆(不需要考虑同步)
+                $result = array('code'=>0,'mes'=>"刚刚切换频道",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
+                echo json_encode($result);
+            }
+
+        }else{
+            $result = array('code'=>0,'mes'=>"未能分辨",'str'=>$voice_txt);
+            echo json_encode($result) ;
+        }
+    }
 
 
 }

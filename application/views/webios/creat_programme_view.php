@@ -31,6 +31,7 @@
                         <input type="text" name="title" id='search' placeholder='输入节目单名称' value="<?=$title?>"/>
                         <input type="hidden" name="ids" id="ids" value="<?=$ids?>">
                         <input type="hidden" name="mid" id="mid" value="<?=$mid?>">
+                        <input type="hidden" name="programme_id" id="programme_id" value="<?=$programme_id?>">
                     </div>
                 </div>
             </div>

@@ -18,10 +18,10 @@ cite{font-style:normal;}
 .button { border:none;}
 .pull-left-icon{ width:2.4rem; height:2.4rem; margin: .3rem; background:url(../img/ic_person.png) no-repeat center center; background-size:60%; border-radius: 50%;}
 .pull-left-icon:active{ background:#041a63 url(../img/ic_person.png) no-repeat center center; background-size:60%}
-.pull-right-icon { width:2.4rem; height:2.4rem; margin: .3rem; background:url(../img/radio_icon.png) no-repeat center center;background-size:75%; border-radius: 50%;}
-.pull-right-icon:active{ background:#041a63 url(../img/radio_icon.png) no-repeat center center; background-size:75%}
+.pull-right-icon { width:2.4rem; height:2.4rem; margin: .3rem; background:url(../img/upload2.svg) no-repeat center center;background-size:70%; border-radius: 50%;}
+.pull-right-icon:active{ background:#041a63 url(../img/upload2.svg) no-repeat center center; background-size:70%}
 .group { position:relative;height:4.8rem; line-height:4.8rem; width:12.8rem; margin:.5rem auto 0 auto; text-align:center}
-
+.sound-icon{height:3rem; width:3rem; background:url(../img/sound.svg) no-repeat; background-size:100%; position:absolute; left:-3.5rem; top:.7rem;}
 .pull-right{margin:.4rem 0 0 0;}
 .button1 { height:4rem; width:4rem; background:url(../images/radio_pre.png) no-repeat; background-size:100%; float:left; margin-top:.4rem}
 .button1:active{background:url(../images/radio_pre_hover.png) no-repeat;background-size:100%;}

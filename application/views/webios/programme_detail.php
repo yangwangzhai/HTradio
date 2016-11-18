@@ -30,7 +30,7 @@
         <form method="post" action="index.php?d=webios&c=webios&m=program_del">
             <input type="hidden" name="programme_id" value="<?=$programme_id?>">
             <input type="hidden" name="mid" value="<?=$mid?>">
-            <div class="content">
+            <div class="content" style="margin-top: 2.5rem;">
             <div class="card facebook-card">
                 <div class="card-header">
                     <div class="facebook-avatar"><img src="<?=$avatar?>" style='width: 2rem; height:2rem'></div>
@@ -69,7 +69,9 @@
             </div>
             <?php endforeach?>
             <div class="bottom_btn">
-                <div class="add_btn"></div>
+                <a href="index.php?d=webios&c=webios&m=add_programme_view&mid=<?=$mid?>&programme_id=<?=$programme_id?>" external>
+                    <div class="add_btn"></div>
+                </a>
                 <div class="set_btn">
                     <div class="row">
                         <div class="col-50"><a href="#" class="button button-big button-fill button-danger cancle-btn">取消</a></div>

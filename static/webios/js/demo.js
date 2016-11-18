@@ -7,8 +7,9 @@ $(function () {
            var ids = $("#ids").val();
            var mid = $("#mid").val();
            var title = $("#search").val();
+           var programme_id = $("#programme_id").val();
            // alert(ids);
-           window.location.href="index.php?d=webios&c=webios&m=creat_programme_detail&id="+id+"&ids="+ids+"&title="+title+"&mid="+mid;
+           window.location.href="index.php?d=webios&c=webios&m=creat_programme_detail&id="+id+"&ids="+ids+"&title="+title+"&mid="+mid+"&programme_id="+programme_id;
         });
     });
 
@@ -19,11 +20,12 @@ $(function () {
             var ids= $("#ids").val();
             var mid= $("#mid").val();
             var title= $("#search").val();
+            var programme_id = $("#programme_id").val();
             $('input[name="my-radio"]:checked').each(function(){
                 ids +=$(this).val()+",";
             });
             //alert(ids);
-            window.location.href="index.php?d=webios&c=webios&m=creat_programme_process&len="+len+"&ids="+ids+"&title="+title+"&mid="+mid;
+            window.location.href="index.php?d=webios&c=webios&m=creat_programme_process&len="+len+"&ids="+ids+"&title="+title+"&mid="+mid+"&programme_id="+programme_id;
         });
 
     });
@@ -42,7 +44,19 @@ $(function () {
 
     });
 
+    /*$(document).on("pageInit", "#programme_detail", function(e, id, page) {
+        $(page).on('click','.edit_btn', function () {
+            $(".checkbox").toggle();
+            $(".set_btn").toggle();
+        });
+    });
 
+    $(document).on("pageInit", "#programme_detail", function(e, id, page) {
+        $(page).on('click','.cancle-btn', function () {
+            $(".checkbox").toggle();
+            $(".set_btn").toggle();
+        });
+    });*/
 
     $.init();
 });

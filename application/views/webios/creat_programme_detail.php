@@ -30,6 +30,7 @@
             <input type="hidden" name="ids" id="ids" value="<?=$ids?>">
             <input type="hidden" name="mid" id="mid" value="<?=$mid?>">
             <input type="hidden" name="title" id="search" value="<?=$title?>">
+            <input type="hidden" name="programme_id" id="programme_id" value="<?=$programme_id?>">
             <?php if(!empty($list)) {?>
                 <?php foreach($list as $value) : ?>
                     <div class="list-block media-list">

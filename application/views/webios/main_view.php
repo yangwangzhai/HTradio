@@ -413,6 +413,139 @@
             100%{opacity:0;
                 -moz-transform:translateY(200px) rotateX(-90deg)}
         }
+		
+		
+.voice-masker { position: fixed; top: 0; right: 0; bottom: 0; left: 0; display: none; overflow: hidden; -webkit-user-select: none; -ms-user-select: none; user-select: none; z-index: 1024; font-family: sans-serif; }
+.voice-masker > .wrapper { background: rgba(0, 0, 0, 0.9) ;position: absolute; top: 0; right: 0; bottom: 0; left: 0; opacity: 1 }
+.voice-masker .voice-speak-btn { background-color: #306eff; border-radius: 50%; bottom: 10px; color: #fff; display: block; width: 90px; height: 90px; line-height: 90px; margin-left: -40px; position: absolute; left: 50%; text-align: center; text-decoration: none; -webkit-user-select: none; -ms-user-select: none; user-select: none; cursor: pointer; font-size: 16px; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+.voice-masker .voice-speak-btn .voice-speak-wave { position: absolute; top: -1px; left: -1px; border: solid #0ce2fb 1px; width: 88px; height: 88px; border-radius: 50%; opacity: .85; display: none; }
+.voice-masker .voice-speak-btn .voice-speak-wave.level0 { -webkit-animation: spread0 3s linear 0s infinite; animation: spread0 3s linear 0s infinite }
+.voice-masker .voice-speak-btn .voice-speak-wave.level1 { -webkit-animation: spread1 3s linear 0s infinite; animation: spread1 3s linear 0s infinite }
+.voice-masker .voice-speak-btn .voice-speak-wave.level2 { -webkit-animation: spread2 3s linear 0s infinite; animation: spread2 3s linear 0s infinite }
+.voice-masker .voice-speak-btn .voice-speak-wave.level3 { -webkit-animation: spread3 3s linear 0s infinite; animation: spread3 3s linear 0s infinite }
+.voice-masker .voice-speak-btn .voice-speak-circle { position: absolute; top: -1px; left: -1px; width: 88px; height: 88px; border-radius: 50%; opacity: .3; display: none; background-color: #60aff9; border: solid #60aff9 1px; -webkit-animation: stretch 1s linear 0s alternate infinite; animation: stretch 1s linear 0s alternate infinite }
+.voice-masker .voice-speak-btn.press .voice-speak-wave, .voice-masker .voice-speak-btn.press .voice-speak-circle { display: block }
+.voice-masker .voice-text { color: 111; font-size: 20px; margin-top: 60%; padding: 0 10%; text-align: center; -webkit-user-select: none; -ms-user-select: none; user-select: none }
+.voice-masker .voice-close-btn { position: absolute; top: 0; right: 0; width: 40px; height: 40px; font-size: 24px; line-height: 40px; text-align: center; color: #ddd; -webkit-tap-highlight-color: transparent; text-decoration: none }
+@-webkit-keyframes stretch {
+0%, 100% {
+-webkit-transform:scale(1);
+transform:scale(1)
+}
+25%, 60% {
+-webkit-transform:scale(1.5);
+transform:scale(1.5)
+}
+50%, 80% {
+-webkit-transform:scale(1.3);
+transform:scale(1.3)
+}
+10%, 75% {
+-webkit-transform:scale(1.1);
+transform:scale(1.1)
+}
+}
+@keyframes stretch {
+0%, 100% {
+-webkit-transform:scale(1);
+transform:scale(1)
+}
+25%, 60% {
+-webkit-transform:scale(1.5);
+transform:scale(1.5)
+}
+50%, 80% {
+-webkit-transform:scale(1.3);
+transform:scale(1.3)
+}
+10%, 75% {
+-webkit-transform:scale(1.1);
+transform:scale(1.1)
+}
+}
+@-webkit-keyframes spread0 {
+0% {
+opacity:.3
+}
+100% {
+opacity:0;
+-webkit-transform:scale(2);
+transform:scale(2)
+}
+}
+@keyframes spread0 {
+0% {
+opacity:.3
+}
+100% {
+opacity:0;
+-webkit-transform:scale(2);
+transform:scale(2)
+}
+}
+@-webkit-keyframes spread1 {
+0% {
+opacity:.3
+}
+100% {
+opacity:0;
+-webkit-transform:scale(4);
+transform:scale(4)
+}
+}
+@keyframes spread1 {
+0% {
+opacity:.3
+}
+100% {
+opacity:0;
+-webkit-transform:scale(4);
+transform:scale(4)
+}
+}
+@-webkit-keyframes spread2 {
+0% {
+opacity:.3
+}
+100% {
+opacity:0;
+-webkit-transform:scale(8);
+transform:scale(8)
+}
+}
+@keyframes spread2 {
+0% {
+opacity:.3
+}
+100% {
+opacity:0;
+-webkit-transform:scale(8);
+transform:scale(8)
+}
+}
+@-webkit-keyframes spread3 {
+0% {
+opacity:.3
+}
+100% {
+opacity:0;
+-webkit-transform:scale(14);
+transform:scale(14)
+}
+}
+@keyframes spread3 {
+0% {
+opacity:.3
+}
+100% {
+opacity:0;
+-webkit-transform:scale(14);
+transform:scale(14)
+}
+}
+
+.voice-masker .voice-close-btn { text-indent: -9999em; background-image: url(static/webios/img/close.svg); background-size:100% 100%; width:2rem; height:2rem; display:block; top:1rem; right:1rem; }
+
     </style>
 </head>
 <body>
@@ -572,20 +705,24 @@
                                     Player.audio.src = Player.path + Player.data[Player.currentIndex];
                                     Player.audio.play();
                                 }
+                                var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
                                 //异步存储当前播放状态
-                                $.ajax({
-                                    url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
-                                    type: "post",         //数据发送方式
-                                    dataType:"json",    //接受数据格式
-                                    data:{mid:607,play_status:1,pos:1},  //要传递的数据
-                                    success:function(data){
-                                        //alert(data);
-                                    },
-                                    error:function(XMLHttpRequest, textStatus, errorThrown)
-                                    {
-                                        //alert(errorThrown);
-                                    }
-                                });
+                                if(mid){
+                                    $.ajax({
+                                        url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                                        type: "post",         //数据发送方式
+                                        dataType:"json",    //接受数据格式
+                                        data:{mid:mid,play_status:1,pos:1},  //要传递的数据
+                                        success:function(data){
+                                            //alert(data);
+                                        },
+                                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                                        {
+                                            //alert(errorThrown);
+                                        }
+                                    });
+                                }
+
                             });
 
                             // 暂停
@@ -594,20 +731,24 @@
                                 $(this).hide();
                                 $("#btn-play").show();
                                 $(".info_box").find(".info_l").removeClass("play");
+                                var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
                                 //异步存储当前播放状态
-                                $.ajax({
-                                    url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
-                                    type: "post",         //数据发送方式
-                                    dataType:"json",    //接受数据格式
-                                    data:{mid:607,play_status:0,pos:2},  //要传递的数据
-                                    success:function(data){
-                                        //alert(data);
-                                    },
-                                    error:function(XMLHttpRequest, textStatus, errorThrown)
-                                    {
-                                        //alert(errorThrown);
-                                    }
-                                });
+                                if(mid){
+                                    $.ajax({
+                                        url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                                        type: "post",         //数据发送方式
+                                        dataType:"json",    //接受数据格式
+                                        data:{mid:mid,play_status:0,pos:2},  //要传递的数据
+                                        success:function(data){
+                                            //alert(data);
+                                        },
+                                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                                        {
+                                            //alert(errorThrown);
+                                        }
+                                    });
+                                }
+
                             });
 
                             // 下一曲
@@ -791,8 +932,86 @@
                         });
                     });
 
+                    //点击语音按钮，开始录音
+                    $(".sound-icon").click(function(){
+                        //先暂停播放
+                        if($('#btn-pause').css("display")!='none'){
+                            $('#btn-pause').trigger('click');
+                            var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
+                            //异步存储当前播放状态
+                            if(mid){
+                                $.ajax({
+                                    url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                                    type: "post",         //数据发送方式
+                                    dataType:"json",    //接受数据格式
+                                    data:{mid:mid,play_status:0,pos:2},  //要传递的数据
+                                    success:function(data){
+                                        //alert(data);
+                                    },
+                                    error:function(XMLHttpRequest, textStatus, errorThrown)
+                                    {
+                                        //alert(errorThrown);
+                                    }
+                                });
+                            }
+                        }
+                        //确认已经暂停播放
+                        if($('#btn-play').css("display")!='none'){
+                            //$(".voice-masker").show();
+                            window.AndroidJS.startSpeak();
+                        }
 
+                    });
+					
+					 $(".voice-close-btn").click(function(){
+                       $(".voice-masker").hide();
+                    });
+
+
+                   
                 });
+
+                //接收识别的文字
+                function receiveSpeak(str){
+                    var playing_id = $("#numbers1_value").val();
+                    var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
+
+                    $.ajax({
+                        url: "index.php?d=webios&c=webios&m=voice_distinguish",   //后台处理程序
+                        type: "post",         //数据发送方式
+                        dataType:"json",    //接受数据格式
+                        data:{mid:mid,str:str,playing_id:playing_id},  //要传递的数据
+                        success:function(data){
+                            //alert(data['str']) ;
+                            if(data['code']==1){
+                                var i=0;
+                                for(i;i<data['step'];i++){
+                                    $(".button3").trigger('click');
+                                }
+
+                            }else if(data['code']==2){
+                                var i=0;
+                                for(i;i<data['step'];i++){
+                                    $(".button1").trigger('click');
+                                }
+                            }
+                            //控制播放状态
+                            if(data['play_status']==1){
+                                if($('#btn-play').css("display")!='none'){
+                                    //alert("播放");
+                                    $('#btn-play').trigger('click');
+                                }
+                            }
+                        },
+                        error:function(XMLHttpRequest, textStatus, errorThrown)
+                        {
+                            //alert(errorThrown);
+                        }
+                    });
+                }
+
+
+
                 $(".zan").find("p a").click(function() {
                         var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
                         if( mid > 0 || mid != undefined){
@@ -886,11 +1105,34 @@
                 sync_play(0);
                 //setInterval(sync_play,700);
 
-
             </script>
 
-            <div class="group"> <a  class="button1" id="btn-next"></a><a  class="button2" id="btn-play"></a><a  id="btn-pause"></a><a  class="button3" id="btn-pre"></a><div class="list-icons"><img src="static/webios/images/playlist_icon.png"/></div></div>
-
+            <div class="group">
+                <a  class="button1" id="btn-next"></a>
+                <a  class="button2" id="btn-play"></a>
+                <a  id="btn-pause"></a>
+                <a  class="button3" id="btn-pre"></a>
+                <div class="list-icons">
+                    <img src="static/webios/images/playlist_icon.png"/>
+                </div>
+                <div class="sound-icon"></div>
+            </div>
+           <!--语音识别界面开始-->
+            <div class="voice-masker">
+                <div class="wrapper">
+                    <a href="#" onclick="return false" class="voice-close-btn">×</a>
+                    <div class="voice-speak-btn press">
+                        <div class="voice-speak-circle"></div>
+                        <div class="voice-speak-wave level1"></div>
+                        <div class="voice-speak-wave level2"></div>
+                        <div class="voice-speak-wave level3"></div>
+                        <span>完成</span>
+                    </div>
+                    <div class="voice-logo"></div>
+                    <div class="voice-text">正在聆听中...</div>
+                </div>
+            </div>
+            <!--语音识别界面结束-->
             <div class="list-popup">
                 <h3>播放列表</h3>
                 <ul>
@@ -925,7 +1167,7 @@
         <ul>
             <li><i class="fa fa-file-text-o"></i><a href="index.php?d=webios&c=webios&m=my_programme&mid=<?=$mid?>" class="external">我的节目单</a></li>
             <li><i class="fa fa-heart-o"></i><a href="index.php?d=webios&c=webios&m=collect_view&mid=<?=$mid?>" class="external">我收藏的节目单</a></li>
-            <li><i class="fa fa-pencil-square-o"></i><a href="index.php?d=webios&c=webios&m=feedback_view&mid=<?=$mid?>" class="external">意见反馈</a</li>
+            <li><i class="fa fa-pencil-square-o"></i><a href="index.php?d=webios&c=webios&m=feedback_view&mid=<?=$mid?>" class="external">意见反馈</a></li>
             <li><i class="fa fa-cog"></i><a href="index.php?d=webios&c=webios&m=setting_list&mid=<?=$mid?>" class="external">软件设置</a></li>
         </ul>
         <!--<p><input name="" type="button" value="+创建我的节目" class="pbtn"></p>-->

@@ -54,7 +54,7 @@
                     <?php if(!empty($list)){?>
                         <?php foreach($list as $value) :?>
                             <li>
-                                <a href="index.php?d=webios&c=webios&m=programme_detail&programme_id=<?=$value['id']?>&mid=<?=$mid?>" class="item-link item-content">
+                                <a href="index.php?d=webios&c=webios&m=programme_detail&programme_id=<?=$value['id']?>&mid=<?=$mid?>" class="item-link item-content" external>
                                     <div class="item-inner">
                                         <div class="item-title"><?=$value['title']?></div>
                                     </div>
@@ -73,8 +73,8 @@
 
 <script src="http://m.sui.taobao.org/dist/js/sm.js"></script>
 <script src="http://m.sui.taobao.org/dist/js/sm-extend.js"></script>
-<!--<script src="http://m.sui.taobao.org/dist/js/sm-city-picker.js"></script>
-<script src="http://m.sui.taobao.org/assets/js/demos.js"></script>-->
+<!--<script src="http://m.sui.taobao.org/dist/js/sm-city-picker.js"></script>-->
+<script type='text/javascript' src='static/webios/js/demo.js' charset='utf-8'></script>
 
 </body>
 </html>
