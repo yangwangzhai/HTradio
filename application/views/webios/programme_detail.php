@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="static/webios/css/sm.min.css">
     <link rel="stylesheet" href="static/webios/css/sm-extend.min.css">
     <link rel="stylesheet" href="static/webios/css/style_play.css">
-
+    <script src="static/webios/js/jquery-1.9.1.js"></script>
 </head>
 <body>
 <!-- page集合的容器，里面放多个平行的.page，其他.page作为内联页面由路由控制展示 -->

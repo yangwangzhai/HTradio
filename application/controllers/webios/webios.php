@@ -480,7 +480,7 @@ class webios extends  CI_Controller
 
     //节目单详情
     public function programme_detail2($programme_id , $mid){
-        $data_list['programme_id'] = $programme_id ;
+        $data_list['programme_id'] = $programme_id;
         $data_list['mid'] = $mid ;
         if (!empty($mid)) {
             $query_user = $this->db->query("select username,avatar from fm_member WHERE id=$mid");
@@ -561,23 +561,17 @@ class webios extends  CI_Controller
         $data_list['programme_title'] = $programme_row['title'];
         $data_list['username'] = $username['username'];
         $data_list['avatar'] = $username['avatar'] ? $username['avatar'] : base_url()."static/webios/img/play_bg.jpg";
-        $data_list['programme_id'] = $_GET['programme_id'];
 
         $this->load->view("webios/programme_detail",$data_list);
     }
 
     //删除节目单里面的节目
     public function program_del(){
-        $programme_id = $_POST['programme_id'];
-        $program_del_ids = $_POST['delete'];
+        $programme_id = $this->input->post('programme_id');
+        $program_del_ids = $this->input->post('delete');
         $mid = $this->input->post("mid");
 
-        /*echo $programme_id;echo "<br>";
-        echo $mid;echo "<br>";
-        echo "<pre>";
-        print_r($program_del_ids);
-        echo "<pre/>";
-        exit;*/
+
         if(!empty($program_del_ids)){
             foreach($program_del_ids as $value){
                 $this->db->delete('fm_programme_list', array('programme_id' => $programme_id , 'program_id'=> $value));
@@ -585,6 +579,7 @@ class webios extends  CI_Controller
         }else{
 
         }
+
         $this->programme_detail2($programme_id,$mid);
     }
 
@@ -801,6 +796,7 @@ class webios extends  CI_Controller
         );
         //判断是添加还是编辑
         $programme_id = $this->input->post("programme_id") ;
+        
         if($programme_id){      //编辑
             //更新 fm_programme 表
             $this->db->where('id', $programme_id);
@@ -866,7 +862,7 @@ class webios extends  CI_Controller
         $num = 0 ;
         if(!empty($program_ids)){
             foreach($program_ids as $key=>$value){
-                $ids = $value['program_id'].',' ;
+                $ids .= $value['program_id'].',' ;
             }
             $num = count($program_ids) ;
         }
