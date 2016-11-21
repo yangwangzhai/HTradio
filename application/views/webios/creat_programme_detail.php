@@ -19,7 +19,7 @@
     <div class="page" id="check_box" style="margin-top: 0.5rem;">
         <!-- 标题栏 -->
         <header class="bar bar-nav  regtitle">
-            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=creat_programme_view&mid=<?=$mid?>" class="external" >
+            <a class="button button-link button-nav pull-left" href="index.php?d=webios&c=webios&m=creat_programme_process&mid=<?=$mid?>&title=<?=$title?>&programme_id=<?=$programme_id?>&ids=<?=$ids?>" class="external" >
                 返回
             </a>
             <h1 class="title" >添加节目</h1>

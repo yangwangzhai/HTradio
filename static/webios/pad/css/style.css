@@ -17,6 +17,7 @@ body { background: url(../images/bg.jpg) no-repeat; background-size: 100% auto; 
 .button3 { height: 6rem; width: 6rem; background: url(../images/radio_next.png) no-repeat; background-size: 100%; float: left; margin-top: 1rem }
 .button3:active { background: url(../images/radio_next_hover.png) no-repeat; background-size: 100%; }
 .sound-icon{height:6rem; width:6rem; background:url(../../img/sound.svg) no-repeat center center; background-size:90%; position:absolute; left:7rem; top:-6rem;}
+.login-icon{height:3rem; width:3rem; background:url(../images/login.svg) no-repeat center center; background-size:90%; position:absolute; left:-13rem; top:2rem;}
 .swiper-slide-active{font-size:1.5rem; font-weight:bold;}
 
 .reflection { width: 100%; height: 15px; text-align: center; color: #fff; border-radius: 10px 10px 0 0; position: absolute; left: 0; bottom: -17px; background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.3)), to(rgba(0,0,0,0))); /* Safari 4+, Chrome */ background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.3), rgba(0,0,0,0)); /* Chrome 10+, Safari 5.1+, iOS 5+ */ background-image: -moz-linear-gradient(top, rgba(0,0,0,0.3), rgba(0,0,0,0)); /* Firefox 3.6-15 */ background-image: -o-linear-gradient(top, rgba(0,0,0,0.3), rgba(0,0,0,0)); /* Opera 11.10-12.00 */ background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0)); /* Firefox 16+, IE10, Opera 12.50+ */ }
@@ -34,3 +35,12 @@ body { background: url(../images/bg.jpg) no-repeat; background-size: 100% auto; 
 .button3 { height:4rem; width:4rem;  margin-top:.4rem}
 .sound-icon{height:4rem; width:4rem; left:4.4rem; top:-7rem;}
 }
+
+.login-bg{ position:fixed; background:rgba(0,0,0,.7); width:100%; height:100%; display:none;top:0;z-index:10000;}
+.login-box{width:40%; position:absolute; top:20%; left:30%; background:rgba(255,255,255,.9); border-radius:10px;}
+.login-box h3{ text-align:center; border-bottom:#ccc 1px solid; position:relative; height:40px; line-height:40px; margin:0; padding:0}
+.login-box h3 span{position:absolute; display:block; right:5px;top:5px;height:1.8rem; width:1.8rem; background:url(../images/close.svg) no-repeat center center; background-size:100%; }
+.login-box ul{padding:15px;}
+.login-box ul p{margin:0; margin:0 0 15px;}
+.login-text{ width:100%; border-radius:3px; border:#ccc 1px solid; height:40px; line-height:40px; font-size:1.2rem; text-indent:5px;}
+.login-btn{width:100%;height:45px; line-height:45px; background:#39F; color:#fff; border-radius:6px; border:none; padding:0;}

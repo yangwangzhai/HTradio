@@ -25,7 +25,7 @@
             <h1 class="title" >选择节目类型</h1>
         </header>
         <form method="post" action="index.php?d=webios&c=webios&m=save_creat_programme">
-            <div class="bar bar-header-secondary">
+            <div class="bar bar-header-secondary" style="margin-top: 0.7rem;">
                 <div class="searchbar"> <a class="searchbar-cancel">取消</a>
                     <div class="search-input">
                         <input type="text" name="title" id='search' placeholder='输入节目单名称' value="<?=$title?>"/>

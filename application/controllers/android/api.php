@@ -98,7 +98,13 @@ class Api extends CI_Controller {
 		$data = get_cache('android_version');  
 		 echo json_encode($data);	
 	}
-	
+
+    //android_H5版本更新提示
+    function android_version_H5(){
+        $data = get_cache('android_version');
+        echo json_encode($data);
+    }
+
 	function downimg(){
 		echo 111;
 		$query = $this->db->query ( "select * from fm_member where groupname != '新闻910' AND groupname != '私家车930' AND groupname != ''  " );
