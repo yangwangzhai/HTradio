@@ -28,8 +28,9 @@
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
 </div>
+<input type="hidden" id="mid" value="">
+<input type="hidden" id="time" value="">
 <input type="text" class="values" id="numbers1_value"  value="4" style="width:0;height:0; position:absolute; left:-9999px;">
-<input type="text" class="values" id="time"  value="<?=$time?>" style="width:0;height:0; position:absolute; left:-9999px;">
 <div class="bottom">
     <div class="group">
         <a  class="button1" id="btn-next"></a>
@@ -47,7 +48,7 @@
 <form id="form">
     <div class="login-bg">
         <div class="login-box">
-            <h3><span class="login-close"></span>登录</h3>
+            <h3 id="login_h3"><span class="login-close"></span>登录</h3>
                 <ul>
                     <p><input type="text" class="login-text" id="username" value="" placeholder="用户名"></p>
                     <p><input type="password" class="login-text" id="password" value="" placeholder="密码"></p>
@@ -79,12 +80,18 @@
                 data:{username:username,password:password},  //要传递的数据
                 success:function(data){
                     if(data['code']==0){
-                        alert(data['mes']);
+                        //alert(data['mes']);
+                        $(".login_h4").remove();
+                        $("#login_h3").after("<h4 class='login_h4' style='text-align: center;color: #990000;'>"+data['mes']+"</h4>");
                     }else{
                         //alert(data['mes']);
                         //alert(data['avatar']);
+                        $(".login_h4").remove();
+                        $(".avatar").remove();
                         $(".login-bg").hide();
-                        $(".login-icon").appendTo("<img src="+data['avatar']+"/>");
+                        $("#mid").val(data['mid']);
+                        $("#time").val(data['time']);
+                        $(".login-icon").append("<img class='avatar' width=48 height=48 style='margin-bottom:24px;' src="+data['avatar']+">");
                     }
 
                 },
@@ -179,7 +186,7 @@
                         Player.audio.src = Player.path + Player.data[Player.currentIndex];
                         Player.audio.play();
                     }
-                    var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
+                    var mid = $("#mid").val();
                     //异步存储当前播放状态
                     if(mid){
                         $.ajax({
@@ -204,7 +211,7 @@
                     $(this).hide();
                     $("#btn-play").show();
                     $(".info_box").find(".info_l").removeClass("play");
-                    var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
+                    var mid = $("#mid").val();
                     //异步存储当前播放状态
                     if(mid){
                         $.ajax({
@@ -240,7 +247,7 @@
                     Player.audio.src = Player.path + Player.data[Player.currentIndex];
                     Player.audio.play();
                     //异步存储当前播放状态
-                    var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
+                    var mid = $("#mid").val();
                     if(mid){
                         $.ajax({
                             url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
@@ -277,7 +284,7 @@
                     console.log("Player.currentIndex :", Player.currentIndex);
                     Player.audio.play();
                     //异步存储当前播放状态
-                    var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
+                    var mid = $("#mid").val();
                     if(mid){
                         $.ajax({
                             url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
@@ -366,7 +373,7 @@
                 Player.audio.src = Player.path + Player.data[i];
                 Player.audio.play();
                 //异步存储当前播放状态
-                var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
+                var mid = $("#mid").val();
                 if(mid){
                     $.ajax({
                         url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
@@ -403,7 +410,7 @@
             //先暂停播放
             if($('#btn-pause').css("display")!='none'){
                 $('#btn-pause').trigger('click');
-                var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
+                var mid = $("#mid").val();
                 //异步存储当前播放状态
                 if(mid){
                     $.ajax({
@@ -473,8 +480,8 @@
     //var playing_channel_type = $(".play").attr("channel-type");
     //var mid = $(".play").attr("mid");
     var playing_id = $("#numbers1_value").val();
+    var mid = $("#mid").val();
     var time = $("#time").val();
-    var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
     if(mid){
         if(playing_id!='undefined'&&playing_id!=null){
             //alert("id为："+playing_id);

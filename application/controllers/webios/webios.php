@@ -1614,7 +1614,7 @@ class webios extends  CI_Controller
                     echo json_encode($result) ;
                 }else{
                     $user['avatar'] = $user['avatar'] ? $user['avatar'] : "uploads/default_images/default_avatar.jpg";
-                    $result = array('code'=>1,'mes'=>"登陆成功",'avatar'=>$user['avatar']);
+                    $result = array('code'=>1,'mes'=>"登陆成功",'mid'=>$user['id'],'avatar'=>$user['avatar']);
                     echo json_encode($result) ;
                 }
             }

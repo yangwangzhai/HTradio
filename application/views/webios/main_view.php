@@ -615,7 +615,7 @@ transform:scale(14)
             </select>
             <audio id="audio" controls style="width:0; height:0; position:absolute; left:-9999px;" preload="preload"></audio>
             <input type="text" value="4" class="values" id="numbers1_value" style=" width:0; height:0; position:absolute; left:-9999px;">
-            <input type="text" value="<?=$time?>" class="values" id="time" style=" width:0; height:0; position:absolute; left:-9999px;">
+            <input type="hidden" value="<?=$time?>" class="values" id="time" >
             <script>
                 var Player ;
                 $(function() {
