@@ -1591,5 +1591,36 @@ class webios extends  CI_Controller
         }
     }
 
+    public function ipad_login(){
+        $username = trim($this->input->post('username'));
+        $password = trim($this->input->post('password'));
+        //验证用户名和密码
+        if (empty ( $username ) || empty ( $password )) {
+            $result = array('code'=>0,'mes'=>"用户名或者密码不能为空");
+            echo json_encode($result) ;
+        }else{
+            $wheredata = array (
+                'username' => $username
+            );
+            $query = $this->db->get_where ( 'fm_member', $wheredata, 1 );
+            $user = $query->row_array ();
+            if (empty ( $user )) {
+                $result = array('code'=>0,'mes'=>"账号不存在");
+                echo json_encode($result) ;
+            }else{
+                $password = get_password ( $password );
+                if ($user ['password'] != $password) {
+                    $result = array('code'=>0,'mes'=>"密码错误");
+                    echo json_encode($result) ;
+                }else{
+                    $user['avatar'] = $user['avatar'] ? $user['avatar'] : "uploads/default_images/default_avatar.jpg";
+                    $result = array('code'=>1,'mes'=>"登陆成功",'avatar'=>$user['avatar']);
+                    echo json_encode($result) ;
+                }
+            }
+        }
+        //echo json_encode($username."||".$password);
+    }
+
 
 }

@@ -43,27 +43,59 @@
   <div class="login-icon"></div>
     </div>
 </div>
-<!--登录框-->
-<div class="login-bg">
-<div class="login-box">
-<h3><span class="login-close"></span>登录</h3>
-<ul>
-<p><input type="text" class="login-text" placeholder="用户名"></p>
-<p><input type="text" class="login-text" placeholder="密码"></p>
-<input type="button" class="login-btn" value="登录">
-</ul>
-</div>
-</div>
+<!--登录框开始-->
+<form id="form">
+    <div class="login-bg">
+        <div class="login-box">
+            <h3><span class="login-close"></span>登录</h3>
+                <ul>
+                    <p><input type="text" class="login-text" id="username" value="" placeholder="用户名"></p>
+                    <p><input type="password" class="login-text" id="password" value="" placeholder="密码"></p>
+                    <input type="submit" class="login-btn" value="登录">
+                </ul>
+        </div>
+    </div>
+</form>
+<!--登录框结束-->
 <script>
- $('.login-icon').click(function() {
+    $('.login-icon').click(function() {
       $(".login-bg").show();
-});
- $('.login-close').click(function() {
+    });
+    $('.login-close').click(function() {
       $(".login-bg").hide();
-});
- $('.login-btn').click(function() {
+    });
+    /*$('.login-btn').click(function() {
       $(".login-bg").hide();
-});
+    });*/
+    $(document).ready(function(){
+        // 使用 jQuery异步提交表单
+        $('#form').submit(function() {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            $.ajax({
+                url: "index.php?d=webios&c=webios&m=ipad_login",   //后台处理程序
+                type: "post",         //数据发送方式
+                dataType:"json",    //接受数据格式
+                data:{username:username,password:password},  //要传递的数据
+                success:function(data){
+                    if(data['code']==0){
+                        alert(data['mes']);
+                    }else{
+                        //alert(data['mes']);
+                        //alert(data['avatar']);
+                        $(".login-bg").hide();
+                        $(".login-icon").appendTo("<img src="+data['avatar']+"/>");
+                    }
+
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown)
+                {
+                    //alert(errorThrown);
+                }
+            });
+            return false;
+        });
+    });
 </script>
 <div id="btn">
 </div>
