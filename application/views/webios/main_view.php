@@ -614,7 +614,8 @@ transform:scale(14)
                 <option value="8"><?=$programme['title']?></option>
             </select>
             <audio id="audio" controls style="width:0; height:0; position:absolute; left:-9999px;" preload="preload"></audio>
-            <input type="text" value="4" class="values" id="numbers1_value" style=" width:0; height:0; position:absolute; left:-9999px;">
+            <!--<input type="text" value="4" class="values" id="numbers1_value" style=" width:0; height:0; position:absolute; left:-9999px;">-->
+            <input type="hidden" value="4" class="values" id="numbers1_value">
             <input type="hidden" value="<?=$time?>" class="values" id="time" >
             <script>
                 var Player ;
@@ -779,6 +780,7 @@ transform:scale(14)
                                             data:{channel_id:Player.currentIndex,mid:mid,play_status:1},  //要传递的数据
                                             success:function(data){
                                                 //alert("当期时间："+data) ;
+
                                                 $("#time").val(data);
                                             },
                                             error:function(XMLHttpRequest, textStatus, errorThrown)
@@ -817,6 +819,7 @@ transform:scale(14)
                                             data:{channel_id:Player.currentIndex,mid:mid,play_status:1},  //要传递的数据
                                             success:function(data){
                                                 //alert("当期时间："+data) ;
+
                                                 $("#time").val(data);
                                             },
                                             error:function(XMLHttpRequest, textStatus, errorThrown)
@@ -874,6 +877,7 @@ transform:scale(14)
                         $("#btn-pause").show();
                         $("#btn-play").hide();
                         var i=$("#numbers1_value").val();
+                        //alert("当前id："+i);
                         Player.currentIndex = i;
                         Player.audio.src = Player.path + Player.data[i];
                         Player.audio.play();
@@ -931,6 +935,8 @@ transform:scale(14)
                             $("#"+"r_" +e.value).addClass("on");
                             $(".on").find(".info_l").addClass("play");
                             $("#numbers1_value").val(e.value);
+                            //alert(e.value);
+                            //alert($("#numbers1_value").val());
                             if(e.value==8){
                                 $('.list-icons').show();
                             }
@@ -1005,26 +1011,27 @@ transform:scale(14)
                         dataType:"json",    //接受数据格式
                         data:{mid:mid,str:str,playing_id:playing_id},  //要传递的数据
                         success:function(data){
-                            alert(data['str']) ;
+                            //alert(data['str']) ;
                             if(data['code']==1){
                                 var i=0;
                                 for(i;i<data['step'];i++){
-                                    $(".button3").trigger('click');
+                                    $(".button3").trigger('click',[1]);
                                 }
 
                             }else if(data['code']==2){
                                 var i=0;
                                 for(i;i<data['step'];i++){
-                                    $(".button1").trigger('click');
+                                    $(".button1").trigger('click',[2]);
                                 }
                             }
                             //控制播放状态
-                            if(data['play_status']==1){
+                            $('#btn-play').trigger('click');
+                            /*if(data['play_status']==1){
                                 if($('#btn-play').css("display")!='none'){
                                     //alert("播放");
                                     $('#btn-play').trigger('click');
                                 }
-                            }
+                            }*/
                         },
                         error:function(XMLHttpRequest, textStatus, errorThrown)
                         {
@@ -1126,7 +1133,7 @@ transform:scale(14)
                         });
                     }
                 }
-                sync_play(0);
+                sync_play(0);   //没登陆前，刚进来执行一次，但是因为mid为空，所以往后没有0.7秒执行一次 sync_play(1)；登陆之后，因为登陆成功重新刷新了界面，所以再次执行 sync_play(0)，此时mid不为空，所以往后每0.7秒执行一次 sync_play(1)。
                 //setInterval(sync_play,700);
 
             </script>

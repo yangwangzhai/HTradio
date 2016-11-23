@@ -30,7 +30,7 @@
 </div>
 <input type="hidden" id="mid" value="">
 <input type="hidden" id="time" value="">
-<input type="text" class="values" id="numbers1_value"  value="4" style="width:0;height:0; position:absolute; left:-9999px;">
+<input type="hidden" id="numbers1_value"  value="4" >
 <div class="bottom">
     <div class="group">
         <a  class="button1" id="btn-next"></a>
@@ -92,6 +92,8 @@
                         $("#mid").val(data['mid']);
                         $("#time").val(data['time']);
                         $(".login-icon").append("<img class='avatar' width=48 height=48 style='margin-bottom:24px;' src="+data['avatar']+">");
+
+                        sync_play(0);
                     }
 
                 },
@@ -278,7 +280,7 @@
                     } else {
                         Player.currentIndex++;
                     }
-                    //alert("点击上一曲："+Player.currentIndex);
+                    //alert("点击下一曲："+Player.currentIndex);
                     $("#numbers1_value").val(Player.currentIndex);
                     Player.audio.src = Player.path + Player.data[Player.currentIndex];
                     console.log("Player.currentIndex :", Player.currentIndex);
@@ -403,7 +405,7 @@
             $("#btn").trigger('click');
         };*/
 
-        sync_play(0);
+
 
         //点击语音按钮，开始录音
         $(".sound-icon").click(function(){
@@ -441,9 +443,8 @@
     //接收识别的文字
     function receiveSpeak(str){
         var playing_id = $("#numbers1_value").val();
-        var mid = 636;
-        //var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
-        //alert(str) ;
+        var mid = $("#mid").val();
+
         $.ajax({
             url: "index.php?d=webios&c=webios&m=ipad_voice_distinguish",   //后台处理程序
             type: "post",         //数据发送方式
@@ -482,51 +483,47 @@
     var playing_id = $("#numbers1_value").val();
     var mid = $("#mid").val();
     var time = $("#time").val();
-    if(mid){
-        if(playing_id!='undefined'&&playing_id!=null){
-            //alert("id为："+playing_id);
-            $.ajax({
-                url: "index.php?d=webios&c=webios&m=ipad_tong_bu",   //后台处理程序
-                type: "post",         //数据发送方式
-                dataType:"json",    //接受数据格式
-                data:{playing_id:playing_id,time:time,mid:mid,flag:flag},  //要传递的数据
-                success:function(data){
-                    if(data['code']==1){
-                        $("#numbers1_value").val(data['step']);
-                        $('#btn').click(function(){
-                            swiper.slideTo(data['step'], 1000, false);//切换到第一个slide，速度为1秒
-                        });
-                        $("#btn").trigger('click');
-                        Player.audio.src = Player.path + Player.data[data['step']];
-                        console.log("Player.currentIndex :", Player.currentIndex);
-                        Player.audio.play();
-                    }
-                    //控制播放状态
-                    if(data['play_status']==1){
-                        if($('#btn-play').css("display")!='none'){
-                            //alert("播放");
-                            $('#btn-play').trigger('click');
-                        }
-                    }else{
-                        if($('#btn-pause').css("display")!='none'){
-                            //alert("暂停");
-                            $('#btn-pause').trigger('click');
-                        }
-                    }
-
-                    setTimeout("sync_play(1)",700);
-
-                },
-                error:function(XMLHttpRequest, textStatus, errorThrown)
-                {
-                    setTimeout("sync_play(1)",700);
-                    //alert(errorThrown);
+    if(playing_id!='undefined'&&playing_id!=null){
+        //alert("id为："+playing_id);
+        $.ajax({
+            url: "index.php?d=webios&c=webios&m=ipad_tong_bu",   //后台处理程序
+            type: "post",         //数据发送方式
+            dataType:"json",    //接受数据格式
+            data:{playing_id:playing_id,time:time,mid:mid,flag:flag},  //要传递的数据
+            success:function(data){
+                if(data['code']==1){
+                    $("#numbers1_value").val(data['step']);
+                    $('#btn').click(function(){
+                        swiper.slideTo(data['step'], 1000, false);//切换到第一个slide，速度为1秒
+                    });
+                    $("#btn").trigger('click');
+                    Player.audio.src = Player.path + Player.data[data['step']];
+                    console.log("Player.currentIndex :", Player.currentIndex);
+                    Player.audio.play();
                 }
-            });
-        }
+                //控制播放状态
+                if(data['play_status']==1){
+                    if($('#btn-play').css("display")!='none'){
+                        //alert("播放");
+                        $('#btn-play').trigger('click');
+                    }
+                }else{
+                    if($('#btn-pause').css("display")!='none'){
+                        //alert("暂停");
+                        $('#btn-pause').trigger('click');
+                    }
+                }
+
+                setTimeout("sync_play(1)",700);
+
+            },
+            error:function(XMLHttpRequest, textStatus, errorThrown)
+            {
+                setTimeout("sync_play(1)",700);
+                //alert(errorThrown);
+            }
+        });
     }
-
-
     }
 
     function android_play(){

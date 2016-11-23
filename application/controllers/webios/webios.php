@@ -1267,13 +1267,13 @@ class webios extends  CI_Controller
         $query = $this->db->query($sql);
         $res = $query->row_array();
         if(empty($res)){
-            //如果为空，先添加
+            //如果为空，数据库还没有记录，先添加
             $this->db->insert ( 'fm_tongbu', $data);
             $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
             echo json_encode($result);
         }else if(!empty($res)&&$flag==0){
-            //首次进来，调整为默认状态
-            $this->db->query("UPDATE fm_tongbu SET channel_id=4,Update_time=$Update_time,play_status=1 WHERE mid=$mid");
+            //数据库已经有记录，但是是刚打开界面，调整为默认状态
+            $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time,play_status=1 WHERE mid=$mid");
             $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
             echo json_encode($result);
         }else{
@@ -1400,7 +1400,7 @@ class webios extends  CI_Controller
             echo json_encode($result);
         }else if(!empty($res)&&$flag==0){
             //首次进来，调整为默认状态
-            $this->db->query("UPDATE fm_tongbu SET channel_id=4,Update_time=$Update_time,play_status=1 WHERE mid=$mid");
+            $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time,play_status=1 WHERE mid=$mid");
             $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
             echo json_encode($result);
         }else{
@@ -1614,7 +1614,7 @@ class webios extends  CI_Controller
                     echo json_encode($result) ;
                 }else{
                     $user['avatar'] = $user['avatar'] ? $user['avatar'] : "uploads/default_images/default_avatar.jpg";
-                    $result = array('code'=>1,'mes'=>"登陆成功",'mid'=>$user['id'],'avatar'=>$user['avatar']);
+                    $result = array('code'=>1,'mes'=>"登陆成功",'mid'=>$user['id'],'avatar'=>$user['avatar'],'time'=>time());
                     echo json_encode($result) ;
                 }
             }
