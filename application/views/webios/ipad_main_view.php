@@ -28,8 +28,8 @@
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
 </div>
-<input type="hidden" id="mid" value="">
-<input type="hidden" id="time" value="">
+<input type="hidden" id="mid" value="<?=$mid?>">
+<input type="hidden" id="time" value="<?=$time?>">
 <input type="hidden" id="numbers1_value"  value="4" >
 <div class="bottom">
     <div class="group">
@@ -40,8 +40,13 @@
         <div class="list-icons">
             <img src="static/webios/images/playlist_icon.png"/>
         </div>
-  <div class="sound-icon"></div>
-  <div class="login-icon"></div>
+        <div class="sound-icon"></div>
+        <div class="login-icon">
+          <?php if(!empty($avatar)){echo "<img class='avatar' width=48 height=48 style='margin-bottom:24px;' src=".$avatar.">";}?>
+        </div>
+        <a href="index.php?d=webios&c=webios&m=ipad_out">
+            <img style="position: absolute;top: 2rem;left: 23rem;" src="static/webios/images/login_out.png"/>
+        </a>
     </div>
 </div>
 <!--登录框开始-->
@@ -50,8 +55,8 @@
         <div class="login-box">
             <h3 id="login_h3"><span class="login-close"></span>登录</h3>
                 <ul>
-                    <p><input type="text" class="login-text" id="username" value="" placeholder="用户名"></p>
-                    <p><input type="password" class="login-text" id="password" value="" placeholder="密码"></p>
+                    <p><input type="text" class="login-text" id="username" value="<?=$username?>" placeholder="用户名"></p>
+                    <p><input type="password" class="login-text" id="password" value="<?=$password?>" placeholder="密码"></p>
                     <input type="submit" class="login-btn" value="登录">
                 </ul>
         </div>
@@ -93,7 +98,6 @@
                         $("#time").val(data['time']);
                         $(".login-icon").append("<img class='avatar' width=48 height=48 style='margin-bottom:24px;' src="+data['avatar']+">");
 
-                        sync_play(0);
                     }
 
                 },
@@ -105,6 +109,7 @@
             return false;
         });
     });
+
 </script>
 <div id="btn">
 </div>
@@ -171,7 +176,7 @@
                 });
 
                 // 播放
-                $('#btn-play').click(function() {
+                $('#btn-play').click(function(e,num) {
                     $(this).hide();
                     $("#btn-pause").show();
                     Player.audio.play();
@@ -188,47 +193,61 @@
                         Player.audio.src = Player.path + Player.data[Player.currentIndex];
                         Player.audio.play();
                     }
-                    var mid = $("#mid").val();
                     //异步存储当前播放状态
-                    if(mid){
-                        $.ajax({
-                            url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
-                            type: "post",         //数据发送方式
-                            dataType:"json",    //接受数据格式
-                            data:{mid:mid,play_status:1,pos:1},  //要传递的数据
-                            success:function(data){
-                                //alert(data);
-                            },
-                            error:function(XMLHttpRequest, textStatus, errorThrown)
-                            {
-                                //alert(errorThrown);
-                            }
-                        });
+                    if (num==undefined) {   //num==undefined时，主动调整状态，不等于undefined时，被动调整
+                        var mid = $("#mid").val();
+                        if (mid) {
+                            $.ajax({
+                                url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                                type: "post",         //数据发送方式
+                                dataType: "json",    //接受数据格式
+                                data: {mid: mid, play_status: 1, pos: 1},  //要传递的数据
+                                success: function (data) {
+                                    //alert(data);
+                                    if(data==1){
+                                        if($('#btn-play').css("display")!='none'){
+                                            alert("播放");
+                                            $('#btn-play').trigger('click',[1]);
+                                        }
+                                    }
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    //alert(errorThrown);
+                                }
+                            });
+                        }
                     }
                 });
 
                 // 暂停
-                $('#btn-pause').click(function() {
+                $('#btn-pause').click(function(e,num) {
                     Player.audio.pause();
                     $(this).hide();
                     $("#btn-play").show();
                     $(".info_box").find(".info_l").removeClass("play");
-                    var mid = $("#mid").val();
                     //异步存储当前播放状态
-                    if(mid){
-                        $.ajax({
-                            url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
-                            type: "post",         //数据发送方式
-                            dataType:"json",    //接受数据格式
-                            data:{mid:mid,play_status:0,pos:2},  //要传递的数据
-                            success:function(data){
-                                //alert(data);
-                            },
-                            error:function(XMLHttpRequest, textStatus, errorThrown)
-                            {
-                                //alert(errorThrown);
-                            }
-                        });
+                    if (num==undefined) {   //num==undefined时，主动调整状态，不等于undefined时，被动调整
+                        var mid = $("#mid").val();
+                        if (mid) {
+                            $.ajax({
+                                url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                                type: "post",         //数据发送方式
+                                dataType: "json",    //接受数据格式
+                                data: {mid: mid, play_status: 0, pos: 2},  //要传递的数据
+                                success: function (data) {
+                                    //alert(data);
+                                    if(data==0){
+                                        if($('#btn-pause').css("display")!='none'){
+                                            alert("暂停");
+                                            $('#btn-pause').trigger('click',[1]);
+                                        }
+                                    }
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    //alert(errorThrown);
+                                }
+                            });
+                        }
                     }
                 });
 
@@ -411,7 +430,7 @@
         $(".sound-icon").click(function(){
             //先暂停播放
             if($('#btn-pause').css("display")!='none'){
-                $('#btn-pause').trigger('click');
+                $('#btn-pause').trigger('click',[1]);
                 var mid = $("#mid").val();
                 //异步存储当前播放状态
                 if(mid){
@@ -422,6 +441,12 @@
                         data:{mid:mid,play_status:0,pos:2},  //要传递的数据
                         success:function(data){
                             //alert(data);
+                            if(data==0){
+                                if($('#btn-pause').css("display")!='none'){
+                                    alert("暂停");
+                                    $('#btn-pause').trigger('click',[1]);
+                                }
+                            }
                         },
                         error:function(XMLHttpRequest, textStatus, errorThrown)
                         {
@@ -478,11 +503,15 @@
 
 
     function sync_play (flag){
-    //var playing_channel_type = $(".play").attr("channel-type");
-    //var mid = $(".play").attr("mid");
     var playing_id = $("#numbers1_value").val();
     var mid = $("#mid").val();
+    if(mid==''){
+        mid = 0;
+    }
     var time = $("#time").val();
+    if(time==''){
+        time = 0;
+    }
     if(playing_id!='undefined'&&playing_id!=null){
         //alert("id为："+playing_id);
         $.ajax({
@@ -505,12 +534,12 @@
                 if(data['play_status']==1){
                     if($('#btn-play').css("display")!='none'){
                         //alert("播放");
-                        $('#btn-play').trigger('click');
+                        $('#btn-play').trigger('click',[1]);
                     }
                 }else{
                     if($('#btn-pause').css("display")!='none'){
                         //alert("暂停");
-                        $('#btn-pause').trigger('click');
+                        $('#btn-pause').trigger('click',[1]);
                     }
                 }
 
@@ -525,6 +554,8 @@
         });
     }
     }
+
+    sync_play(0);
 
     function android_play(){
         var i=$("#numbers1_value").val();

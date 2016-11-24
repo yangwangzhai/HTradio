@@ -690,7 +690,7 @@ transform:scale(14)
                             });
 
                             // 播放
-                            $('#btn-play').click(function() {
+                            $('#btn-play').click(function(e,num) {
                                 $(this).hide();
                                 $("#btn-pause").show();
                                 Player.audio.play();
@@ -707,50 +707,60 @@ transform:scale(14)
                                     Player.audio.src = Player.path + Player.data[Player.currentIndex];
                                     Player.audio.play();
                                 }
-                                var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
                                 //异步存储当前播放状态
-                                if(mid){
-                                    $.ajax({
-                                        url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
-                                        type: "post",         //数据发送方式
-                                        dataType:"json",    //接受数据格式
-                                        data:{mid:mid,play_status:1,pos:1},  //要传递的数据
-                                        success:function(data){
-                                            //alert(data);
-                                        },
-                                        error:function(XMLHttpRequest, textStatus, errorThrown)
-                                        {
-                                            //alert(errorThrown);
-                                        }
-                                    });
+                                if (num==undefined) {   //num==undefined时，主动调整状态，不等于undefined时，被动调整
+                                    var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
+                                    if (mid) {
+                                        $.ajax({
+                                            url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                                            type: "post",         //数据发送方式
+                                            dataType: "json",    //接受数据格式
+                                            data: {mid: mid, play_status: 1, pos: 1},  //要传递的数据
+                                            success: function (data) {
+                                                if(data==1){
+                                                    if($('#btn-play').css("display")!='none'){
+                                                        //alert("播放");
+                                                        $('#btn-play').trigger('click',[1]);
+                                                    }
+                                                }
+                                            },
+                                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                                //alert(errorThrown);
+                                            }
+                                        });
+                                    }
                                 }
-
                             });
 
                             // 暂停
-                            $('#btn-pause').click(function() {
+                            $('#btn-pause').click(function(e,num) {
                                 Player.audio.pause();
                                 $(this).hide();
                                 $("#btn-play").show();
                                 $(".info_box").find(".info_l").removeClass("play");
-                                var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
                                 //异步存储当前播放状态
-                                if(mid){
-                                    $.ajax({
-                                        url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
-                                        type: "post",         //数据发送方式
-                                        dataType:"json",    //接受数据格式
-                                        data:{mid:mid,play_status:0,pos:2},  //要传递的数据
-                                        success:function(data){
-                                            //alert(data);
-                                        },
-                                        error:function(XMLHttpRequest, textStatus, errorThrown)
-                                        {
-                                            //alert(errorThrown);
-                                        }
-                                    });
+                                if (num==undefined) {   //num==undefined时，主动调整状态，不等于undefined时，被动调整
+                                    var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
+                                    if (mid) {
+                                        $.ajax({
+                                            url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                                            type: "post",         //数据发送方式
+                                            dataType: "json",    //接受数据格式
+                                            data: {mid: mid, play_status: 0, pos: 2},  //要传递的数据
+                                            success: function (data) {
+                                                if(data==0){
+                                                    if($('#btn-pause').css("display")!='none'){
+                                                        //alert("暂停");
+                                                        $('#btn-pause').trigger('click',[1]);
+                                                    }
+                                                }
+                                            },
+                                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                                //alert(errorThrown);
+                                            }
+                                        });
+                                    }
                                 }
-
                             });
 
                             // 上一曲
@@ -965,7 +975,7 @@ transform:scale(14)
                     $(".sound-icon").click(function(){
                         //先暂停播放
                         if($('#btn-pause').css("display")!='none'){
-                            $('#btn-pause').trigger('click');
+                            $('#btn-pause').trigger('click',[1]);
                             var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
                             //异步存储当前播放状态
                             if(mid){
@@ -976,6 +986,12 @@ transform:scale(14)
                                     data:{mid:mid,play_status:0,pos:2},  //要传递的数据
                                     success:function(data){
                                         //alert(data);
+                                        if(data==0){
+                                            if($('#btn-pause').css("display")!='none'){
+                                                alert("暂停");
+                                                $('#btn-pause').trigger('click',[1]);
+                                            }
+                                        }
                                     },
                                     error:function(XMLHttpRequest, textStatus, errorThrown)
                                     {
@@ -1114,12 +1130,12 @@ transform:scale(14)
                                 if(data['play_status']==1){
                                     if($('#btn-play').css("display")!='none'){
                                         //alert("播放");
-                                        $('#btn-play').trigger('click');
+                                        $('#btn-play').trigger('click',[1]);
                                     }
                                 }else{
                                     if($('#btn-pause').css("display")!='none'){
                                         //alert("暂停");
-                                        $('#btn-pause').trigger('click');
+                                        $('#btn-pause').trigger('click',[1]);
                                     }
                                 }
 
