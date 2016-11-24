@@ -1426,32 +1426,38 @@ class webios extends  CI_Controller
         //$data['channel_type'] = $channel_type = trim($this->input->post('playing_channel_type'));
         $data['Update_time'] = $Update_time = trim($this->input->post('time'));
         $step = 0;
-        //查询是否有这条记录
-        $sql = "select * from fm_tongbu WHERE mid=$mid";
-        $query = $this->db->query($sql);
-        $res = $query->row_array();
-        if(empty($res)){
-            //如果为空，先添加
-            $this->db->insert ( 'fm_tongbu', $data);
-            $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
-            echo json_encode($result);
-        }else if(!empty($res)&&$flag==0){
-            //首次进来，调整为默认状态
-            $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time,play_status=1 WHERE mid=$mid");
-            $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
+        if($mid==0){
+            $result = array('code'=>0,'mes'=>"没有登录",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
             echo json_encode($result);
         }else{
-            if($res['channel_id']!=$channel_id){
-                if($res['Update_time']>$Update_time){
-                    $step = $res['channel_id'];
-                    $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'channel_id'=>$res['channel_id'],'step'=>$step,'play_status'=>$res['play_status']);
+            //查询是否有这条记录
+            $sql = "select * from fm_tongbu WHERE mid=$mid";
+            $query = $this->db->query($sql);
+            $res = $query->row_array();
+            if(empty($res)){
+                //如果为空，先添加
+                $this->db->insert ( 'fm_tongbu', $data);
+                $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
+                echo json_encode($result);
+            }else if(!empty($res)&&$flag==0){
+                //首次进来，调整为默认状态
+                $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time,play_status=1 WHERE mid=$mid");
+                $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
+                echo json_encode($result);
+            }else{
+                if($res['channel_id']!=$channel_id){
+                    if($res['Update_time']>$Update_time){
+                        $step = $res['channel_id'];
+                        $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'channel_id'=>$res['channel_id'],'step'=>$step,'play_status'=>$res['play_status']);
+                        echo json_encode($result);
+                    }
+                }else{
+                    $result = array('code'=>0,'mes'=>"没有切换频道",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>$res['play_status']);
                     echo json_encode($result);
                 }
-            }else{
-                $result = array('code'=>0,'mes'=>"没有切换频道",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>$res['play_status']);
-                echo json_encode($result);
             }
         }
+
 
 
     }
