@@ -49,6 +49,19 @@ $config['radio_id'] = array(
         'id_bbr' => 6,
 );
 
+$config['voice_match'] = array(
+    0 => array('交通','1003'),
+    1 => array('女主播','970'),
+    2 => array('私家车','930'),
+    3 => array('musicradio','950'),
+    4 => array('新闻','910','音乐'),
+    5 => array('北部湾'),
+    6 => array('风尚','风扇'),
+    7 => array('旅游'),
+    8 => array('测试')
+);
+
+
 // 星期
 $config['week'] = array(
         1 => '星期一',

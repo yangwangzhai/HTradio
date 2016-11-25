@@ -1547,15 +1547,24 @@ class webios extends  CI_Controller
     }*/
 
     function voice_distinguish(){
-        $arr_mate = array(6=>0,7=>1,8=>2,9=>3,10=>4,11=>5,12=>6,13=>7) ;
-        $voice_txt = trim($this->input->post('str'));
-        $data['mid'] = $mid = trim($this->input->post('mid'));
+        $voice_txt = $this->input->post('str');
+        echo json_encode($voice_txt);exit;
+        /*$data['mid'] = $mid = trim($this->input->post('mid'));
         $playing_id = trim($this->input->post('playing_id'));
-        $query = $this->db->query("select id from fm_live_channel WHERE title LIKE '%$voice_txt%'") ;
-        $id = $query->row_array('id') ;
+        $arr_mate = $this->config->item("voice_match");
+        $channel_id = '';
+        foreach($arr_mate as $key=>$value){
+            foreach($value as $k=>$v){
+                if(strstr($voice_txt,$v)){
+                    $channel_id = $key;
+                    break;
+                }
+            }
+
+        }
         $data['Update_time'] = $Update_time = time() ;
-        if(!empty($id)){    //语音识别成功
-            $data['channel_id'] = $channel_id = $arr_mate[$id['id']] ;
+        if($channel_id == 0 || $channel_id != ''){    //语音识别成功
+            $data['channel_id'] = $channel_id;
             $step = $channel_id-$playing_id;
             if($mid){
                 //用户登陆(需要考虑同步)
@@ -1571,9 +1580,9 @@ class webios extends  CI_Controller
                 }
 
                 if($step>0){
-                    $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'step'=>$step,'play_status'=>1,'str'=>$voice_txt);
+                    $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'step'=>$step,'play_status'=>1,'str'=>"$voice_txt");
                 }else{
-                    $result = array('code'=>2,'mes'=>"切换频道，更新数据库",'step'=>abs($step),'play_status'=>1,'str'=>$voice_txt);
+                    $result = array('code'=>2,'mes'=>"切换频道，更新数据库",'step'=>abs($step),'play_status'=>1,'str'=>"$voice_txt");
                 }
                 echo json_encode($result);
 
@@ -1581,30 +1590,38 @@ class webios extends  CI_Controller
             }else{
                 //用户没有登陆(不需要考虑同步)
                 if($step>0){
-                    $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'step'=>$step,'play_status'=>1,'str'=>$voice_txt);
+                    $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'step'=>$step,'play_status'=>1,'str'=>"$voice_txt");
                 }else{
-                    $result = array('code'=>2,'mes'=>"切换频道，更新数据库",'step'=>abs($step),'play_status'=>1,'str'=>$voice_txt);
+                    $result = array('code'=>2,'mes'=>"切换频道，更新数据库",'step'=>abs($step),'play_status'=>1,'str'=>"$voice_txt");
                 }
                 echo json_encode($result);
             }
 
         }else{
-            $result = array('code'=>0,'mes'=>"未能分辨",'str'=>$voice_txt);
+            $result = array('code'=>0,'mes'=>"未能识别语音",'str'=>"$voice_txt");
             echo json_encode($result) ;
-        }
+        }*/
 
     }
 
     public function ipad_voice_distinguish(){
-        $arr_mate = array(6=>0,7=>1,8=>2,9=>3,10=>4,11=>5,12=>6,13=>7) ;
         $voice_txt = trim($this->input->post('str'));
+        echo json_encode($voice_txt);exit;
         $data['mid'] = $mid = trim($this->input->post('mid'));
-        $playing_id = trim($this->input->post('playing_id'));
-        $query = $this->db->query("select id from fm_live_channel WHERE title LIKE '%$voice_txt%'") ;
-        $id = $query->row_array('id') ;
+        $arr_mate = $this->config->item("voice_match");
+        $channel_id = '';
+        foreach($arr_mate as $key=>$value){
+            foreach($value as $k=>$v){
+                if(strstr($voice_txt,$v)){
+                    $channel_id = $key;
+                    break;
+                }
+            }
+
+        }
         $data['Update_time'] = $Update_time = time() ;
-        if(!empty($id)){    //语音识别成功
-            $data['channel_id'] = $channel_id = $arr_mate[$id['id']] ;
+        if($channel_id == 0 || $channel_id != ''){    //语音识别成功
+            $data['channel_id'] = $channel_id;
             $step = $channel_id;
             if($mid){
                 //用户登陆(需要考虑同步)

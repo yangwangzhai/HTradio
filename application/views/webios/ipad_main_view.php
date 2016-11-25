@@ -94,9 +94,23 @@
                         $(".login_h4").remove();
                         $(".avatar").remove();
                         $(".login-bg").hide();
-                        $("#mid").val(data['mid']);
-                        $("#time").val(data['time']);
                         $(".login-icon").append("<img class='avatar' width=48 height=48 style='margin-bottom:24px;' src="+data['avatar']+">");
+                        $("#mid").val(data['mid']);
+                        var mid = data['mid'];
+                        var channel_id = $("#numbers1_value").val();
+                        $.ajax({
+                            url: "index.php?d=webios&c=webios&m=save_play_status",   //后台处理程序
+                            type: "post",         //数据发送方式
+                            dataType:"json",    //接受数据格式
+                            data:{channel_id:channel_id,mid:mid,play_status:1},  //要传递的数据
+                            success:function(data){
+                                $("#time").val(data);
+                            },
+                            error:function(XMLHttpRequest, textStatus, errorThrown)
+                            {
+                                //alert(errorThrown);
+                            }
+                        });
 
                     }
 
@@ -206,7 +220,7 @@
                                     //alert(data);
                                     if(data==1){
                                         if($('#btn-play').css("display")!='none'){
-                                            alert("播放");
+                                            //alert("播放");
                                             $('#btn-play').trigger('click',[1]);
                                         }
                                     }
@@ -238,7 +252,7 @@
                                     //alert(data);
                                     if(data==0){
                                         if($('#btn-pause').css("display")!='none'){
-                                            alert("暂停");
+                                            //alert("暂停");
                                             $('#btn-pause').trigger('click',[1]);
                                         }
                                     }
@@ -440,10 +454,10 @@
                         dataType:"json",    //接受数据格式
                         data:{mid:mid,play_status:0,pos:2},  //要传递的数据
                         success:function(data){
-                            //alert(data);
+                            alert(data);
                             if(data==0){
                                 if($('#btn-pause').css("display")!='none'){
-                                    alert("暂停");
+                                    //alert("暂停");
                                     $('#btn-pause').trigger('click',[1]);
                                 }
                             }
@@ -467,6 +481,7 @@
 
     //接收识别的文字
     function receiveSpeak(str){
+        alert(str);
         var playing_id = $("#numbers1_value").val();
         var mid = $("#mid").val();
 
