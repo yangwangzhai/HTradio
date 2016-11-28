@@ -7,6 +7,7 @@ class webios extends  CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->helper('cookie');
         $this->load->model('content_model');
     }
 
@@ -80,7 +81,30 @@ class webios extends  CI_Controller
             $query = $this->db->query($sql);
             $data['user'] = $query->row_array();
             $data['time'] = time() ;
+        }else{
+            $username = $this->input->cookie("username");
+            $uid = $this->input->cookie("mid");
+
+            //验证用户名和密码
+            if (!empty ( $username ) && !empty ( $uid )) {
+                $wheredata = array (
+                    'username' => $username
+                );
+                $query = $this->db->get_where ( 'fm_member', $wheredata, 1 );
+                $user = $query->row_array ();
+                if (!empty ( $user )) {
+                    if ($user ['id'] == $uid) {
+                        $data['mid'] = $mid = $uid;
+                        $data['user'] = $user;
+                        $data['time'] = time();
+                    }
+                }
+            }
         }
+
+        $data['username_ceshi'] = $this->input->cookie("username");
+        $data['mid_ceshi'] = $this->input->cookie("mid");
+
         //获取所有直播频道信息
         $sql_channel = "select * from fm_live_channel";
         $query_channel = $this->db->query($sql_channel);
@@ -124,6 +148,40 @@ class webios extends  CI_Controller
         }
 
         $this->load->view("webios/main_view",$data);
+    }
+
+    public function main_view3(){
+        unset($_SESSION['mid']);
+        $data['username_after'] = $this->input->cookie("username");
+        $data['mid_after'] = $this->input->cookie("mid");
+        //获取所有直播频道信息
+        $sql_channel = "select * from fm_live_channel";
+        $query_channel = $this->db->query($sql_channel);
+        $data['channel_list'] = $query_channel->result_array();
+        //获取一条公共频道
+        $sql_programme = "select id,title,support_num,negative_num,intro,thumb from fm_programme WHERE type_id=0 AND status=1 AND vbd_type=0 AND publish_flag=1 ORDER BY addtime DESC limit 1";
+        $query_programme = $this->db->query($sql_programme);
+        $data['programme'] = $res_programme= $query_programme->row_array();
+        //根据公共频道id,获取相应的节目
+        if(!empty($res_programme)){
+            $sql_program = "select b.id,b.title,b.path from fm_programme_list a JOIN fm_program b WHERE a.programme_id= $res_programme[id] AND b.id=a.program_id";
+            $query_program = $this->db->query($sql_program);
+            $data['program'] = $query_program->result_array();
+        }
+
+        $this->load->view("webios/main_view",$data);
+    }
+
+    public function out(){
+        //销毁session数据
+        unset($_SESSION['mid']);
+        /*$this->input->set_cookie("username",'',-36000000000000,'/');
+        $this->input->set_cookie("mid",'',-36000000000000,'/');
+        $this->input->set_cookie("password",'',-36000000000000,'/');*/
+        delete_cookie("username");
+        delete_cookie("mid");
+        delete_cookie("password");
+        $this->main_view3();
     }
 
     //上传头像
@@ -273,8 +331,8 @@ class webios extends  CI_Controller
         $remember = trim ( $this->input->post ( 'remember' ) );
         //是否设置了 记住密码
         if($remember){
-            set_cookie("username",$username,time()+3600*24*7);
-            set_cookie("password",$password,time()+3600*24*7);
+            //set_cookie("username",$username,time()+3600);
+            //set_cookie("password",$password,time()+3600);
         }else{
             set_cookie("username","",time()-1);
             set_cookie("password","",time()-1);
@@ -301,7 +359,13 @@ class webios extends  CI_Controller
                     $this->load->view("webios/show_message",$data);
                 }else{
                     $admin = $this->detail ( $user['id'] );
-                    $this->session->set_userdata ( 'mid', $admin['id'] );
+                    /*echo $admin['id']." || ";
+                    echo $admin['username'];
+                    exit;*/
+                    $this->session->set_userdata ("mid", $admin['id'] );
+                    $this->input->set_cookie("mid",$admin['id'],86400);
+                    $this->input->set_cookie("username",$admin['username'],86400);
+
                     $this->main_view2($admin['id']);
                 }
             }
@@ -722,11 +786,7 @@ class webios extends  CI_Controller
 
     }
 
-    public function out(){
-        //销毁session数据
-        unset($_SESSION['mid']);
-        $this->main_view();
-    }
+
 
     public function creat_programme_view(){
         $data['mid']= $mid = $this->input->get('mid') ;
@@ -1296,72 +1356,13 @@ class webios extends  CI_Controller
 
     }
 
-    /*public function tong_bu_old(){
-        $data['mid'] = $mid = trim($this->input->post('mid'));
-        $flag = trim($this->input->post('flag'));
-        $data['channel_id'] = $channel_id = trim($this->input->post('playing_id'));
-        $data['Update_time'] = $Update_time =time();
-        $step = 0;
-        //查询是否有这条记录
-        $sql = "select * from fm_tongbu WHERE mid=$mid";
-        $query = $this->db->query($sql);
-        $res = $query->row_array();
-        if(empty($res)){
-            //如果为空，先添加
-            $this->db->insert ( 'fm_tongbu', $data);
-            $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
-            echo json_encode($result);
-        }else if(!empty($res)&&$flag==0){
-            //首次进来，调整为默认状态
-            $this->db->query("UPDATE fm_tongbu SET channel_id=4,Update_time=$Update_time,play_status=1 WHERE mid=$mid");
-            $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
-            echo json_encode($result);
-        }else{
-            if($res['channel_id']==$channel_id){//没有切换频道
-                //查找频道跟自己不一样且时间比自己近的
-                $sql_other = "select * from fm_tongbu WHERE mid!=$mid AND Update_time>$res[Update_time] ORDER BY Update_time DESC";
-                $query_other = $this->db->query($sql_other);
-                $res_other = $query_other->row_array();
-                if(!empty($res_other)){
-                    if($res_other['channel_id']!=$channel_id){
-                        //不为空，说明另一个要切换频道，并且更新数据库
-                        $this->db->query("UPDATE fm_tongbu SET channel_id=$res_other[channel_id] WHERE mid=$mid");
-                        $step = $res_other['channel_id']-$res['channel_id'];
-                        if($step>0){
-                            $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'channel_id'=>$res_other['channel_id'],'step'=>$step,'play_status'=>$res['play_status']);
-                        }else{
-                            $result = array('code'=>2,'mes'=>"切换频道，更新数据库",'channel_id'=>$res_other['channel_id'],'step'=>abs($step),'play_status'=>$res['play_status']);
-                        }
-                        echo json_encode($result);
-                    }else{
-                        //查找另一个的播放状态
-                        $result = array('code'=>0,'mes'=>"两个频道相同",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>$res['play_status']);
-                        echo json_encode($result);
-                    }
-                }else{
-                    //查找另一个的播放状态
-                    $result = array('code'=>0,'mes'=>"两个频道相同",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>$res['play_status']);
-                    echo json_encode($result);
-                }
-            }else{
-                //已经切换频道
-                $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time WHERE mid=$mid");
-                $result = array('code'=>0,'mes'=>"刚刚切换频道",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>$res['play_status']);
-                echo json_encode($result);
-            }
-        }
-
-
-    }*/
-
     public function ipad_main_view(){
-        //$data['mid'] = $mid = $this->input->get('mid');
         $username = $this->input->cookie("username");
-        $password = $this->input->cookie("password");
+        $mid = $this->input->cookie("mid");
         //echo "cookie获取的用户名：".$username;echo "<br>";
         //echo "cookie获取的用户名密码：".$password;echo "<br>";
         //验证用户名和密码
-        if (!empty ( $username ) && !empty ( $password )) {
+        if (!empty ( $username ) && !empty ( $mid )) {
             $wheredata = array (
                 'username' => $username
             );
@@ -1369,9 +1370,8 @@ class webios extends  CI_Controller
             $user = $query->row_array ();
 
             if (!empty ( $user )) {
-                $password = get_password ( $password );
-                if ($user ['password'] == $password) {
-                    $data['mid'] = $mid = $user['id'];
+                if ($user ['id'] == $mid) {
+                    $data['mid'] = $mid;
                     $data['time'] = time();
                     $data['avatar'] = $user['avatar'] ? $user['avatar'] : "uploads/default_images/default_avatar.jpg";
                 }
@@ -1396,10 +1396,10 @@ class webios extends  CI_Controller
         $this->load->view("webios/ipad_main_view",$data);
     }
 
-    public function ipad_main_view2($username,$password){
+    public function ipad_main_view2($username){
 
         $data['username'] = $username;
-        $data['password'] = $password;
+        //$data['mid'] = $mid;
 
         //获取所有直播频道信息
         $sql_channel = "select * from fm_live_channel";
@@ -1462,59 +1462,6 @@ class webios extends  CI_Controller
 
     }
 
-   /* public function ipad_tong_bu_old(){
-        $data['mid'] = $mid = trim($this->input->post('mid'));
-        $flag = trim($this->input->post('flag'));
-        $data['channel_id'] = $channel_id = trim($this->input->post('playing_id'));
-        //$data['channel_type'] = $channel_type = trim($this->input->post('playing_channel_type'));
-        $data['Update_time'] = $Update_time =time();
-        $step = 0;
-        //查询是否有这条记录
-        $sql = "select * from fm_tongbu WHERE mid=$mid";
-        $query = $this->db->query($sql);
-        $res = $query->row_array();
-        if(empty($res)){
-            //如果为空，先添加
-            $this->db->insert ( 'fm_tongbu', $data);
-            $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
-            echo json_encode($result);
-        }else if(!empty($res)&&$flag==0){
-            //首次进来，调整为默认状态
-            $this->db->query("UPDATE fm_tongbu SET channel_id=4,Update_time=$Update_time,play_status=1 WHERE mid=$mid");
-            $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
-            echo json_encode($result);
-        }else{
-            if($res['channel_id']==$channel_id){//没有切换频道
-                //查找频道跟自己不一样且时间比自己近的
-                $sql_other = "select * from fm_tongbu WHERE mid!=$mid AND Update_time>$res[Update_time] ORDER BY Update_time DESC";
-                $query_other = $this->db->query($sql_other);
-                $res_other = $query_other->row_array();
-                if(!empty($res_other)){
-                    if($res_other['channel_id']!=$channel_id){
-                        //不为空，说明另一个要切换频道，并且更新数据库
-                        $this->db->query("UPDATE fm_tongbu SET channel_id=$res_other[channel_id] WHERE mid=$mid");
-                        $step = $res_other['channel_id'];
-                        $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'channel_id'=>$res_other['channel_id'],'step'=>$step,'play_status'=>$res['play_status']);
-                        echo json_encode($result);
-                    }else{
-                        $result = array('code'=>0,'mes'=>"两个频道相同",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>$res['play_status']);
-                        echo json_encode($result);
-                    }
-                }else{
-                    $result = array('code'=>0,'mes'=>"两个频道相同",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>$res['play_status']);
-                    echo json_encode($result);
-                }
-            }else{
-                //已经切换频道
-                $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time WHERE mid=$mid");
-                $result = array('code'=>0,'mes'=>"刚刚切换频道",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>$res['play_status']);
-                echo json_encode($result);
-            }
-        }
-
-
-    }*/
-
     public  function save_play_status(){
         $channel_id = trim($this->input->post('channel_id'));
         $mid = trim($this->input->post('mid'));
@@ -1547,9 +1494,9 @@ class webios extends  CI_Controller
     }*/
 
     function voice_distinguish(){
-        $voice_txt = $this->input->post('str');
-        echo json_encode($voice_txt);exit;
-        /*$data['mid'] = $mid = trim($this->input->post('mid'));
+        $voice_txt = trim($this->input->post('str'));
+
+        $data['mid'] = $mid = trim($this->input->post('mid'));
         $playing_id = trim($this->input->post('playing_id'));
         $arr_mate = $this->config->item("voice_match");
         $channel_id = '';
@@ -1600,7 +1547,7 @@ class webios extends  CI_Controller
         }else{
             $result = array('code'=>0,'mes'=>"未能识别语音",'str'=>"$voice_txt");
             echo json_encode($result) ;
-        }*/
+        }
 
     }
 
@@ -1675,7 +1622,7 @@ class webios extends  CI_Controller
                     echo json_encode($result) ;
                 }else{
                     $this->input->set_cookie("username",$username,2*365*24*3600);
-                    $this->input->set_cookie("password",$pwd,2*365*24*3600);
+                    $this->input->set_cookie("mid",$user['id'],2*365*24*3600);
                     $user['avatar'] = $user['avatar'] ? $user['avatar'] : "uploads/default_images/default_avatar.jpg";
                     $result = array('code'=>1,'mes'=>"登陆成功",'mid'=>$user['id'],'avatar'=>$user['avatar'],'time'=>time());
                     echo json_encode($result) ;
@@ -1689,10 +1636,10 @@ class webios extends  CI_Controller
         //$mid = $this->input->get("mid");
         //销毁cookie
         $username = $this->input->cookie("username");
-        $password = $this->input->cookie("password");
+        //$mid = $this->input->cookie("mid");
         delete_cookie("username");
-        delete_cookie("password");
-        $this->ipad_main_view2($username,$password);
+        delete_cookie("mid");
+        $this->ipad_main_view2($username);
     }
 
 

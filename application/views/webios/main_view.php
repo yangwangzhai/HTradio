@@ -738,10 +738,8 @@ transform:scale(14)
                                 $(this).hide();
                                 $("#btn-play").show();
                                 $(".info_box").find(".info_l").removeClass("play");
-                                alert("录音暂停");
                                 //异步存储当前播放状态
                                 if (num==undefined) {   //num==undefined时，主动调整状态，不等于undefined时，被动调整
-                                    alert("主动暂停");
                                     var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
                                     if (mid) {
                                         $.ajax({
@@ -1022,7 +1020,7 @@ transform:scale(14)
 
                 //接收识别的文字
                function receiveSpeak(str){
-                    alert(str);
+                    //alert(str);
                     var playing_id = $("#numbers1_value").val();
                     var mid = <?php if(!empty($mid)){echo $mid;}else{echo 0;}?>;
 
@@ -1032,7 +1030,7 @@ transform:scale(14)
                         dataType:"json",    //接受数据格式
                         data:{mid:mid,str:str,playing_id:playing_id},  //要传递的数据
                         success:function(data){
-                            alert("语音识别："+data) ;
+                            //alert("语音识别："+data) ;
                             //alert(data['str']) ;
                             if(data['code']==1){
                                 var i=0;
@@ -1186,6 +1184,10 @@ transform:scale(14)
                 </div>
             </div>
             <!--语音识别界面结束-->
+
+            <?php echo "开始进入时，从cookie中获得的username=".$username_ceshi." ||从cookie中获取的mid=".$mid_ceshi;echo "<br>"?>
+            <?php echo "点击退出后，从cookie中获得的username=".$username_after." ||从cookie中获取的mid=".$mid_after;?>
+
             <div class="list-popup">
                 <h3>播放列表</h3>
                 <ul>
