@@ -37,6 +37,7 @@ body { background: url(../images/bg.jpg) no-repeat; background-size: 100% auto; 
 }
 
 .login-bg{ position:fixed; background:rgba(0,0,0,.7); width:100%; height:100%; display:none;top:0;z-index:10000;}
+.loginOut-bg{ position:fixed; background:rgba(0,0,0,.7); width:100%; height:100%; display:none;top:0;z-index:10000;}
 .login-box{width:40%; position:absolute; top:20%; left:30%; background:rgba(255,255,255,.9); border-radius:10px;}
 .login-box h3{ text-align:center; border-bottom:#ccc 1px solid; position:relative; height:40px; line-height:40px; margin:0; padding:0}
 .login-box h3 span{position:absolute; display:block; right:5px;top:5px;height:1.8rem; width:1.8rem; background:url(../images/close.svg) no-repeat center center; background-size:100%; }

@@ -30,6 +30,8 @@
 </div>
 <input type="hidden" id="mid" value="<?=$mid?>">
 <input type="hidden" id="time" value="<?=$time?>">
+<input type="hidden" id="username_hide" value="<?=$username?>">
+<!--<input type="hidden" id="password_hide" value="<?/*=$password*/?>">-->
 <input type="hidden" id="numbers1_value"  value="4" >
 <div class="bottom">
     <div class="group">
@@ -42,11 +44,8 @@
         </div>
         <div class="sound-icon"></div>
         <div class="login-icon">
-          <?php if(!empty($avatar)){echo "<img class='avatar' width=48 height=48 style='margin-bottom:24px;' src=".$avatar.">";}?>
+          <?php if(!empty($avatar)){echo "<img class='avatar' width=60 height=60 style='margin-bottom:30px;' src=".$avatar.">";}?>
         </div>
-        <a href="index.php?d=webios&c=webios&m=ipad_out">
-            <img style="position: absolute;top: 2rem;left: 23rem;" src="static/webios/images/login_out.png"/>
-        </a>
     </div>
 </div>
 <!--登录框开始-->
@@ -62,17 +61,38 @@
         </div>
     </div>
 </form>
+<div class="loginOut-bg">
+    <div class="login-box">
+        <h3 id="login_h3"><span class="login-close"></span>退出</h3>
+        <ul>
+            <p><input type="text" class="login-text" id="username_out" value="<?=$username?>" readonly="readonly" placeholder="用户名"></p>
+            <!--<p><input type="password" class="login-text" id="password_out" value="<?/*=$password*/?>" readonly="readonly" placeholder="密码"></p>-->
+            <a href="index.php?d=webios&c=webios&m=ipad_out"><input type="button" class="login-btn" value="退出"></a>
+        </ul>
+    </div>
+</div>
 <!--登录框结束-->
 <script>
     $('.login-icon').click(function() {
-      $(".login-bg").show();
+        var mid = $("#mid").val();
+        if(mid){
+            $(".loginOut-bg").show();
+            $("#username_out").val($("#username_hide").val());
+            //$("#password_out").val($("#password_hide").val());
+        }else{
+            $(".login-bg").show();
+        }
+
     });
     $('.login-close').click(function() {
-      $(".login-bg").hide();
+        var mid = $("#mid").val();
+        if(mid){
+            $(".loginOut-bg").hide();
+        }else{
+            $(".login-bg").hide();
+        }
     });
-    /*$('.login-btn').click(function() {
-      $(".login-bg").hide();
-    });*/
+
     $(document).ready(function(){
         // 使用 jQuery异步提交表单
         $('#form').submit(function() {
@@ -94,8 +114,10 @@
                         $(".login_h4").remove();
                         $(".avatar").remove();
                         $(".login-bg").hide();
-                        $(".login-icon").append("<img class='avatar' width=48 height=48 style='margin-bottom:24px;' src="+data['avatar']+">");
+                        $(".login-icon").append("<img class='avatar' width=60 height=60 style='margin-bottom:30px;' src="+data['avatar']+">");
                         $("#mid").val(data['mid']);
+                        $("#username_hide").val(data['username']);
+                        //$("#password_hide").val(data['password']);
                         var mid = data['mid'];
                         var channel_id = $("#numbers1_value").val();
                         $.ajax({
@@ -105,6 +127,7 @@
                             data:{channel_id:channel_id,mid:mid,play_status:1},  //要传递的数据
                             success:function(data){
                                 $("#time").val(data);
+                                sync_play(0);
                             },
                             error:function(XMLHttpRequest, textStatus, errorThrown)
                             {
@@ -249,10 +272,8 @@
                                 dataType: "json",    //接受数据格式
                                 data: {mid: mid, play_status: 0, pos: 2},  //要传递的数据
                                 success: function (data) {
-                                    //alert(data);
                                     if(data==0){
                                         if($('#btn-pause').css("display")!='none'){
-                                            //alert("暂停");
                                             $('#btn-pause').trigger('click',[1]);
                                         }
                                     }
@@ -454,7 +475,7 @@
                         dataType:"json",    //接受数据格式
                         data:{mid:mid,play_status:0,pos:2},  //要传递的数据
                         success:function(data){
-                            alert(data);
+                            //alert(data);
                             if(data==0){
                                 if($('#btn-pause').css("display")!='none'){
                                     //alert("暂停");
@@ -481,7 +502,6 @@
 
     //接收识别的文字
     function receiveSpeak(str){
-        alert(str);
         var playing_id = $("#numbers1_value").val();
         var mid = $("#mid").val();
 
@@ -518,56 +538,59 @@
 
 
     function sync_play (flag){
-    var playing_id = $("#numbers1_value").val();
-    var mid = $("#mid").val();
-    if(mid==''){
-        mid = 0;
-    }
-    var time = $("#time").val();
-    if(time==''){
-        time = 0;
-    }
-    if(playing_id!='undefined'&&playing_id!=null){
-        //alert("id为："+playing_id);
-        $.ajax({
-            url: "index.php?d=webios&c=webios&m=ipad_tong_bu",   //后台处理程序
-            type: "post",         //数据发送方式
-            dataType:"json",    //接受数据格式
-            data:{playing_id:playing_id,time:time,mid:mid,flag:flag},  //要传递的数据
-            success:function(data){
-                if(data['code']==1){
-                    $("#numbers1_value").val(data['step']);
-                    $('#btn').click(function(){
-                        swiper.slideTo(data['step'], 1000, false);//切换到第一个slide，速度为1秒
-                    });
-                    $("#btn").trigger('click');
-                    Player.audio.src = Player.path + Player.data[data['step']];
-                    console.log("Player.currentIndex :", Player.currentIndex);
-                    Player.audio.play();
-                }
-                //控制播放状态
-                if(data['play_status']==1){
-                    if($('#btn-play').css("display")!='none'){
-                        //alert("播放");
-                        $('#btn-play').trigger('click',[1]);
-                    }
-                }else{
-                    if($('#btn-pause').css("display")!='none'){
-                        //alert("暂停");
-                        $('#btn-pause').trigger('click',[1]);
-                    }
-                }
+        var playing_id = $("#numbers1_value").val();
+        var mid = $("#mid").val();
+        if(mid==''){
+            mid = 0;
+        }
+        var time = $("#time").val();
+        if(time==''){
+            time = 0;
+        }
+        if(mid){
+            if(playing_id!='undefined'&&playing_id!=null){
+                //alert("id为："+playing_id);
+                $.ajax({
+                    url: "index.php?d=webios&c=webios&m=ipad_tong_bu",   //后台处理程序
+                    type: "post",         //数据发送方式
+                    dataType:"json",    //接受数据格式
+                    data:{playing_id:playing_id,time:time,mid:mid,flag:flag},  //要传递的数据
+                    success:function(data){
+                        if(data['code']==1){
+                            $("#numbers1_value").val(data['step']);
+                            $('#btn').click(function(){
+                                swiper.slideTo(data['step'], 1000, false);//切换到第一个slide，速度为1秒
+                            });
+                            $("#btn").trigger('click');
+                            Player.audio.src = Player.path + Player.data[data['step']];
+                            console.log("Player.currentIndex :", Player.currentIndex);
+                            Player.audio.play();
+                        }
+                        //控制播放状态
+                        if(data['play_status']==1){
+                            if($('#btn-play').css("display")!='none'){
+                                //alert("播放");
+                                $('#btn-play').trigger('click',[1]);
+                            }
+                        }else{
+                            if($('#btn-pause').css("display")!='none'){
+                                //alert("暂停");
+                                $('#btn-pause').trigger('click',[1]);
+                            }
+                        }
 
-                setTimeout("sync_play(1)",700);
+                        setTimeout("sync_play(1)",700);
 
-            },
-            error:function(XMLHttpRequest, textStatus, errorThrown)
-            {
-                setTimeout("sync_play(1)",700);
-                //alert(errorThrown);
+                    },
+                    error:function(XMLHttpRequest, textStatus, errorThrown)
+                    {
+                        setTimeout("sync_play(1)",700);
+                        //alert(errorThrown);
+                    }
+                });
             }
-        });
-    }
+        }
+
     }
 
     sync_play(0);

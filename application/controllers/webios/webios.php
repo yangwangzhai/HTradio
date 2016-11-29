@@ -1360,7 +1360,8 @@ class webios extends  CI_Controller
         $username = $this->input->cookie("username");
         $mid = $this->input->cookie("mid");
         //echo "cookie获取的用户名：".$username;echo "<br>";
-        //echo "cookie获取的用户名密码：".$password;echo "<br>";
+        //echo "cookie获取的用户名密码：".$mid;echo "<br>";
+        //exit;
         //验证用户名和密码
         if (!empty ( $username ) && !empty ( $mid )) {
             $wheredata = array (
@@ -1372,6 +1373,7 @@ class webios extends  CI_Controller
             if (!empty ( $user )) {
                 if ($user ['id'] == $mid) {
                     $data['mid'] = $mid;
+                    $data['username'] = $username;
                     $data['time'] = time();
                     $data['avatar'] = $user['avatar'] ? $user['avatar'] : "uploads/default_images/default_avatar.jpg";
                 }
@@ -1423,7 +1425,6 @@ class webios extends  CI_Controller
         $data['mid'] = $mid = trim($this->input->post('mid'));
         $flag = trim($this->input->post('flag'));
         $data['channel_id'] = $channel_id = trim($this->input->post('playing_id'));
-        //$data['channel_type'] = $channel_type = trim($this->input->post('playing_channel_type'));
         $data['Update_time'] = $Update_time = trim($this->input->post('time'));
         $step = 0;
         if($mid==0){
@@ -1478,21 +1479,6 @@ class webios extends  CI_Controller
 
     }
 
-    /*public  function save_play_status_old(){
-        $channel_id = trim($this->input->post('channel_id'));
-        $mid = trim($this->input->post('mid'));
-        $play_status = trim($this->input->post('play_status'));
-        $pos = trim($this->input->post('pos'));
-        $Update_time = time();
-        if($pos==1||$pos==2||$pos==3){
-            $this->db->query("UPDATE fm_tongbu SET play_status=$play_status WHERE mid=$mid");
-        }else{
-            $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,play_status=$play_status,Update_time=$Update_time WHERE mid=$mid");
-        }
-        $this->db->query("UPDATE fm_tongbu SET play_status=$play_status WHERE mid!=$mid");
-        echo json_encode($pos);
-    }*/
-
     function voice_distinguish(){
         $voice_txt = trim($this->input->post('str'));
 
@@ -1523,7 +1509,7 @@ class webios extends  CI_Controller
                     //如果为空，先添加
                     $this->db->insert ( 'fm_tongbu', $data);
                 }else{
-                    $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time WHERE mid=$mid");
+                    $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time,play_status=1 WHERE mid=$mid");
                 }
 
                 if($step>0){
@@ -1553,7 +1539,6 @@ class webios extends  CI_Controller
 
     public function ipad_voice_distinguish(){
         $voice_txt = trim($this->input->post('str'));
-        echo json_encode($voice_txt);exit;
         $data['mid'] = $mid = trim($this->input->post('mid'));
         $arr_mate = $this->config->item("voice_match");
         $channel_id = '';
@@ -1580,7 +1565,7 @@ class webios extends  CI_Controller
                     //如果为空，先添加
                     $this->db->insert ( 'fm_tongbu', $data);
                 }else{
-                    $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time WHERE mid=$mid");
+                    $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time,play_status=1 WHERE mid=$mid");
                 }
 
                 $result = array('code'=>1,'mes'=>"切换频道，更新数据库",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
@@ -1589,7 +1574,7 @@ class webios extends  CI_Controller
 
             }else{
                 //用户没有登陆(不需要考虑同步)
-                $result = array('code'=>0,'mes'=>"刚刚切换频道",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
+                $result = array('code'=>1,'mes'=>"刚刚切换频道",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
                 echo json_encode($result);
             }
 
@@ -1624,7 +1609,7 @@ class webios extends  CI_Controller
                     $this->input->set_cookie("username",$username,2*365*24*3600);
                     $this->input->set_cookie("mid",$user['id'],2*365*24*3600);
                     $user['avatar'] = $user['avatar'] ? $user['avatar'] : "uploads/default_images/default_avatar.jpg";
-                    $result = array('code'=>1,'mes'=>"登陆成功",'mid'=>$user['id'],'avatar'=>$user['avatar'],'time'=>time());
+                    $result = array('code'=>1,'mes'=>"登陆成功",'username'=>$username,'password'=>$pwd,'mid'=>$user['id'],'avatar'=>$user['avatar'],'time'=>time());
                     echo json_encode($result) ;
                 }
             }

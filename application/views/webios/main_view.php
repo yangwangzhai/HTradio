@@ -1185,8 +1185,8 @@ transform:scale(14)
             </div>
             <!--语音识别界面结束-->
 
-            <?php echo "开始进入时，从cookie中获得的username=".$username_ceshi." ||从cookie中获取的mid=".$mid_ceshi;echo "<br>"?>
-            <?php echo "点击退出后，从cookie中获得的username=".$username_after." ||从cookie中获取的mid=".$mid_after;?>
+            <?php /*echo "开始进入时，从cookie中获得的username=".$username_ceshi." ||从cookie中获取的mid=".$mid_ceshi;echo "<br>"*/?><!--
+            --><?php /*echo "点击退出后，从cookie中获得的username=".$username_after." ||从cookie中获取的mid=".$mid_after;*/?>
 
             <div class="list-popup">
                 <h3>播放列表</h3>
