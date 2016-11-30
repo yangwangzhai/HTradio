@@ -1441,7 +1441,7 @@ class webios extends  CI_Controller
                 $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
                 echo json_encode($result);
             }else if(!empty($res)&&$flag==0){
-                //首次进来，调整为默认状态
+                //数据库已经存在，首次进来
                 $this->db->query("UPDATE fm_tongbu SET channel_id=$channel_id,Update_time=$Update_time,play_status=1 WHERE mid=$mid");
                 $result = array('code'=>0,'mes'=>"新添加",'channel_id'=>$channel_id,'step'=>$step,'play_status'=>1);
                 echo json_encode($result);

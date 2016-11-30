@@ -358,45 +358,6 @@
                         });
                     }
                 });
-
-                // 单曲循环
-                $('#btn-loop').click(function() {
-                    console.log("Player.currentIndex :", Player.currentIndex);
-                    Player.audio.onended = function() {
-                        Player.audio.load();
-                        Player.audio.play();
-                    };
-                });
-
-                // 顺序播放
-                $('#btn-order').click(function() {
-                    console.log("Player.currentIndex :", Player.currentIndex);
-                    Player.audio.onended = function() {
-                        $('#btn-next').click();
-                    };
-                });
-
-                // 随机播放
-                $('#btn-random').click(function() {
-                    Player.audio.onended = function() {
-                        var i = parseInt((Player.data.length - 1) * Math.random());
-                        playByMe(i);
-                    };
-                });
-
-                // 播放指定歌曲
-                function playByMe(i) {
-                    console.log("index:", i);
-                    Player.audio.src = Player.path + Player.data[i];
-                    Player.audio.play();
-                    Player.currentIndex = i;
-                    Player.$rmusic.html(Player.data[Player.currentIndex]);
-                }
-
-                // 歌曲被点击
-                $('#m-list a').click(function() {
-                    playByMe($(this).attr('index'));
-                });
             }
         };
 
@@ -451,15 +412,6 @@
         });
         Player.init();
         Player.ready();
-
-        /*$('#btn').click(function(){
-            swiper.slideTo(5, 1000, false);//切换到第一个slide，速度为1秒
-        });
-        function test(){
-            $("#btn").trigger('click');
-        };*/
-
-
 
         //点击语音按钮，开始录音
         $(".sound-icon").click(function(){

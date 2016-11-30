@@ -842,45 +842,6 @@ transform:scale(14)
                                     //alert("下一曲") ;
                                 }
                             });
-
-                            // 单曲循环
-                            $('#btn-loop').click(function() {
-                                console.log("Player.currentIndex :", Player.currentIndex);
-                                Player.audio.onended = function() {
-                                    Player.audio.load();
-                                    Player.audio.play();
-                                };
-                            });
-
-                            // 顺序播放
-                            $('#btn-order').click(function() {
-                                console.log("Player.currentIndex :", Player.currentIndex);
-                                Player.audio.onended = function() {
-                                    $('#btn-next').click();
-                                };
-                            });
-
-                            // 随机播放
-                            $('#btn-random').click(function() {
-                                Player.audio.onended = function() {
-                                    var i = parseInt((Player.data.length - 1) * Math.random());
-                                    playByMe(i);
-                                };
-                            });
-
-                            // 播放指定歌曲
-                            function playByMe(i) {
-                                console.log("index:", i);
-                                Player.audio.src = Player.path + Player.data[i];
-                                Player.audio.play();
-                                Player.currentIndex = i;
-                                Player.$rmusic.html(Player.data[Player.currentIndex]);
-                            }
-
-                            // 歌曲被点击
-                            $('#m-list a').click(function() {
-                                playByMe($(this).attr('index'));
-                            });
                         }
                     };
                     document.addEventListener('dragend', function(){
@@ -911,11 +872,8 @@ transform:scale(14)
                         }
 
                     } );
-
                     Player.init();
                     Player.ready();
-
-
                 });
 
                 function android_play(){
@@ -1002,21 +960,10 @@ transform:scale(14)
                         }
                         //确认已经暂停播放
                         if($('#btn-play').css("display")!='none'){
-                            //$(".voice-masker").show();
                             window.AndroidJS.startSpeak();
                         }
-
                     });
-					
-					 $(".voice-close-btn").click(function(){
-                       $(".voice-masker").hide();
-                    });
-
-
-                   
                 });
-
-
 
                 //接收识别的文字
                function receiveSpeak(str){
